@@ -64,16 +64,49 @@ def get_podcast():
     return found
 
 def add_interviews():
+    """Une fichas por URL canónica, conservando los datos editoriales."""
     old = read('entrevistas.json', [])
     found = get_podcast()
-    indexed = {normalized(x['titulo']): x for x in old}
-    for item in found:
-        key = normalized(item['titulo'])
-        if key in indexed:
-            if item['url'] != BASE + '/podcast/':
-                indexed[key]['url'] = item['url']
+
+    def key(row):
+        url = row.get('url', '').rstrip('/')
+        match = re.search(r'/devuego-devcast/(\d+)', url)
+        if match:
+            return 'episode:' + match.group(1)
+        # Respaldo para registros antiguos sin enlace individual.
+        return 'date:' + row.get('fecha', '') + ':' + normalized(row.get('titulo', ''))
+
+    def score(row):
+        # Priorizar descripciones, clasificación y títulos editados manualmente.
+        title = row.get('titulo', '')
+        return (bool(row.get('descripcion', '').strip()),
+                row.get('categoria', 'Profesionales') != 'Profesionales',
+                not title.startswith('DeVCast'),
+                bool(row.get('imagen')))
+
+    indexed = {}
+    for row in old:
+        k = key(row)
+        if k not in indexed:
+            indexed[k] = dict(row)
         else:
-            indexed[key] = {**item, 'categoria': 'Profesionales', 'descripcion': ''}
+            preferred, secondary = sorted((indexed[k], row), key=score, reverse=True)
+            merged = dict(secondary)
+            merged.update(preferred)
+            if not merged.get('descripcion'):
+                merged['descripcion'] = secondary.get('descripcion', '')
+            if not merged.get('imagen'):
+                merged['imagen'] = secondary.get('imagen', '')
+            indexed[k] = merged
+
+    for item in found:
+        k = key(item)
+        if k in indexed:
+            if '/devuego-devcast/' in item['url']:
+                indexed[k]['url'] = item['url']
+        else:
+            indexed[k] = {**item, 'categoria': 'Profesionales', 'descripcion': ''}
+
     rows = sorted(indexed.values(), key=lambda x: (x['fecha'], x['titulo']), reverse=True)
     save('entrevistas.json', rows)
     return len(found)

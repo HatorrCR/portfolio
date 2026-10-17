@@ -2,11 +2,10 @@
 """Actualiza el portfolio a partir de fichas públicas de DeVuego.
 Las nuevas publicaciones impresas requieren autoría comprobada o aprobación explícita.
 """
-import json, re, sys, unicodedata, hashlib, mimetypes
-from collections import Counter
+import json, re, sys, unicodedata
 from datetime import datetime
 from pathlib import Path
-from urllib.parse import urljoin, urlparse, parse_qs, unquote
+from urllib.parse import urljoin, urlparse
 import requests
 from bs4 import BeautifulSoup
 
@@ -107,6 +106,8 @@ def add_interviews():
         else:
             indexed[k] = {**item, 'categoria': 'Profesionales', 'descripcion': ''}
 
+    for row in indexed.values():
+        row.pop('imagen', None)
     rows = sorted(indexed.values(), key=lambda x: (x['fecha'], x['titulo']), reverse=True)
     save('entrevistas.json', rows)
     return len(found)
@@ -156,219 +157,6 @@ def discover_print():
     save('pendientes_revision.json', sorted(pending, key=lambda x: x['url']))
     return len(pending)
 
-# Imágenes de episodios: primero plataformas de audio enlazadas desde DeVuego.
-# Se descargan a /imagenes/devcast para que GitHub Pages no dependa de URLs externas.
-AUDIO_HOSTS = ('ivoox.com', 'spotify.com', 'open.spotify.com')
-IMAGE_HOSTS = ('ivoox.com', 'spotify.com', 'scdn.co', 'spotifycdn.com',
-               'devuego.es', 'googleusercontent.com', 'google.com', 'cloudfront.net')
-IMAGE_DIR = ROOT / 'imagenes' / 'devcast'
-
-def allowed_host(host, domains):
-    host = (host or '').lower().strip('.')
-    return any(host == d or host.endswith('.' + d) for d in domains)
-
-def meta_image(soup, base_url):
-    for attrs in ({'property':'og:image'}, {'name':'twitter:image'}, {'name':'twitter:image:src'}):
-        tag = soup.find('meta', attrs=attrs)
-        if tag and tag.get('content'):
-            return urljoin(base_url, tag['content'])
-    return None
-
-def platform_links(soup, base_url):
-    """Incluye reproductores iframe y enlaces normales de plataformas."""
-    links = []
-    for element in soup.select('a[href], iframe[src], iframe[data-src]'):
-        raw = element.get('href') or element.get('src') or element.get('data-src')
-        if not raw:
-            continue
-        url = urljoin(base_url, raw)
-        parsed = urlparse(url)
-        if parsed.scheme == 'https' and allowed_host(parsed.hostname, AUDIO_HOSTS):
-            links.append(url)
-    return list(dict.fromkeys(links))
-
-
-def platform_images(soup, base_url):
-    """Metadatos de portada y miniaturas expuestas por reproductores."""
-    images = []
-    meta = meta_image(soup, base_url)
-    if meta:
-        images.append(meta)
-    for tag in soup.select('meta[itemprop="thumbnailUrl"], meta[itemprop="image"], link[rel="image_src"]'):
-        raw = tag.get('content') or tag.get('href')
-        if raw:
-            images.append(urljoin(base_url, raw))
-    for script in soup.select('script[type="application/ld+json"]'):
-        try:
-            obj = json.loads(script.string or script.get_text())
-        except (ValueError, TypeError):
-            continue
-        def walk(value):
-            if isinstance(value, dict):
-                for key, child in value.items():
-                    if key in ('thumbnailUrl', 'image'):
-                        if isinstance(child, str): images.append(urljoin(base_url, child))
-                        elif isinstance(child, dict) and isinstance(child.get('url'), str):
-                            images.append(urljoin(base_url, child['url']))
-                    if isinstance(child, (dict, list)): walk(child)
-            elif isinstance(value, list):
-                for child in value: walk(child)
-        walk(obj)
-    return list(dict.fromkeys(images))
-
-def embedded_images(soup, base_url):
-    """Busca portadas en HTML real de reproductores (img, data-*, CSS y scripts)."""
-    images = platform_images(soup, base_url)
-    for tag in soup.select('img, source, [style], [data-image], [data-cover], [data-thumbnail]'):
-        for attr in ('src', 'data-src', 'data-original', 'data-image', 'data-cover',
-                     'data-thumbnail', 'poster', 'srcset'):
-            raw = tag.get(attr)
-            if raw:
-                if attr == 'srcset':
-                    raw = raw.split(',')[0].strip().split(' ')[0]
-                images.append(urljoin(base_url, raw))
-        style = tag.get('style', '')
-        for raw in re.findall(r'url\([\"\']?([^\)\"\']+)', style):
-            images.append(urljoin(base_url, raw))
-    # Algunos embeds montan la carátula desde un objeto JavaScript.
-    html = str(soup)
-    for raw in re.findall(r'https?:\\?/\\?/[^\s\"\'<>]+?\.(?:jpg|jpeg|png|webp)(?:\?[^\s\"\'<>]*)?', html, re.I):
-        images.append(raw.replace('\\/', '/').replace('\\u002F', '/'))
-    clean = []
-    for url in images:
-        parsed = urlparse(url)
-        if parsed.scheme == 'https' and allowed_host(parsed.hostname, IMAGE_HOSTS):
-            clean.append(url)
-    return list(dict.fromkeys(clean))
-
-
-def ivoox_episode_links(soup, base_url):
-    """Encuentra enlaces a la ficha pública del audio dentro del embed."""
-    links = []
-    for a in soup.select('a[href]'):
-        url = urljoin(base_url, a['href'])
-        if (urlparse(url).scheme == 'https' and
-            allowed_host(urlparse(url).hostname, ('ivoox.com',)) and
-            ('_audios-mp3_rf_' in url or '_audio_' in url or '/audios/' in url)):
-            links.append(url)
-    # En algunas versiones la ficha solo aparece en el JavaScript.
-    for raw in re.findall(r'https?:\\?/\\?/[^\s\"\'<>]+?(?:_audios-mp3_rf_|_audio_)[^\s\"\'<>]+', str(soup)):
-        url = raw.replace('\\/', '/')
-        if allowed_host(urlparse(url).hostname, ('ivoox.com',)):
-            links.append(url)
-    return list(dict.fromkeys(links))[:3]
-
-def image_bytes(url):
-    parsed = urlparse(url)
-    if parsed.scheme != 'https' or not allowed_host(parsed.hostname, IMAGE_HOSTS):
-        return None
-    try:
-        response = SESSION.get(url, timeout=18, stream=True, allow_redirects=True)
-        response.raise_for_status()
-        final = urlparse(response.url)
-        if final.scheme != 'https' or not allowed_host(final.hostname, IMAGE_HOSTS):
-            return None
-        content_type = response.headers.get('content-type', '').split(';')[0].lower()
-        if content_type not in ('image/jpeg','image/png','image/webp'):
-            return None
-        data = bytearray()
-        for chunk in response.iter_content(65536):
-            data.extend(chunk)
-            if len(data) > 4_000_000:
-                return None
-        raw = bytes(data)
-        valid = (content_type == 'image/jpeg' and raw.startswith(b'\xff\xd8\xff')) or (content_type == 'image/png' and raw.startswith(b'\x89PNG\r\n\x1a\n')) or (content_type == 'image/webp' and raw[:4] == b'RIFF' and raw[8:12] == b'WEBP')
-        if not valid or len(raw) < 2000:
-            return None
-        return raw, {'image/jpeg':'.jpg','image/png':'.png','image/webp':'.webp'}[content_type]
-    except requests.RequestException:
-        return None
-
-def episode_id(row):
-    match = re.search(r'/devuego-devcast/(\d+)', row.get('url',''))
-    return match.group(1) if match else hashlib.sha256(row['url'].encode()).hexdigest()[:12]
-
-def update_episode_images():
-    rows = read('entrevistas.json', [])
-    IMAGE_DIR.mkdir(parents=True, exist_ok=True)
-    candidates = {}
-    stats = Counter()
-    for row in rows:
-        if row.get('imagen') and (ROOT / row['imagen']).is_file():
-            stats['existentes'] += 1
-            continue
-        episode_url = row.get('url', '')
-        if not allowed_host(urlparse(episode_url).hostname, ('devuego.es',)):
-            continue
-        try:
-            page = fetch(episode_url)
-        except (requests.RequestException, ValueError) as exc:
-            print('Imagen:', row['titulo'], '- ficha inaccesible:', str(exc)[:90]); continue
-        links = platform_links(page, episode_url)
-        print('Imagen:', row['titulo'], '- reproductores/enlaces:', len(links))
-        if not links:
-            stats['sin_enlaces'] += 1
-        sources = []
-        for link in links:
-            try:
-                resp = SESSION.get(link, timeout=18)
-                resp.raise_for_status()
-                if not allowed_host(urlparse(resp.url).hostname, AUDIO_HOSTS):
-                    print('  Plataforma redirige fuera de dominios admitidos:', urlparse(resp.url).hostname)
-                    continue
-                embedded = BeautifulSoup(resp.text, 'html.parser')
-                art = embedded_images(embedded, resp.url)
-                print('  Reproductor:', urlparse(resp.url).hostname, '- imágenes candidatas:', len(art))
-                sources.extend((img, 'plataforma') for img in art)
-                episode_links = ivoox_episode_links(embedded, resp.url)
-                print('  Fichas públicas iVoox encontradas:', len(episode_links))
-                for public_url in episode_links:
-                    try:
-                        public_resp = SESSION.get(public_url, timeout=18)
-                        public_resp.raise_for_status()
-                        if not allowed_host(urlparse(public_resp.url).hostname, ('ivoox.com',)):
-                            continue
-                        public_images = embedded_images(BeautifulSoup(public_resp.text, 'html.parser'), public_resp.url)
-                        print('  Ficha pública: imágenes candidatas:', len(public_images))
-                        sources.extend((img, 'plataforma') for img in public_images)
-                    except requests.RequestException as exc:
-                        print('  Ficha pública inaccesible:', type(exc).__name__)
-            except requests.RequestException as exc:
-                print('  Plataforma inaccesible:', type(exc).__name__)
-        devuego_art = meta_image(page, episode_url)
-        if devuego_art:
-            sources.append((devuego_art, 'devuego'))
-        for image_url, origin in list(dict.fromkeys(sources)):
-            result = image_bytes(image_url)
-            if result:
-                raw, extension = result
-                candidates[episode_id(row)] = (raw, extension, origin)
-                stats['descargadas'] += 1
-                break
-        else:
-            stats['sin_imagen_valida'] += 1
-    counts = Counter(hashlib.sha256(v[0]).hexdigest() for v in candidates.values())
-    accepted = 0
-    for row in rows:
-        key = episode_id(row)
-        if key not in candidates:
-            continue
-        raw, ext, origin = candidates[key]
-        if counts[hashlib.sha256(raw).hexdigest()] > 1:
-            stats['repetidas'] += 1
-            continue
-        if origin != 'plataforma':
-            stats['solo_devuego'] += 1
-            continue
-        path = IMAGE_DIR / (key + ext)
-        path.write_bytes(raw)
-        row['imagen'] = 'imagenes/devcast/' + path.name
-        accepted += 1
-    save('entrevistas.json', rows)
-    print('Diagnóstico miniaturas:', dict(stats))
-    print('Miniaturas individuales nuevas:', accepted)
-    return accepted
-
 def render_interviews():
     soup = BeautifulSoup((ROOT/'entrevistas.html').read_text(encoding='utf8'), 'html.parser')
     grid = soup.select_one('.interview-grid')
@@ -380,16 +168,13 @@ def render_interviews():
         category = x.get('categoria', 'Profesionales')
         card = soup.new_tag('article', attrs={'class':'interview-card','data-category':category})
         art = soup.new_tag('div', attrs={'class':'interview-art','data-kind':category})
-        image = x.get('imagen')
-        # La cabecera gráfica existe siempre, como alternativa si la imagen falla.
         glyph, caption = artwork.get(category, ('✦', category.upper()))
-        mark = soup.new_tag('span',attrs={'class':'interview-glyph','aria-hidden':'true'});mark.string=glyph;art.append(mark)
-        line = soup.new_tag('span',attrs={'class':'interview-art-label'});line.string=caption;art.append(line)
-        if image and (ROOT / image).is_file():
-            img = soup.new_tag('img', attrs={'src':'./' + image.lstrip('./'),'alt':'Portada de '+x['titulo'],'loading':'lazy','onerror':'this.remove()'})
-            art.append(img)
-        elif image:
-            print('AVISO: imagen referenciada pero no existe:', image)
+        mark = soup.new_tag('span', attrs={'class':'interview-glyph','aria-hidden':'true'})
+        mark.string = glyph
+        art.append(mark)
+        line = soup.new_tag('span', attrs={'class':'interview-art-label'})
+        line.string = caption
+        art.append(line)
         card.append(art)
         body=soup.new_tag('div',attrs={'class':'interview-card-body'})
         top=soup.new_tag('div', attrs={'class':'interview-top'})
@@ -437,7 +222,6 @@ if __name__ == '__main__':
     errors=[]
     try:
         print('Entrevistas encontradas en la fuente:', add_interviews())
-        update_episode_images()
         render_interviews()
     except Exception as exc:
         errors.append('Entrevistas: '+str(exc))

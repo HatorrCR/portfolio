@@ -175,13 +175,46 @@ def meta_image(soup, base_url):
     return None
 
 def platform_links(soup, base_url):
+    """Incluye reproductores iframe y enlaces normales de plataformas."""
     links = []
-    for a in soup.select('a[href]'):
-        url = urljoin(base_url, a['href'])
+    for element in soup.select('a[href], iframe[src], iframe[data-src]'):
+        raw = element.get('href') or element.get('src') or element.get('data-src')
+        if not raw:
+            continue
+        url = urljoin(base_url, raw)
         parsed = urlparse(url)
         if parsed.scheme == 'https' and allowed_host(parsed.hostname, AUDIO_HOSTS):
             links.append(url)
     return list(dict.fromkeys(links))
+
+
+def platform_images(soup, base_url):
+    """Metadatos de portada y miniaturas expuestas por reproductores."""
+    images = []
+    meta = meta_image(soup, base_url)
+    if meta:
+        images.append(meta)
+    for tag in soup.select('meta[itemprop="thumbnailUrl"], meta[itemprop="image"], link[rel="image_src"]'):
+        raw = tag.get('content') or tag.get('href')
+        if raw:
+            images.append(urljoin(base_url, raw))
+    for script in soup.select('script[type="application/ld+json"]'):
+        try:
+            obj = json.loads(script.string or script.get_text())
+        except (ValueError, TypeError):
+            continue
+        def walk(value):
+            if isinstance(value, dict):
+                for key, child in value.items():
+                    if key in ('thumbnailUrl', 'image'):
+                        if isinstance(child, str): images.append(urljoin(base_url, child))
+                        elif isinstance(child, dict) and isinstance(child.get('url'), str):
+                            images.append(urljoin(base_url, child['url']))
+                    if isinstance(child, (dict, list)): walk(child)
+            elif isinstance(value, list):
+                for child in value: walk(child)
+        walk(obj)
+    return list(dict.fromkeys(images))
 
 def image_bytes(url):
     parsed = urlparse(url)
@@ -217,8 +250,10 @@ def update_episode_images():
     rows = read('entrevistas.json', [])
     IMAGE_DIR.mkdir(parents=True, exist_ok=True)
     candidates = {}
+    stats = Counter()
     for row in rows:
         if row.get('imagen') and (ROOT / row['imagen']).is_file():
+            stats['existentes'] += 1
             continue
         episode_url = row.get('url', '')
         if not allowed_host(urlparse(episode_url).hostname, ('devuego.es',)):
@@ -226,45 +261,55 @@ def update_episode_images():
         try:
             page = fetch(episode_url)
         except (requests.RequestException, ValueError) as exc:
-            print('Aviso: ficha no disponible:', row['titulo'], str(exc)[:90]); continue
+            print('Imagen:', row['titulo'], '- ficha inaccesible:', str(exc)[:90]); continue
         links = platform_links(page, episode_url)
-        # La portada de la ficha DeVuego se reserva como último recurso.
+        print('Imagen:', row['titulo'], '- reproductores/enlaces:', len(links))
+        if not links:
+            stats['sin_enlaces'] += 1
         sources = []
         for link in links:
             try:
-                resp = SESSION.get(link, timeout=15)
+                resp = SESSION.get(link, timeout=18)
                 resp.raise_for_status()
                 if not allowed_host(urlparse(resp.url).hostname, AUDIO_HOSTS):
+                    print('  Plataforma redirige fuera de dominios admitidos:', urlparse(resp.url).hostname)
                     continue
-                art = meta_image(BeautifulSoup(resp.text, 'html.parser'), resp.url)
-                if art: sources.append((art, 'plataforma'))
-            except requests.RequestException:
-                continue
+                art = platform_images(BeautifulSoup(resp.text, 'html.parser'), resp.url)
+                print('  Plataforma:', urlparse(resp.url).hostname, '- imágenes candidatas:', len(art))
+                sources.extend((img, 'plataforma') for img in art)
+            except requests.RequestException as exc:
+                print('  Plataforma inaccesible:', type(exc).__name__)
         devuego_art = meta_image(page, episode_url)
-        if devuego_art: sources.append((devuego_art, 'devuego'))
-        for image_url, origin in sources:
+        if devuego_art:
+            sources.append((devuego_art, 'devuego'))
+        for image_url, origin in list(dict.fromkeys(sources)):
             result = image_bytes(image_url)
             if result:
                 raw, extension = result
                 candidates[episode_id(row)] = (raw, extension, origin)
+                stats['descargadas'] += 1
                 break
-    # Portadas idénticas entre episodios son genéricas, no miniaturas específicas.
-    # Se conserva la cabecera gráfica del portfolio para esos casos.
+        else:
+            stats['sin_imagen_valida'] += 1
     counts = Counter(hashlib.sha256(v[0]).hexdigest() for v in candidates.values())
     accepted = 0
     for row in rows:
         key = episode_id(row)
-        if key not in candidates: continue
+        if key not in candidates:
+            continue
         raw, ext, origin = candidates[key]
-        digest = hashlib.sha256(raw).hexdigest()
-        if counts[digest] > 1: continue
-        # No presentar la imagen general del podcast como arte individual.
-        if origin != 'plataforma': continue
+        if counts[hashlib.sha256(raw).hexdigest()] > 1:
+            stats['repetidas'] += 1
+            continue
+        if origin != 'plataforma':
+            stats['solo_devuego'] += 1
+            continue
         path = IMAGE_DIR / (key + ext)
         path.write_bytes(raw)
         row['imagen'] = 'imagenes/devcast/' + path.name
         accepted += 1
     save('entrevistas.json', rows)
+    print('Diagnóstico miniaturas:', dict(stats))
     print('Miniaturas individuales nuevas:', accepted)
     return accepted
 

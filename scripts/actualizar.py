@@ -160,7 +160,7 @@ def discover_print():
 # Se descargan a /imagenes/devcast para que GitHub Pages no dependa de URLs externas.
 AUDIO_HOSTS = ('ivoox.com', 'spotify.com', 'open.spotify.com')
 IMAGE_HOSTS = ('ivoox.com', 'spotify.com', 'scdn.co', 'spotifycdn.com',
-               'devuego.es', 'googleusercontent.com', 'google.com')
+               'devuego.es', 'googleusercontent.com', 'google.com', 'cloudfront.net')
 IMAGE_DIR = ROOT / 'imagenes' / 'devcast'
 
 def allowed_host(host, domains):
@@ -215,6 +215,48 @@ def platform_images(soup, base_url):
                 for child in value: walk(child)
         walk(obj)
     return list(dict.fromkeys(images))
+
+def embedded_images(soup, base_url):
+    """Busca portadas en HTML real de reproductores (img, data-*, CSS y scripts)."""
+    images = platform_images(soup, base_url)
+    for tag in soup.select('img, source, [style], [data-image], [data-cover], [data-thumbnail]'):
+        for attr in ('src', 'data-src', 'data-original', 'data-image', 'data-cover',
+                     'data-thumbnail', 'poster', 'srcset'):
+            raw = tag.get(attr)
+            if raw:
+                if attr == 'srcset':
+                    raw = raw.split(',')[0].strip().split(' ')[0]
+                images.append(urljoin(base_url, raw))
+        style = tag.get('style', '')
+        for raw in re.findall(r'url\([\"\']?([^\)\"\']+)', style):
+            images.append(urljoin(base_url, raw))
+    # Algunos embeds montan la carátula desde un objeto JavaScript.
+    html = str(soup)
+    for raw in re.findall(r'https?:\\?/\\?/[^\s\"\'<>]+?\.(?:jpg|jpeg|png|webp)(?:\?[^\s\"\'<>]*)?', html, re.I):
+        images.append(raw.replace('\\/', '/').replace('\\u002F', '/'))
+    clean = []
+    for url in images:
+        parsed = urlparse(url)
+        if parsed.scheme == 'https' and allowed_host(parsed.hostname, IMAGE_HOSTS):
+            clean.append(url)
+    return list(dict.fromkeys(clean))
+
+
+def ivoox_episode_links(soup, base_url):
+    """Encuentra enlaces a la ficha pública del audio dentro del embed."""
+    links = []
+    for a in soup.select('a[href]'):
+        url = urljoin(base_url, a['href'])
+        if (urlparse(url).scheme == 'https' and
+            allowed_host(urlparse(url).hostname, ('ivoox.com',)) and
+            ('_audios-mp3_rf_' in url or '_audio_' in url or '/audios/' in url)):
+            links.append(url)
+    # En algunas versiones la ficha solo aparece en el JavaScript.
+    for raw in re.findall(r'https?:\\?/\\?/[^\s\"\'<>]+?(?:_audios-mp3_rf_|_audio_)[^\s\"\'<>]+', str(soup)):
+        url = raw.replace('\\/', '/')
+        if allowed_host(urlparse(url).hostname, ('ivoox.com',)):
+            links.append(url)
+    return list(dict.fromkeys(links))[:3]
 
 def image_bytes(url):
     parsed = urlparse(url)
@@ -274,9 +316,23 @@ def update_episode_images():
                 if not allowed_host(urlparse(resp.url).hostname, AUDIO_HOSTS):
                     print('  Plataforma redirige fuera de dominios admitidos:', urlparse(resp.url).hostname)
                     continue
-                art = platform_images(BeautifulSoup(resp.text, 'html.parser'), resp.url)
-                print('  Plataforma:', urlparse(resp.url).hostname, '- imágenes candidatas:', len(art))
+                embedded = BeautifulSoup(resp.text, 'html.parser')
+                art = embedded_images(embedded, resp.url)
+                print('  Reproductor:', urlparse(resp.url).hostname, '- imágenes candidatas:', len(art))
                 sources.extend((img, 'plataforma') for img in art)
+                episode_links = ivoox_episode_links(embedded, resp.url)
+                print('  Fichas públicas iVoox encontradas:', len(episode_links))
+                for public_url in episode_links:
+                    try:
+                        public_resp = SESSION.get(public_url, timeout=18)
+                        public_resp.raise_for_status()
+                        if not allowed_host(urlparse(public_resp.url).hostname, ('ivoox.com',)):
+                            continue
+                        public_images = embedded_images(BeautifulSoup(public_resp.text, 'html.parser'), public_resp.url)
+                        print('  Ficha pública: imágenes candidatas:', len(public_images))
+                        sources.extend((img, 'plataforma') for img in public_images)
+                    except requests.RequestException as exc:
+                        print('  Ficha pública inaccesible:', type(exc).__name__)
             except requests.RequestException as exc:
                 print('  Plataforma inaccesible:', type(exc).__name__)
         devuego_art = meta_image(page, episode_url)

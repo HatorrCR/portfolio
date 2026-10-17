@@ -1,14 +1,8 @@
 [
   {
     "tipo": "anuario",
-    "url": "https://www.devuego.es/codice/flibro/anuario-devuego-2022",
-    "titulo": "DeVuego",
-    "posible_credito": false
-  },
-  {
-    "tipo": "anuario",
-    "url": "https://www.devuego.es/codice/flibro/anuario-devuego-2023",
-    "titulo": "DeVuego",
+    "url": "https://www.devuego.es/codice/flibro/anuario-devuego-2026",
+    "titulo": "Anuario DeVuego 2026",
     "posible_credito": false
   }
 ]

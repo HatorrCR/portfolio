@@ -100,9 +100,14 @@ def discover_print():
         candidates.append({'tipo':'anuario','url':f'{BASE}/codice/flibro/anuario-devuego-{year}'})
     for issue in range(2, max(3, datetime.now().year - 2025 + 2)):
         candidates.append({'tipo':'revista','url':f'{BASE}/pres/revista/devuego/{issue}'})
-    existing = {x['url'] for x in read('publicaciones.json', [])}
+    existing = {x['url'].rstrip('/') for x in read('publicaciones.json', [])}
     pending = []
     for c in {x['url']: x for x in candidates}.values():
+        c['url'] = c['url'].rstrip('/')
+        if c['tipo'] == 'anuario':
+            match = re.search(r'/anuario-devuego-(\d{4})$', c['url'])
+            if not match or int(match.group(1)) < 2026:
+                continue
         if c['url'] in existing:
             continue
         try:
@@ -110,7 +115,14 @@ def discover_print():
         except requests.RequestException:
             continue
         heading = soup.find('h1') or soup.find('h2')
-        title = heading.get_text(' ', strip=True) if heading else c['url'].rsplit('/', 1)[-1]
+        title = heading.get_text(' ', strip=True) if heading else ''
+        if c['tipo'] == 'anuario':
+            match = re.search(r'anuario-devuego-(\d{4})$', c['url'])
+            if match:
+                title = 'Anuario DeVuego ' + match.group(1)
+        elif not title or normalized(title) == 'devuego':
+            issue = re.search(r'/devuego/(\d+)$', c['url'])
+            title = 'Revista DeVuego Nº ' + issue.group(1) if issue else 'Revista DeVuego'
         body = soup.get_text(' ', strip=True)
         if c['tipo'] == 'anuario' and 'anuario devuego' not in normalized(body):
             continue

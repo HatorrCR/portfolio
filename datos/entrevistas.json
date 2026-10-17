@@ -4,265 +4,151 @@
     "titulo": "Dystopicon",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/51224",
     "categoria": "Estudios",
-    "descripcion": "Palitroque · Una conversación sobre Dystopicon, su desarrollo independiente y las ideas detrás del juego."
-  },
-  {
-    "fecha": "2026-10-16",
-    "titulo": "DeVCast Entrevista - Dystopicon (Palitroque)",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/51224",
-    "categoria": "Profesionales",
-    "descripcion": ""
-  },
-  {
-    "fecha": "2026-10-13",
-    "titulo": "DeVCast - Conociendo a... Juan Carlos",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/51225",
-    "categoria": "Profesionales",
-    "descripcion": ""
+    "descripcion": "Palitroque · Una conversación sobre Dystopicon, su desarrollo independiente y las ideas detrás del juego.",
+    "imagen": ""
   },
   {
     "fecha": "2026-10-13",
     "titulo": "Conociendo a... Juan Carlos",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/51225",
     "categoria": "Personas",
-    "descripcion": "Juan Carlos · Una charla personal para conocer a las personas que forman parte de DeVuego."
+    "descripcion": "Juan Carlos · Una charla personal para conocer a las personas que forman parte de DeVuego.",
+    "imagen": ""
   },
   {
     "fecha": "2026-09-14",
     "titulo": "Rubén Rincón",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/51156",
     "categoria": "Profesionales",
-    "descripcion": "Rubén Rincón · Diseño y dirección de sonido para videojuegos."
-  },
-  {
-    "fecha": "2026-09-14",
-    "titulo": "DeVCast Entrevista - Rubén Rincón (diseño y dirección de sonido)",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/51156",
-    "categoria": "Profesionales",
-    "descripcion": ""
-  },
-  {
-    "fecha": "2026-09-07",
-    "titulo": "DeVCast - Conociendo a... Jon Shepard",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/51034",
-    "categoria": "Profesionales",
-    "descripcion": ""
+    "descripcion": "Rubén Rincón · Diseño y dirección de sonido para videojuegos.",
+    "imagen": ""
   },
   {
     "fecha": "2026-09-07",
     "titulo": "Conociendo a... Jon Shepard",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/51034",
     "categoria": "Personas",
-    "descripcion": ""
+    "descripcion": "",
+    "imagen": ""
   },
   {
     "fecha": "2026-08-24",
     "titulo": "NaviGames",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/51036",
     "categoria": "Medios",
-    "descripcion": "Equipo de NaviGames · Periodismo especializado y funcionamiento de un medio independiente."
-  },
-  {
-    "fecha": "2026-08-24",
-    "titulo": "DeVCast Entrevista - NaviGames",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/51036",
-    "categoria": "Profesionales",
-    "descripcion": ""
+    "descripcion": "Equipo de NaviGames · Periodismo especializado y funcionamiento de un medio independiente.",
+    "imagen": ""
   },
   {
     "fecha": "2026-08-17",
     "titulo": "Sonomio Games",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/51037",
     "categoria": "Estudios",
-    "descripcion": "Verónica Rodríguez y Antonio Carlón · Desarrollo independiente y trayectoria del estudio."
-  },
-  {
-    "fecha": "2026-08-17",
-    "titulo": "DeVCast Entrevista - Sonomio Games (Verónica Rodríguez / Antonio Carlón)",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/51037",
-    "categoria": "Profesionales",
-    "descripcion": ""
+    "descripcion": "Verónica Rodríguez y Antonio Carlón · Desarrollo independiente y trayectoria del estudio.",
+    "imagen": ""
   },
   {
     "fecha": "2026-08-10",
     "titulo": "Miguel Ángel Sicart",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/51038",
     "categoria": "Academia",
-    "descripcion": "Miguel Ángel Sicart · Investigación, cultura del videojuego y game studies."
-  },
-  {
-    "fecha": "2026-08-10",
-    "titulo": "DeVCast Entrevista [La Academia] - Miguel Ángel Sicart",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/51038",
-    "categoria": "Profesionales",
-    "descripcion": ""
+    "descripcion": "Miguel Ángel Sicart · Investigación, cultura del videojuego y game studies.",
+    "imagen": ""
   },
   {
     "fecha": "2026-07-21",
     "titulo": "Golden Gamers Go",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/49391",
     "categoria": "Profesionales",
-    "descripcion": "Gloria Sánchez, Alejandro Morillas y Alberto Blázquez · Videojuegos, personas mayores y accesibilidad."
-  },
-  {
-    "fecha": "2026-07-21",
-    "titulo": "DeVCast Entrevista - Golden Gamers Go (Gloria Sánchez / Alejandro Morillas / Alberto Blázquez)",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/49391",
-    "categoria": "Profesionales",
-    "descripcion": ""
+    "descripcion": "Gloria Sánchez, Alejandro Morillas y Alberto Blázquez · Videojuegos, personas mayores y accesibilidad.",
+    "imagen": ""
   },
   {
     "fecha": "2026-07-14",
     "titulo": "Tesura Games",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/49392",
     "categoria": "Profesionales",
-    "descripcion": "José Donaire · Edición y distribución de videojuegos en formato físico."
-  },
-  {
-    "fecha": "2026-07-14",
-    "titulo": "DeVCast Entrevista - Tesura Games (José Donaire)",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/49392",
-    "categoria": "Profesionales",
-    "descripcion": ""
+    "descripcion": "José Donaire · Edición y distribución de videojuegos en formato físico.",
+    "imagen": ""
   },
   {
     "fecha": "2026-06-22",
     "titulo": "Frog Team",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/49244",
     "categoria": "Estudios",
-    "descripcion": "Frog Team · Desarrollo de Oniria y creación de un estudio independiente."
-  },
-  {
-    "fecha": "2026-06-22",
-    "titulo": "DeVCast Entrevista - Frog Team",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/49244",
-    "categoria": "Profesionales",
-    "descripcion": ""
+    "descripcion": "Frog Team · Desarrollo de Oniria y creación de un estudio independiente.",
+    "imagen": ""
   },
   {
     "fecha": "2026-06-17",
     "titulo": "Víctor Navarro-Remesal",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/49245",
     "categoria": "Academia",
-    "descripcion": "Víctor Navarro-Remesal · Estudios académicos y reflexión sobre el videojuego."
-  },
-  {
-    "fecha": "2026-06-17",
-    "titulo": "DeVCast Entrevista - Víctor Navarro-Remesal",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/49245",
-    "categoria": "Profesionales",
-    "descripcion": ""
-  },
-  {
-    "fecha": "2026-06-15",
-    "titulo": "DeVCast Entrevista - AnKae Games (Iván Ruiz)",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/49246",
-    "categoria": "Profesionales",
-    "descripcion": ""
+    "descripcion": "Víctor Navarro-Remesal · Estudios académicos y reflexión sobre el videojuego.",
+    "imagen": ""
   },
   {
     "fecha": "2026-06-15",
     "titulo": "AnKae Games",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/49246",
     "categoria": "Estudios",
-    "descripcion": "Iván Ruiz · Desarrollo independiente y Elementallis."
-  },
-  {
-    "fecha": "2026-06-10",
-    "titulo": "DeVCast Entrevista - Aruma Studios (Rubén López / Silvia Izquierdo)",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/49247",
-    "categoria": "Profesionales",
-    "descripcion": ""
+    "descripcion": "Iván Ruiz · Desarrollo independiente y Elementallis.",
+    "imagen": ""
   },
   {
     "fecha": "2026-06-10",
     "titulo": "Aruma Studios",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/49247",
     "categoria": "Estudios",
-    "descripcion": "Rubén López y Silvia Izquierdo · Desarrollo de Shadows of the Afterland."
-  },
-  {
-    "fecha": "2026-06-02",
-    "titulo": "DeVCast Entrevista - Blow-up: Avenge Humanity (Half Sunk Games)",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/49248",
-    "categoria": "Profesionales",
-    "descripcion": ""
+    "descripcion": "Rubén López y Silvia Izquierdo · Desarrollo de Shadows of the Afterland.",
+    "imagen": ""
   },
   {
     "fecha": "2026-06-02",
     "titulo": "Blow-up: Avenge Humanity",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/49248",
     "categoria": "Estudios",
-    "descripcion": "Half Sunk Games · Diseño y desarrollo de un shooter en primera persona."
+    "descripcion": "Half Sunk Games · Diseño y desarrollo de un shooter en primera persona.",
+    "imagen": ""
   },
   {
     "fecha": "2026-05-26",
     "titulo": "SKULD",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/49249",
     "categoria": "Estudios",
-    "descripcion": "Hugo Maldonado · Desarrollo independiente y financiación colectiva."
-  },
-  {
-    "fecha": "2026-05-26",
-    "titulo": "DeVCast Entrevista - SKULD (Hugo Maldonado)",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/49249",
-    "categoria": "Profesionales",
-    "descripcion": ""
+    "descripcion": "Hugo Maldonado · Desarrollo independiente y financiación colectiva.",
+    "imagen": ""
   },
   {
     "fecha": "2026-05-18",
     "titulo": "Temtem: Pioneers",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/49251",
     "categoria": "Estudios",
-    "descripcion": "Damián Sánchez y Lucía Prieto · Nuevas propuestas en el universo Temtem."
-  },
-  {
-    "fecha": "2026-05-18",
-    "titulo": "DeVCast Entrevista - Temtem: Pioneers (Damián Sánchez / Lucía Prieto)",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/49251",
-    "categoria": "Profesionales",
-    "descripcion": ""
+    "descripcion": "Damián Sánchez y Lucía Prieto · Nuevas propuestas en el universo Temtem.",
+    "imagen": ""
   },
   {
     "fecha": "2026-05-05",
     "titulo": "Revista LOOP",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/49252",
     "categoria": "Medios",
-    "descripcion": "Fernando Porta y Juan T. Salas · Periodismo cultural y revistas especializadas en videojuegos."
-  },
-  {
-    "fecha": "2026-05-05",
-    "titulo": "DeVCast Entrevista - Revista LOOP (Fernando Porta / Juan T. Salas)",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/49252",
-    "categoria": "Profesionales",
-    "descripcion": ""
+    "descripcion": "Fernando Porta y Juan T. Salas · Periodismo cultural y revistas especializadas en videojuegos.",
+    "imagen": ""
   },
   {
     "fecha": "2026-04-08",
     "titulo": "Poly Impulse",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/48772",
     "categoria": "Estudios",
-    "descripcion": "Dani Bedmar y Luis «Moromon» · Creación de su primer videojuego comercial."
-  },
-  {
-    "fecha": "2026-04-08",
-    "titulo": "DeVCast Entrevista - Poly Impulse (Dani Bedmar / Luis \"Moromon\")",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/48772",
-    "categoria": "Profesionales",
-    "descripcion": ""
+    "descripcion": "Dani Bedmar y Luis «Moromon» · Creación de su primer videojuego comercial.",
+    "imagen": ""
   },
   {
     "fecha": "2026-03-20",
     "titulo": "Out of the Blue Games",
     "url": "https://www.devuego.es/pres/programa/devuego-devcast/48774",
     "categoria": "Estudios",
-    "descripcion": "Tatiana Delgado y Eduardo de la Iglesia · Desarrollo de videojuegos y Call of the Elder Gods."
-  },
-  {
-    "fecha": "2026-03-20",
-    "titulo": "DeVCast Entrevista - Out of the Blue Games (Tatiana Delgado / Eduardo De la Iglesia)",
-    "url": "https://www.devuego.es/pres/programa/devuego-devcast/48774",
-    "categoria": "Profesionales",
-    "descripcion": ""
+    "descripcion": "Tatiana Delgado y Eduardo de la Iglesia · Desarrollo de videojuegos y Call of the Elder Gods.",
+    "imagen": ""
   }
 ]

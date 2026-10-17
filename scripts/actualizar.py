@@ -381,13 +381,15 @@ def render_interviews():
         card = soup.new_tag('article', attrs={'class':'interview-card','data-category':category})
         art = soup.new_tag('div', attrs={'class':'interview-art','data-kind':category})
         image = x.get('imagen')
-        if image:
-            img = soup.new_tag('img', attrs={'src':image,'alt':'Imagen del episodio '+x['titulo'],'loading':'lazy'})
+        # La cabecera gráfica existe siempre, como alternativa si la imagen falla.
+        glyph, caption = artwork.get(category, ('✦', category.upper()))
+        mark = soup.new_tag('span',attrs={'class':'interview-glyph','aria-hidden':'true'});mark.string=glyph;art.append(mark)
+        line = soup.new_tag('span',attrs={'class':'interview-art-label'});line.string=caption;art.append(line)
+        if image and (ROOT / image).is_file():
+            img = soup.new_tag('img', attrs={'src':'./' + image.lstrip('./'),'alt':'Portada de '+x['titulo'],'loading':'lazy','onerror':'this.remove()'})
             art.append(img)
-        else:
-            glyph, caption = artwork.get(category, ('✦', category.upper()))
-            mark = soup.new_tag('span',attrs={'class':'interview-glyph','aria-hidden':'true'});mark.string=glyph;art.append(mark)
-            line = soup.new_tag('span',attrs={'class':'interview-art-label'});line.string=caption;art.append(line)
+        elif image:
+            print('AVISO: imagen referenciada pero no existe:', image)
         card.append(art)
         body=soup.new_tag('div',attrs={'class':'interview-card-body'})
         top=soup.new_tag('div', attrs={'class':'interview-top'})

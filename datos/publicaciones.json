@@ -1,0 +1,26 @@
+[
+  {
+    "tipo": "anuario",
+    "titulo": "Anuario DeVuego 2025",
+    "etiqueta": "Anuario 2025 · Publicado en 2026",
+    "descripcion": "Participación como colaborador en el Anuario DeVuego 2025, una publicación dedicada a documentar y poner en valor los videojuegos y la industria española durante ese año.",
+    "url": "https://www.devuego.es/codice/flibro/anuario-devuego-2025",
+    "imagen": "imagenes/anuario-2025.webp"
+  },
+  {
+    "tipo": "anuario",
+    "titulo": "Anuario DeVuego 2024",
+    "etiqueta": "Anuario 2024 · Publicado en 2025",
+    "descripcion": "Participación como colaborador en el Anuario DeVuego 2024, una publicación dedicada a documentar y poner en valor los videojuegos y la industria española durante ese año.",
+    "url": "https://www.devuego.es/codice/flibro/anuario-devuego-2024",
+    "imagen": "imagenes/anuario-2024.webp"
+  },
+  {
+    "tipo": "revista",
+    "titulo": "Revista DeVuego, primer número",
+    "etiqueta": "Revista DeVuego · Número 1",
+    "descripcion": "Participación en el primer número de Revista DeVuego, publicado en verano de 2026. Pendiente de detallar los artículos concretos en los que colaboré.",
+    "url": "https://www.devuego.es/pres/revista/devuego/1",
+    "imagen": "imagenes/revista-devuego-1.jpg"
+  }
+]

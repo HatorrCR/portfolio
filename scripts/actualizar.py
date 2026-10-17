@@ -62,18 +62,56 @@ def get_podcast():
         raise RuntimeError('La fuente del podcast no contiene entrevistas; no se modifica el archivo.')
     return found
 
+def episode_key(title):
+    """Identificador estable a partir del título, eliminando prefijos editoriales."""
+    t = normalized(title)
+    t = re.sub(r'^devcast\s*[-:]?\s*', '', t).strip()
+    t = re.sub(r'^entrevista\s*(?:\[la academia\])?\s*[-:]?\s*', '', t).strip()
+    return re.sub(r'[^a-z0-9]+', ' ', t).strip()
+
+
+def is_direct(url):
+    return bool(url) and url.rstrip('/') != (BASE + '/podcast').rstrip('/')
+
+
 def add_interviews():
     old = read('entrevistas.json', [])
     found = get_podcast()
-    indexed = {normalized(x['titulo']): x for x in old}
-    for item in found:
-        key = normalized(item['titulo'])
-        if key in indexed:
-            if item['url'] != BASE + '/podcast/':
-                indexed[key]['url'] = item['url']
+    # Agrupar por fecha y título normalizado; para títulos abreviados ya existentes
+    # (p. ej., «Dystopicon») usar fecha solo cuando hay un único episodio ese día.
+    merged = []
+    for item in old:
+        if item.get('fecha', '') < '2026-03-01':
+            continue
+        candidates = [x for x in merged if x['fecha'] == item['fecha']]
+        key = episode_key(item['titulo'])
+        match = next((x for x in candidates if episode_key(x['titulo']) == key), None)
+        if match is None and len(candidates) == 1:
+            # Los registros manuales usan títulos cortos y los importados largos.
+            other = episode_key(candidates[0]['titulo'])
+            if key in other or other in key or not is_direct(item.get('url', '')) or not is_direct(candidates[0].get('url', '')):
+                match = candidates[0]
+        if match is None:
+            merged.append(dict(item))
         else:
-            indexed[key] = {**item, 'categoria': 'Profesionales', 'descripcion': ''}
-    rows = sorted(indexed.values(), key=lambda x: (x['fecha'], x['titulo']), reverse=True)
+            # Priorizar el registro manual con descripción y categoría específica.
+            if item.get('descripcion') and not match.get('descripcion'):
+                match.update({k: item[k] for k in ('titulo', 'categoria', 'descripcion') if k in item})
+            if is_direct(item.get('url')) and not is_direct(match.get('url')):
+                match['url'] = item['url']
+    for item in found:
+        key = episode_key(item['titulo'])
+        candidates = [x for x in merged if x['fecha'] == item['fecha']]
+        match = next((x for x in candidates if episode_key(x['titulo']) == key), None)
+        if match is None and len(candidates) == 1:
+            other = episode_key(candidates[0]['titulo'])
+            if key in other or other in key or not is_direct(candidates[0].get('url')):
+                match = candidates[0]
+        if match is None:
+            merged.append({**item, 'categoria': 'Profesionales', 'descripcion': ''})
+        elif is_direct(item['url']):
+            match['url'] = item['url']
+    rows = sorted(merged, key=lambda x: (x['fecha'], x['titulo']), reverse=True)
     save('entrevistas.json', rows)
     return len(found)
 

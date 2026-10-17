@@ -2,10 +2,11 @@
 """Actualiza el portfolio a partir de fichas públicas de DeVuego.
 Las nuevas publicaciones impresas requieren autoría comprobada o aprobación explícita.
 """
-import json, re, sys, unicodedata
+import json, re, sys, unicodedata, hashlib, mimetypes
+from collections import Counter
 from datetime import datetime
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, parse_qs, unquote
 import requests
 from bs4 import BeautifulSoup
 
@@ -62,56 +63,18 @@ def get_podcast():
         raise RuntimeError('La fuente del podcast no contiene entrevistas; no se modifica el archivo.')
     return found
 
-def episode_key(title):
-    """Identificador estable a partir del título, eliminando prefijos editoriales."""
-    t = normalized(title)
-    t = re.sub(r'^devcast\s*[-:]?\s*', '', t).strip()
-    t = re.sub(r'^entrevista\s*(?:\[la academia\])?\s*[-:]?\s*', '', t).strip()
-    return re.sub(r'[^a-z0-9]+', ' ', t).strip()
-
-
-def is_direct(url):
-    return bool(url) and url.rstrip('/') != (BASE + '/podcast').rstrip('/')
-
-
 def add_interviews():
     old = read('entrevistas.json', [])
     found = get_podcast()
-    # Agrupar por fecha y título normalizado; para títulos abreviados ya existentes
-    # (p. ej., «Dystopicon») usar fecha solo cuando hay un único episodio ese día.
-    merged = []
-    for item in old:
-        if item.get('fecha', '') < '2026-03-01':
-            continue
-        candidates = [x for x in merged if x['fecha'] == item['fecha']]
-        key = episode_key(item['titulo'])
-        match = next((x for x in candidates if episode_key(x['titulo']) == key), None)
-        if match is None and len(candidates) == 1:
-            # Los registros manuales usan títulos cortos y los importados largos.
-            other = episode_key(candidates[0]['titulo'])
-            if key in other or other in key or not is_direct(item.get('url', '')) or not is_direct(candidates[0].get('url', '')):
-                match = candidates[0]
-        if match is None:
-            merged.append(dict(item))
-        else:
-            # Priorizar el registro manual con descripción y categoría específica.
-            if item.get('descripcion') and not match.get('descripcion'):
-                match.update({k: item[k] for k in ('titulo', 'categoria', 'descripcion') if k in item})
-            if is_direct(item.get('url')) and not is_direct(match.get('url')):
-                match['url'] = item['url']
+    indexed = {normalized(x['titulo']): x for x in old}
     for item in found:
-        key = episode_key(item['titulo'])
-        candidates = [x for x in merged if x['fecha'] == item['fecha']]
-        match = next((x for x in candidates if episode_key(x['titulo']) == key), None)
-        if match is None and len(candidates) == 1:
-            other = episode_key(candidates[0]['titulo'])
-            if key in other or other in key or not is_direct(candidates[0].get('url')):
-                match = candidates[0]
-        if match is None:
-            merged.append({**item, 'categoria': 'Profesionales', 'descripcion': ''})
-        elif is_direct(item['url']):
-            match['url'] = item['url']
-    rows = sorted(merged, key=lambda x: (x['fecha'], x['titulo']), reverse=True)
+        key = normalized(item['titulo'])
+        if key in indexed:
+            if item['url'] != BASE + '/podcast/':
+                indexed[key]['url'] = item['url']
+        else:
+            indexed[key] = {**item, 'categoria': 'Profesionales', 'descripcion': ''}
+    rows = sorted(indexed.values(), key=lambda x: (x['fecha'], x['titulo']), reverse=True)
     save('entrevistas.json', rows)
     return len(found)
 
@@ -138,14 +101,9 @@ def discover_print():
         candidates.append({'tipo':'anuario','url':f'{BASE}/codice/flibro/anuario-devuego-{year}'})
     for issue in range(2, max(3, datetime.now().year - 2025 + 2)):
         candidates.append({'tipo':'revista','url':f'{BASE}/pres/revista/devuego/{issue}'})
-    existing = {x['url'].rstrip('/') for x in read('publicaciones.json', [])}
+    existing = {x['url'] for x in read('publicaciones.json', [])}
     pending = []
     for c in {x['url']: x for x in candidates}.values():
-        c['url'] = c['url'].rstrip('/')
-        if c['tipo'] == 'anuario':
-            match = re.search(r'/anuario-devuego-(\d{4})$', c['url'])
-            if not match or int(match.group(1)) < 2026:
-                continue
         if c['url'] in existing:
             continue
         try:
@@ -153,14 +111,7 @@ def discover_print():
         except requests.RequestException:
             continue
         heading = soup.find('h1') or soup.find('h2')
-        title = heading.get_text(' ', strip=True) if heading else ''
-        if c['tipo'] == 'anuario':
-            match = re.search(r'anuario-devuego-(\d{4})$', c['url'])
-            if match:
-                title = 'Anuario DeVuego ' + match.group(1)
-        elif not title or normalized(title) == 'devuego':
-            issue = re.search(r'/devuego/(\d+)$', c['url'])
-            title = 'Revista DeVuego Nº ' + issue.group(1) if issue else 'Revista DeVuego'
+        title = heading.get_text(' ', strip=True) if heading else c['url'].rsplit('/', 1)[-1]
         body = soup.get_text(' ', strip=True)
         if c['tipo'] == 'anuario' and 'anuario devuego' not in normalized(body):
             continue
@@ -172,33 +123,160 @@ def discover_print():
     save('pendientes_revision.json', sorted(pending, key=lambda x: x['url']))
     return len(pending)
 
+# Imágenes de episodios: primero plataformas de audio enlazadas desde DeVuego.
+# Se descargan a /imagenes/devcast para que GitHub Pages no dependa de URLs externas.
+AUDIO_HOSTS = ('ivoox.com', 'spotify.com', 'open.spotify.com')
+IMAGE_HOSTS = ('ivoox.com', 'spotify.com', 'scdn.co', 'spotifycdn.com',
+               'devuego.es', 'googleusercontent.com', 'google.com')
+IMAGE_DIR = ROOT / 'imagenes' / 'devcast'
+
+def allowed_host(host, domains):
+    host = (host or '').lower().strip('.')
+    return any(host == d or host.endswith('.' + d) for d in domains)
+
+def meta_image(soup, base_url):
+    for attrs in ({'property':'og:image'}, {'name':'twitter:image'}, {'name':'twitter:image:src'}):
+        tag = soup.find('meta', attrs=attrs)
+        if tag and tag.get('content'):
+            return urljoin(base_url, tag['content'])
+    return None
+
+def platform_links(soup, base_url):
+    links = []
+    for a in soup.select('a[href]'):
+        url = urljoin(base_url, a['href'])
+        parsed = urlparse(url)
+        if parsed.scheme == 'https' and allowed_host(parsed.hostname, AUDIO_HOSTS):
+            links.append(url)
+    return list(dict.fromkeys(links))
+
+def image_bytes(url):
+    parsed = urlparse(url)
+    if parsed.scheme != 'https' or not allowed_host(parsed.hostname, IMAGE_HOSTS):
+        return None
+    try:
+        response = SESSION.get(url, timeout=18, stream=True, allow_redirects=True)
+        response.raise_for_status()
+        final = urlparse(response.url)
+        if final.scheme != 'https' or not allowed_host(final.hostname, IMAGE_HOSTS):
+            return None
+        content_type = response.headers.get('content-type', '').split(';')[0].lower()
+        if content_type not in ('image/jpeg','image/png','image/webp'):
+            return None
+        data = bytearray()
+        for chunk in response.iter_content(65536):
+            data.extend(chunk)
+            if len(data) > 4_000_000:
+                return None
+        raw = bytes(data)
+        valid = (content_type == 'image/jpeg' and raw.startswith(b'\xff\xd8\xff')) or (content_type == 'image/png' and raw.startswith(b'\x89PNG\r\n\x1a\n')) or (content_type == 'image/webp' and raw[:4] == b'RIFF' and raw[8:12] == b'WEBP')
+        if not valid or len(raw) < 2000:
+            return None
+        return raw, {'image/jpeg':'.jpg','image/png':'.png','image/webp':'.webp'}[content_type]
+    except requests.RequestException:
+        return None
+
+def episode_id(row):
+    match = re.search(r'/devuego-devcast/(\d+)', row.get('url',''))
+    return match.group(1) if match else hashlib.sha256(row['url'].encode()).hexdigest()[:12]
+
+def update_episode_images():
+    rows = read('entrevistas.json', [])
+    IMAGE_DIR.mkdir(parents=True, exist_ok=True)
+    candidates = {}
+    for row in rows:
+        if row.get('imagen') and (ROOT / row['imagen']).is_file():
+            continue
+        episode_url = row.get('url', '')
+        if not allowed_host(urlparse(episode_url).hostname, ('devuego.es',)):
+            continue
+        try:
+            page = fetch(episode_url)
+        except (requests.RequestException, ValueError) as exc:
+            print('Aviso: ficha no disponible:', row['titulo'], str(exc)[:90]); continue
+        links = platform_links(page, episode_url)
+        # La portada de la ficha DeVuego se reserva como último recurso.
+        sources = []
+        for link in links:
+            try:
+                resp = SESSION.get(link, timeout=15)
+                resp.raise_for_status()
+                if not allowed_host(urlparse(resp.url).hostname, AUDIO_HOSTS):
+                    continue
+                art = meta_image(BeautifulSoup(resp.text, 'html.parser'), resp.url)
+                if art: sources.append((art, 'plataforma'))
+            except requests.RequestException:
+                continue
+        devuego_art = meta_image(page, episode_url)
+        if devuego_art: sources.append((devuego_art, 'devuego'))
+        for image_url, origin in sources:
+            result = image_bytes(image_url)
+            if result:
+                raw, extension = result
+                candidates[episode_id(row)] = (raw, extension, origin)
+                break
+    # Portadas idénticas entre episodios son genéricas, no miniaturas específicas.
+    # Se conserva la cabecera gráfica del portfolio para esos casos.
+    counts = Counter(hashlib.sha256(v[0]).hexdigest() for v in candidates.values())
+    accepted = 0
+    for row in rows:
+        key = episode_id(row)
+        if key not in candidates: continue
+        raw, ext, origin = candidates[key]
+        digest = hashlib.sha256(raw).hexdigest()
+        if counts[digest] > 1: continue
+        # No presentar la imagen general del podcast como arte individual.
+        if origin != 'plataforma': continue
+        path = IMAGE_DIR / (key + ext)
+        path.write_bytes(raw)
+        row['imagen'] = 'imagenes/devcast/' + path.name
+        accepted += 1
+    save('entrevistas.json', rows)
+    print('Miniaturas individuales nuevas:', accepted)
+    return accepted
+
 def render_interviews():
     soup = BeautifulSoup((ROOT/'entrevistas.html').read_text(encoding='utf8'), 'html.parser')
     grid = soup.select_one('.interview-grid')
     if not grid: raise RuntimeError('No se encontró el contenedor de entrevistas')
     grid.clear()
     rows = read('entrevistas.json', [])
+    artwork = {'Estudios': ('◈','ESTUDIO / DESARROLLO'), 'Academia': ('⌘','ACADEMIA / GAME STUDIES'), 'Medios': ('▤','MEDIOS / PERIODISMO'), 'Profesionales': ('✦','PROFESIONALES'), 'Personas': ('◎','CONOCIENDO A...')}
     for x in rows:
-        card = soup.new_tag('article', attrs={'class':'interview-card','data-category':x.get('categoria','Profesionales')})
-        top = soup.new_tag('div', attrs={'class':'interview-top'})
-        for label in (x.get('categoria','Profesionales').upper(), datetime.fromisoformat(x['fecha']).strftime('%d/%m/%Y')):
+        category = x.get('categoria', 'Profesionales')
+        card = soup.new_tag('article', attrs={'class':'interview-card','data-category':category})
+        art = soup.new_tag('div', attrs={'class':'interview-art','data-kind':category})
+        image = x.get('imagen')
+        if image:
+            img = soup.new_tag('img', attrs={'src':image,'alt':'Imagen del episodio '+x['titulo'],'loading':'lazy'})
+            art.append(img)
+        else:
+            glyph, caption = artwork.get(category, ('✦', category.upper()))
+            mark = soup.new_tag('span',attrs={'class':'interview-glyph','aria-hidden':'true'});mark.string=glyph;art.append(mark)
+            line = soup.new_tag('span',attrs={'class':'interview-art-label'});line.string=caption;art.append(line)
+        card.append(art)
+        body=soup.new_tag('div',attrs={'class':'interview-card-body'})
+        top=soup.new_tag('div', attrs={'class':'interview-top'})
+        for label in (category.upper(), datetime.fromisoformat(x['fecha']).strftime('%d/%m/%Y')):
             span=soup.new_tag('span');span.string=label;top.append(span)
-        card.append(top)
-        h=soup.new_tag('h3');h.string=x['titulo'];card.append(h)
+        body.append(top)
+        h=soup.new_tag('h3');h.string=x['titulo'];body.append(h)
         if x.get('descripcion'):
-            p=soup.new_tag('p');p.string=x['descripcion'];card.append(p)
+            desc=soup.new_tag('p');desc.string=x['descripcion'];body.append(desc)
         a=soup.new_tag('a', attrs={'class':'pub-link','href':x['url'],'target':'_blank','rel':'noopener noreferrer'})
-        a.string='Ver episodio ↗' if x['url'] != BASE+'/podcast/' else 'Ver archivo de DeVCast ↗'
-        card.append(a);grid.append(card)
+        a.string='Ver entrevista / charla ↗' if x['url'] != BASE+'/podcast/' else 'Ver archivo de DeVCast ↗'
+        body.append(a);card.append(body);grid.append(card)
     title = soup.select_one('.interview-intro h2')
-    if title:title.string=f'{len(rows)} conversaciones publicadas'
-    meta=soup.select_one('.interview-intro .meta')
-    if meta:meta.string='DEVCast · Desde marzo de 2026 · Actualización automática'
-    note=soup.select_one('.interview-intro .note')
-    if note:note.string='Datos del catálogo público de DeVCast. Actualización automática semanal.'
+    if title:title.string=f'{len(rows)} entrevistas/charlas publicadas'
     for b in soup.select('.interview-filters button'):
         if b.get('data-filter')=='Todas':b.string=f'Todas ({len(rows)})'
     (ROOT/'entrevistas.html').write_text(str(soup), encoding='utf8')
+    # Mantener la cifra de la página principal sincronizada con los datos.
+    homepage = ROOT/'index.html'
+    main = BeautifulSoup(homepage.read_text(encoding='utf8'), 'html.parser')
+    counter = main.select_one('[data-interview-count]')
+    if counter:counter.string=f'{len(rows)} entrevistas/charlas publicadas'
+    homepage.write_text(str(main), encoding='utf8')
 
 def render_print():
     pubs=read('publicaciones.json', [])
@@ -223,6 +301,7 @@ if __name__ == '__main__':
     errors=[]
     try:
         print('Entrevistas encontradas en la fuente:', add_interviews())
+        update_episode_images()
         render_interviews()
     except Exception as exc:
         errors.append('Entrevistas: '+str(exc))

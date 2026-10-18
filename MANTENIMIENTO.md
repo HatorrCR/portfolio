@@ -57,3 +57,7 @@ La validación **no** comprueba disponibilidad de enlaces externos, experiencia 
 - `sitemap.xml`, `robots.txt`: indexación básica.
 
 La web se mantiene íntegramente en español. No se añaden imágenes ni proyectos ficticios.
+
+## Criterios editoriales
+
+Consulta [GUIA_EDITORIAL.md](GUIA_EDITORIAL.md) para redactar fichas de proyectos, ensayos, análisis y entrevistas sin confundir hipótesis con resultados.

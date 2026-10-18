@@ -1,0 +1,118 @@
+# Panel de edición del portfolio — Pages CMS
+# Guardar en la raíz del repositorio como .pages.yml
+media:
+  input: imagenes
+  output: /imagenes
+
+content:
+  - name: articulos
+    label: Artículos y análisis
+    type: file
+    path: datos/articulos.json
+    format: json
+    list: true
+    operations:
+      delete: false
+    fields:
+      - name: titulo
+        label: Título
+        type: string
+        required: true
+      - name: url
+        label: Enlace al artículo
+        type: string
+        required: true
+      - name: medio
+        label: Medio
+        type: select
+        options:
+          values:
+            - name: Retro Pixel Press
+              value: Retro Pixel Press
+            - name: ErreKGamer
+              value: ErreKGamer
+            - name: DeVuego
+              value: DeVuego
+      - name: tipo
+        label: Tipo o género
+        type: string
+      - name: descripcion
+        label: Descripción breve
+        type: text
+
+  - name: entrevistas
+    label: Entrevistas de DevCast
+    type: file
+    path: datos/entrevistas.json
+    format: json
+    list: true
+    operations:
+      delete: false
+    fields:
+      - name: fecha
+        label: Fecha (AAAA-MM-DD)
+        type: string
+        required: true
+      - name: titulo
+        label: Título
+        type: string
+        required: true
+      - name: url
+        label: Enlace de DeVuego
+        type: string
+        required: true
+      - name: categoria
+        label: Categoría
+        type: select
+        options:
+          values:
+            - name: Estudios
+              value: Estudios
+            - name: Academia
+              value: Academia
+            - name: Medios
+              value: Medios
+            - name: Profesionales
+              value: Profesionales
+            - name: Personas
+              value: Personas
+      - name: descripcion
+        label: Descripción
+        type: text
+
+  - name: publicaciones
+    label: Anuarios y revistas
+    type: file
+    path: datos/publicaciones.json
+    format: json
+    list: true
+    operations:
+      delete: false
+    fields:
+      - name: tipo
+        label: Tipo
+        type: select
+        options:
+          values:
+            - name: Anuario
+              value: anuario
+            - name: Revista
+              value: revista
+      - name: titulo
+        label: Título
+        type: string
+        required: true
+      - name: etiqueta
+        label: Etiqueta
+        type: string
+      - name: descripcion
+        label: Descripción
+        type: text
+      - name: url
+        label: Ficha oficial
+        type: string
+        required: true
+      - name: imagen
+        label: Ruta de portada existente
+        type: string
+        description: 'Ejemplo: imagenes/anuario-2025.webp. No cambiar si ya funciona.'

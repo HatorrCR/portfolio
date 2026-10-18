@@ -8,7 +8,7 @@ const levels=[
 const board=document.getElementById('board'),status=document.getElementById('status'),counter=document.getElementById('steps'),levelLabel=document.getElementById('level-label'),levelDesc=document.getElementById('level-description'),progress=document.getElementById('level-progress'),next=document.getElementById('next-level'),resetButton=document.getElementById('reset');
 if(!board||!status||!counter||!levelLabel||!levelDesc||!progress||!next||!resetButton)return;
 let index=0,x=0,y=0,steps=0,won=false,keys=new Set(),switches=new Set(),total=0,advanceTimer=null;
-const counts=level=>({keys:level.map.join('').split('K').length-1,switches:level.map.join('').split('S').length-1});
+const counts=map=>({keys:map.join('').split('K').length-1,switches:map.join('').split('S').length-1});
 function cancelAdvance(){if(advanceTimer!==null){clearTimeout(advanceTimer);advanceTimer=null}}
 function startLevel(n){cancelAdvance();index=n;steps=0;won=false;keys=new Set();switches=new Set();const level=levels[index],map=level.map;
 for(let row=0;row<map.length;row++)for(let col=0;col<map[row].length;col++)if(map[row][col]==='P'){x=col;y=row}

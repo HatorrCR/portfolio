@@ -168,7 +168,8 @@ content:
         type: string
         description: 'DarkDepths usa darkdepths.html. Vacío = ficha automática.'
       - name: publicacion
-        label: Estado editorial
+        label: Estado editorial (NO es privado)
+        description: 'Atención: el JSON de GitHub es público. No guardes borradores confidenciales aquí. Prepara textos privados fuera del repositorio y publica la versión final.'
         type: select
         options:
           values:

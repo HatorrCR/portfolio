@@ -167,6 +167,25 @@ content:
         label: Enlace externo o página propia (opcional)
         type: string
         description: 'DarkDepths usa darkdepths.html. Vacío = ficha automática.'
+      - name: publicacion
+        label: Estado editorial
+        type: select
+        options:
+          values:
+            - name: Borrador
+              value: borrador
+            - name: En revisión
+              value: revision
+            - name: Publicado
+              value: publicado
+        default: borrador
+      - name: ensayos_relacionados
+        label: IDs de ensayos relacionados (separados por comas)
+        type: string
+      - name: gdd
+        label: Documento de diseño (GDD)
+        type: text
+        description: 'Objetivo, core loop, reglas, mecánicas, experiencia, pruebas y siguientes pasos.'
       - name: visible
         label: Publicar proyecto
         type: boolean
@@ -267,6 +286,34 @@ content:
       - name: url
         label: Enlace de referencia o demo (opcional)
         type: string
+      - name: publicacion
+        label: Estado editorial
+        type: select
+        options:
+          values:
+            - name: Borrador
+              value: borrador
+            - name: En revisión
+              value: revision
+            - name: Publicado
+              value: publicado
+        default: borrador
+      - name: proyecto_relacionado
+        label: ID del proyecto relacionado (opcional)
+        type: string
+      - name: categoria
+        label: Área del laboratorio
+        type: select
+        options:
+          values:
+            - name: Mecánicas
+              value: Mecánicas
+            - name: Puzles
+              value: Puzles
+            - name: Diseño de niveles
+              value: Diseño de niveles
+            - name: Iteraciones
+              value: Iteraciones
       - name: visible
         label: Publicar ensayo
         type: boolean

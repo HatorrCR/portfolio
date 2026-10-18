@@ -9,7 +9,7 @@ const read=p=>fs.readFileSync(file(p),'utf8');
 const assert=(ok,message)=>{if(!ok)errors.push(message)};
 const warn=message=>warnings.push(message);
 const html=fs.readdirSync(root).filter(x=>x.endsWith('.html'));
-const required=['index.html','articulos.html','entrevistas.html','anuarios.html','revistas.html','darkdepths.html','cv.html','cv-diseno.html','como-diseno.html','game-studies.html','ensayo.html','proyecto.html','plantilla-gdd.html'];
+const required=['index.html','articulos.html','entrevistas.html','anuarios.html','revistas.html','darkdepths.html','cv.html','cv-diseno.html','como-diseno.html','game-studies.html','ensayo.html','proyecto.html','plantilla-gdd.html','perfil-diseno.html','microexperimento.html'];
 for(const p of required)assert(exists(p),'Falta página '+p);
 for(const p of html){
  const s=read(p);

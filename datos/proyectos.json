@@ -1,0 +1,19 @@
+[
+  {
+    "id": "darkdepths",
+    "titulo": "DarkDepths",
+    "estado": "Prototipo",
+    "genero": "Terror 3D · Puzles",
+    "motor": "Unreal Engine",
+    "descripcion": "Explora un laboratorio lleno de secretos y puzles para encontrar una salida.",
+    "aportacion": "Diseño de niveles, jugabilidad y programación.",
+    "etiquetas": "Diseño de niveles, Jugabilidad, Unreal Engine",
+    "imagen": "",
+    "enlace": "darkdepths.html",
+    "visible": true,
+    "destacado": true,
+    "proceso": "Prototipo de exploración y terror ambientado en un laboratorio. Trabajo en diseño de espacios, interacciones y programación.",
+    "aprendizajes": "",
+    "video": ""
+  }
+]

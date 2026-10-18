@@ -116,3 +116,71 @@ content:
         label: Ruta de portada existente
         type: string
         description: 'Ejemplo: imagenes/anuario-2025.webp. No cambiar si ya funciona.'
+
+  - name: proyectos
+    label: Proyectos de Game Design
+    type: file
+    path: datos/proyectos.json
+    format: json
+    list: true
+    fields:
+      - name: id
+        label: Identificador único (sin espacios)
+        type: string
+        required: true
+        description: 'Ejemplo: mi-prototipo. No cambiar una vez publicado.'
+      - name: titulo
+        label: Nombre del proyecto
+        type: string
+        required: true
+      - name: estado
+        label: Estado
+        type: select
+        options:
+          values:
+            - name: Prototipo
+              value: Prototipo
+            - name: En desarrollo
+              value: En desarrollo
+            - name: Terminado
+              value: Terminado
+      - name: genero
+        label: Género
+        type: string
+      - name: motor
+        label: Motor o herramientas
+        type: string
+      - name: descripcion
+        label: Resumen para la tarjeta
+        type: text
+        required: true
+      - name: aportacion
+        label: Mi aportación
+        type: text
+      - name: etiquetas
+        label: Etiquetas separadas por comas
+        type: string
+      - name: imagen
+        label: Imagen principal (ruta opcional)
+        type: string
+      - name: enlace
+        label: Enlace externo o página propia (opcional)
+        type: string
+        description: 'DarkDepths usa darkdepths.html. Vacío = ficha automática.'
+      - name: visible
+        label: Publicar proyecto
+        type: boolean
+        default: true
+      - name: destacado
+        label: Mostrar en la portada
+        type: boolean
+        default: true
+      - name: proceso
+        label: Proceso y decisiones de diseño
+        type: rich-text
+      - name: aprendizajes
+        label: Aprendizajes
+        type: rich-text
+      - name: video
+        label: Enlace a vídeo o demo
+        type: string

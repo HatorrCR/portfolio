@@ -181,189 +181,19 @@ content:
       - name: aprendizajes
         label: Aprendizajes
         type: rich-text
-      - name: galeria
-        label: Galería de capturas
-        type: text
-        description: 'Una ruta de imagen por línea. Sube las imágenes desde Media y escribe, por ejemplo, imagenes/captura1.webp.'
-      - name: video
-        label: Enlace a vídeo o demo
-        type: string
-        description: 'Enlace a YouTube, Vimeo u otra página de vídeo o demo.'  - name: articulos
-    label: Artículos y análisis
-    type: file
-    path: datos/articulos.json
-    format: json
-    list: true
-    operations:
-      delete: false
-    fields:
-      - name: titulo
-        label: Título
-        type: string
-        required: true
-      - name: url
-        label: Enlace al artículo
-        type: string
-        required: true
-      - name: medio
-        label: Medio
-        type: select
-        options:
-          values:
-            - name: Retro Pixel Press
-              value: Retro Pixel Press
-            - name: ErreKGamer
-              value: ErreKGamer
-            - name: DeVuego
-              value: DeVuego
-      - name: tipo
-        label: Tipo o género
-        type: string
-      - name: descripcion
-        label: Descripción breve
-        type: text
 
-  - name: entrevistas
-    label: Entrevistas de DevCast
-    type: file
-    path: datos/entrevistas.json
-    format: json
-    list: true
-    operations:
-      delete: false
-    fields:
-      - name: fecha
-        label: Fecha (AAAA-MM-DD)
-        type: string
-        required: true
-      - name: titulo
-        label: Título
-        type: string
-        required: true
-      - name: url
-        label: Enlace de DeVuego
-        type: string
-        required: true
-      - name: categoria
-        label: Categoría
-        type: select
-        options:
-          values:
-            - name: Estudios
-              value: Estudios
-            - name: Academia
-              value: Academia
-            - name: Medios
-              value: Medios
-            - name: Profesionales
-              value: Profesionales
-            - name: Personas
-              value: Personas
-      - name: descripcion
-        label: Descripción
+      - name: objetivo
+        label: Objetivo o problema de diseño
         type: text
-
-  - name: publicaciones
-    label: Anuarios y revistas
-    type: file
-    path: datos/publicaciones.json
-    format: json
-    list: true
-    operations:
-      delete: false
-    fields:
-      - name: tipo
-        label: Tipo
-        type: select
-        options:
-          values:
-            - name: Anuario
-              value: anuario
-            - name: Revista
-              value: revista
-      - name: titulo
-        label: Título
-        type: string
-        required: true
-      - name: etiqueta
-        label: Etiqueta
-        type: string
-      - name: descripcion
-        label: Descripción
+      - name: decisiones
+        label: Decisiones y alternativas
         type: text
-      - name: url
-        label: Ficha oficial
-        type: string
-        required: true
-      - name: imagen
-        label: Ruta de portada existente
-        type: string
-        description: 'Ejemplo: imagenes/anuario-2025.webp. No cambiar si ya funciona.'
-
-  - name: proyectos
-    label: Proyectos de Game Design
-    type: file
-    path: datos/proyectos.json
-    format: json
-    list: true
-    fields:
-      - name: id
-        label: Identificador único (sin espacios)
-        type: string
-        required: true
-        description: 'Ejemplo: mi-prototipo. No cambiar una vez publicado.'
-      - name: titulo
-        label: Nombre del proyecto
-        type: string
-        required: true
-      - name: estado
-        label: Estado
-        type: select
-        options:
-          values:
-            - name: Prototipo
-              value: Prototipo
-            - name: En desarrollo
-              value: En desarrollo
-            - name: Terminado
-              value: Terminado
-      - name: genero
-        label: Género
-        type: string
-      - name: motor
-        label: Motor o herramientas
-        type: string
-      - name: descripcion
-        label: Resumen para la tarjeta
+      - name: pruebas
+        label: Pruebas e iteraciones
         type: text
-        required: true
-      - name: aportacion
-        label: Mi aportación
+      - name: resultado
+        label: Resultado y conclusiones
         type: text
-      - name: etiquetas
-        label: Etiquetas separadas por comas
-        type: string
-      - name: imagen
-        label: Imagen principal (ruta opcional)
-        type: string
-      - name: enlace
-        label: Enlace externo o página propia (opcional)
-        type: string
-        description: 'DarkDepths usa darkdepths.html. Vacío = ficha automática.'
-      - name: visible
-        label: Publicar proyecto
-        type: boolean
-        default: true
-      - name: destacado
-        label: Mostrar en la portada
-        type: boolean
-        default: true
-      - name: proceso
-        label: Proceso y decisiones de diseño
-        type: rich-text
-      - name: aprendizajes
-        label: Aprendizajes
-        type: rich-text
       - name: galeria
         label: Galería de capturas
         type: text
@@ -372,3 +202,72 @@ content:
         label: Enlace a vídeo o demo
         type: string
         description: 'Enlace a YouTube, Vimeo u otra página de vídeo o demo.'
+
+  - name: ensayos
+    label: Ensayos de diseño
+    type: file
+    path: datos/game-studies.json
+    format: json
+    list: true
+    fields:
+      - name: id
+        label: Identificador único (sin espacios)
+        type: string
+        required: true
+        description: 'Ejemplo: ensayo-puzles. No cambiar tras publicar.'
+      - name: titulo
+        label: Título
+        type: string
+        required: true
+      - name: tipo
+        label: Tipo de contenido
+        type: select
+        options:
+          values:
+            - name: Ensayo
+              value: Ensayo
+            - name: Prueba
+              value: Prueba
+            - name: Prototipo
+              value: Prototipo
+            - name: Idea de diseño
+              value: Idea de diseño
+      - name: fecha
+        label: Fecha (AAAA-MM-DD)
+        type: string
+      - name: descripcion
+        label: Resumen para la tarjeta
+        type: text
+      - name: objetivo
+        label: Pregunta o problema de diseño
+        type: text
+      - name: hipotesis
+        label: Hipótesis o idea inicial
+        type: text
+      - name: proceso
+        label: Proceso, pruebas e iteraciones
+        type: rich-text
+      - name: conclusiones
+        label: Resultados y aprendizajes
+        type: rich-text
+      - name: etiquetas
+        label: Etiquetas separadas por comas
+        type: string
+      - name: imagen
+        label: Imagen principal (opcional)
+        type: string
+        description: 'Ejemplo: imagenes/ensayo.webp. Puedes dejarlo vacío.'
+      - name: galeria
+        label: Galería de imágenes (opcional)
+        type: text
+        description: 'Una ruta de imagen por línea, desde Media.'
+      - name: video
+        label: Enlace a vídeo (opcional)
+        type: string
+      - name: url
+        label: Enlace de referencia o demo (opcional)
+        type: string
+      - name: visible
+        label: Publicar ensayo
+        type: boolean
+        default: true

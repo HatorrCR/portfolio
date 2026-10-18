@@ -1,1 +1,42 @@
-(()=>{'use strict';const raw=['#######','#P..#E#','#.#.#.#','#.#...#','#...#.#','#K.S..#','#######'];const board=document.getElementById('board'),status=document.getElementById('status'),counter=document.getElementById('steps');if(!board||!status||!counter)return;let x,y,key,sw,steps,won;const cells=[];for(let row=0;row<7;row++)for(let col=0;col<7;col++){const div=document.createElement('div');div.className='cell';board.append(div);cells.push(div)}function reset(){x=1;y=1;key=false;sw=false;steps=0;won=false;status.textContent='Busca la llave dorada y el interruptor violeta.';render()}function render(){counter.textContent='Movimientos: '+steps;for(let row=0;row<7;row++)for(let col=0;col<7;col++){const tile=raw[row][col],cell=cells[row*7+col];cell.className='cell';cell.textContent='';if(tile==='#')cell.classList.add('wall');if(tile==='E'){cell.classList.add('exit');cell.textContent='⇥'}if(tile==='K'&&!key){cell.classList.add('key');cell.textContent='◆'}if(tile==='S'&&!sw){cell.classList.add('switch');cell.textContent='✦'}if(x===col&&y===row){cell.classList.add('player');cell.textContent='●'}}board.setAttribute('aria-label','Mapa de siete por siete. Posición: columna '+(x+1)+', fila '+(y+1)+'. Llave: '+(key?'sí':'no')+'. Interruptor: '+(sw?'activado':'pendiente')+'.')}function move(dx,dy){if(won)return;const nx=x+dx,ny=y+dy;if(nx<0||ny<0||nx>=7||ny>=7||raw[ny][nx]==='#')return;if(raw[ny][nx]==='E'&&(!key||!sw)){status.textContent='La salida está bloqueada: necesitas la llave y activar el interruptor.';return}x=nx;y=ny;steps++;const tile=raw[y][x];if(tile==='K'&&!key){key=true;status.textContent='¡Llave recogida! Busca el interruptor violeta.'}else if(tile==='S'&&!sw){sw=true;status.textContent=key?'¡Interruptor activado! Ahora puedes llegar a la salida.':'Interruptor activado. Todavía falta la llave.'}else if(tile==='E'){won=true;status.textContent='¡Salida alcanzada en '+steps+' movimientos! Puedes reiniciar y probar otra ruta.'}else status.textContent=key&&sw?'Ambos requisitos completos. Busca la salida.':key?'Tienes la llave. Falta activar el interruptor.':sw?'Interruptor activado. Falta la llave.':'Busca la llave dorada y el interruptor violeta.';render()}const directions={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};document.querySelectorAll('[data-move]').forEach(b=>b.addEventListener('click',()=>move(...directions[b.dataset.move])));document.addEventListener('keydown',e=>{const tag=document.activeElement?.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT')return;const dir={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',s:'down',a:'left',d:'right'}[e.key];if(dir){e.preventDefault();move(...directions[dir])}});document.getElementById('reset').addEventListener('click',reset);reset()})();
+(()=>{
+'use strict';
+const levels=[
+ {name:'Primeras señales',difficulty:'Fácil',description:'Aprende a orientarte. Una llave, un interruptor y varios caminos.',map:['#######','#P....#','#.##..#','#..K#.#','##.#..#','#S...E#','#######']},
+ {name:'Rutas cruzadas',difficulty:'Media',description:'Dos llaves en extremos distintos. Decide qué camino recorrer primero.',map:['#########','#P..#...#','#.#...#K#','#...##..#','###..#..#','#K...#S.#','#.##....#','#......E#','#########']},
+ {name:'El último desvío',difficulty:'Difícil',description:'Dos llaves, dos interruptores y una puerta que solo se abre con ambas llaves.',map:['###########','#P...#....#','#.##...#K.#','#...#.#...#','##..#...#.#','#K..G..#..#','#.#...##..#','#...#S...##','#.##..#...#','#S......E.#','###########']}
+];
+const board=document.getElementById('board'),status=document.getElementById('status'),counter=document.getElementById('steps'),levelLabel=document.getElementById('level-label'),levelDesc=document.getElementById('level-description'),progress=document.getElementById('level-progress'),next=document.getElementById('next-level'),resetButton=document.getElementById('reset');
+if(!board||!status||!counter||!levelLabel||!levelDesc||!progress||!next||!resetButton)return;
+let index=0,x=0,y=0,steps=0,won=false,keys=new Set(),switches=new Set(),total=0,advanceTimer=null;
+const counts=level=>({keys:level.map.join('').split('K').length-1,switches:level.map.join('').split('S').length-1});
+function cancelAdvance(){if(advanceTimer!==null){clearTimeout(advanceTimer);advanceTimer=null}}
+function startLevel(n){cancelAdvance();index=n;steps=0;won=false;keys=new Set();switches=new Set();const level=levels[index],map=level.map;
+for(let row=0;row<map.length;row++)for(let col=0;col<map[row].length;col++)if(map[row][col]==='P'){x=col;y=row}
+board.style.gridTemplateColumns='repeat('+map[0].length+',minmax(0,1fr))';
+levelLabel.textContent='Nivel '+(index+1)+' de '+levels.length+' · '+level.name+' · '+level.difficulty;
+levelDesc.textContent=level.description;
+progress.textContent='Nivel '+(index+1)+' / '+levels.length;
+next.hidden=true;status.textContent='Recoge los objetos, activa los interruptores y alcanza la salida.';
+render()}
+function complete(){won=true;total+=steps;cancelAdvance();if(index<levels.length-1){status.textContent='¡Nivel '+(index+1)+' superado en '+steps+' movimientos! Pasando al siguiente…';next.textContent='Siguiente nivel →';next.hidden=false;advanceTimer=setTimeout(()=>startLevel(index+1),1800)}else{status.textContent='¡Has completado los 3 niveles! Total: '+total+' movimientos. ¿Puedes hacerlo en menos?';next.textContent='Volver a empezar ↻';next.hidden=false}}
+function render(){const map=levels[index].map,required=counts(map);counter.textContent='Movimientos: '+steps+' · Llaves: '+keys.size+'/'+required.keys+' · Interruptores: '+switches.size+'/'+required.switches;
+const frag=document.createDocumentFragment();
+for(let row=0;row<map.length;row++)for(let col=0;col<map[row].length;col++){const c=map[row][col],id=col+','+row,cell=document.createElement('div');cell.className='cell';if(c==='#')cell.classList.add('wall');if(c==='E'){cell.classList.add('exit');cell.textContent='⇥'}if(c==='K'&&!keys.has(id)){cell.classList.add('key');cell.textContent='◆'}if(c==='S'&&!switches.has(id)){cell.classList.add('switch');cell.textContent='✦'}if(c==='G'){cell.classList.add('gate');cell.textContent=keys.size===required.keys?'◇':'▣'}if(x===col&&y===row){cell.classList.add('player');cell.textContent='●'}frag.append(cell)}
+board.replaceChildren(frag);
+board.setAttribute('aria-label','Nivel '+(index+1)+'. Posición: columna '+(x+1)+', fila '+(y+1)+'. Llaves '+keys.size+' de '+required.keys+'. Interruptores '+switches.size+' de '+required.switches+'.')}
+function move(dx,dy){if(won)return;const map=levels[index].map,nx=x+dx,ny=y+dy,c=map[ny]?.[nx],required=counts(map);if(!c||c==='#')return;
+if(c==='G'&&keys.size<required.keys){status.textContent='La puerta cerrada requiere todas las llaves.';return}
+if(c==='E'&&(keys.size<required.keys||switches.size<required.switches)){status.textContent='La salida necesita todas las llaves y todos los interruptores.';return}
+x=nx;y=ny;steps++;const id=x+','+y;
+if(c==='K'&&!keys.has(id)){keys.add(id);status.textContent='¡Llave recogida! '+keys.size+' de '+required.keys}
+else if(c==='S'&&!switches.has(id)){switches.add(id);status.textContent='¡Interruptor activado! '+switches.size+' de '+required.switches}
+else if(c==='E')complete();
+else status.textContent=keys.size===required.keys&&switches.size===required.switches?'Todos los requisitos completos. Busca la salida.':'Explora las rutas y completa los requisitos.';
+render()}
+const directions={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
+document.querySelectorAll('[data-move]').forEach(button=>button.addEventListener('click',()=>move(...directions[button.dataset.move])));
+document.addEventListener('keydown',event=>{const tag=document.activeElement?.tagName;if(['INPUT','TEXTAREA','SELECT'].includes(tag)||event.altKey||event.ctrlKey||event.metaKey)return;const direction={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',s:'down',a:'left',d:'right',W:'up',S:'down',A:'left',D:'right'}[event.key];if(direction){event.preventDefault();move(...directions[direction])}});
+resetButton.addEventListener('click',()=>{total=0;startLevel(0)});
+next.addEventListener('click',()=>{if(!won)return;if(index===levels.length-1){total=0;startLevel(0)}else startLevel(index+1)});
+startLevel(0);
+})();

@@ -246,10 +246,10 @@ content:
         type: text
       - name: proceso
         label: Proceso, pruebas e iteraciones
-        type: rich-text
+        type: text
       - name: conclusiones
         label: Resultados y aprendizajes
-        type: rich-text
+        type: text
       - name: etiquetas
         label: Etiquetas separadas por comas
         type: string

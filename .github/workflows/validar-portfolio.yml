@@ -1,0 +1,26 @@
+name: Validar portfolio
+on:
+  push:
+    paths:
+      - '**/*.html'
+      - 'datos/**'
+      - 'scripts/**'
+      - 'estilos/**'
+      - '.pages.yml'
+      - '.github/workflows/validar-portfolio.yml'
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validar HTML, enlaces y colecciones
+        run: node scripts/validar-sitio.mjs

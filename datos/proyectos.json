@@ -9,8 +9,8 @@
     "aportacion": "Diseño de niveles, jugabilidad y programación.",
     "etiquetas": "Diseño de niveles, Jugabilidad, Unreal Engine",
     "enlace": "darkdepths.html",
-    "visible": true,
-    "destacado": true,
+    "visible": false,
+    "destacado": false,
     "proceso": "Prototipo de exploración y terror ambientado en un laboratorio. Trabajo en diseño de espacios, interacciones y programación."
   }
 ]

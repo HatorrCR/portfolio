@@ -181,6 +181,11 @@ content:
       - name: aprendizajes
         label: Aprendizajes
         type: rich-text
+      - name: galeria
+        label: Galería de capturas
+        type: text
+        description: 'Una ruta de imagen por línea. Sube las imágenes desde Media y escribe, por ejemplo, imagenes/captura1.webp.'
       - name: video
         label: Enlace a vídeo o demo
         type: string
+        description: 'Enlace a YouTube, Vimeo u otra página de vídeo o demo.'

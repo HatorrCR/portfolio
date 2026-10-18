@@ -156,29 +156,6 @@ a.category-card:focus-visible,.tile-text-link:focus-visible{outline:2px solid #9
 @media(max-width:700px){#investigacion .skill-tree{padding:0 3px}#investigacion .skill-branches{height:48px;margin:0 50%}#investigacion .skill-branches:after,#investigacion .skill-branches span{display:none}#investigacion .skill-branches:before{height:48px}#investigacion .skill-tree .cards.uniform-grid{grid-template-columns:1fr;gap:20px}#investigacion .skill-tree .category-card{min-height:210px}}
 @media(prefers-reduced-motion:reduce){#investigacion .skill-tree .category-card{transition:none}}
 </style><style>
-/* Tarjetas-tetrominó: la propia superficie clicable adopta la silueta clásica */
-#divulgacion .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:stretch}
-#divulgacion .category-card{--piece:#f0ad48;--piece-shape:polygon(0 0,100% 0,100% 100%,0 100%);position:relative;display:flex;flex-direction:column;justify-content:flex-end;isolation:isolate;overflow:hidden;min-width:0;min-height:270px;padding:26px 25px 24px;border:0;border-radius:0;clip-path:var(--piece-shape);background:linear-gradient(145deg,color-mix(in srgb,var(--piece) 48%,#15212b),color-mix(in srgb,var(--piece) 19%,#101923));box-shadow:none;transition:filter .2s ease,transform .2s ease}
-#divulgacion .category-card:nth-child(1){--piece:#f0ad48;--piece-shape:polygon(0 0,100% 0,100% 100%,0 100%)}
-#divulgacion .category-card:nth-child(2){--piece:#9a79f1;--piece-shape:polygon(33.333% 0,66.666% 0,66.666% 50%,100% 50%,100% 100%,0 100%,0 50%,33.333% 50%)}
-#divulgacion .category-card:nth-child(3){--piece:#62c9dc;--piece-shape:polygon(33.333% 0,100% 0,100% 50%,66.666% 50%,66.666% 100%,0 100%,0 50%,33.333% 50%)}
-#divulgacion .category-card:nth-child(4){--piece:#e9d75c;--piece-shape:polygon(0 0,100% 0,100% 100%,0 100%)}
-#divulgacion .category-card:before{content:"";position:absolute;inset:0;z-index:-1;clip-path:var(--piece-shape);background:linear-gradient(135deg,#ffffff35 0%,transparent 24%,#00000042 100%);opacity:1}
-#divulgacion .category-card:after{content:"";position:absolute;inset:0;z-index:-1;clip-path:var(--piece-shape);background-image:linear-gradient(90deg,transparent calc(33.333% - 1px),#0a13287c calc(33.333% - 1px),#0a13287c calc(33.333% + 1px),transparent calc(33.333% + 1px),transparent calc(66.666% - 1px),#0a13287c calc(66.666% - 1px),#0a13287c calc(66.666% + 1px),transparent calc(66.666% + 1px)),linear-gradient(0deg,transparent calc(50% - 1px),#0a13287c calc(50% - 1px),#0a13287c calc(50% + 1px),transparent calc(50% + 1px));opacity:1}
-#divulgacion .category-card:nth-child(1):after{background-image:linear-gradient(90deg,transparent calc(50% - 1px),#0a13287c calc(50% - 1px),#0a13287c calc(50% + 1px),transparent calc(50% + 1px)),linear-gradient(0deg,transparent calc(50% - 1px),#0a13287c calc(50% - 1px),#0a13287c calc(50% + 1px),transparent calc(50% + 1px))}
-#divulgacion .category-card:nth-child(4):after{background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(25% - 2px),#0a13287c calc(25% - 2px),#0a13287c 25%)}
-#divulgacion .category-card .tetromino{display:none}
-#divulgacion .category-card .category-top{position:absolute;top:auto;bottom:112px;left:25px;right:25px;z-index:2;color:#fff9;font-weight:700}
-#divulgacion .category-card .tile-icon{display:none}
-#divulgacion .category-card h3,#divulgacion .category-card p{position:relative;z-index:2;max-width:100%;width:max-content;max-width:min(100%,360px);margin-left:0;padding:2px 8px;background:#0c1423bb;border-radius:3px;color:#f6f7ff}
-#divulgacion .category-card h3{margin-top:0;font-size:clamp(20px,2.1vw,28px)}
-#divulgacion .category-card p{font-size:14px}
-#divulgacion .category-card:hover{transform:translateY(-5px);filter:brightness(1.2) drop-shadow(0 8px 10px #0008)}
-#divulgacion .category-card:nth-child(2) .category-top,#divulgacion .category-card:nth-child(3) .category-top{bottom:103px}
-#divulgacion .category-card:focus-visible{outline:3px solid #fff;outline-offset:3px}
-@media(max-width:700px){#divulgacion .cards{grid-template-columns:1fr;gap:16px}#divulgacion .category-card{min-height:230px;padding:18px 18px 20px}#divulgacion .category-card .category-top{left:18px;right:18px;bottom:100px}#divulgacion .category-card:nth-child(2) .category-top,#divulgacion .category-card:nth-child(3) .category-top{bottom:96px}}
-@media(prefers-reduced-motion:reduce){#divulgacion .category-card{transition:none}#divulgacion .category-card:hover{transform:none}}
-</style><style>
 /* Sobre mí como pantalla de perfil de personaje RPG */
 #sobre-mi .about{position:relative;display:grid;grid-template-columns:minmax(155px,.55fr) minmax(0,1.45fr);gap:30px;padding:30px;border:2px solid #6389bd;border-radius:12px;background:linear-gradient(130deg,#2038549c,#131d2a 65%);box-shadow:inset 0 0 0 5px #0c17247d,0 14px 35px #0003}
 #sobre-mi .about:before{content:"CHARACTER PROFILE  //  PLAYER 01";position:absolute;top:-12px;left:22px;padding:4px 12px;background:#182b40;border:1px solid #6389bd;border-radius:4px;color:#a9d4ff;font:700 11px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.1em}

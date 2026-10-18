@@ -70,7 +70,7 @@ No atribuir conclusiones o citas a la persona entrevistada sin revisar la grabac
 - [ ] Contenido listo para ser público en GitHub.
 - [ ] Comprobación automática de GitHub Actions superada.
 
-## Microexperimento «Señales y rutas»
+## Microexperimento «El laberinto»
 
 `microexperimento.html` es una demostración interactiva creada para este portfolio. No debe añadirse automáticamente al catálogo de proyectos como trabajo anterior ni describirse como un estudio de usuarios.
 

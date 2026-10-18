@@ -8,13 +8,13 @@
  try{
   if(!id)throw Error('No se indicó un ensayo');
   const response=await fetch('datos/game-studies.json',{cache:'no-store'});if(!response.ok)throw Error('Catálogo no disponible');
-  const list=await response.json();const essay=list.find(x=>x&&x.visible!==false&&(x.id||x.titulo)===id);if(!essay)throw Error('Ensayo no encontrado');
+  const list=await response.json();const essay=list.find(x=>x&&x.visible!==false&&x.publicacion!=='borrador'&&x.publicacion!=='revision'&&(x.id||x.titulo)===id);if(!essay)throw Error('Ensayo no encontrado');
   document.title=essay.titulo+' | Ensayos de diseño';
   root.replaceChildren(make('div',(essay.tipo||'Ensayo')+(essay.fecha?' · '+essay.fecha:''),'eyebrow'),make('h1',essay.titulo));
   if(essay.descripcion)root.append(make('p',essay.descripcion,'lead'));
   if(essay.etiquetas){const tags=make('div','','tags');String(essay.etiquetas).split(',').map(x=>x.trim()).filter(Boolean).forEach(t=>tags.append(make('span',t,'tag')));root.append(tags);}
   if(validImage(essay.imagen)){const im=make('img');im.src=essay.imagen;im.alt='Imagen del ensayo '+essay.titulo;im.className='heroimg';im.loading='lazy';root.append(im);}
-  block('La pregunta de diseño',essay.objetivo);block('Hipótesis inicial',essay.hipotesis);block('Proceso y pruebas',essay.proceso);block('Conclusiones y aprendizajes',essay.conclusiones);
+  block('La pregunta de diseño',essay.objetivo);block('Hipótesis inicial',essay.hipotesis);block('Proceso y pruebas',essay.proceso);block('Conclusiones y aprendizajes',essay.conclusiones);if(essay.proyecto_relacionado){const related=make('p');const link=make('a','Ver proyecto relacionado ↗');link.href='proyecto.html?id='+encodeURIComponent(essay.proyecto_relacionado);related.append(link);root.append(related);}
   const gallery=String(essay.galeria||'').split(/\r?\n/).map(x=>x.trim()).filter(validImage);if(gallery.length){const section=make('section','','block');section.append(make('h2','Galería'));const grid=make('div','','gallery');gallery.forEach(src=>{const img=make('img');img.src=src;img.loading='lazy';img.alt='Captura del ensayo '+essay.titulo;grid.append(img)});section.append(grid);root.append(section);}
   for(const [name,url] of [['Ver vídeo o demostración ↗',essay.video],['Consultar enlace relacionado ↗',essay.url]]){if(safeUrl(url)){const p=make('p');const a=make('a',name);a.href=url;a.target='_blank';a.rel='noopener noreferrer';p.append(a);root.append(p)}}
  }catch(e){root.replaceChildren(make('h1','Ensayo no disponible'),make('p',e.message));}

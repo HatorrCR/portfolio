@@ -3,7 +3,7 @@
 const levels=[
  {name:'Primeras señales',difficulty:'Fácil',description:'Aprende a orientarte. Una llave, un interruptor y varios caminos.',map:['#######','#P....#','#.##..#','#..K#.#','##.#..#','#S...E#','#######']},
  {name:'Rutas cruzadas',difficulty:'Media',description:'Dos llaves en extremos distintos. Decide qué camino recorrer primero.',map:['#########','#P..#...#','#.#...#K#','#...##..#','###..#..#','#K...#S.#','#.##....#','#......E#','#########']},
- {name:'El último desvío',difficulty:'Difícil',description:'Dos llaves, dos interruptores y una puerta que solo se abre con ambas llaves.',map:['###########','#P...#....#','#.##...#K.#','#...#.#...#','##..#...#.#','#K..G..#..#','#.#...##..#','#...#S...##','#.##..#...#','#S......E.#','###########']}
+ {name:'El último desvío',difficulty:'Difícil',description:'Dos llaves, dos interruptores y rutas que se entrecruzan.',map:['###########','#P...#....#','#.##...#K.#','#...#.#...#','##..#...#.#','#K.....#..#','#.#...##..#','#...#S...##','#.##..#...#','#S......E.#','###########']}
 ];
 const board=document.getElementById('board'),status=document.getElementById('status'),counter=document.getElementById('steps'),levelLabel=document.getElementById('level-label'),levelDesc=document.getElementById('level-description'),progress=document.getElementById('level-progress'),next=document.getElementById('next-level'),resetButton=document.getElementById('reset');
 if(!board||!status||!counter||!levelLabel||!levelDesc||!progress||!next||!resetButton)return;
@@ -22,11 +22,11 @@ render()}
 function complete(){won=true;total+=steps;cancelAdvance();if(index<levels.length-1){let seconds=5;next.textContent='Siguiente nivel →';next.hidden=false;const countdown=()=>{status.textContent='¡Nivel '+(index+1)+' superado en '+steps+' movimientos! Siguiente nivel en '+seconds+' segundos…';if(seconds===0){startLevel(index+1);return}seconds--;advanceTimer=setTimeout(countdown,1000)};countdown()}else{status.textContent='¡Has completado los 3 niveles! Total: '+total+' movimientos. ¿Puedes hacerlo en menos?';next.textContent='Volver a empezar ↻';next.hidden=false}}
 function render(){const map=levels[index].map,required=counts(map);counter.textContent='Movimientos: '+steps+' · Llaves: '+keys.size+'/'+required.keys+' · Interruptores: '+switches.size+'/'+required.switches;
 const frag=document.createDocumentFragment();
-for(let row=0;row<map.length;row++)for(let col=0;col<map[row].length;col++){const c=map[row][col],id=col+','+row,cell=document.createElement('div');cell.className='cell';if(c==='#')cell.classList.add('wall');if(c==='E'){cell.classList.add('exit');cell.textContent='⇥'}if(c==='K'&&!keys.has(id)){cell.classList.add('key');cell.textContent='◆'}if(c==='S'&&!switches.has(id)){cell.classList.add('switch');cell.textContent='✦'}if(c==='G'){cell.classList.add('gate');cell.textContent=keys.size===required.keys?'◇':'▣'}if(x===col&&y===row){cell.classList.add('player');cell.textContent='●'}frag.append(cell)}
+for(let row=0;row<map.length;row++)for(let col=0;col<map[row].length;col++){const c=map[row][col],id=col+','+row,cell=document.createElement('div');cell.className='cell';if(c==='#')cell.classList.add('wall');if(c==='E'){cell.classList.add('exit');cell.textContent='⇥'}if(c==='K'&&!keys.has(id)){cell.classList.add('key');cell.textContent='◆'}if(c==='S'&&!switches.has(id)){cell.classList.add('switch');cell.textContent='✦'}if(x===col&&y===row){cell.classList.add('player');cell.textContent='●'}frag.append(cell)}
 board.replaceChildren(frag);
 board.setAttribute('aria-label','Nivel '+(index+1)+'. Posición: columna '+(x+1)+', fila '+(y+1)+'. Llaves '+keys.size+' de '+required.keys+'. Interruptores '+switches.size+' de '+required.switches+'.')}
 function move(dx,dy){if(won)return;const map=levels[index].map,nx=x+dx,ny=y+dy,c=map[ny]?.[nx],required=counts(map);if(!c||c==='#')return;
-if(c==='G'&&keys.size<required.keys){status.textContent='La puerta cerrada requiere todas las llaves.';return}
+
 if(c==='E'&&(keys.size<required.keys||switches.size<required.switches)){status.textContent='La salida necesita todas las llaves y todos los interruptores.';return}
 x=nx;y=ny;steps++;const id=x+','+y;
 if(c==='K'&&!keys.has(id)){keys.add(id);status.textContent='¡Llave recogida! '+keys.size+' de '+required.keys}

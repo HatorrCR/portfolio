@@ -16,6 +16,7 @@ board.style.gridTemplateColumns='repeat('+map[0].length+',minmax(0,1fr))';
 levelLabel.textContent='Nivel '+(index+1)+' de '+levels.length+' · '+level.name+' · '+level.difficulty;
 levelDesc.textContent=level.description;
 progress.textContent='Nivel '+(index+1)+' / '+levels.length;
+document.querySelectorAll('[data-level]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.level)===index)));
 next.hidden=true;status.textContent='Recoge los objetos, activa los interruptores y alcanza la salida.';
 render()}
 function complete(){won=true;total+=steps;cancelAdvance();if(index<levels.length-1){let seconds=5;next.textContent='Siguiente nivel →';next.hidden=false;const countdown=()=>{status.textContent='¡Nivel '+(index+1)+' superado en '+steps+' movimientos! Siguiente nivel en '+seconds+' segundos…';if(seconds===0){startLevel(index+1);return}seconds--;advanceTimer=setTimeout(countdown,1000)};countdown()}else{status.textContent='¡Has completado los 3 niveles! Total: '+total+' movimientos. ¿Puedes hacerlo en menos?';next.textContent='Volver a empezar ↻';next.hidden=false}}
@@ -36,7 +37,8 @@ render()}
 const directions={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
 document.querySelectorAll('[data-move]').forEach(button=>button.addEventListener('click',()=>move(...directions[button.dataset.move])));
 document.addEventListener('keydown',event=>{const tag=document.activeElement?.tagName;if(['INPUT','TEXTAREA','SELECT'].includes(tag)||event.altKey||event.ctrlKey||event.metaKey)return;const direction={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',s:'down',a:'left',d:'right',W:'up',S:'down',A:'left',D:'right'}[event.key];if(direction){event.preventDefault();move(...directions[direction])}});
-resetButton.addEventListener('click',()=>{total=0;startLevel(0)});
+resetButton.addEventListener('click',()=>{total=0;startLevel(index)});
+document.querySelectorAll('[data-level]').forEach(button=>button.addEventListener('click',()=>{total=0;startLevel(Number(button.dataset.level))}));
 next.addEventListener('click',()=>{if(!won)return;if(index===levels.length-1){total=0;startLevel(0)}else startLevel(index+1)});
 startLevel(0);
 })();

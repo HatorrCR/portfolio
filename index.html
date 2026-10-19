@@ -753,8 +753,8 @@ addEventListener('keydown',e=>{
 (function(){
  const svg=document.getElementById('level-map-svg'),architecture=document.getElementById('map-architecture'),route=document.getElementById('map-golden-path'),markers=document.getElementById('map-markers');
  if(!svg||!architecture||!route||!markers)return;
- svg.setAttribute('viewBox','0 0 960 1120');
- svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+ svg.setAttribute('viewBox','-170 0 960 1120');
+ svg.setAttribute('preserveAspectRatio','xMaxYMid meet');
  const ns='http://www.w3.org/2000/svg';
  const stops=[
   {x:465,y:125,name:'INICIO'},
@@ -793,7 +793,7 @@ addEventListener('keydown',e=>{
   }
  });
  html+='<text class="map-label" x="300" y="35">PLANO GENERAL / RECORRIDO DEL PORTFOLIO</text>';
- html+='<text class="map-detail" x="300" y="52">ARQUITECTURA COMPLETA · CAMINO PRINCIPAL EN PROGRESO</text>';
+
  architecture.innerHTML=html;
  let d='M '+stops[0].x+' '+stops[0].y;
  for(let i=1;i<stops.length;i++){

@@ -1,5 +1,20 @@
 [
   {
+    "id": "2-valhalla",
+    "titulo": "2 Valhalla",
+    "estado": "Terminado · 2024",
+    "genero": "Shoot 'em up · Scroll vertical",
+    "motor": "Unity · C#",
+    "descripcion": "Dos dragones, un mando compartido y el Ragnarök esperando al final. Control simultáneo, habilidades cooperativas y oleadas variables.",
+    "aportacion": "Diseño de niveles y mecánicas; programación de todos los sistemas del juego.",
+    "etiquetas": "Game Design, Level Design, Programación, Cooperativo",
+    "enlace": "2-valhalla.html",
+    "visible": true,
+    "destacado": true,
+    "publicacion": "publicado",
+    "proceso": "Proyecto universitario realizado en tres meses por un equipo de tres personas."
+  },
+  {
     "id": "darkdepths",
     "titulo": "Dark Depths",
     "estado": "Prototipo",

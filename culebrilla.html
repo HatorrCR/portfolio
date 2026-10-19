@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="La culebrilla: un Snake con un giro. Cada cinco segundos la cabeza cambia al final de la cola.">
+<title>La culebrilla | Experimento interactivo · Cristian Rodríguez Díaz</title>
+<link rel="stylesheet" href="estilos/comun.css">
+<style>
+:root{color-scheme:dark;--bg:#0c1017;--panel:#151f2e;--line:#42566b;--accent:#a6c7df;--mint:#9bdcc7;--gold:#e2bd83;--text:#eef4fc;--muted:#aabbd0}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 75% 0%,#1b3045 0%,transparent 55%),var(--bg);color:var(--text);font:15px/1.6 system-ui,Segoe UI,sans-serif;min-height:100vh}a{color:var(--accent)}
+.wrap{width:min(960px,calc(100% - 32px));margin:auto}header{border-bottom:1px solid var(--line);background:#101824d9;backdrop-filter:blur(12px)}header .wrap{display:flex;align-items:center;justify-content:space-between;gap:15px;min-height:66px}header a{text-decoration:none;font-weight:700}header small{color:var(--muted);font:11px ui-monospace,Consolas,monospace}
+main{padding:36px 0 70px}.eyebrow{font:750 11px ui-monospace,Consolas,monospace;color:#8db5d1;letter-spacing:.13em}h1{font-size:clamp(32px,5vw,55px);line-height:1.15;margin:12px 0}main>p,.intro{max-width:750px;color:var(--muted)}
+.game-shell{border:1px solid #58748c;border-radius:9px;background:linear-gradient(145deg,#162436ee,#101a28f2);padding:clamp(13px,3vw,25px);margin-top:25px;box-shadow:0 18px 45px #0005}
+.hud{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{padding:10px 12px;border:1px solid #435d73;background:#0e1b29;border-radius:5px}.stat small{display:block;color:#91aac0;font:750 10px ui-monospace,Consolas,monospace;letter-spacing:.06em}.stat strong{display:block;font:800 clamp(16px,2.6vw,23px) ui-monospace,Consolas,monospace;margin-top:4px}.stat.timer strong{color:var(--gold)}
+.swap-track{height:5px;background:#2e4052;margin:13px 0 17px;border-radius:5px;overflow:hidden}.swap-track span{display:block;height:100%;width:0;background:linear-gradient(90deg,#78b2c6,#e2bd83)}
+.game-layout{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:20px;align-items:start}
+.board-wrap{position:relative;width:100%;max-width:570px;margin:auto;border:1px solid #67849a;border-radius:5px;padding:7px;background:#09121c;box-shadow:inset 0 0 0 4px #142336}
+canvas{display:block;width:100%;aspect-ratio:1;image-rendering:pixelated;background:#101d2b}
+.overlay{position:absolute;inset:7px;display:flex;align-items:center;justify-content:center;background:#0a1420d9;text-align:center;padding:18px;backdrop-filter:blur(3px)}
+.overlay[hidden]{display:none}.overlay-box{max-width:300px}.overlay h2{font:800 24px ui-monospace,Consolas,monospace;margin:8px 0;color:#edf6ff}.overlay p{font-size:13px;color:#bfd0e1}.overlay button,.action{border:1px solid #93b4ca;border-radius:5px;background:#28435a;color:#f2f7fc;padding:10px 16px;font:750 12px ui-monospace,Consolas,monospace;cursor:pointer}.overlay button:hover,.action:hover{background:#3a5c76}
+.side{display:grid;gap:14px}.side-card{border:1px solid #465f73;border-radius:5px;background:#111e2c;padding:13px}.side-card strong{font:750 11px ui-monospace,Consolas,monospace;letter-spacing:.06em;color:#c8dceb}.side-card p{font-size:12px;line-height:1.55;color:#aebfd0;margin:8px 0 0}
+.controls{display:grid;grid-template-columns:repeat(3,48px);gap:6px;justify-content:center;margin-top:11px}.controls button{min-height:45px;background:#253b52;color:#f1f7fd;border:1px solid #6d8ba4;border-radius:5px;font-size:19px;cursor:pointer;touch-action:manipulation}.controls button:active{background:#547c9b}.controls button[data-dir="up"]{grid-column:2}.controls button[data-dir="left"]{grid-column:1;grid-row:2}.controls button[data-dir="down"]{grid-column:2;grid-row:2}.controls button[data-dir="right"]{grid-column:3;grid-row:2}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px;align-items:center}.status{font-size:12px;color:#b3c7d8;min-height:22px}.note{margin-top:20px;padding:14px;border-left:3px solid #d3b67c;background:#192637;color:#c3d3e1;font-size:13px}
+@media(max-width:690px){.game-layout{grid-template-columns:1fr}.side{grid-template-columns:repeat(2,minmax(0,1fr))}.controls{grid-template-columns:repeat(3,44px)}.controls button{min-height:40px}.hud{gap:5px}.stat{padding:8px}.stat small{font-size:8px}}
+@media(max-width:420px){.side{grid-template-columns:1fr}.stat strong{font-size:16px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style></head><body>
+<header><div class="wrap"><a href="index.html#proyectos">← VOLVER AL PORTFOLIO</a><small>EXPERIMENTO 02 / ARCADE</small></div></header>
+<main class="wrap"><div class="eyebrow">03 / EXPERIMENTOS INTERACTIVOS · JUEGO 02</div><h1>La culebrilla<span style="color:var(--mint)">.</span></h1>
+<p class="intro">El clásico de los teléfonos de toda la vida, con una pequeña mala idea: <strong>cada cinco segundos, la cabeza aparece al final de la cola</strong> y el movimiento se invierte. Come, crece y procura no confiarte.</p>
+<div class="game-shell"><div class="hud"><div class="stat"><small>PUNTUACIÓN</small><strong id="score">000</strong></div><div class="stat"><small>RÉCORD LOCAL</small><strong id="best">000</strong></div><div class="stat timer"><small>CAMBIO DE CABEZA EN</small><strong id="countdown">5.0 s</strong></div></div><div class="swap-track" aria-hidden="true"><span id="swap-progress"></span></div>
+<div class="game-layout"><div class="board-wrap"><canvas id="board" width="560" height="560" aria-label="Tablero de La culebrilla: usa flechas, WASD o controles táctiles"></canvas><div class="overlay" id="overlay"><div class="overlay-box"><span class="eyebrow" id="overlay-kicker">NUEVA PARTIDA</span><h2 id="overlay-title">¿Preparado para el giro?</h2><p id="overlay-description">Cada cinco segundos la cola se convierte en cabeza. Los controles siguen siendo relativos al tablero.</p><button id="start" type="button">▶ EMPEZAR PARTIDA</button></div></div></div>
+<div class="side"><div class="side-card"><strong>◈ REGLAS DE LA PARTIDA</strong><p>Recoge los cuadrados dorados para sumar puntos y crecer. Chocar con el borde o con tu cuerpo termina la partida.</p><p>Cuando llegue el cambio, los segmentos se invierten y la nueva cabeza continúa hacia fuera desde la antigua cola.</p></div><div class="side-card"><strong>⌨ CONTROLES</strong><p>Flechas o WASD para girar. Espacio para pausar y continuar.</p><div class="controls" aria-label="Controles táctiles"><button data-dir="up" aria-label="Arriba">↑</button><button data-dir="left" aria-label="Izquierda">←</button><button data-dir="down" aria-label="Abajo">↓</button><button data-dir="right" aria-label="Derecha">→</button></div></div></div></div>
+<div class="actions"><button class="action" id="restart" type="button">↻ REINICIAR</button><button class="action" id="pause" type="button" disabled>Ⅱ PAUSAR</button><span class="status" id="status" role="status" aria-live="polite">Esperando al jugador…</span></div></div>
+<p class="note"><strong>Pregunta de diseño:</strong> ¿cómo cambia la planificación espacial cuando el jugador sabe que el punto de control se invertirá periódicamente? Aquí no basta con mirar hacia delante: también importa dónde dejas la cola.</p>
+</main>
+<script>
+(()=>{'use strict';
+const N=20,S=28,STEP=125,SWAP=5000,canvas=document.getElementById('board'),ctx=canvas.getContext('2d');
+const $=id=>document.getElementById(id),overlay=$('overlay'),score=$('score'),best=$('best'),countdown=$('countdown'),progress=$('swap-progress'),status=$('status'),pauseBtn=$('pause');
+const vectors={up:{x:0,y:-1},down:{x:0,y:1},left:{x:-1,y:0},right:{x:1,y:0}};
+let snake,dir,queued,food,points=0,record=0,running=false,paused=false,elapsed=0,accum=0,last=0,frame=0;
+try{record=Math.max(0,Number(localStorage.getItem('culebrilla-best-v1'))||0)}catch{}
+const fmt=n=>String(n).padStart(3,'0');best.textContent=fmt(record);
+function resetState(){snake=[{x:7,y:10},{x:6,y:10},{x:5,y:10},{x:4,y:10}];dir={x:1,y:0};queued=null;points=0;elapsed=0;accum=0;food=null;spawn();updateHud();draw()}
+function spawn(){const free=[];for(let y=0;y<N;y++)for(let x=0;x<N;x++)if(!snake.some(p=>p.x===x&&p.y===y))free.push({x,y});food=free.length?free[Math.floor(Math.random()*free.length)]:null}
+function updateHud(){score.textContent=fmt(points);best.textContent=fmt(record);countdown.textContent=((SWAP-elapsed)/1000).toFixed(1)+' s';progress.style.width=(elapsed/SWAP*100)+'%'}
+function draw(){ctx.fillStyle='#101d2b';ctx.fillRect(0,0,560,560);ctx.strokeStyle='#223447';ctx.lineWidth=.65;for(let i=1;i<N;i++){ctx.beginPath();ctx.moveTo(i*S,0);ctx.lineTo(i*S,560);ctx.moveTo(0,i*S);ctx.lineTo(560,i*S);ctx.stroke()}
+ if(food){ctx.fillStyle='#e4bf82';ctx.fillRect(food.x*S+7,food.y*S+7,S-14,S-14);ctx.strokeStyle='#f7dba7';ctx.strokeRect(food.x*S+6,food.y*S+6,S-12,S-12)}
+ snake.forEach((p,i)=>{ctx.fillStyle=i===0?'#b8f2dc':i===snake.length-1?'#547f86':'#70b5aa';ctx.fillRect(p.x*S+2,p.y*S+2,S-4,S-4);ctx.strokeStyle=i===0?'#f1fff8':'#264b52';ctx.strokeRect(p.x*S+3,p.y*S+3,S-6,S-6);if(i===0){ctx.fillStyle='#142a32';ctx.fillRect(p.x*S+11,p.y*S+11,6,6)}})
+}
+function showOverlay(kicker,title,desc,button){$('overlay-kicker').textContent=kicker;$('overlay-title').textContent=title;$('overlay-description').textContent=desc;$('start').textContent=button;overlay.hidden=false}
+function stop(reason){running=false;paused=false;cancelAnimationFrame(frame);pauseBtn.disabled=true;status.textContent='Fin de partida · '+points+' puntos';showOverlay('FIN DE PARTIDA',reason,'Has conseguido '+points+' puntos. ¿Otra ronda?', '↻ VOLVER A JUGAR')}
+function changeDirection(name){const next=vectors[name];if(!next||!running||paused)return;const base=queued||dir;if(next.x===-dir.x&&next.y===-dir.y)return;queued={...next}}
+function tick(){if(queued){dir=queued;queued=null}const head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};const eating=food&&head.x===food.x&&head.y===food.y;const body=eating?snake:snake.slice(0,-1);if(head.x<0||head.y<0||head.x>=N||head.y>=N||body.some(p=>p.x===head.x&&p.y===head.y)){stop('¡Te has hecho un nudo!');return}snake.unshift(head);if(eating){points+=10;if(points>record){record=points;try{localStorage.setItem('culebrilla-best-v1',String(record))}catch{}}spawn();if(!food){stop('¡Tablero completado!');return}}else snake.pop();draw()}
+function flip(){snake.reverse();const head=snake[0],neck=snake[1];if(neck){dir={x:head.x-neck.x,y:head.y-neck.y}}else dir={x:-dir.x,y:-dir.y};queued=null;status.textContent='↔ ¡Cambio de cabeza! Ahora mandaba la cola.';draw()}
+function loop(time){if(!running||paused)return;const delta=Math.min(100,time-last);last=time;elapsed+=delta;accum+=delta;
+ // El cambio se ejecuta al cumplirse los cinco segundos, sin saltarse la actualización.
+ if(elapsed>=SWAP){elapsed-=SWAP;flip()}
+ if(accum>=STEP){accum-=STEP;tick()}updateHud();if(running&&!paused)frame=requestAnimationFrame(loop)}
+function start(){cancelAnimationFrame(frame);resetState();running=true;paused=false;overlay.hidden=true;pauseBtn.disabled=false;pauseBtn.textContent='Ⅱ PAUSAR';status.textContent='Partida en curso · ¡vigila la cola!';last=performance.now();frame=requestAnimationFrame(loop)}
+function togglePause(){if(!running)return;paused=!paused;if(paused){cancelAnimationFrame(frame);pauseBtn.textContent='▶ CONTINUAR';status.textContent='Partida en pausa'}else{pauseBtn.textContent='Ⅱ PAUSAR';status.textContent='Partida reanudada';last=performance.now();frame=requestAnimationFrame(loop)}}
+$('start').addEventListener('click',start);$('restart').addEventListener('click',start);pauseBtn.addEventListener('click',togglePause);
+const keys={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',a:'left',s:'down',d:'right'};
+document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;const key=keys[e.key]||keys[e.key.toLowerCase()];if(key){e.preventDefault();changeDirection(key)}else if(e.code==='Space'){e.preventDefault();togglePause()}});
+document.querySelectorAll('[data-dir]').forEach(b=>b.addEventListener('click',()=>changeDirection(b.dataset.dir)));
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&running&&!paused)togglePause()});
+resetState();
+})();
+</script></body></html>

@@ -10,5 +10,11 @@
     "url": "https://www.devuego.es/codice/flibro/anuario-devuego-2023",
     "titulo": "DeVuego",
     "posible_credito": false
+  },
+  {
+    "tipo": "revista",
+    "url": "https://www.devuego.es/pres/revista/devuego/2",
+    "titulo": "DeVuego | PRensa ESpañola de Videojuegos",
+    "posible_credito": true
   }
 ]

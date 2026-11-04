@@ -21,12 +21,28 @@
     "estado": "Prototipo",
     "genero": "Terror 3D · Puzles",
     "motor": "Unreal Engine",
-    "descripcion": "Explora un laboratorio lleno de secretos y puzles para encontrar una salida.",
-    "aportacion": "Diseño de niveles, jugabilidad y programación.",
-    "etiquetas": "Diseño de niveles, Jugabilidad, Unreal Engine",
+    "descripcion": "Explorar un laboratorio, leer pistas y abrir accesos antes de que termine la cuenta atrás. Terror y puzles en primera persona.",
+    "aportacion": "Diseño de niveles, mecánicas, puzles y recorrido; vestido del escenario y programación.",
+    "etiquetas": "Diseño de niveles, Puzles, Vestido del escenario, Unreal · Blueprints",
     "enlace": "darkdepths.html",
-    "visible": false,
-    "destacado": false,
-    "proceso": "Prototipo de exploración y terror ambientado en un laboratorio. Trabajo en diseño de espacios, interacciones y programación."
+    "visible": true,
+    "destacado": true,
+    "proceso": "Prototipo desarrollado en cuatro meses por un equipo de tres personas.",
+    "imagen": "imagenes/darkdepths/recepcion.jpg"
+  },
+  {
+    "id": "beta2beta",
+    "titulo": "Beta2Beta",
+    "estado": "Experimento",
+    "genero": "Acción en tercera persona · Narrativa",
+    "motor": "Unity · C#",
+    "descripcion": "Un mismo nivel evoluciona mientras dos amigos descubren cómo crear un juego. Las iteraciones hacen avanzar la experiencia y la historia.",
+    "aportacion": "Proyecto individual: diseño y programación durante un mes.",
+    "etiquetas": "Game Design, Iteración, Narrativa, Unity · C#",
+    "enlace": "beta2beta.html",
+    "visible": true,
+    "destacado": true,
+    "proceso": "Experimento universitario desarrollado en solitario durante un mes.",
+    "imagen": "imagenes/beta2beta/combate.jpg"
   }
 ]

@@ -919,7 +919,7 @@ header .header-hud{margin-left:auto!important;flex-shrink:0}
    const link=typeof p.enlace==='string'?p.enlace.trim():'';
    const id=typeof p.id==='string'?p.id.trim():'';
    a.href=link&&(/^(https?:\/\/|[a-z0-9_-]+\.html(?:[?#].*)?$)/i.test(link))?link:'proyecto.html?id='+encodeURIComponent(id);
-   if(/^https?:\/\//i.test(a.href)){a.target='_blank';a.rel='noopener noreferrer'}
+   if(/^https?:\/\//i.test(link)){a.target='_blank';a.rel='noopener noreferrer'}
    const top=document.createElement('div');top.className='category-top';
    const num=document.createElement('span');num.textContent=String(i+1).padStart(2,'0')+' / '+(p.estado||'Proyecto').toUpperCase();
    const arrow=document.createElement('span');arrow.textContent='↗';top.append(num,arrow);
@@ -928,15 +928,15 @@ header .header-hud{margin-left:auto!important;flex-shrink:0}
    const desc=document.createElement('p');desc.textContent=p.descripcion||'';
    const tags=document.createElement('div');tags.className='tags';
    String(p.etiquetas||p.motor||'').split(',').map(x=>x.trim()).filter(Boolean).slice(0,4).forEach(t=>{const tag=document.createElement('span');tag.className='tag';tag.textContent=t;tags.append(tag)});
-   if(id==='2-valhalla'){
+   if(p.imagen&&/^imagenes\/[\w./-]+\.(jpe?g|png|webp)$/i.test(p.imagen)){
     a.classList.add('project-valhalla');
     const copy=document.createElement('div');copy.className='project-copy';
-    const role=document.createElement('p');role.className='project-role';role.textContent='MI PAPEL / DISEÑO DE MECÁNICAS, NIVELES Y PROGRAMACIÓN';
+    const role=document.createElement('p');role.className='project-role';role.textContent='MI PAPEL / '+(p.aportacion||'Diseño y desarrollo');
     const cta=document.createElement('span');cta.className='project-cta';cta.textContent='Explorar el caso de estudio y el gameplay →';
     copy.append(h,desc,role,tags,cta);
     const media=document.createElement('div');media.className='project-media';
-    const img=document.createElement('img');img.src='imagenes/2-valhalla/poster-ataque.jpg';img.alt='Los dos dragones en combate durante una partida de 2 Valhalla';img.loading='lazy';img.decoding='async';img.width=1280;img.height=718;
-    const caption=document.createElement('span');caption.textContent='GAMEPLAY REAL / DOS DRAGONES, UN MISMO RIESGO';media.append(img,caption);
+    const img=document.createElement('img');img.src=p.imagen;img.alt='Gameplay de '+(p.titulo||'Proyecto');img.loading='lazy';img.decoding='async';img.width=1280;img.height=718;
+    const caption=document.createElement('span');caption.textContent=p.proceso||p.motor||'GAMEPLAY REAL';media.append(img,caption);
     a.append(top,copy,media);
    }else{a.append(top,icon,h,desc,tags)}frag.append(a)
   });

@@ -5,14 +5,15 @@
     "estado": "Terminado · 2024",
     "genero": "Shoot 'em up · Scroll vertical",
     "motor": "Unity · C#",
-    "descripcion": "Dos dragones, un mando compartido y el Ragnarök esperando al final. Control simultáneo, habilidades cooperativas y oleadas variables.",
+    "descripcion": "Controlar dos dragones a la vez: repartir la atención, compartir recursos y elegir entre defensa y ataque. Un shoot ’em up sobre coordinación y lectura de amenazas.",
     "aportacion": "Diseño de niveles y mecánicas; programación de todos los sistemas del juego.",
-    "etiquetas": "Game Design, Level Design, Programación, Cooperativo",
+    "etiquetas": "Control dual, Armas y recursos, Diseño de oleadas, Unity · C#",
     "enlace": "2-valhalla.html",
     "visible": true,
     "destacado": true,
     "publicacion": "publicado",
-    "proceso": "Proyecto universitario realizado en tres meses por un equipo de tres personas."
+    "proceso": "Proyecto universitario realizado en tres meses por un equipo de tres personas.",
+    "imagen": "imagenes/2-valhalla/poster-ataque.jpg"
   },
   {
     "id": "darkdepths",

@@ -44,5 +44,20 @@
     "destacado": true,
     "proceso": "Experimento universitario desarrollado en solitario durante un mes.",
     "imagen": "imagenes/beta2beta/combate.jpg"
+  },
+  {
+    "id": "actividad-ia",
+    "titulo": "ActividadIA",
+    "estado": "Experimento",
+    "genero": "Simulación · IA para videojuegos",
+    "motor": "Unity · C#",
+    "descripcion": "Movimiento, navegación y toma de decisiones: un laboratorio para observar cómo distintas reglas cambian el comportamiento de los agentes.",
+    "aportacion": "Implementación y experimentación con comportamientos de IA en Unity.",
+    "etiquetas": "IA de agentes, Navegación, Árboles y estados, Unity · C#",
+    "enlace": "actividad-ia.html",
+    "visible": true,
+    "destacado": true,
+    "proceso": "Entorno de pruebas con 58 scripts organizados por función.",
+    "imagen": "imagenes/actividad-ia/inicio.jpg"
   }
 ]

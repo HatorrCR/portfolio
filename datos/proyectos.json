@@ -18,7 +18,7 @@
   {
     "id": "darkdepths",
     "titulo": "Dark Depths",
-    "estado": "Prototipo",
+    "estado": "Terminado",
     "genero": "Terror 3D · Puzles",
     "motor": "Unreal Engine",
     "descripcion": "Explorar un laboratorio, leer pistas y abrir accesos antes de que termine la cuenta atrás. Terror y puzles en primera persona.",
@@ -27,7 +27,7 @@
     "enlace": "darkdepths.html",
     "visible": true,
     "destacado": true,
-    "proceso": "Prototipo desarrollado en cuatro meses por un equipo de tres personas.",
+    "proceso": "Juego terminado, desarrollado en cuatro meses por un equipo de tres personas.",
     "imagen": "imagenes/darkdepths/recepcion.jpg"
   },
   {

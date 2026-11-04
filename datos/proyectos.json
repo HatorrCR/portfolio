@@ -13,7 +13,8 @@
     "destacado": true,
     "publicacion": "publicado",
     "proceso": "Proyecto universitario realizado en tres meses por un equipo de tres personas.",
-    "imagen": "imagenes/2-valhalla/poster-ataque.jpg"
+    "imagen": "imagenes/2-valhalla/poster-ataque.jpg",
+    "curso": 3
   },
   {
     "id": "darkdepths",
@@ -28,7 +29,8 @@
     "visible": true,
     "destacado": true,
     "proceso": "Juego terminado, desarrollado en cuatro meses por un equipo de tres personas.",
-    "imagen": "imagenes/darkdepths/recepcion.jpg"
+    "imagen": "imagenes/darkdepths/recepcion.jpg",
+    "curso": 2
   },
   {
     "id": "beta2beta",
@@ -43,7 +45,8 @@
     "visible": true,
     "destacado": true,
     "proceso": "Experimento universitario desarrollado en solitario durante un mes.",
-    "imagen": "imagenes/beta2beta/combate.jpg"
+    "imagen": "imagenes/beta2beta/combate.jpg",
+    "curso": 3
   },
   {
     "id": "actividad-ia",
@@ -58,7 +61,8 @@
     "visible": true,
     "destacado": true,
     "proceso": "Entorno de pruebas con 58 scripts organizados por función.",
-    "imagen": "imagenes/actividad-ia/inicio.jpg"
+    "imagen": "imagenes/actividad-ia/inicio.jpg",
+    "curso": 3
   },
   {
     "id": "shooter-simetrico",
@@ -74,6 +78,24 @@
     "destacado": true,
     "proceso": "Planta aproximada y propuesta de validación del diseño.",
     "imagen": "imagenes/shooter-simetrico/planta-recuperada.png",
-    "imagen_alt": "Planta aproximada del mapa Shooter simétrico reconstruida a partir de registros de Unreal"
+    "imagen_alt": "Planta aproximada del mapa Shooter simétrico reconstruida a partir de registros de Unreal",
+    "curso": 2
+  },
+  {
+    "id": "espada-aurora",
+    "titulo": "La Leyenda de la Espada de la Aurora",
+    "estado": "Proyecto académico",
+    "genero": "Acción y plataformas 2D",
+    "motor": "Unity · C#",
+    "descripcion": "Salto, dash y movimiento sobre paredes en un plataformas 2D con combate, enemigos e interacción con el entorno.",
+    "aportacion": "Diseño de niveles, mecánicas y programación en un equipo de tres personas.",
+    "etiquetas": "Plataformas 2D, Combate, Diseño de niveles, Unity · C#",
+    "enlace": "espada-aurora.html",
+    "visible": true,
+    "destacado": true,
+    "proceso": "Proyecto de primer curso realizado por un equipo de tres personas.",
+    "imagen": "imagenes/espada-aurora/personaje-enemigo.png",
+    "imagen_alt": "Personaje con espada frente a un enemigo morado en el bosque",
+    "curso": 1
   }
 ]

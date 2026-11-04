@@ -133,6 +133,9 @@ content:
         label: Nombre del proyecto
         type: string
         required: true
+      - name: curso
+        label: Curso académico
+        type: number
       - name: estado
         label: Estado
         type: select

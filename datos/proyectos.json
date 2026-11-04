@@ -17,22 +17,6 @@
     "curso": 3
   },
   {
-    "id": "darkdepths",
-    "titulo": "Dark Depths",
-    "estado": "Terminado",
-    "genero": "Terror 3D · Puzles",
-    "motor": "Unreal Engine",
-    "descripcion": "Explorar un laboratorio, leer pistas y abrir accesos antes de que termine la cuenta atrás. Terror y puzles en primera persona.",
-    "aportacion": "Diseño de niveles, mecánicas, puzles y recorrido; vestido del escenario y programación.",
-    "etiquetas": "Diseño de niveles, Puzles, Vestido del escenario, Unreal · Blueprints",
-    "enlace": "darkdepths.html",
-    "visible": true,
-    "destacado": true,
-    "proceso": "Juego terminado, desarrollado en cuatro meses por un equipo de tres personas.",
-    "imagen": "imagenes/darkdepths/recepcion.jpg",
-    "curso": 2
-  },
-  {
     "id": "beta2beta",
     "titulo": "Beta2Beta",
     "estado": "Experimento",
@@ -63,6 +47,22 @@
     "proceso": "Entorno de pruebas con 58 scripts organizados por función.",
     "imagen": "imagenes/actividad-ia/inicio.jpg",
     "curso": 3
+  },
+  {
+    "id": "darkdepths",
+    "titulo": "Dark Depths",
+    "estado": "Terminado",
+    "genero": "Terror 3D · Puzles",
+    "motor": "Unreal Engine",
+    "descripcion": "Explorar un laboratorio, leer pistas y abrir accesos antes de que termine la cuenta atrás. Terror y puzles en primera persona.",
+    "aportacion": "Diseño de niveles, mecánicas, puzles y recorrido; vestido del escenario y programación.",
+    "etiquetas": "Diseño de niveles, Puzles, Vestido del escenario, Unreal · Blueprints",
+    "enlace": "darkdepths.html",
+    "visible": true,
+    "destacado": true,
+    "proceso": "Juego terminado, desarrollado en cuatro meses por un equipo de tres personas.",
+    "imagen": "imagenes/darkdepths/recepcion.jpg",
+    "curso": 2
   },
   {
     "id": "shooter-simetrico",

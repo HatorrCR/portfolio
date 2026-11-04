@@ -59,5 +59,21 @@
     "destacado": true,
     "proceso": "Entorno de pruebas con 58 scripts organizados por función.",
     "imagen": "imagenes/actividad-ia/inicio.jpg"
+  },
+  {
+    "id": "shooter-simetrico",
+    "titulo": "Shooter simétrico",
+    "estado": "Experimento",
+    "genero": "Diseño de mapa · Shooter",
+    "motor": "Unreal Engine",
+    "descripcion": "Un mapa para CoD como punto de partida para explorar simetría, rutas, coberturas y oportunidades equivalentes entre equipos.",
+    "aportacion": "Experimento de diseño de niveles y análisis de su distribución recuperada.",
+    "etiquetas": "Level Design, Simetría, Rutas y coberturas, Unreal",
+    "enlace": "shooter-simetrico.html",
+    "visible": true,
+    "destacado": true,
+    "proceso": "Planta aproximada y propuesta de validación del diseño.",
+    "imagen": "imagenes/shooter-simetrico/planta-recuperada.png",
+    "imagen_alt": "Planta aproximada del mapa Shooter simétrico reconstruida a partir de registros de Unreal"
   }
 ]

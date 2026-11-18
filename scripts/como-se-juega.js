@@ -29,13 +29,26 @@ function fillOptions(select, values) {
   }
 }
 
+function showFeatured(entries) {
+  const resource = entries.find(entry => entry.formato === 'Guía') ?? entries[0];
+  if (!resource) return;
+  document.querySelector('#destacado-meta').textContent = resource.formato + ' · ' + resource.tema;
+  document.querySelector('#destacado-titulo').textContent = resource.titulo;
+  document.querySelector('#destacado-resumen').textContent = resource.resumen;
+  document.querySelector('#destacado-enlace').href = '?lectura=' + encodeURIComponent(resource.id);
+  document.querySelector('#destacado').hidden = false;
+}
+
 function showReading(entries) {
   const id = new URLSearchParams(location.search).get('lectura');
-  if (!id) return;
+  if (!id) {
+    showFeatured(entries);
+    return;
+  }
   const resource = entries.find(entry => entry.id === id);
-  const title = element('h2', resource?.titulo ?? 'Recurso no encontrado');
+  const title = element('h1', resource?.titulo ?? 'Recurso no encontrado');
   title.id = 'titulo-lectura';
-  reading.append(link('Volver al catálogo', 'como-se-juega.html#catalogo'), title);
+  reading.append(link('Volver a la biblioteca', 'como-se-juega.html#catalogo'), title);
   if (resource) {
     document.title = resource.titulo + ' · Cómo se juega';
     reading.append(element('p', resource.formato + ' · ' + resource.tema, 'meta'));

@@ -11,16 +11,34 @@
 <script defer src="scripts/como-se-juega.js"></script>
 </head>
 <body data-nav="none">
-<header><nav class="marco barra" aria-label="Navegación del portal"><a class="marca" href="como-se-juega.html">Cómo se juega</a><a href="#catalogo">Catálogo</a><a href="game-studies.html">Portfolio</a></nav></header>
+<header class="cabecera">
+  <div class="marco identidad"><a class="marca" href="como-se-juega.html">Cómo se <span>juega</span></a></div>
+  <nav class="marco barra" aria-label="Navegación del portal">
+    <a href="como-se-juega.html">Portada</a>
+    <a href="#catalogo">Biblioteca</a>
+  </nav>
+</header>
 <main class="marco">
 <section class="portada">
-<h1>Diseño de videojuegos<br>en español.</h1>
-<p>Estudios explicados, charlas comentadas y ejercicios para llevar esas ideas a tus propios juegos.</p>
-<a class="boton" href="#catalogo">Explorar el catálogo</a>
+  <div class="presentacion">
+    <h1>Diseño de videojuegos en español</h1>
+    <p>Estudios explicados, charlas comentadas y ejercicios para llevar esas ideas a tus propios juegos.</p>
+  </div>
+  <article class="destacado" id="destacado" hidden>
+    <div class="destacado-texto">
+      <p class="meta" id="destacado-meta"></p>
+      <h2 id="destacado-titulo"></h2>
+      <p id="destacado-resumen"></p>
+      <a class="boton" id="destacado-enlace">Leer la pieza</a>
+    </div>
+    <div class="destacado-grafico" aria-hidden="true">
+      <div class="tablero"><span class="tramo tramo-a"></span><span class="tramo tramo-b"></span><span class="tramo tramo-c"></span><span class="inicio"></span><span class="meta-grafica"></span></div>
+    </div>
+  </article>
 </section>
 <section id="lectura" hidden aria-labelledby="titulo-lectura"></section>
 <section id="catalogo" aria-labelledby="titulo-catalogo">
-<h2 id="titulo-catalogo">Catálogo</h2>
+<h2 id="titulo-catalogo">Biblioteca</h2>
 <form class="filtros" role="search">
 <label>Buscar<input type="search" id="buscar" placeholder="Por ejemplo, tutoriales"></label>
 <label>Tema<select id="tema"><option value="">Todos los temas</option></select></label>
@@ -31,6 +49,6 @@
 <noscript>Activa JavaScript para consultar el catálogo.</noscript>
 </section>
 </main>
-<footer><div class="marco">Cristian Rodríguez Díaz</div></footer>
+<footer><div class="marco pie"><strong>Cómo se juega</strong><a href="game-studies.html">Portfolio de Cristian Rodríguez Díaz</a></div></footer>
 </body>
 </html>

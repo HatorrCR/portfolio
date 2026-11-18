@@ -143,5 +143,141 @@
       }
     ],
     "cuerpo": "## Qué plantea el diálogo\n\nMarta Martín Núñez y Víctor Navarro Remesal conversan con cuatro profesionales de la industria española. La discusión sitúa la narrativa en el diseño del juego: también se cuenta a través de las acciones disponibles, los puzles, los recorridos y la forma en que el juego orienta la atención.\n\n## Dos decisiones de diseño\n\nLa primera es qué podrá hacer el jugador cuando cambie la situación del personaje. En uno de los ejemplos comentados, un cambio de estado de ánimo se expresa también modificando acciones disponibles, ritmo y aspecto del entorno. La segunda es cómo guiar hacia una pista necesaria sin que toda la exploración se sienta dirigida. Ahí intervienen decisiones de niveles, arte, mecánicas y escritura.\n\n## Hasta dónde llega\n\nEs un diálogo profesional y académico publicado en una revista. Sus ejemplos sirven para comparar decisiones de producción y diseño. El texto recoge perspectivas concretas de sus participantes.\n\n## Cómo llevarlo a un prototipo\n\nElige una escena en la que el personaje pierda la confianza. Haz dos versiones con la misma información narrativa. En una, conserva las acciones habituales. En la otra, altera una acción que la gente ya haya aprendido a usar. Después de jugar, pregunta qué cambió para el personaje y en qué momento lo notaron."
+  },
+  {
+    "id": "doblaje-syndicate",
+    "titulo": "¿Cómo se ajusta un doblaje cuando el jugador controla la cámara?",
+    "tema": "Localización",
+    "idioma": "Español",
+    "formato": "Estudio",
+    "resumen": "Un análisis del ajuste del doblaje al español peninsular en un videojuego de aventuras.",
+    "referencia": "Laura Mejías Climent (2018). El ajuste en videojuegos: el doblaje de Assassin’s Creed Syndicate. TRANS, 22, 11–30.",
+    "fuente": "https://doi.org/10.24310/TRANS.2018.v1i22.2966",
+    "materiales": [
+      {
+        "nombre": "Texto completo en PDF",
+        "url": "https://revistas.uma.es/index.php/trans/article/download/2966/5094"
+      }
+    ],
+    "cuerpo": "## Qué estudia\n\nMejías Climent compara el doblaje original en inglés y su localización al español peninsular. Parte de tres criterios del audiovisual: la sincronía con los labios, con los gestos y con la duración de la intervención.\n\n## Idea clave\n\nLa situación de juego cambia lo que exige el ajuste. Una conversación en primer plano permite apreciar la boca y los gestos. Una frase que suena mientras el jugador se mueve requiere considerar cuándo se activa y cuánto espacio tiene antes de que otra acción la interrumpa.\n\n## Hasta dónde llega\n\nEs un análisis exploratorio de un solo título. Sirve para identificar exigencias distintas entre situaciones de juego. La prioridad de cada tipo de ajuste depende de la cámara, la animación y el sistema de diálogos.\n\n## Cómo llevarlo a la práctica\n\nCompara una cinemática con una conversación durante la exploración. En ambas versiones apunta qué ves, cuándo empieza y acaba la voz y qué puede hacer el jugador mientras suena."
+  },
+  {
+    "id": "videojuego-memoria-venegas",
+    "titulo": "¿Qué pasado nos hacen recordar los videojuegos?",
+    "tema": "Historia y memoria",
+    "idioma": "Español",
+    "formato": "Estudio",
+    "resumen": "Una comparación de tres videojuegos para entender cómo seleccionan y representan el pasado.",
+    "referencia": "Alberto Venegas Ramos (2020). El videojuego histórico como forma de memoria. Revista de Historiografía, 34, 347–368.",
+    "fuente": "https://doi.org/10.20318/revhisto.2020.5834",
+    "materiales": [
+      {
+        "nombre": "Ficha de la revista y acceso al texto",
+        "url": "https://e-revistas.uc3m.es/index.php/REVHISTO/es/article/view/5834"
+      }
+    ],
+    "cuerpo": "## Qué estudia\n\nVenegas propone estudiar el videojuego histórico como una forma de memoria. Combina observación de juegos con teoría sobre la memoria y compara Call of Duty WWII, 1979 Revolution: Black Friday y Path Out.\n\n## Idea clave\n\nLa distinción ayuda a preguntar quién mira el pasado, qué imágenes y episodios se privilegian y qué acciones están al alcance del jugador. En estos casos, una campaña bélica, una revolución y una huida ofrecen puntos de vista muy distintos sobre la historia.\n\n## Hasta dónde llega\n\nEl análisis interpreta representaciones. Para conocer qué recuerda el público tras jugar, haría falta estudiar su recepción.\n\n## Cómo llevarlo a la práctica\n\nToma una misma secuencia de dos juegos históricos y registra el punto de vista, la acción que se repite y el detalle histórico que queda fuera. Esa comparación dice más que una lista de aciertos y errores de ambientación."
+  },
+  {
+    "id": "ludomusicologia-fernandez-cortes",
+    "titulo": "¿Cómo se estudia la música de un videojuego?",
+    "tema": "Música y sonido",
+    "idioma": "Español",
+    "formato": "Estudio",
+    "resumen": "Una introducción a cómo se estudia la música cuando la partida cambia lo que oímos.",
+    "referencia": "Juan Pablo Fernández-Cortés (2020). Ludomusicología: normalizando el estudio de la música de los videojuegos. Anuario Musical, 75, 181–199.",
+    "fuente": "https://doi.org/10.3989/anuariomusical.2020.75.09",
+    "materiales": [
+      {
+        "nombre": "Texto completo en PDF",
+        "url": "https://anuariomusical.revistas.csic.es/index.php/anuariomusical/article/download/365/394/403"
+      }
+    ],
+    "cuerpo": "## Qué estudia\n\nEl artículo recorre líneas de investigación sobre la música de los videojuegos y su cultura. Trata la interacción, la inmersión, la interpretación musical y la relación del sonido con el mundo del juego.\n\n## Idea clave\n\nLa música que oye una persona depende de lo que hace. Puede activar una transición, pasar más tiempo en un estado o salir antes de que una pieza termine. Para analizar esa relación conviene observar la partida junto a la música.\n\n## Hasta dónde llega\n\nEs una revisión del campo. Sus conceptos ayudan a describir decisiones musicales y a formular preguntas sobre sus efectos.\n\n## Cómo llevarlo a la práctica\n\nGraba dos recorridos por la misma zona, uno que llegue directo al objetivo y otro que se detenga a explorar. Anota qué música suena en cada momento y qué acción coincide con cada cambio."
+  },
+  {
+    "id": "smash-merito-espana",
+    "titulo": "¿Cómo se gana el reconocimiento en la escena española de Smash?",
+    "tema": "Comunidades competitivas",
+    "idioma": "Español",
+    "formato": "Estudio",
+    "resumen": "Catorce entrevistas sobre identidad, pertenencia y mérito en el circuito competitivo español.",
+    "referencia": "Ruth S. Contreras Espinosa, Pau Insa Fajardo y Jose Luis Eguia Gomez (2026). Competencia, legitimidad y economía moral del mérito en la subcultura gamer: el caso de Super Smash Bros. Ultimate en España. RAE-IC, 13(26), raeic132606.",
+    "fuente": "https://doi.org/10.24137/raeic.13.26.6",
+    "materiales": [
+      {
+        "nombre": "Ficha de la revista y acceso al texto",
+        "url": "https://www.revistaeic.eu/index.php/raeic/article/view/721"
+      }
+    ],
+    "cuerpo": "## Qué estudia\n\nEl estudio se basa en 14 entrevistas en profundidad a jugadores de alto nivel del circuito nacional de Super Smash Bros. Ultimate. Examina cómo construyen su identidad competitiva y consiguen reconocimiento.\n\n## Idea clave\n\nLos autores vinculan la identidad competitiva a una afición previa. El main, el personaje con el que compite habitualmente cada persona, también se convierte en una forma de expresar su estilo ante la comunidad.\n\n## Hasta dónde llega\n\nLa muestra describe la perspectiva de jugadores de alto nivel en un circuito concreto. Para saber cómo vive la pertenencia quien acaba de llegar, habría que incorporar su punto de vista.\n\n## Cómo llevarlo a la práctica\n\nAl analizar un torneo, compara lo que dicen las clasificaciones con lo que los jugadores cuentan sobre su personaje, su forma de competir y lo que valoran en otras personas."
+  },
+  {
+    "id": "idiomas-esports-postigo",
+    "titulo": "¿Qué se aprende de otro idioma al coordinarse en esports?",
+    "tema": "Tutoriales y aprendizaje",
+    "idioma": "Español",
+    "formato": "Estudio",
+    "resumen": "Un estudio de caso sobre aprender otro idioma mientras se juega en equipo.",
+    "referencia": "Ana Yara Postigo Fuentes y Manuel Fernández Navas (2020). El proceso de aprendizaje de una segunda lengua en los esports. Círculo de Lingüística Aplicada a la Comunicación, 84, 123–132.",
+    "fuente": "https://doi.org/10.5209/clac.72000",
+    "materiales": [
+      {
+        "nombre": "Texto completo en PDF",
+        "url": "https://revistas.ucm.es/index.php/CLAC/article/download/72000/4564456555893/4564456607763"
+      }
+    ],
+    "cuerpo": "## Qué estudia\n\nEl estudio combina observaciones, análisis de la comunicación en partidas, entrevistas y evaluación de destrezas. Analiza cómo usan una lengua extranjera jugadores vinculados a los esports.\n\n## Idea clave\n\nLa necesidad de coordinarse da un propósito inmediato a la comunicación. El artículo relaciona ese uso con el aprendizaje mediante la interacción y con conocimientos que los participantes ya traían del aula.\n\n## Hasta dónde llega\n\nEs un estudio de caso con jugadores que ya percibían una relación entre jugar y aprender otra lengua. Sus resultados permiten entender el proceso en esos casos.\n\n## Cómo llevarlo a la práctica\n\nDiseña una tarea cooperativa donde cada persona tenga información que la otra necesite. Observa si aparecen peticiones de aclaración, reformulaciones y correcciones cuando cambia el objetivo de la partida."
+  },
+  {
+    "id": "produccion-videojuegos-espana-2016-2024",
+    "titulo": "¿Cómo se mide el crecimiento de la producción de videojuegos en España?",
+    "tema": "Industria",
+    "idioma": "Español",
+    "formato": "Estudio",
+    "resumen": "Un análisis del desarrollo español a través de estudios, empleo, facturación y distribución territorial.",
+    "referencia": "Gabriel López-Alcausa, José Patricio Pérez-Rufí y Antonio Castro-Higueras (2025). Producción de videojuegos en España entre 2016 y 2024: crecimiento, limitaciones y oportunidades. Contribuciones a las Ciencias Sociales, 18(9).",
+    "fuente": "https://doi.org/10.55905/revconv.18n.9-105",
+    "materiales": [
+      {
+        "nombre": "Ficha de la revista y acceso al texto",
+        "url": "https://ojs.revistacontribuciones.com/ojs/index.php/clcs/article/view/20674"
+      }
+    ],
+    "cuerpo": "## Qué estudia\n\nEl artículo estudia la evolución del desarrollo de videojuegos en España entre 2016 y 2024. Revisa indicadores del sector y organiza su diagnóstico mediante un análisis de debilidades, amenazas, fortalezas y oportunidades.\n\n## Idea clave\n\nContar estudios, puestos de trabajo y euros facturados responde a preguntas diferentes. También importa dónde se concentra esa actividad y qué capacidades tienen los equipos para innovar o vender fuera.\n\n## Hasta dónde llega\n\nEl trabajo describe tendencias y propone un diagnóstico. Cada serie debe leerse con la definición y el período de su fuente. La evolución agregada tampoco describe por sí sola la situación de un estudio pequeño.\n\n## Cómo llevarlo a la práctica\n\nAl preparar una pieza sobre la industria, separa las cifras de producción de las ventas del mercado español. Junto a cada cifra añade el año, quién la publica y qué cuenta exactamente."
+  },
+  {
+    "id": "loot-boxes-sanmartin",
+    "titulo": "¿Qué sintieron los jugadores después de abrir una caja botín?",
+    "tema": "Sistemas y economías",
+    "idioma": "Español",
+    "formato": "Estudio",
+    "resumen": "Un estudio con 475 participantes sobre recompensas de pago aleatorias y su relación con el malestar.",
+    "referencia": "Francisco Javier Sanmartín, Judith Velasco, Fátima Cuadrado, Mario Gálvez-Lara, Victoria de Larriva y Juan Antonio Moriana (2023, publicación en línea en 2021). El consumo de loot boxes como una nueva forma de azar en los videojuegos. Adicciones, 35(4).",
+    "fuente": "https://doi.org/10.20882/adicciones.1636",
+    "materiales": [
+      {
+        "nombre": "Ficha de la revista y acceso al texto",
+        "url": "https://www.adicciones.es/index.php/adicciones/article/view/1636"
+      }
+    ],
+    "cuerpo": "## Qué estudia\n\nLos autores preguntaron a 266 adolescentes y 209 adultos por su consumo de cajas botín y por experiencias como la culpabilidad, el malestar y la pérdida de control. Usaron un cuestionario diseñado para el estudio.\n\n## Idea clave\n\nEn la muestra, no obtener el objeto deseado se asoció con más culpabilidad y malestar. Obtenerlo se relacionó con pérdida de control posterior. El estudio también observó mayor gasto entre los adolescentes de la muestra.\n\n## Hasta dónde llega\n\nEl cuestionario recoge experiencias declaradas y el análisis identifica asociaciones. Con ese diseño no se puede atribuir causalidad ni extrapolar los porcentajes al conjunto de jugadores.\n\n## Cómo llevarlo a la práctica\n\nPara revisar un sistema de recompensas, dibuja la compra desde el punto de vista del jugador. Señala cuándo se conoce el coste total, qué puede recibir y qué ocurre si sale un duplicado. Así se ve qué información tiene antes de pagar."
+  },
+  {
+    "id": "videojuego-educativo-gonzalez-cortes",
+    "titulo": "¿Qué aprende una clase cuando crea su propio videojuego?",
+    "tema": "Prototipado y pruebas",
+    "idioma": "Español",
+    "formato": "Estudio",
+    "resumen": "Un estudio cualitativo sobre crear un videojuego en un aula rural de Primaria.",
+    "referencia": "Blas González-Alba y Pablo Cortés-González (2023). Diseño y programación de un videojuego educativo. Un caso de estudio en educación primaria. Revista Latinoamericana de Tecnología Educativa, 22(1).",
+    "fuente": "https://doi.org/10.17398/1695-288X.22.1.155",
+    "materiales": [
+      {
+        "nombre": "Texto completo en PDF",
+        "url": "https://dehesa.unex.es/bitstream/10662/16900/1/1695-288X_22_1_155.pdf"
+      }
+    ],
+    "cuerpo": "## Qué estudia\n\nLos autores describen la creación de un videojuego educativo en un aula multinivel de un colegio rural de Málaga. Estudian las experiencias del alumnado y las posibilidades y dificultades del proyecto.\n\n## Idea clave\n\nEl interés está en el proceso de creación. Diseñar y programar permite observar cómo el grupo convierte una idea en reglas, reparte tareas y revisa decisiones cuando el juego empieza a funcionar.\n\n## Hasta dónde llega\n\nLa investigación describe una experiencia escolar situada. Sirve para entender lo que ocurrió en el aula y formular preguntas para otros proyectos. Su diseño no permite cuantificar un efecto general sobre el rendimiento escolar.\n\n## Cómo llevarlo a la práctica\n\nEn un taller, pide a cada equipo que anote una regla que cambió después de probar el juego y por qué. Esa decisión cuenta algo del aprendizaje que una demo final puede dejar oculto."
   }
 ]

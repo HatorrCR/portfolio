@@ -88,8 +88,17 @@ async function loadCatalog() {
   fillOptions(format, entries.map(entry => entry.formato));
   showReading(entries);
 
+  const topicCounts = new Map();
+  for (const entry of entries) {
+    topicCounts.set(entry.tema, (topicCounts.get(entry.tema) ?? 0) + 1);
+  }
   const shortcuts = topics.map(name => {
-    const shortcut = link(name, 'como-se-juega.html?tema=' + encodeURIComponent(name) + '#catalogo');
+    const shortcut = link('', 'como-se-juega.html?tema=' + encodeURIComponent(name) + '#catalogo');
+    const count = topicCounts.get(name) ?? 0;
+    shortcut.append(
+      element('span', name, 'area-titulo'),
+      element('span', count === 1 ? '1 recurso' : count + ' recursos', 'area-recuento')
+    );
     shortcut.dataset.tema = name;
     shortcut.addEventListener('click', event => {
       if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;

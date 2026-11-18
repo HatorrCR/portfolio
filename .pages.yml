@@ -367,3 +367,27 @@ content:
       - name: fuente
         label: Enlace HTTPS a la fuente original
         type: string
+      - name: idioma
+        label: Idioma del original (para el archivo de papers)
+        type: select
+        options:
+          values:
+            - Español
+            - Inglés
+      - name: referencia
+        label: Referencia o procedencia del contenido
+        type: text
+        required: true
+      - name: materiales
+        label: Materiales consultados y enlaces
+        type: object
+        list: true
+        fields:
+          - name: nombre
+            label: Nombre del material
+            type: string
+            required: true
+          - name: url
+            label: Enlace HTTPS
+            type: string
+            required: true

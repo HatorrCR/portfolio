@@ -322,3 +322,48 @@ content:
         label: Publicar ensayo
         type: boolean
         default: true
+
+  - name: como_se_juega
+    label: Cómo se juega · Catálogo
+    type: file
+    path: datos/como-se-juega.json
+    format: json
+    list: true
+    operations:
+      delete: false
+    fields:
+      - name: id
+        label: Identificador estable (minúsculas y guiones)
+        type: string
+        required: true
+      - name: titulo
+        label: Título
+        type: string
+        required: true
+      - name: tema
+        label: Tema (reutiliza el mismo nombre al agrupar recursos)
+        type: string
+        required: true
+      - name: formato
+        label: Formato
+        type: select
+        required: true
+        options:
+          values:
+            - Guía
+            - Estudio
+            - Vídeo
+            - Charla
+            - Entrevista
+            - Artículo
+      - name: resumen
+        label: Resumen para la ficha
+        type: text
+        required: true
+      - name: cuerpo
+        label: Texto (separa los párrafos con una línea vacía)
+        type: text
+        required: true
+      - name: fuente
+        label: Enlace HTTPS a la fuente original
+        type: string

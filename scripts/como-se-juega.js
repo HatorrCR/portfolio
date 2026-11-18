@@ -7,6 +7,12 @@ const results = document.querySelector('#resultados');
 const status = document.querySelector('#estado');
 const reading = document.querySelector('#lectura');
 const areas = document.querySelector('#areas');
+const params = new URLSearchParams(location.search);
+const languages = { es: 'Español', en: 'Inglés' };
+const selected = params.get('papers');
+const language = Object.hasOwn(languages, selected) ? selected : '';
+const libraryQuery = values => new URLSearchParams(language ? {papers: language, ...values} : values);
+const libraryUrl = language ? 'como-se-juega.html?' + libraryQuery({}) + '#catalogo' : 'como-se-juega.html#catalogo';
 const studyAreas = [
   'Mecánicas',
   'Diseño de niveles',
@@ -53,8 +59,28 @@ function showFeatured(entries) {
   document.querySelector('#destacado').hidden = false;
 }
 
+function showSources(resource) {
+  const sources = [...(resource.materiales ?? [])];
+  if (resource.fuente) sources.unshift({nombre: 'Publicación original', url: resource.fuente});
+  const links = sources.filter(source => /^https:\/\//i.test(source.url ?? ''));
+  if (!resource.referencia && !links.length) return;
+  const section = element('section', '', 'referencias');
+  section.append(element('h2', 'Referencias y materiales'));
+  if (resource.referencia) section.append(element('p', resource.referencia));
+  if (links.length) {
+    const list = element('ul', '');
+    for (const source of links) {
+      const item = element('li', '');
+      item.append(link(source.nombre, source.url));
+      list.append(item);
+    }
+    section.append(list);
+  }
+  reading.append(section);
+}
+
 function showReading(entries) {
-  const id = new URLSearchParams(location.search).get('lectura');
+  const id = params.get('lectura');
   if (!id) {
     showFeatured(entries);
     return;
@@ -62,16 +88,15 @@ function showReading(entries) {
   const resource = entries.find(entry => entry.id === id);
   const title = element('h1', resource?.titulo ?? 'Recurso no encontrado');
   title.id = 'titulo-lectura';
-  reading.append(link('Volver a la biblioteca', 'como-se-juega.html#catalogo'), title);
+  reading.append(link('Volver a la biblioteca', libraryUrl), title);
   if (resource) {
     document.title = resource.titulo + ' · Cómo se juega';
     reading.append(element('p', resource.formato + ' · ' + resource.tema, 'meta'));
     for (const paragraph of resource.cuerpo.split(/\r?\n\s*\r?\n/).filter(Boolean)) {
-      reading.append(element('p', paragraph));
+      const heading = paragraph.match(/^## ([^\r\n]+)$/);
+      reading.append(heading ? element('h2', heading[1]) : element('p', paragraph));
     }
-    if (/^https:\/\//i.test(resource.fuente ?? '')) {
-      reading.append(link('Consultar la fuente original', resource.fuente));
-    }
+    showSources(resource);
   }
   reading.hidden = false;
   document.querySelector('.portada').hidden = true;
@@ -80,20 +105,30 @@ function showReading(entries) {
 async function loadCatalog() {
   const response = await fetch('datos/como-se-juega.json');
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
-  const entries = await response.json();
-  const topics = [...new Set([...studyAreas, ...entries.map(entry => entry.tema)])];
+  const catalog = await response.json();
+  const entries = language ? catalog.filter(entry =>
+    entry.formato === 'Estudio' && entry.idioma === languages[language]
+  ) : catalog;
+  if (language) {
+    const current = document.querySelector('[data-papers="' + language + '"]');
+    current.setAttribute('aria-current', 'page');
+    document.querySelector('#titulo-catalogo').textContent = current.textContent.trim();
+    document.querySelector('#volver-biblioteca').hidden = false;
+    document.querySelector('.portada').hidden = true;
+  }
+  const topics = [...new Set([...(language ? [] : studyAreas), ...entries.map(entry => entry.tema)])];
   const requestedTopic = new URLSearchParams(location.search).get('tema') ?? '';
   fillOptions(topic, topics);
   if (topics.includes(requestedTopic)) topic.value = requestedTopic;
   fillOptions(format, entries.map(entry => entry.formato));
-  showReading(entries);
+  showReading(catalog);
 
   const topicCounts = new Map();
   for (const entry of entries) {
     topicCounts.set(entry.tema, (topicCounts.get(entry.tema) ?? 0) + 1);
   }
   const shortcuts = topics.map(name => {
-    const shortcut = link('', 'como-se-juega.html?tema=' + encodeURIComponent(name) + '#catalogo');
+    const shortcut = link('', 'como-se-juega.html?' + libraryQuery({tema: name}) + '#catalogo');
     const count = topicCounts.get(name) ?? 0;
     shortcut.append(
       element('span', name, 'area-titulo'),
@@ -121,7 +156,7 @@ async function loadCatalog() {
     const cards = matches.map(entry => {
       const card = element('article', '', 'ficha');
       const title = element('h3', '');
-      title.append(link(entry.titulo, '?lectura=' + encodeURIComponent(entry.id)));
+      title.append(link(entry.titulo, '?' + libraryQuery({lectura: entry.id})));
       card.append(element('div', entry.formato + ' · ' + entry.tema, 'meta'), title, element('p', entry.resumen));
       return card;
     });

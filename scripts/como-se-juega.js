@@ -11,8 +11,8 @@ const params = new URLSearchParams(location.search);
 const languages = { es: 'Español', en: 'Inglés' };
 const selected = params.get('papers');
 const language = Object.hasOwn(languages, selected) ? selected : '';
-const query = values => new URLSearchParams(language ? {papers: language, ...values} : values);
-const libraryUrl = language ? 'como-se-juega.html?' + query({}) + '#catalogo' : 'como-se-juega.html#catalogo';
+const libraryQuery = values => new URLSearchParams(language ? {papers: language, ...values} : values);
+const libraryUrl = language ? 'como-se-juega.html?' + libraryQuery({}) + '#catalogo' : 'como-se-juega.html#catalogo';
 const studyAreas = [
   'Mecánicas',
   'Diseño de niveles',
@@ -128,7 +128,7 @@ async function loadCatalog() {
     topicCounts.set(entry.tema, (topicCounts.get(entry.tema) ?? 0) + 1);
   }
   const shortcuts = topics.map(name => {
-    const shortcut = link('', 'como-se-juega.html?' + query({tema: name}) + '#catalogo');
+    const shortcut = link('', 'como-se-juega.html?' + libraryQuery({tema: name}) + '#catalogo');
     const count = topicCounts.get(name) ?? 0;
     shortcut.append(
       element('span', name, 'area-titulo'),
@@ -156,7 +156,7 @@ async function loadCatalog() {
     const cards = matches.map(entry => {
       const card = element('article', '', 'ficha');
       const title = element('h3', '');
-      title.append(link(entry.titulo, '?' + query({lectura: entry.id})));
+      title.append(link(entry.titulo, '?' + libraryQuery({lectura: entry.id})));
       card.append(element('div', entry.formato + ' · ' + entry.tema, 'meta'), title, element('p', entry.resumen));
       return card;
     });

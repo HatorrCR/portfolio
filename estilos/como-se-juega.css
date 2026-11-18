@@ -48,6 +48,10 @@ h1, h2, h3 { font-family: var(--titulares); line-height: 1.08; letter-spacing: -
 figcaption { color: var(--secundario); font-size: .875rem; }
 #catalogo { border-top: 3px double var(--tinta); margin-top: 42px; padding-block: 22px 56px; }
 #catalogo h2 { font-size: clamp(2rem, 4vw, 3.35rem); margin-bottom: 19px; }
+.areas { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.areas a { padding: 6px 10px; border: 1px solid var(--linea); color: var(--tinta); font: 700 .875rem/1.4 var(--mono); text-decoration: none; }
+.areas a:hover { border-color: var(--acento); text-decoration: underline; }
+.areas a[aria-current="true"] { background: var(--plano); color: #fbf7ef; border-color: var(--plano); }
 .filtros { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; }
 .filtros label { font-weight: 700; }
 input, select { display: block; width: 100%; margin-top: 5px; padding: 9px; background: #fffdf7; color: var(--tinta); border: 1px solid #8e7d6b; border-radius: 0; font: inherit; }

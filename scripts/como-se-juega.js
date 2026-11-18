@@ -6,6 +6,17 @@ const format = document.querySelector('#formato');
 const results = document.querySelector('#resultados');
 const status = document.querySelector('#estado');
 const reading = document.querySelector('#lectura');
+const areas = document.querySelector('#areas');
+const studyAreas = [
+  'Mecánicas',
+  'Diseño de niveles',
+  'Sistemas y economías',
+  'Tutoriales y aprendizaje',
+  'Dificultad y equilibrio',
+  'Diseño narrativo',
+  'Experiencia de usuario y accesibilidad',
+  'Prototipado y pruebas'
+];
 const normalize = value => value.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
 
 function element(tag, text, className) {
@@ -70,9 +81,26 @@ async function loadCatalog() {
   const response = await fetch('datos/como-se-juega.json');
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const entries = await response.json();
-  fillOptions(topic, entries.map(entry => entry.tema));
+  const topics = [...new Set([...studyAreas, ...entries.map(entry => entry.tema)])];
+  const requestedTopic = new URLSearchParams(location.search).get('tema') ?? '';
+  fillOptions(topic, topics);
+  if (topics.includes(requestedTopic)) topic.value = requestedTopic;
   fillOptions(format, entries.map(entry => entry.formato));
   showReading(entries);
+
+  const shortcuts = topics.map(name => {
+    const shortcut = link(name, 'como-se-juega.html?tema=' + encodeURIComponent(name) + '#catalogo');
+    shortcut.dataset.tema = name;
+    shortcut.addEventListener('click', event => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      topic.value = name === topic.value ? '' : name;
+      render();
+    });
+    return shortcut;
+  });
+  areas.replaceChildren(...shortcuts);
+  areas.hidden = false;
 
   function render() {
     const query = normalize(search.value.trim());
@@ -89,7 +117,13 @@ async function loadCatalog() {
       return card;
     });
     results.replaceChildren(...cards);
-    status.textContent = matches.length === 0 ? 'No hay recursos que coincidan.' :
+    for (const shortcut of shortcuts) {
+      if (shortcut.dataset.tema === topic.value) shortcut.setAttribute('aria-current', 'true');
+      else shortcut.removeAttribute('aria-current');
+    }
+    const emptyTopic = topic.value && !entries.some(entry => entry.tema === topic.value);
+    status.textContent = emptyTopic ? 'Todavía no hay recursos en esta área.' :
+      matches.length === 0 ? 'No hay recursos que coincidan.' :
       matches.length === 1 ? '1 recurso' : matches.length + ' recursos';
   }
 

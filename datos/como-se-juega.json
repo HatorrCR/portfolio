@@ -109,5 +109,39 @@
       }
     ],
     "cuerpo": "## Qué presenta\n\nWave Quest es un caso de desarrollo de un videojuego orientado a niños con discapacidad visual. Usa el sonido para navegar, interactuar y percibir la respuesta del juego.\n\n## La decisión de diseño\n\nEl audio cumple varias funciones. Una señal puede indicar hacia dónde ir y otra confirmar que una acción ha funcionado. Si ambas compiten al mismo tiempo, hay que decidir cuál debe sobresalir.\n\n## Hasta dónde llega\n\nEl valor de esta lectura está en las decisiones que documenta el caso. Para trasladarlas a otro juego habría que comprobar qué señales se entienden en ese contexto y con su público.\n\n## Cómo llevarlo a un prototipo\n\nEn una sala corta, prueba una pista sonora para localizar la salida y otra para confirmar que la puerta se ha abierto. Observa si quien juega interpreta cada señal y puede continuar cuando se solapan con el resto del audio."
+  },
+  {
+    "id": "mda-hunicke-leblanc-zubek",
+    "titulo": "MDA, de las reglas a lo que siente el jugador",
+    "tema": "Mecánicas",
+    "idioma": "Inglés",
+    "formato": "Estudio",
+    "resumen": "Un marco teórico para relacionar las reglas, lo que ocurre durante la partida y la experiencia de quien juega.",
+    "referencia": "Robin Hunicke, Marc LeBlanc y Robert Zubek (2004). MDA: A Formal Approach to Game Design and Game Research. AAAI Workshop on Challenges in Game AI.",
+    "fuente": "https://aaai.org/papers/ws04-04-001-mda-a-formal-approach-to-game-design-and-game-research/",
+    "materiales": [
+      {
+        "nombre": "Texto completo en PDF (Northwestern University)",
+        "url": "https://www.cs.northwestern.edu/~hunicke/pubs/MDA.pdf"
+      }
+    ],
+    "cuerpo": "## Qué propone\n\nMDA separa tres planos. Las mecánicas son las reglas y componentes del sistema. Las dinámicas son lo que ocurre al poner esas reglas en marcha durante una partida. La estética se refiere a la experiencia que despierta el juego, como la tensión, el descubrimiento o la sensación de superar un reto.\n\n## Por qué importa\n\nEl equipo puede empezar por una regla y preguntarse qué dinámica generará. Quien juega suele encontrarse primero con la experiencia y deducir las reglas conforme interactúa. Mirar el juego en ambos sentidos ayuda a encontrar qué parte del sistema conviene revisar cuando la partida se siente distinta de lo previsto.\n\n## Hasta dónde llega\n\nEs un marco de análisis. Sirve para formular hipótesis sobre la experiencia. Para comprobarlas necesitas observar partidas y escuchar cómo las describen los jugadores.\n\n## Cómo llevarlo a un prototipo\n\nEn La culebrilla, invierte el extremo que controlas cada pocos segundos. La regla puede llevar a planear dónde quedará la cola y producir tensión antes del cambio. Prueba dos intervalos y observa si quien juega empieza a preparar el giro con antelación o solo reacciona al perder el control del extremo anterior."
+  },
+  {
+    "id": "ilusionistas-digitales-atalante",
+    "titulo": "¿Dónde se diseña la historia de un videojuego?",
+    "tema": "Diseño narrativo",
+    "idioma": "Español",
+    "formato": "Estudio",
+    "resumen": "Una conversación entre profesionales y académicos sobre cómo mecánicas, niveles y decisiones del jugador contribuyen a contar una historia.",
+    "referencia": "Marta Martín Núñez, Víctor Navarro Remesal, Adrián Castro, Tatiana Delgado, Josué Monchán y Clara Pellejer (2021). Ilusionistas digitales. El diseño narrativo en el videojuego español. L’Atalante, 31, 153–180.",
+    "fuente": "https://doi.org/10.63700/905",
+    "materiales": [
+      {
+        "nombre": "Artículo completo en español (PDF)",
+        "url": "https://revistaatalante.com/index.php/atalante/article/download/905/648/4061"
+      }
+    ],
+    "cuerpo": "## Qué plantea el diálogo\n\nMarta Martín Núñez y Víctor Navarro Remesal conversan con cuatro profesionales de la industria española. La discusión sitúa la narrativa en el diseño del juego: también se cuenta a través de las acciones disponibles, los puzles, los recorridos y la forma en que el juego orienta la atención.\n\n## Dos decisiones de diseño\n\nLa primera es qué podrá hacer el jugador cuando cambie la situación del personaje. En uno de los ejemplos comentados, un cambio de estado de ánimo se expresa también modificando acciones disponibles, ritmo y aspecto del entorno. La segunda es cómo guiar hacia una pista necesaria sin que toda la exploración se sienta dirigida. Ahí intervienen decisiones de niveles, arte, mecánicas y escritura.\n\n## Hasta dónde llega\n\nEs un diálogo profesional y académico publicado en una revista. Sus ejemplos sirven para comparar decisiones de producción y diseño. El texto recoge perspectivas concretas de sus participantes.\n\n## Cómo llevarlo a un prototipo\n\nElige una escena en la que el personaje pierda la confianza. Haz dos versiones con la misma información narrativa. En una, conserva las acciones habituales. En la otra, altera una acción que la gente ya haya aprendido a usar. Después de jugar, pregunta qué cambió para el personaje y en qué momento lo notaron."
   }
 ]

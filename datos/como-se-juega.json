@@ -1,0 +1,19 @@
+[
+  {
+    "id": "tutoriales-laberinto",
+    "titulo": "Cómo enseñar una mecánica mientras se juega",
+    "tema": "Tutoriales y aprendizaje",
+    "formato": "Guía",
+    "resumen": "Un ejercicio para probar si los jugadores entienden qué hace un interruptor y recuerdan la regla en otra sala.",
+    "cuerpo": "Imagina un laberinto con interruptores que abren puertas. Coloca el primero junto a la puerta para que ambos elementos queden a la vista. Luego plantea una sala donde la puerta esté fuera del campo de visión inicial.\n\nPrepara dos versiones de la primera sala. En ambas, la puerta reacciona de la misma manera. En una, añade una frase que explique qué hace el interruptor. Así puedes observar qué aporta el texto con el resto de condiciones iguales.\n\nEn la segunda sala, observa qué intenta primero cada persona y pregúntale qué esperaba que ocurriera al activar el interruptor. Anota si pudo aplicar la regla en la situación nueva y en qué punto se atascó."
+  },
+  {
+    "id": "andersen-tutoriales-2012",
+    "titulo": "¿Cuándo compensa añadir un tutorial?",
+    "tema": "Tutoriales y aprendizaje",
+    "formato": "Estudio",
+    "resumen": "Una lectura de Andersen y colaboradores sobre ocho diseños de tutorial y tres juegos de distinta complejidad.",
+    "fuente": "https://grail.cs.washington.edu/projects/game-abtesting/chi2012/",
+    "cuerpo": "En CHI 2012, Erik Andersen y sus colaboradores compararon ocho diseños de tutorial en tres juegos de distinta complejidad. El estudio reunió datos de más de 45.000 jugadores y examinó su relación con la participación y la retención.\n\nLos autores observaron que la utilidad de los tutoriales dependía de la complejidad del juego. El estudio ofrece un motivo para probar el tutorial en su contexto. Si tu objetivo es que la gente aprenda una regla y pueda aplicarla después, mide también esa transferencia: continuar jugando y entender cómo funciona la mecánica son resultados distintos.\n\nEn un prototipo, prueba primero la mecánica que más dudas provoca. Compara dos versiones cambiando una sola ayuda y observa qué hacen los jugadores cuando se enfrentan a la misma regla en una sala diferente."
+  }
+]

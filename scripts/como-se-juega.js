@@ -103,7 +103,7 @@ function showReading(entries) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=papers', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const entries = language ? catalog.filter(entry =>

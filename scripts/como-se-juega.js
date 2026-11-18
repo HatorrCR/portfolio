@@ -36,6 +36,9 @@ function showFeatured(entries) {
   document.querySelector('#destacado-titulo').textContent = resource.titulo;
   document.querySelector('#destacado-resumen').textContent = resource.resumen;
   document.querySelector('#destacado-enlace').href = '?lectura=' + encodeURIComponent(resource.id);
+  const hasDiagram = resource.id === 'tutoriales-laberinto';
+  document.querySelector('#esquema-tutorial').hidden = !hasDiagram;
+  document.querySelector('#destacado').classList.toggle('con-esquema', hasDiagram);
   document.querySelector('#destacado').hidden = false;
 }
 

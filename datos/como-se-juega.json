@@ -5,7 +5,14 @@
     "tema": "Tutoriales y aprendizaje",
     "formato": "Guía",
     "resumen": "Un ejercicio para probar si los jugadores entienden qué hace un interruptor y recuerdan la regla en otra sala.",
-    "cuerpo": "Imagina un laberinto con interruptores que abren puertas. Coloca el primero junto a la puerta para que ambos elementos queden a la vista. Luego plantea una sala donde la puerta esté fuera del campo de visión inicial.\n\nPrepara dos versiones de la primera sala. En ambas, la puerta reacciona de la misma manera. En una, añade una frase que explique qué hace el interruptor. Así puedes observar qué aporta el texto con el resto de condiciones iguales.\n\nEn la segunda sala, observa qué intenta primero cada persona y pregúntale qué esperaba que ocurriera al activar el interruptor. Anota si pudo aplicar la regla en la situación nueva y en qué punto se atascó."
+    "cuerpo": "Imagina un laberinto con interruptores que abren puertas. Coloca el primero junto a la puerta para que ambos elementos queden a la vista. Luego plantea una sala donde la puerta esté fuera del campo de visión inicial.\n\nPrepara dos versiones de la primera sala. En ambas, la puerta reacciona de la misma manera. En una, añade una frase que explique qué hace el interruptor. Así puedes observar qué aporta el texto con el resto de condiciones iguales.\n\nEn la segunda sala, observa qué intenta primero cada persona y pregúntale qué esperaba que ocurriera al activar el interruptor. Anota si pudo aplicar la regla en la situación nueva y en qué punto se atascó.",
+    "referencia": "Ejercicio propio basado en El laberinto, prototipo de Cristian Rodríguez Díaz.",
+    "materiales": [
+      {
+        "nombre": "Probar El laberinto",
+        "url": "https://hatorrcr.github.io/portfolio/microexperimento.html"
+      }
+    ]
   },
   {
     "id": "andersen-tutoriales-2012",
@@ -14,6 +21,93 @@
     "formato": "Estudio",
     "resumen": "Una lectura de Andersen y colaboradores sobre ocho diseños de tutorial y tres juegos de distinta complejidad.",
     "fuente": "https://grail.cs.washington.edu/projects/game-abtesting/chi2012/",
-    "cuerpo": "En CHI 2012, Erik Andersen y sus colaboradores compararon ocho diseños de tutorial en tres juegos de distinta complejidad. El estudio reunió datos de más de 45.000 jugadores y examinó su relación con la participación y la retención.\n\nLos autores observaron que la utilidad de los tutoriales dependía de la complejidad del juego. El estudio ofrece un motivo para probar el tutorial en su contexto. Si tu objetivo es que la gente aprenda una regla y pueda aplicarla después, mide también esa transferencia: continuar jugando y entender cómo funciona la mecánica son resultados distintos.\n\nEn un prototipo, prueba primero la mecánica que más dudas provoca. Compara dos versiones cambiando una sola ayuda y observa qué hacen los jugadores cuando se enfrentan a la misma regla en una sala diferente."
+    "cuerpo": "En CHI 2012, Erik Andersen y sus colaboradores compararon ocho diseños de tutorial en tres juegos de distinta complejidad. El estudio reunió datos de más de 45.000 jugadores y examinó su relación con la participación y la retención.\n\nLos autores observaron que la utilidad de los tutoriales dependía de la complejidad del juego. El estudio ofrece un motivo para probar el tutorial en su contexto. Si tu objetivo es que la gente aprenda una regla y pueda aplicarla después, mide también esa transferencia: continuar jugando y entender cómo funciona la mecánica son resultados distintos.\n\nEn un prototipo, prueba primero la mecánica que más dudas provoca. Compara dos versiones cambiando una sola ayuda y observa qué hacen los jugadores cuando se enfrentan a la misma regla en una sala diferente.",
+    "idioma": "Inglés",
+    "referencia": "Erik Andersen y colaboradores (2012). The Impact of Tutorials on Games of Varying Complexity. CHI 2012, 59–68."
+  },
+  {
+    "id": "juiciness-kao",
+    "titulo": "¿Cuándo empieza a sobrar el feedback audiovisual?",
+    "tema": "Mecánicas",
+    "idioma": "Inglés",
+    "formato": "Estudio",
+    "resumen": "Un experimento con cuatro niveles de respuesta audiovisual en un RPG de acción.",
+    "referencia": "Dominic Kao (2020). The effects of juiciness in an action RPG. Entertainment Computing, 34, 100359.",
+    "fuente": "https://doi.org/10.1016/j.entcom.2020.100359",
+    "materiales": [
+      {
+        "nombre": "Ficha académica y resumen",
+        "url": "https://experts.illinois.edu/en/publications/the-effects-of-juiciness-in-an-action-rpg/"
+      }
+    ],
+    "cuerpo": "## Qué comparó\n\nKao comparó cuatro versiones de un RPG de acción con 3.018 participantes. La diferencia entre versiones era la cantidad de feedback audiovisual, desde su ausencia hasta un nivel extremo.\n\n## Qué encontró\n\nLos niveles intermedios obtuvieron mejores resultados que ambos extremos en tiempo de juego, experiencia, motivación intrínseca y rendimiento.\n\n## Hasta dónde llega\n\nEl estudio compara niveles de feedback dentro de un mismo juego. No permite asignar el resultado a un sonido o efecto concreto ni fijar una cantidad óptima para otros géneros.\n\n## Cómo llevarlo a un prototipo\n\nMantén el daño y el tiempo de ataque y cambia solo el feedback del golpe. Comprueba si quien juega distingue un acierto de un fallo y sigue leyendo lo que hace el enemigo."
+  },
+  {
+    "id": "daltonismo-molina-medina",
+    "titulo": "¿Qué información se pierde cuando el color deja de distinguirse?",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "idioma": "Español",
+    "formato": "Estudio",
+    "resumen": "Un modelo para incorporar a jugadores daltónicos al proceso de diseño.",
+    "referencia": "Josefa Molina López y Nuria Medina Medina (2021). Un enfoque para el diseño inclusivo de videojuegos centrado en jugadores daltónicos. Interacción, 2(1), 25–37.",
+    "fuente": "https://doi.org/10.65234/interaccion.32",
+    "materiales": [
+      {
+        "nombre": "Número de la revista con el artículo en PDF",
+        "url": "https://revista.aipo.es/index.php/INTERACCION/issue/download/3/11"
+      }
+    ],
+    "cuerpo": "## Qué proponen\n\nLas autoras adaptan el diseño centrado en el jugador para considerar la visión cromática durante el desarrollo. El modelo reúne herramientas para analizar y diseñar interacciones con jugadores daltónicos en mente.\n\n## La pregunta clave\n\nAntes de elegir una paleta alternativa, pregunta qué necesita distinguir quien juega. Si dos llaves cambian solo de color, la barrera afecta a la decisión de qué puerta intentar abrir, no solo a cómo se ve el objeto.\n\n## Hasta dónde llega\n\nEs una propuesta metodológica. La utilidad de cada solución depende de la tarea, del contexto visual y de comprobarla con quienes van a usarla.\n\n## Cómo llevarlo al laberinto\n\nDa a cada llave y puerta asociada un símbolo compartido. Pide a jugadores que emparejen las piezas sin explicar la regla y observa si el icono se reconoce también durante la partida."
+  },
+  {
+    "id": "machinations-dormans",
+    "titulo": "Cómo se amplifica una ventaja en la economía de un juego",
+    "tema": "Sistemas y economías",
+    "idioma": "Inglés",
+    "formato": "Estudio",
+    "resumen": "Una lectura de Machinations para estudiar bucles de recursos antes de construir el juego.",
+    "referencia": "Joris Dormans (2011). Simulating Mechanics to Study Emergence in Games. AAAI Press.",
+    "fuente": "https://ojs.aaai.org/index.php/AIIDE/article/view/12477",
+    "materiales": [
+      {
+        "nombre": "Repositorio universitario con el PDF publicado",
+        "url": "https://research.hva.nl/p/en/research-outputs/simulating-mechanics-to-study-emergence-in-games"
+      }
+    ],
+    "cuerpo": "## Qué propone\n\nMachinations representa con diagramas cómo se generan, almacenan y gastan recursos. El recurso puede ser tangible, como oro, o abstracto, como puntos de acción. El diagrama permite simular esas reglas sin implementar el juego entero.\n\n## Por qué importa\n\nEl comportamiento puede salir de la relación entre varias reglas. Si ganar oro permite comprar una unidad que produce más oro, una ventaja pequeña puede crecer cada turno aunque ninguna regla aislada parezca desbalanceada.\n\n## Hasta dónde llega\n\nLa simulación hace visible lo que ocurre bajo las reglas y supuestos del modelo. Para saber si una ventaja se percibe como injusta, todavía hace falta observar a jugadores.\n\n## Cómo llevarlo a un prototipo\n\nCompara dos partidas simuladas con una diferencia pequeña de oro inicial. Prueba un coste creciente para las unidades productoras y observa si la brecha se abre o se estabiliza."
+  },
+  {
+    "id": "tanagra-smith",
+    "titulo": "¿Qué hace que un salto sea posible en un plataformas?",
+    "tema": "Diseño de niveles",
+    "idioma": "Inglés",
+    "formato": "Estudio",
+    "resumen": "Tanagra combina la edición humana y la generación de geometría jugable.",
+    "referencia": "Gillian Smith, Jim Whitehead y Michael Mateas (2010). Tanagra: An Intelligent Level Design Assistant for 2D Platformers. AIIDE, 6(1), 223–224.",
+    "fuente": "https://doi.org/10.1609/aiide.v6i1.12379",
+    "materiales": [
+      {
+        "nombre": "Demostración técnica en PDF",
+        "url": "https://cdn.aaai.org/ojs/12379/12379-52-15907-1-2-20201228.pdf"
+      }
+    ],
+    "cuerpo": "## Qué presenta\n\nTanagra es un asistente para diseñar niveles de plataformas 2D. El diseñador modifica el nivel y el sistema responde con geometría que respeta un modelo de movimiento y restricciones entre tramos.\n\n## Cómo lo traduce a diseño\n\nUn salto sobre un hueco, una escalera o un foso se pueden expresar como patrones de geometría. Así, cambiar la capacidad de salto afecta a qué combinaciones de obstáculos tienen sentido.\n\n## Hasta dónde llega\n\nEs una demostración técnica. Que un tramo sea jugable según el modelo significa que se puede recorrer bajo sus supuestos. Queda por decidir qué tan fácil es leer el salto y qué ritmo tiene el nivel.\n\n## Cómo llevarlo a un prototipo\n\nDibuja dos huecos que el personaje pueda cruzar. Marca con claridad el despegue y la caída en uno de ellos y deja el otro más ambiguo. Observa en cuál se equivoca la gente y si falla al leer el espacio o al ejecutar el salto."
+  },
+  {
+    "id": "wave-quest-sonido",
+    "titulo": "Diseñar un nivel que se pueda recorrer de oído",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "idioma": "Español",
+    "formato": "Estudio",
+    "resumen": "Un caso de desarrollo donde el sonido guía la navegación y la interacción.",
+    "referencia": "Ricardo A. Correa-Díaz, Samuel Rendón-Rodríguez y Kelly D. Marin-Montealegre (2026). Wave Quest: An Audible Odyssey. Tecnología en Marcha, 39, 38–43.",
+    "fuente": "https://doi.org/10.18845/tm.v39i3.8737",
+    "materiales": [
+      {
+        "nombre": "Ficha de la revista con acceso al PDF",
+        "url": "https://revistas.tec.ac.cr/index.php/tec_marcha/article/view/8737"
+      }
+    ],
+    "cuerpo": "## Qué presenta\n\nWave Quest es un caso de desarrollo de un videojuego orientado a niños con discapacidad visual. Usa el sonido para navegar, interactuar y percibir la respuesta del juego.\n\n## La decisión de diseño\n\nEl audio cumple varias funciones. Una señal puede indicar hacia dónde ir y otra confirmar que una acción ha funcionado. Si ambas compiten al mismo tiempo, hay que decidir cuál debe sobresalir.\n\n## Hasta dónde llega\n\nEl valor de esta lectura está en las decisiones que documenta el caso. Para trasladarlas a otro juego habría que comprobar qué señales se entienden en ese contexto y con su público.\n\n## Cómo llevarlo a un prototipo\n\nEn una sala corta, prueba una pista sonora para localizar la salida y otra para confirmar que la puerta se ha abierto. Observa si quien juega interpreta cada señal y puede continuar cuando se solapan con el resto del audio."
   }
 ]

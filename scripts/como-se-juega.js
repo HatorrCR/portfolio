@@ -145,12 +145,155 @@ function showSources(resource) {
   return {section, heading};
 }
 
+function addPlayableJump(lab, controls) {
+  const canvas = lab.querySelector('[data-juego-salto]');
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  const status = lab.querySelector('[data-estado-juego]');
+  const coyote = lab.querySelector('[data-ayuda="coyote"]');
+  const buffer = lab.querySelector('[data-ayuda="buffer"]');
+  const held = new Map();
+  const platformAt = x => x <= 3 || x >= 6;
+  const isHeld = action => [...held.values()].includes(action);
+  const step = 1 / 120;
+  let x, y, vx, vy, grounded, grace, queued, shortHop, won;
+  let last = 0;
+  let elapsed = 0;
+
+  function paint() {
+    const px = value => 25 + value * 62;
+    const py = value => 205 - value * 46;
+    ctx.fillStyle = '#fff6e6';
+    ctx.fillRect(0, 0, 680, 252);
+    ctx.fillStyle = '#dec9ad';
+    for (let line = 1; line <= 3; line++) ctx.fillRect(25, py(line), 620, 1);
+    ctx.fillStyle = '#254f52';
+    ctx.fillRect(px(0), py(0), 186, 47);
+    ctx.fillRect(px(6), py(0), 248, 47);
+    ctx.fillStyle = '#40382e';
+    ctx.font = '15px system-ui';
+    ctx.fillText('Hueco de 3 unidades', px(3) + 25, 230);
+    ctx.fillRect(px(9.3), py(0) - 49, 3, 49);
+    ctx.fillStyle = won ? '#254f52' : '#a64328';
+    ctx.fillRect(px(9.3) + 3, py(0) - 49, 24, 15);
+    ctx.fillRect(px(x) - 10, py(y) - 22, 20, 20);
+    ctx.fillStyle = '#fff6e6';
+    ctx.fillRect(px(x) + (vx < 0 ? -5 : 2), py(y) - 17, 4, 4);
+  }
+
+  function reset(message) {
+    x = 1.2;
+    y = vx = vy = grace = 0;
+    queued = -1;
+    grounded = true;
+    shortHop = won = false;
+    status.textContent = message;
+    paint();
+  }
+
+  function press(key, action) {
+    if (held.has(key)) return;
+    if (action === 'reiniciar') {
+      held.clear();
+      reset('Otra vez desde el inicio.');
+      return;
+    }
+    if (action === 'salto' && !isHeld('salto')) queued = buffer.checked ? 0.1 : 0;
+    held.set(key, action);
+  }
+
+  const keys = {ArrowLeft:'izquierda', KeyA:'izquierda', ArrowRight:'derecha', KeyD:'derecha', Space:'salto', KeyR:'reiniciar'};
+  canvas.addEventListener('keydown', event => {
+    const action = keys[event.code];
+    if (!action) return;
+    event.preventDefault();
+    if (!event.repeat) press(event.code, action);
+  });
+  canvas.addEventListener('keyup', event => held.delete(event.code));
+  canvas.addEventListener('blur', () => {
+    for (const key of held.keys()) if (typeof key === 'string') held.delete(key);
+  });
+  window.addEventListener('blur', () => held.clear());
+  for (const button of lab.querySelectorAll('[data-mando]')) {
+    const action = button.dataset.mando;
+    button.addEventListener('pointerdown', event => {
+      if (event.button !== 0) return;
+      button.setPointerCapture(event.pointerId);
+      press(event.pointerId, action);
+    });
+    button.addEventListener('lostpointercapture', event => held.delete(event.pointerId));
+    button.addEventListener('click', event => {
+      if (event.detail !== 0) return;
+      if (action === 'reiniciar') reset('Otra vez desde el inicio.');
+      else if (action === 'salto') queued = buffer.checked ? 0.1 : 0;
+      else {
+        x = Math.max(0.15, Math.min(9.8, x + (action === 'izquierda' ? -0.25 : 0.25)));
+        paint();
+      }
+    });
+  }
+
+  function update() {
+    const height = Number(controls.altura.value);
+    const rise = Number(controls.subida.value);
+    const fallGravity = Number(controls.caida.value);
+    const gravity = 2 * height / (rise * rise);
+    const launch = gravity * rise;
+    vx = 6 * (Number(isHeld('derecha')) - Number(isHeld('izquierda')));
+    x = Math.max(0.15, Math.min(9.8, x + vx * step));
+    if (grounded && !platformAt(x)) {
+      grounded = false;
+      grace = 0.1;
+    }
+    if (queued >= 0 && (grounded || (coyote.checked && grace > 0))) {
+      vy = launch;
+      grounded = false;
+      shortHop = false;
+      queued = -1;
+      grace = 0;
+    }
+    if (!grounded) {
+      if (vy > 0 && !shortHop && !isHeld('salto')) {
+        vy = Math.min(vy, launch * 0.45);
+        shortHop = true;
+      }
+      const oldY = y;
+      y += vy * step;
+      vy -= gravity * (vy > 0 ? 1 : fallGravity) * step;
+      if (vy <= 0 && oldY >= 0 && y <= 0 && platformAt(x)) {
+        grounded = true;
+        y = vy = grace = 0;
+      }
+    }
+    if (queued >= 0) queued -= step;
+    grace = Math.max(0, grace - step);
+    if (y < -3) reset('Al foso. Prueba a despegar más cerca del borde o dale un poco más de tiempo al salto.');
+    if (!won && grounded && x >= 9.3) {
+      won = true;
+      status.textContent = 'Bandera conseguida. Dale más gravedad a la caída y prueba otra vez desde el mismo sitio.';
+    }
+  }
+
+  function frame(now) {
+    elapsed += last ? Math.min((now - last) / 1000, 0.05) : 0;
+    last = now;
+    while (elapsed >= step) {
+      update();
+      elapsed -= step;
+    }
+    paint();
+    requestAnimationFrame(frame);
+  }
+  reset('Acércate al borde y prueba el primer salto.');
+  requestAnimationFrame(frame);
+}
+
 function addJumpLab() {
   const lab = document.querySelector('#plantilla-laboratorio-salto').content.firstElementChild.cloneNode(true);
   reading.append(lab);
-  const canvas = lab.querySelector('canvas');
+  const canvas = lab.querySelector('[data-grafico-salto]');
   const ctx = canvas.getContext('2d');
-  const controls = Object.fromEntries([...lab.querySelectorAll('input')].map(input => [input.dataset.salto, input]));
+  const controls = Object.fromEntries([...lab.querySelectorAll('[data-salto]')].map(input => [input.dataset.salto, input]));
   const number = new Intl.NumberFormat('es', {maximumFractionDigits: 2});
   const display = value => number.format(value);
 
@@ -212,6 +355,7 @@ function addJumpLab() {
   }
   lab.addEventListener('input', draw);
   draw();
+  addPlayableJump(lab, controls);
 }
 
 function showReading(entries, archive) {
@@ -298,7 +442,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=salto-visual', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=salto-jugable', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);

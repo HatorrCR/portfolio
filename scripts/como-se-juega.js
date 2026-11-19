@@ -150,7 +150,6 @@ function addPlayableJump(lab, controls) {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
   const status = lab.querySelector('[data-estado-juego]');
-  const trace = lab.querySelector('[data-registro-salto]');
   const mode = lab.querySelector('[data-escenario-salto]');
   const air = lab.querySelector('[data-control-aereo]');
   const sensor = lab.querySelector('[data-sensor-salto]');
@@ -168,12 +167,7 @@ function addPlayableJump(lab, controls) {
   };
   const step = 1 / 120;
   let scene, x, y, vx, vy, grounded, grace, queued, shortHop, won, enemyAlive, revealed, landingEffect;
-  let last = 0, elapsed = 0, clock = 0, events = [], audio;
-
-  function record(message) {
-    events = [...events.slice(-4), Math.round(clock * 1000) + ' ms · ' + message];
-    trace.replaceChildren(...events.map(value => element('li', value)));
-  }
+  let last = 0, elapsed = 0, audio;
 
   function landingFeedback() {
     if (!effects.checked) return;
@@ -245,18 +239,13 @@ function addPlayableJump(lab, controls) {
     }
   }
 
-  function reset(message, keepTrace = false) {
+  function reset(message) {
     scene = scenes[mode.value] ?? scenes.normal;
     x = 1.2;
     y = vx = vy = grace = landingEffect = 0;
     queued = -1;
     grounded = enemyAlive = true;
     shortHop = won = revealed = false;
-    if (!keepTrace) {
-      clock = 0;
-      events = [];
-      trace.replaceChildren();
-    }
     status.textContent = message;
     paint();
   }
@@ -280,7 +269,6 @@ function addPlayableJump(lab, controls) {
     }
     if (action === 'salto') {
       queued = buffer.checked ? 0.1 : 0;
-      record('Pulsas salto');
     }
     held.set(event.code, action);
   });
@@ -293,7 +281,6 @@ function addPlayableJump(lab, controls) {
   });
 
   function update() {
-    clock += step;
     landingEffect = Math.max(0, landingEffect-step);
     const height = Number(controls.altura.value);
     const rise = Number(controls.subida.value);
@@ -307,10 +294,8 @@ function addPlayableJump(lab, controls) {
       grounded = false;
       grace = 0.1;
       if (scene.hiddenLanding) revealed = true;
-      record('Sales del borde' + (coyote.checked ? ' · margen de 100 ms' : ''));
     }
     if (queued >= 0 && (grounded || (coyote.checked && grace > 0))) {
-      record(grounded ? 'Despegas desde el suelo' : 'Despegas gracias al tiempo de coyote');
       vy = launch;
       grounded = shortHop = false;
       revealed = true;
@@ -330,7 +315,6 @@ function addPlayableJump(lab, controls) {
         shortHop = true;
         y = 0.75;
         vy = Math.sqrt(2*gravity*2.55);
-        record('Pisotón: rebotas hacia la repisa');
         status.textContent = '¡Rebote! Sigue hacia la repisa.';
         landingFeedback();
       } else if (vy <= 0) {
@@ -339,14 +323,13 @@ function addPlayableJump(lab, controls) {
           y = Math.max(...surfaces.map(platform => platform[2]));
           grounded = true;
           vy = grace = 0;
-          record(queued >= 0 ? 'Aterrizas con un salto pendiente' : 'Aterrizas');
           landingFeedback();
         }
       }
     }
-    if (queued >= 0 && (queued -= step) < 0) record('Caduca la pulsación');
-    if (grace > 0 && (grace = Math.max(0,grace-step)) === 0 && coyote.checked) record('Se acaba el tiempo de coyote');
-    if (y < -3) reset('Al foso. El registro conserva lo que pasó justo antes de caer.', true);
+    if (queued >= 0) queued -= step;
+    grace = Math.max(0, grace - step);
+    if (y < -3) reset('Al foso. Acércate un poco más al borde antes de saltar.');
     if (!won && grounded && x >= scene.goal[0] && y === scene.goal[1]) {
       won = true;
       status.textContent = 'Bandera conseguida. Cambia una sola opción y vuelve a intentarlo.';
@@ -531,7 +514,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=seis-pruebas-salto', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=sin-registro', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);

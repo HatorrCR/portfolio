@@ -890,6 +890,244 @@ function addSystemLab(config, id) {
   render();
 }
 
+function addDashLab(is3D) {
+  const lab = element('section', '', 'laboratorio-salto');
+  const canvas = element('canvas', 'Prueba de desplazamiento rápido.');
+  canvas.width = 680;
+  canvas.height = 270;
+  canvas.tabIndex = 0;
+  canvas.setAttribute('aria-label', 'Laboratorio de dash. Usa las flechas o WASD, Espacio para dash y R para reiniciar.');
+  const ctx = canvas.getContext('2d');
+  const options = element('div', '', 'ajustes-salto');
+  const status = element('p', '', 'meta');
+  status.setAttribute('role', 'status');
+  const label = element('label', 'Variante');
+  const select = element('select', '');
+  const variants = is3D ? ['Dirección fija', 'Con giro', 'Protección contra daño'] :
+    ['Horizontal', 'En ocho direcciones', 'Con recarga en el aire'];
+  variants.forEach(name => select.append(element('option', name)));
+  label.append(select);
+  options.append(label);
+  const controls = is3D
+    ? 'Selecciona la prueba. Flechas o WASD para moverte, Espacio para el dash y R para reiniciar. Cruza la línea de peligro para llegar a la meta.'
+    : 'Selecciona la prueba. Flechas o WASD para moverte, J para saltar, Espacio para el dash y R para reiniciar. Cruza el foso y llega a la bandera.';
+  lab.append(canvas, element('p', controls), options, status);
+  reading.append(lab);
+
+  const keys = new Set();
+  const duration = .16;
+  const bounds = { left: 18, right: 662, near: 15, far: 185 };
+  const floor = 209;
+  const wall3D = { x: 293, z: 60, w: 31, d: 87 };
+  const hazard = { x: 463, w: 33, gate: 62 };
+  const pit = { start: 245, end: 384 };
+  let state;
+  let lastTime;
+  let frame = null;
+
+  function report(message) {
+    if (status.textContent !== message) status.textContent = message;
+  }
+
+  function reset(message = 'Busca la ruta hasta la meta.') {
+    state = { x: 70, y: floor - 11, z: 100, vy: 0, facing: 1, ground: true,
+      left: 0, cooldown: 0, charges: select.selectedIndex === 2 && !is3D ? 2 : 1,
+      direction: [1, 0], finished: false };
+    report(message);
+    draw();
+  }
+
+  function axes() {
+    const held = (...names) => names.some(name => keys.has(name));
+    const x = Number(held('arrowright', 'd')) - Number(held('arrowleft', 'a'));
+    const y = Number(held('arrowdown', 's')) - Number(held('arrowup', 'w'));
+    const length = Math.hypot(x, y);
+    return length ? [x / length, y / length] : [0, 0];
+  }
+
+  function dash() {
+    if (state.finished || state.left > 0) return;
+    if (state.cooldown > 0 || (!is3D && state.charges === 0)) {
+      report(is3D ? 'El dash aún se está recargando.' : 'Sin cargas. Aterriza para reponerlas.');
+      return;
+    }
+    let [x, y] = axes();
+    if (!is3D && select.selectedIndex === 0) { x = Math.sign(x); y = 0; }
+    state.direction = x || y ? [x, y] : [state.facing, 0];
+    state.left = duration;
+    if (!is3D) { state.charges--; state.vy = 0; }
+    report('Dash en marcha.');
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, 680, 270);
+    ctx.fillStyle = '#fffcf3';
+    ctx.fillRect(0, 0, 680, 270);
+    if (is3D) {
+      const project = (x, z, y = 0) => [25 + x * .90 + (z - 100) * .27, 42 + z * 1.02 - y];
+      const polygon = (points, color) => {
+        ctx.beginPath();
+        points.forEach((p, i) => i ? ctx.lineTo(...project(...p)) : ctx.moveTo(...project(...p)));
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+      };
+      const tile = (x, z, w, d, color, y = 0) => polygon([[x,z,y],[x+w,z,y],[x+w,z+d,y],[x,z+d,y]], color);
+      tile(bounds.left, bounds.near, bounds.right - bounds.left, bounds.far - bounds.near, '#e3e2d1');
+      tile(hazard.x, hazard.gate, hazard.w, bounds.far - hazard.gate, '#a6533c');
+      tile(607, 76, 37, 47, '#9fba91');
+      const { x, z, w, d } = wall3D;
+      const drawWall = () => {
+        polygon([[x,z+d],[x+w,z+d],[x+w,z+d,35],[x,z+d,35]], '#375d66');
+        polygon([[x+w,z],[x+w,z+d],[x+w,z+d,35],[x+w,z,35]], '#26464c');
+        tile(x,z,w,d,'#68909a',35);
+      };
+      if (state.z >= z + d) drawWall();
+      const [px, py] = project(state.x, state.z);
+      ctx.fillStyle = '#2c5252';
+      ctx.beginPath();
+      ctx.ellipse(px, py, 9, 4, 0, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.fillStyle = state.left > 0 ? '#9d3d29' : '#244954';
+      ctx.fillRect(px - 7, py - 25, 14, 23);
+      if (state.z < z + d) drawWall();
+      ctx.fillStyle = '#302725';
+      ctx.font = '14px system-ui';
+      ctx.fillText('Paso seguro', 411, 72);
+      ctx.fillText('Peligro', 451, 214);
+      ctx.fillText('Meta', 573, 133);
+    } else {
+      ctx.fillStyle = '#477080';
+      ctx.fillRect(0, floor, pit.start, 61);
+      ctx.fillRect(pit.end, floor, 680 - pit.end, 61);
+      ctx.fillStyle = '#ded2bd';
+      ctx.fillRect(493, floor - 54, 29, 54);
+      ctx.fillStyle = '#446e42';
+      ctx.fillRect(623, floor - 45, 4, 45);
+      ctx.fillRect(627, floor - 45, 24, 16);
+      ctx.fillStyle = state.left > 0 ? '#9d3d29' : '#244954';
+      ctx.fillRect(state.x - 9, state.y - 11, 18, 22);
+    }
+    ctx.fillStyle = '#302725';
+    ctx.font = '14px system-ui';
+    const meter = is3D ? (state.cooldown > 0 ? 'Recarga: ' + state.cooldown.toFixed(1) + ' s' : 'Dash listo') :
+      'Cargas: ' + state.charges;
+    ctx.fillText(state.finished ? '¡Meta!' : meter, 17, 25);
+  }
+
+  function move3D(x, z, dt, active) {
+    const speed = active ? 900 : 205;
+    const oldX = state.x;
+    const hitWall = (x, z) => x > wall3D.x - 9 && x < wall3D.x + wall3D.w + 9 &&
+      z > wall3D.z - 9 && z < wall3D.z + wall3D.d + 9;
+    const nextX = Math.max(bounds.left, Math.min(bounds.right, state.x + x * speed * dt));
+    if (!hitWall(nextX, state.z)) state.x = nextX;
+    else if (active) state.left = 0;
+    const nextZ = Math.max(bounds.near, Math.min(bounds.far, state.z + z * speed * dt));
+    if (!hitWall(state.x, nextZ)) state.z = nextZ;
+    else if (active) state.left = 0;
+
+    const touchesHazard = Math.max(oldX, state.x) + 8 > hazard.x &&
+      Math.min(oldX, state.x) - 8 < hazard.x + hazard.w && state.z + 8 > hazard.gate;
+    if (touchesHazard && !(active && select.selectedIndex === 2)) {
+      reset('La línea te alcanzó. Usa la abertura del fondo o prueba la protección.');
+      return;
+    }
+    if (state.x > 607 && state.z > 76 && state.z < 123) finish();
+  }
+
+  function move2D(x, y, dt, active) {
+    const oldBottom = state.y + 11;
+    if (!active) state.vy += 1100 * dt;
+    let nextX = Math.max(10, Math.min(670, state.x + x * (active ? 1220 : 215) * dt));
+    let nextY = state.y + (active ? y * 1220 : state.vy) * dt;
+    const blockTop = floor - 54;
+    const touchesBlock = nextX + 9 > 493 && nextX - 9 < 522;
+    if (touchesBlock && nextY + 11 > blockTop && oldBottom > blockTop) {
+      nextX = state.x;
+      if (active) state.left = 0;
+    }
+    const supported = nextX < pit.start || nextX > pit.end;
+    const surface = touchesBlock && oldBottom <= blockTop ? blockTop : floor;
+    state.ground = false;
+    if ((surface === blockTop || supported) && oldBottom <= surface && nextY + 11 >= surface) {
+      nextY = surface - 11;
+      state.ground = true;
+      state.vy = 0;
+      if (active && y > 0) state.left = 0;
+      if (state.left === 0) state.charges = select.selectedIndex === 2 ? 2 : 1;
+    }
+    state.x = nextX;
+    state.y = Math.max(20, nextY);
+    if (state.y > 285) { reset('Caíste al foso. Prueba a saltar antes de gastar el dash.'); return; }
+    if (state.x > 623 && state.ground) finish();
+  }
+
+  function finish() {
+    state.finished = true;
+    report('¡Meta! Pulsa R para probar otra ruta.');
+  }
+
+  function update(dt) {
+    if (state.finished) return;
+    let [x, y] = axes();
+    if (!is3D) x = Math.sign(x);
+    if (x) state.facing = Math.sign(x);
+    const active = state.left > 0;
+    const step = active ? Math.min(dt, state.left) : dt;
+    if (active) {
+      state.left = Math.max(0, state.left - step);
+      if (is3D && select.selectedIndex === 1 && (x || y)) state.direction = [x, y];
+      [x, y] = state.direction;
+    }
+    if (is3D) {
+      if (active) state.cooldown = .43;
+      else state.cooldown = Math.max(0, state.cooldown - step);
+      move3D(x, y, step, active);
+    } else {
+      move2D(x, y, step, active);
+    }
+  }
+
+  function tick(now) {
+    const elapsed = lastTime === undefined ? 0 : Math.min(.034, (now - lastTime) / 1000);
+    lastTime = now;
+    for (let remaining = elapsed; remaining > 0;) {
+      const step = Math.min(remaining, 1 / 120);
+      update(step);
+      remaining -= step;
+    }
+    draw();
+    frame = requestAnimationFrame(tick);
+  }
+
+  canvas.addEventListener('focus', () => {
+    if (frame === null) frame = requestAnimationFrame(tick);
+  });
+  canvas.addEventListener('blur', () => {
+    keys.clear();
+    cancelAnimationFrame(frame);
+    frame = null;
+    lastTime = undefined;
+  });
+  canvas.addEventListener('keydown', event => {
+    const key = event.key.toLowerCase();
+    if (!['arrowleft', 'arrowright', 'arrowup', 'arrowdown', 'a', 'd', 'w', 's', ' ', 'j', 'r'].includes(key)) return;
+    event.preventDefault();
+    keys.add(key);
+    if (event.repeat) return;
+    if (key === 'r') reset();
+    if (key === ' ') dash();
+    if (key === 'j' && !is3D && state.ground && state.left === 0 && !state.finished) {
+      state.vy = -380;
+      state.ground = false;
+    }
+  });
+  canvas.addEventListener('keyup', event => keys.delete(event.key.toLowerCase()));
+  select.addEventListener('change', () => reset());
+  reset();
+}
+
 function showReading(entries, archive) {
   const id = params.get('lectura') ?? archive?.id;
   if (!id) {
@@ -920,6 +1158,7 @@ function showReading(entries, archive) {
   if (archiveIndex) reading.append(archiveIndex);
   if (resource) {
     const visualJump = id === 'salto-2d-guia';
+    const dashGuide = id === 'dash-2d-guia' || id === 'dash-3d-guia';
     document.title = resource.titulo + ' · Cómo se juega';
     reading.append(element('p', resource.formato + ' · ' + resource.tema, 'meta'));
     const jumpControls = visualJump ? addJumpLab() : null;
@@ -953,6 +1192,15 @@ function showReading(entries, archive) {
             addSystemLab(systemLab, id);
             reading.append(content);
           }
+          if (dashGuide && heading?.[2] === 'Variantes de diseño') {
+            const diagram = element('ol', '', 'esquema-sistemas');
+            diagram.setAttribute('aria-label', 'Fases del dash');
+            for (const step of ['Pulsas y eliges rumbo', 'Avanzas durante el impulso', 'Terminas o chocas', 'Recuperas el control']) {
+              diagram.append(element('li', step));
+            }
+            reading.insertBefore(diagram, content);
+          }
+          if (dashGuide && heading?.[2] === 'Ponte al mando') addDashLab(id === 'dash-3d-guia');
           if (id === 'salto-3d-guia' && heading?.[2] === 'Ponte al mando') addJump3D();
           if (jumpControls && heading?.[2] === 'Ponte al mando') {
             const game = document.querySelector('#plantilla-juego-salto').content.firstElementChild.cloneNode(true);
@@ -998,7 +1246,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=laboratorios-sistemas', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=fichas-dash', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);

@@ -12,7 +12,8 @@
         "nombre": "Probar El laberinto",
         "url": "https://hatorrcr.github.io/portfolio/microexperimento.html"
       }
-    ]
+    ],
+    "editorial": true
   },
   {
     "id": "andersen-tutoriales-2012",
@@ -323,7 +324,8 @@
         "nombre": "Godot Engine. Using CharacterBody2D/3D, tutorial.",
         "url": "https://docs.godotengine.org/en/stable/tutorials/physics/using_character_body_2d.html"
       }
-    ]
+    ],
+    "editorial": true
   },
   {
     "id": "salto-2d-pittman",
@@ -420,5 +422,93 @@
     "cuerpo": "## Qué aporta\n\nEl tutorial reúne la gravedad, el permiso de salto en suelo y MoveAndSlide en el paso de física. En C#, la llamada es MoveAndSlide() y el salto normal usa una velocidad Y negativa porque la pantalla crece hacia abajo.\n\n## Cómo llevarlo a la práctica\n\nConstruye primero el salto fijo y prueba una plataforma y un techo. Añade después el búfer como estado propio para saber qué pulsación se consumió y cuándo.",
     "referencia": "Godot Engine. Using CharacterBody2D/3D, tutorial.",
     "fuente": "https://docs.godotengine.org/en/stable/tutorials/physics/using_character_body_2d.html"
+  },
+  {
+    "id": "dinamicas-reglas",
+    "titulo": "Cómo detectar una dinámica al probar un juego",
+    "tema": "Dinámicas",
+    "formato": "Guía",
+    "idioma": "Español",
+    "resumen": "En una partida de prueba, todo el mundo guarda el consumible que cura más.",
+    "cuerpo": "## Decisión de diseño\n\nEn una partida de prueba, todo el mundo guarda el consumible que cura más. El recurso existe porque lo diseñaste. Reservarlo hasta el final es una conducta que aparece al combinar su escasez, el riesgo futuro y la incertidumbre sobre cuándo llegará otro.\n\n## Cómo probarla\n\nPrueba dos versiones con el mismo efecto de curación. En una, el jugador conoce cuándo conseguirá otra unidad. En la otra, ignora cuánto tardará. Anota cuándo usa el consumible y qué esperaba que pasara después. La frecuencia de uso revela la conducta. Las explicaciones ayudan a entender su causa.",
+    "referencia": "Robin Hunicke, Marc LeBlanc y Robert Zubek (2004). MDA: A Formal Approach to Game Design and Game Research. AAAI Workshop on Challenges in Game AI.",
+    "fuente": "https://aaai.org/papers/ws04-04-001-mda-a-formal-approach-to-game-design-and-game-research/",
+    "materiales": [
+      {
+        "nombre": "Ficha comentada en la Biblioteca",
+        "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?papers=en&lectura=mda-hunicke-leblanc-zubek"
+      },
+      {
+        "nombre": "Texto completo en PDF (Northwestern University)",
+        "url": "https://www.cs.northwestern.edu/~hunicke/pubs/MDA.pdf"
+      }
+    ],
+    "editorial": true
+  },
+  {
+    "id": "niveles-espacio-lectura",
+    "titulo": "Cómo diseñar un salto que se pueda leer",
+    "tema": "Diseño de niveles",
+    "formato": "Guía",
+    "idioma": "Español",
+    "resumen": "Empieza por la distancia que el personaje puede cubrir con margen.",
+    "cuerpo": "## Decisión de diseño\n\nEmpieza por la distancia que el personaje puede cubrir con margen. Después observa la situación desde la cámara del juego: si la zona de aterrizaje queda fuera de cuadro, el jugador tendrá que tomar la decisión con información parcial. Es posible conservar las medidas del hueco y mejorar su lectura al cambiar el encuadre o el contraste del borde.\n\n## Cómo probarla\n\nConstruye dos huecos con idénticas dimensiones. En uno, haz visible la zona de caída antes del despegue. Observa si los fallos vienen de calcular mal la trayectoria o de pulsar demasiado tarde. El modelo de movimiento ayuda a comprobar si el salto es viable. La prueba con jugadores ayuda a entender si el nivel lo comunica.",
+    "referencia": "Gillian Smith, Jim Whitehead y Michael Mateas (2010). Tanagra: An Intelligent Level Design Assistant for 2D Platformers. AIIDE, 6(1), 223–224.",
+    "fuente": "https://doi.org/10.1609/aiide.v6i1.12379",
+    "materiales": [
+      {
+        "nombre": "Ficha comentada en la Biblioteca",
+        "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?papers=en&lectura=tanagra-smith"
+      },
+      {
+        "nombre": "Demostración técnica en PDF",
+        "url": "https://cdn.aaai.org/ojs/12379/12379-52-15907-1-2-20201228.pdf"
+      }
+    ],
+    "editorial": true
+  },
+  {
+    "id": "narrativa-reglas-escena",
+    "titulo": "Cómo contar un cambio de personaje con una regla",
+    "tema": "Diseño narrativo",
+    "formato": "Guía",
+    "idioma": "Español",
+    "resumen": "Si quieres que un personaje vuelva a un lugar que ya conoce y se sienta fuera de sitio, puedes cambiar lo que allí puede hacer.",
+    "cuerpo": "## Decisión de diseño\n\nSi quieres que un personaje vuelva a un lugar que ya conoce y se sienta fuera de sitio, puedes cambiar lo que allí puede hacer. Imagina un pueblo donde antes pedía ayuda con facilidad. Al volver, las puertas siguen en el mismo sitio, pero ahora cada conversación le obliga a explicar por qué se fue. La historia cambia el coste de una acción familiar.\n\n## Cómo probarla\n\nPrototipa el regreso usando el mismo mapa y dos versiones de la interacción. Pregunta en qué momento se percibió el cambio y qué lo hizo visible. Si solo lo detectan al leer la explicación final, revisa cuándo y cómo entra la nueva regla.",
+    "referencia": "Marta Martín Núñez, Víctor Navarro Remesal, Adrián Castro, Tatiana Delgado, Josué Monchán y Clara Pellejer (2021). Ilusionistas digitales. El diseño narrativo en el videojuego español. L’Atalante, 31, 153–180.",
+    "fuente": "https://doi.org/10.63700/905",
+    "materiales": [
+      {
+        "nombre": "Ficha comentada en la Biblioteca",
+        "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?papers=es&lectura=ilusionistas-digitales-atalante"
+      },
+      {
+        "nombre": "Artículo completo en español (PDF)",
+        "url": "https://revistaatalante.com/index.php/atalante/article/download/905/648/4061"
+      }
+    ],
+    "editorial": true
+  },
+  {
+    "id": "ux-senales-redundantes",
+    "titulo": "Cómo comunicar un estado sin depender del color",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "formato": "Guía",
+    "idioma": "Español",
+    "resumen": "Si una puerta abierta y otra cerrada solo se distinguen por su color, toda la información pasa por esa diferencia.",
+    "cuerpo": "## Decisión de diseño\n\nSi una puerta abierta y otra cerrada solo se distinguen por su color, toda la información pasa por esa diferencia. Añade una señal que tenga sentido por sí misma: la puerta abierta deja ver el paso y la cerrada conserva el travesaño. Si además usas un icono en el mapa, cambia su forma según el estado.\n\n## Cómo probarla\n\nPrueba una captura en escala de grises para detectar dependencias obvias y luego comprueba la tarea en movimiento, con jugadores. Pídeles que localicen una salida disponible mientras prestan atención al resto del nivel. Comprender la señal en una captura y usarla bajo presión son pruebas distintas.",
+    "referencia": "Josefa Molina López y Nuria Medina Medina (2021). Un enfoque para el diseño inclusivo de videojuegos centrado en jugadores daltónicos. Interacción, 2(1), 25–37.",
+    "fuente": "https://doi.org/10.65234/interaccion.32",
+    "materiales": [
+      {
+        "nombre": "Ficha comentada en la Biblioteca",
+        "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?papers=es&lectura=daltonismo-molina-medina"
+      },
+      {
+        "nombre": "Número de la revista con el artículo en PDF",
+        "url": "https://revista.aipo.es/index.php/INTERACCION/issue/download/3/11"
+      }
+    ],
+    "editorial": true
   }
 ]

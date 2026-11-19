@@ -145,6 +145,75 @@ function showSources(resource) {
   return {section, heading};
 }
 
+function addJumpLab() {
+  const lab = document.querySelector('#plantilla-laboratorio-salto').content.firstElementChild.cloneNode(true);
+  reading.append(lab);
+  const canvas = lab.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const controls = Object.fromEntries([...lab.querySelectorAll('input')].map(input => [input.dataset.salto, input]));
+  const number = new Intl.NumberFormat('es', {maximumFractionDigits: 2});
+  const display = value => number.format(value);
+
+  function draw() {
+    const {altura, subida, caida, progreso} = controls;
+    const height = Number(altura.value);
+    const rise = Number(subida.value);
+    const gravityMultiplier = Number(caida.value);
+    const fall = rise / Math.sqrt(gravityMultiplier);
+    const duration = rise + fall;
+    const gravity = 2 * height / (rise * rise);
+    const launch = gravity * rise;
+    const position = time => time <= rise
+      ? launch * time - gravity * time * time / 2
+      : height - gravity * gravityMultiplier * (time - rise) ** 2 / 2;
+    const current = duration * Number(progreso.value) / 100;
+    const measures = 'Altura: ' + display(height) + ' u · Subida: ' + display(rise) +
+      ' s · Gravedad de caída: ×' + display(gravityMultiplier) + ' · Vuelo: ' +
+      display(duration) + ' s · Alcance: ' + display(6 * duration) + ' u';
+    lab.querySelector('[data-salto-medidas]').textContent = measures;
+    canvas.setAttribute('aria-label', measures);
+    for (const [input, value] of [[altura, height + ' unidades'], [subida, rise + ' segundos'],
+      [caida, gravityMultiplier + ' veces la gravedad de subida'],
+      [progreso, display(current) + ' segundos, altura ' + display(Math.max(0, position(current))) + ' unidades']]) {
+      input.setAttribute('aria-valuetext', value);
+    }
+    if (!ctx) return;
+
+    const x = time => 40 + time * 440;
+    const y = units => 203 - units * 54;
+    ctx.clearRect(0, 0, 680, 250);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = '#d8c8b6';
+    ctx.font = '15px system-ui';
+    ctx.fillStyle = '#40382e';
+    for (let level = 0; level <= 3; level++) {
+      ctx.beginPath();
+      ctx.moveTo(40, y(level));
+      ctx.lineTo(630, y(level));
+      ctx.stroke();
+      ctx.fillText(level + ' u', 8, y(level) + 5);
+    }
+    ctx.beginPath();
+    for (let step = 0; step <= 80; step++) {
+      const time = duration * step / 80;
+      if (step === 0) ctx.moveTo(x(time), y(0));
+      else ctx.lineTo(x(time), y(position(time)));
+    }
+    ctx.strokeStyle = '#8a3721';
+    ctx.lineWidth = 4;
+    ctx.stroke();
+    ctx.fillText('Salida', x(0), 231);
+    ctx.fillText('Llegada', x(duration) - 24, 231);
+    ctx.fillText('Punto más alto', x(rise) + 8, y(height) - 8);
+    ctx.beginPath();
+    ctx.arc(x(current), y(position(current)), 7, 0, Math.PI * 2);
+    ctx.fillStyle = '#254f52';
+    ctx.fill();
+  }
+  lab.addEventListener('input', draw);
+  draw();
+}
+
 function showReading(entries, archive) {
   const id = params.get('lectura') ?? archive?.id;
   if (!id) {
@@ -172,21 +241,32 @@ function showReading(entries, archive) {
     archiveReading ? 'como-se-juega.html?tema=Mec%C3%A1nicas#catalogo' : libraryUrl), title);
   if (archiveIndex) reading.append(archiveIndex);
   if (resource) {
+    const visualJump = id === 'salto-2d-guia';
     document.title = resource.titulo + ' · Cómo se juega';
     reading.append(element('p', resource.formato + ' · ' + resource.tema, 'meta'));
+    if (visualJump) addJumpLab();
     for (const [blockIndex, block] of resource.cuerpo.split(/^\x60\x60\x60(?:csharp)?[ \t]*\r?$/m).entries()) {
       if (blockIndex % 2 === 1) {
         const pre = element('pre', '', 'codigo');
         pre.tabIndex = 0;
         pre.setAttribute('aria-label', 'Código C#');
         pre.append(element('code', block.trim()));
-        reading.append(pre);
+        if (visualJump) {
+          const details = element('details', '', 'detalle-codigo');
+          details.append(element('summary', 'Ver código C#'), pre);
+          reading.append(details);
+        } else {
+          reading.append(pre);
+        }
       } else {
         for (const paragraph of block.trim().split(/\r?\n\s*\r?\n/).filter(Boolean)) {
           const heading = paragraph.match(/^## ([^\r\n]+)$/);
           const content = heading ? element('h2', heading[1]) : element('p', paragraph);
           if (heading && index) addToIndex(content, 'apartado-' + (index.children.length + 1) + '-' + slug(heading[1]));
           reading.append(content);
+          if (visualJump && heading?.[1] === '¿Pulsé demasiado pronto o demasiado tarde?') {
+            reading.append(document.querySelector('#plantilla-margen-salto').content.cloneNode(true));
+          }
         }
       }
     }
@@ -218,7 +298,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=biblioteca-editorial', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=salto-visual', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);

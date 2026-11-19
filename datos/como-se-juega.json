@@ -912,5 +912,226 @@
       "salto-3d-unity"
     ],
     "cuerpo": "## Fundamentos\n\n### Antes de acelerar, decide qué significa delante\n\nEn tercera persona, pulsar arriba puede seguir la cámara o el frente del personaje. En primera persona suele seguir la vista proyectada sobre el suelo. Si miras al techo, esa proyección evita que el dash se convierta en despegue. Guarda el rumbo al iniciar el impulso si quieres que girar la cámara sirva para mirar alrededor sin cambiar la trayectoria.\n\nUn dash plano recorre X y Z. El eje vertical puede seguir la gravedad, quedar congelado o tener su propio impulso. A 18 m/s durante 0,16 s, la meta ideal queda a 2,88 m en el plano. Una pendiente, la anchura del personaje o un choque pueden cambiar el resultado.\n\n## Variantes de diseño\n\n### Rumbo fijo, corrección y esquiva\n\nUn rumbo fijo recompensa apuntar antes de pulsar. Si permites girar, puedes dar control total o limitar cuántos grados por segundo cambia la dirección. Para un impulso hacia objetivo, usa la posición del blanco al pulsar o permite seguimiento durante parte del recorrido. La primera opción permite que el blanco se aparte. La segunda hace más fiable el ataque.\n\nEn DOOM Eternal, Bethesda describe el dash como un desplazamiento en la dirección elegida que funciona en el suelo o en el aire. Returnal ofrece otro caso: Housemarque destaca la esquiva dentro de un combate con amenazas en varias direcciones. En un prototipo propio puedes probar esquiva lateral, escape hacia atrás o cruce protegido de una amenaza. Define qué fuentes de daño admite cada caso y en qué fotogramas.\n\n### Cargas, espera y final\n\nUna espera corta después del dash da ritmo. Dos cargas permiten encadenar y dejan hueco después. Una recuperación con animación puede darle peso al movimiento, pero comprueba que la cámara siga dejando ver el siguiente peligro. Si el dash es un ataque, decide qué sucede al llegar al primer objetivo: detenerse, atravesarlo o rebotar.\n\n## Diseño de niveles y lectura\n\n### Mira dónde acaba el cuerpo entero\n\nDibuja el trayecto en planta y marca el ancho del personaje a lo largo del recorrido. Prueba una columna y una puerta estrecha. El centro del personaje puede pasar por la puerta mientras los hombros chocan. Decide si el golpe cancela el dash o lo deja deslizar. En primera persona prueba esquinas cerca de la cámara. En tercera, mira si el avatar tapa el borde del precipicio.\n\nSeñala por separado cuándo está lista la recarga y cuándo empieza la protección. La estela enseña por dónde pasó el personaje. Para anticipar un impacto o una salida ayuda más una silueta, una marca en el suelo o una amenaza que se vea antes de pulsar.\n\n## Laboratorio jugable\n\n### Ponte al mando\n\nDesde arriba se ve la abertura de la zona roja. En primera o tercera persona, W avanza y A/D te desplazan a los lados. Rodea el bloque y cruza por la abertura. Después activa la protección y cruza el tramo rojo con un dash. Cambia a la variante con giro y prueba a modificar el rumbo durante el impulso.\n\n## Implementación en Unity\n\n### CharacterController y referencia de cámara\n\nGuarda el código como Dash3D.cs. Añade CharacterController y asigna la cámara en el campo View. Desde el sistema de entrada llama a SetMove cuando cambia el eje, incluido cuando vuelve a cero, y a RequestDash al pulsar. Usa un único motor para desplazar al personaje. El ejemplo conserva la gravedad, cancela la fase rápida cuando Move detecta contacto lateral y expone BlocksDashDamage para que el sistema de daño decida si ignora una amenaza. En el Inspector, deja Min Move Distance en cero para que el controlador procese los pasos cortos.\n\n```csharp\nusing UnityEngine;\n\n[RequireComponent(typeof(CharacterController))]\npublic class Dash3D : MonoBehaviour\n{\n    [SerializeField] Transform view;\n    [SerializeField, Min(0f)] float walkSpeed = 5f;\n    [SerializeField, Min(0.01f)] float dashSpeed = 18f;\n    [SerializeField, Min(0.01f)] float dashTime = 0.16f;\n    [SerializeField, Min(0f)] float recharge = 0.43f;\n    [SerializeField] bool steerDuringDash;\n    [SerializeField] bool protectsFromDamage;\n\n    CharacterController motor;\n    Vector3 dashDirection;\n    float remaining;\n    float cooldown;\n    float verticalSpeed;\n    Vector2 moveInput;\n    bool dashRequested;\n\n    public bool IsDashing => remaining > 0f;\n    public bool BlocksDashDamage => protectsFromDamage && IsDashing;\n\n    void Awake() => motor = GetComponent<CharacterController>();\n\n    public void SetMove(Vector2 input) => moveInput = Vector2.ClampMagnitude(input, 1f);\n    public void RequestDash() => dashRequested = true;\n\n    void Update()\n    {\n        float dt = Time.deltaTime;\n        Transform basis = view != null ? view : transform;\n        Vector3 forward = Vector3.ProjectOnPlane(basis.forward, Vector3.up);\n        if (forward.sqrMagnitude < 0.001f)\n            forward = Vector3.Cross(basis.right, Vector3.up);\n        forward.Normalize();\n        Vector3 right = Vector3.Cross(Vector3.up, forward);\n        Vector3 desired = right * moveInput.x + forward * moveInput.y;\n\n        cooldown = Mathf.Max(0f, cooldown - dt);\n        if (dashRequested && !IsDashing && cooldown <= 0f)\n        {\n            dashDirection = desired.sqrMagnitude > 0.01f ? desired.normalized : forward;\n            remaining = dashTime;\n        }\n        dashRequested = false;\n        if (IsDashing && steerDuringDash && desired.sqrMagnitude > 0.01f)\n            dashDirection = desired.normalized;\n\n        float dashStep = Mathf.Min(remaining, dt);\n        Vector3 planar = dashDirection * (dashSpeed * dashStep)\n            + desired * (walkSpeed * (dt - dashStep));\n\n        if (motor.isGrounded && verticalSpeed < 0f) verticalSpeed = -2f;\n        verticalSpeed += Physics.gravity.y * dt;\n        CollisionFlags flags = motor.Move(planar + Vector3.up * (verticalSpeed * dt));\n\n        if (IsDashing)\n        {\n            remaining = (flags & CollisionFlags.Sides) != 0\n                ? 0f : Mathf.Max(0f, remaining - dashStep);\n            if (!IsDashing) cooldown = recharge;\n        }\n        if ((flags & CollisionFlags.Above) != 0 && verticalSpeed > 0f)\n            verticalSpeed = 0f;\n    }\n\n    void OnDisable()\n    {\n        remaining = 0f;\n        dashRequested = false;\n        moveInput = Vector2.zero;\n    }\n}\n```\n\n### Qué puedes cambiar\n\nPara limitar el giro, usa Vector3.RotateTowards con un máximo de radianes por segundo multiplicado por deltaTime. Para proteger solo durante el centro del dash, guarda el tiempo consumido y comprueba un intervalo de inicio y fin. Si tu juego usa Rigidbody, integra el impulso en el motor de física en vez de combinar dos motores sobre el mismo jugador.\n\n## Pruebas y ajustes\n\n### Cámara, obstáculos y daño\n\nRepite la misma entrada mirando al frente, hacia un lado y casi en vertical. Cruza una pendiente, un rincón y una puerta con poca holgura. Lanza un proyectil antes, durante y después de la protección y mira qué sucede cuando coincide con un muro. Mide la distancia y la recarga en distintas tasas de fotogramas. Si el resultado cambia, revisa en qué actualización aplicas la entrada, el movimiento y el daño."
+  },
+  {
+    "id": "iniciativa-combate",
+    "tema": "Dinámicas",
+    "titulo": "Iniciativa en combate",
+    "resumen": "Qué hace que tomar la iniciativa compense en un duelo.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "iniciativa-combate",
+    "esquema": [
+      "Lees al rival",
+      "Atacas, esperas o fintas",
+      "Puntúa el intercambio"
+    ],
+    "fuentes": [
+      "mda-hunicke-leblanc-zubek",
+      "sekiro-postura",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nEn un duelo, atacar primero te expone mientras el rival todavía puede reaccionar. Si defender y contraatacar da más resultado ante casi cualquier respuesta, esperar se convierte en la jugada más segura. En Sekiro, atacar y desviar presionan la postura enemiga. El manual explica además que una vitalidad baja ralentiza su recuperación. Es un ejemplo de cómo una segunda barra cambia lo que cuenta como progreso.\n\n## Variantes de diseño\n\nPuedes dar prioridad a quien se compromete antes, hacer que bloquear acumule desgaste o colocar un objetivo que premie ocupar espacio. Si bonificas cualquier ataque por igual, quizá solo consigas que pulsar atacar sea la siguiente estrategia dominante.\n\n## Diseño de situaciones y lectura\n\nPon el aviso del contraataque donde se miran los golpes. Haz visibles los puntos del objetivo y quién los ganó. Si el incentivo es ocupar el centro, deja una ruta para disputarlo tras ceder terreno.\n\n## Laboratorio jugable\n\nElige atacar, esperar o fintar durante seis intercambios. El rival repite tres respuestas. Cambia el premio por atacar y compara cuánto puntúa repetir una acción frente a leer el patrón.\n\n## Implementación en Unity\n\nGuarda el componente como DueloPorTurnos.cs y añádelo a un objeto de la escena. Conecta tres botones a Resolver con 0 para atacar, 1 para esperar y 2 para fintar. Muestra Respuesta antes de cada acción y Puntos al terminar. Deja la tabla en un solo sitio para poder probar exactamente qué cambia al tocar una celda.\n\n```csharp\nusing UnityEngine;\n\npublic class DueloPorTurnos : MonoBehaviour\n{\n    [SerializeField] bool premioPorAtacar;\n    readonly int[,] tabla = { { -2, 0, 0 }, { 0, 2, 0 }, { 1, -1, 2 } };\n    public int Ronda { get; private set; }\n    public int Puntos { get; private set; }\n    public int Respuesta => Ronda % 3;\n\n    public void Resolver(int accion)\n    {\n        if (Ronda >= 6 || accion < 0 || accion > 2) return;\n        Puntos += tabla[Respuesta, accion];\n        if (premioPorAtacar && accion == 0) Puntos += 2;\n        Ronda++;\n    }\n}\n```\n\n## Pruebas y ajustes\n\nPrueba primero atacar siempre y esperar siempre. Luego alterna según la respuesta rival. Si una acción gana en todos los cruces, ajusta una celda de la tabla y repite. El patrón conocido del laboratorio sirve para aislar la regla. Contra personas también importa cómo adaptan sus decisiones."
+  },
+  {
+    "id": "roles-cooperativos",
+    "tema": "Dinámicas",
+    "titulo": "Roles cooperativos",
+    "resumen": "Cómo repartir información y acciones para que dos personas tengan algo que decidir.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "roles-cooperativos",
+    "esquema": [
+      "El rol A lee el símbolo",
+      "El rol B recibe el color",
+      "Combinan las pistas"
+    ],
+    "fuentes": [
+      "mda-hunicke-leblanc-zubek",
+      "ea-it-takes-two",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nEn un puzle compartido, alguien puede dar todas las instrucciones si ve las pistas y decide el orden. Separar quién lee cada pista de quién confirma la solución obliga a intercambiar información. It Takes Two se construye alrededor de desafíos cooperativos y habilidades ligadas a los personajes. El laboratorio simplifica esa idea a dos paneles.\n\n## Variantes de diseño\n\nPuedes repartir pistas, dar herramientas distintas o permitir que cada jugador tome una decisión que el otro tenga que incorporar. Repartir botones se queda corto si la misma persona puede resolver el recorrido entero y dictar cada clic.\n\n## Diseño de situaciones y lectura\n\nEnseña desde el primer acertijo qué puede consultar y cambiar cada rol. Alterna quién inicia la decisión. Si una persona tiene que transmitir cuatro frases por turno, prueba símbolos fáciles de describir o un vocabulario compartido.\n\n## Laboratorio jugable\n\nJugad dos personas por turnos en la misma pantalla. La primera lee una pista y pasa el turno. La segunda ve la suya y elige la puerta. En la vista compartida, la segunda puede ver las dos pistas. Es un ejercicio presencial para comparar conversación y reparto de decisiones.\n\n## Implementación en Unity\n\nGuarda el componente como PuertasCooperativas.cs y añádelo a un objeto de la escena. Muestra Simbolo al rol A y Color al rol B. En la vista compartida, muestra también el símbolo al rol B. Conecta las cuatro puertas a Elegir con 0 para estrella azul, 1 para estrella roja, 2 para luna azul y 3 para luna roja. Esta versión usa pases de turno en una pantalla.\n\n```csharp\nusing UnityEngine;\n\npublic class PuertasCooperativas : MonoBehaviour\n{\n    [SerializeField] bool pistasRepartidas;\n    readonly int[] puertas = { 0, 3, 1 };\n    public int Ronda { get; private set; }\n    public int Aciertos { get; private set; }\n    public bool TurnoB { get; private set; }\n    public bool Terminada => Ronda == puertas.Length;\n    public int Simbolo => !Terminada && (!TurnoB || !pistasRepartidas) ? puertas[Ronda] / 2 : -1;\n    public int Color => !Terminada && TurnoB ? puertas[Ronda] % 2 : -1;\n\n    public void PasarTurno()\n    {\n        if (!Terminada) TurnoB = true;\n    }\n\n    public void Elegir(int puerta)\n    {\n        if (Terminada || !TurnoB || puerta < 0 || puerta > 3) return;\n        if (puerta == puertas[Ronda]) Aciertos++;\n        Ronda++;\n        TurnoB = false;\n    }\n}\n```\n\n## Pruebas y ajustes\n\nCuenta quién propone, quién verifica y quién confirma. Repite intercambiando papeles. Si una persona sigue llevando todo el razonamiento, da a la otra una elección con consecuencias y observa si cambia el diálogo."
+  },
+  {
+    "id": "ritmo-en-rondas",
+    "tema": "Jugabilidad y bucles",
+    "titulo": "Ritmo entre rondas",
+    "resumen": "Cuándo merece la pena interrumpir el combate para preparar el siguiente.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "ritmo-en-rondas",
+    "esquema": [
+      "Ves la próxima amenaza",
+      "Preparas el equipo",
+      "Juegas la ronda"
+    ],
+    "fuentes": [
+      "booth-director-l4d",
+      "mda-hunicke-leblanc-zubek",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nLas pausas pueden ayudar a leer lo ocurrido y anticipar lo que viene. Su coste aparece cuando cada ronda exige revisar las mismas piezas antes de volver a jugar. La presentación de Valve sobre Left 4 Dead documenta la alternancia entre picos y descansos. Aquí aplicamos esa pregunta a una pausa de gestión, con un menú entre enfrentamientos.\n\n## Variantes de diseño\n\nUna elección rápida puede ofrecer dos mejoras claras. Una preparación más larga puede permitir combinar efectos o corregir un equipo mal elegido. También puedes reservar la gestión completa para después de varias rondas y ofrecer un botón de repetir configuración entre medias.\n\n## Diseño de situaciones y lectura\n\nAnuncia una característica de la siguiente ronda antes de pedir una elección. Conserva la configuración anterior. Si los cambios se acumulan, señala lo que realmente cambió desde el último combate.\n\n## Laboratorio jugable\n\nResuelve cuatro rondas con amenazas visibles. La preparación rápida aplica una protección al instante. La inventariada requiere preparar y confirmar, pero puede acumular ambas protecciones. Cada clic de preparación cuenta como una acción en el laboratorio.\n\n## Implementación en Unity\n\nGuarda el componente como PreparacionEntreRondas.cs y añádelo a un objeto de la escena. Conecta Seleccionar con 1 para escudo y 2 para filtro. En inventario, usa Confirmar para aplicar el equipo pendiente. Muestra Amenaza antes de resolver y usa Preparativos para comparar el coste de menú.\n\n```csharp\nusing UnityEngine;\n\npublic class PreparacionEntreRondas : MonoBehaviour\n{\n    [SerializeField] bool inventario;\n    readonly int[] amenazas = { 1, 2, 1, 3 };\n    public int Ronda { get; private set; }\n    public int Equipo { get; private set; }\n    public int Pendiente { get; private set; }\n    public int Preparativos { get; private set; }\n    public int Dano { get; private set; }\n    public int Amenaza => Ronda < amenazas.Length ? amenazas[Ronda] : 0;\n\n    public void Seleccionar(int pieza)\n    {\n        if (Amenaza == 0 || (pieza != 1 && pieza != 2)) return;\n        if (inventario) Pendiente ^= pieza;\n        else Equipo = pieza;\n        Preparativos++;\n    }\n\n    public void Confirmar()\n    {\n        if (!inventario || Amenaza == 0 || Pendiente == Equipo) return;\n        Equipo = Pendiente;\n        Preparativos++;\n    }\n\n    public void Resolver()\n    {\n        if (Amenaza == 0) return;\n        int sinCubrir = Amenaza & ~Equipo;\n        if ((sinCubrir & 1) != 0) Dano++;\n        if ((sinCubrir & 2) != 0) Dano++;\n        Ronda++;\n    }\n}\n```\n\n## Pruebas y ajustes\n\nMide acciones de preparación, daño y cuántas veces se conserva el equipo. Si los jugadores repiten el mismo ajuste, ofrece una forma de recordarlo. Si se detienen a debatir dos opciones concretas, considera conservar esa pausa."
+  },
+  {
+    "id": "reinicio-tras-fallar",
+    "tema": "Jugabilidad y bucles",
+    "titulo": "Reintentos y puntos de control",
+    "resumen": "Cuánto recorrido toca repetir después de fallar.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "reinicio-tras-fallar",
+    "esquema": [
+      "Fallas en el encuentro",
+      "El sistema decide dónde vuelves",
+      "Recorres el tramo pendiente"
+    ],
+    "fuentes": [
+      "gow-ragnarok-accesibilidad",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nEl jugador aprende algo cuando falla. El reinicio decide cuándo puede usarlo. Si la información nueva estaba en la última sala y le devuelves a la primera, parte del reto pasa a ser repetir lo que ya sabía hacer. God of War Ragnarök ofrece puntos de control para ciertos minijefes en las dificultades compatibles, según su guía de accesibilidad.\n\n## Variantes de diseño\n\nUn reinicio completo conserva la presión de atravesar el tramo entero. Un punto de control repone desde una sala fija. Un atajo descubierto conserva algo del recorrido y permite elegir cómo volver. Decide qué pasa con el botín, la salud y los consumibles en cada variante.\n\n## Diseño de situaciones y lectura\n\nMarca qué se ha guardado antes de llegar al encuentro difícil. Al reaparecer, permite reconocer el punto y orientarse. Si un atajo se abre desde el otro lado, deja que el jugador vea la conexión al menos una vez.\n\n## Laboratorio jugable\n\nRecorre cuatro tramos. El primer intento en el encuentro final falla de forma programada. Compara reinicio entero, punto de control tras el segundo tramo y atajo desbloqueado al llegar al final.\n\n## Implementación en Unity\n\nGuarda el componente como RecorridoConReintento.cs y añádelo a un objeto de la escena. Muestra Tramo y Pasos. Conecta Avanzar, Atajo e Intentar a sus acciones. Cuando incorpores un encuentro real, sustituye el primer fallo programado por su resultado y restaura los datos que correspondan al punto de control.\n\n```csharp\nusing UnityEngine;\n\npublic class RecorridoConReintento : MonoBehaviour\n{\n    enum Variante { Completo, PuntoDeControl, Atajo }\n    [SerializeField] Variante variante;\n    public int Tramo { get; private set; }\n    public int Pasos { get; private set; }\n    public bool FalloPrevio { get; private set; }\n    public bool Superado { get; private set; }\n\n    public void Avanzar()\n    {\n        if (Tramo >= 4) return;\n        Tramo++;\n        Pasos++;\n    }\n\n    public void TomarAtajo()\n    {\n        if (variante != Variante.Atajo || !FalloPrevio || Tramo >= 4) return;\n        Tramo = 4;\n        Pasos++;\n    }\n\n    public void Intentar()\n    {\n        if (Tramo != 4 || Superado) return;\n        if (FalloPrevio) { Superado = true; return; }\n        FalloPrevio = true;\n        Tramo = variante == Variante.PuntoDeControl ? 2 : 0;\n    }\n}\n```\n\n## Pruebas y ajustes\n\nCuenta pasos entre el fallo y el siguiente intento. Si quieres evaluar aprendizaje, introduce una decisión diferente en el encuentro final para que recordar una secuencia de clics no resuelva la prueba por sí solo."
+  },
+  {
+    "id": "descuentos-inventario",
+    "tema": "Sistemas y economías",
+    "titulo": "Descuentos y espacio de inventario",
+    "resumen": "Qué cuesta de verdad un paquete cuando la mochila tiene un límite.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "descuentos-inventario",
+    "esquema": [
+      "Compras el paquete",
+      "Ocupas huecos",
+      "Dejas sitio para las llaves"
+    ],
+    "fuentes": [
+      "machinations-dormans",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nUn consumible cuesta 5 monedas. El paquete de tres cuesta 10. Cada unidad del paquete parece más barata, pero ocupa un hueco. Con cuatro plazas, quizá acabes descartando algo para recoger una llave o una recompensa. La decisión depende tanto de la capacidad como del precio.\n\n## Variantes de diseño\n\nPuedes permitir apilar unidades, separar objetos de misión o regalar almacenamiento a cambio de volver al campamento. Cada decisión cambia qué recursos compiten. Si todo se puede enviar al almacén sin coste, el precio por unidad pesa mucho más.\n\n## Diseño de situaciones y lectura\n\nEnseña cuántas plazas ocupará una compra y el precio de lo que podrías dejar atrás. En una tienda con depósito, comunica cuándo volverá a estar disponible el objeto. Si cabe todo por defecto, la primera ocasión en que falte espacio merece una advertencia.\n\n## Laboratorio jugable\n\nCompra consumibles con 20 monedas. El objetivo es terminar con dos llaves y al menos dos consumibles. Con cuatro plazas, el paquete entero y las dos llaves no caben juntos. Con seis, puedes conservar la tercera unidad. Compara saldo y reserva al final.\n\n## Implementación en Unity\n\nGuarda el componente como TiendaConCapacidad.cs y añádelo a un objeto de la escena. Conecta Comprar con 1 y 3 unidades. Muestra el precio junto a Plazas. Tanto la compra como la recogida vuelven a comprobar el espacio antes de aplicar cambios.\n\n```csharp\nusing UnityEngine;\n\npublic class TiendaConCapacidad : MonoBehaviour\n{\n    [SerializeField] bool mochilaGrande;\n    public int Oro { get; private set; } = 20;\n    public int Consumibles { get; private set; }\n    public int Llaves { get; private set; }\n    public int Plazas => (mochilaGrande ? 6 : 4) - Consumibles - Llaves;\n    public bool ObjetivoCumplido => Llaves == 2 && Consumibles >= 2;\n\n    public void Comprar(int cantidad)\n    {\n        if (ObjetivoCumplido || (cantidad != 1 && cantidad != 3)) return;\n        int precio = cantidad == 3 ? 10 : 5;\n        if (Oro < precio || Plazas < cantidad) return;\n        Oro -= precio;\n        Consumibles += cantidad;\n    }\n\n    public void Usar()\n    {\n        if (!ObjetivoCumplido && Consumibles > 0) Consumibles--;\n    }\n\n    public void RecogerLlave()\n    {\n        if (Plazas > 0 && Llaves < 2) Llaves++;\n    }\n}\n```\n\n## Pruebas y ajustes\n\nRegistra compras canceladas, consumibles gastados para liberar espacio y objetos abandonados. Compara dos compras sueltas de 5 con un paquete de 10. En los dos casos gastas lo mismo. El precio del espacio aparece cuando decides qué hacer con la tercera unidad."
+  },
+  {
+    "id": "mejorar-o-cambiar-arma",
+    "tema": "Sistemas y economías",
+    "titulo": "Mejoras y cambio de arma",
+    "resumen": "Cuánto cuesta probar otra arma tras invertir en la anterior.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "mejorar-o-cambiar-arma",
+    "esquema": [
+      "Inviertes en un arma",
+      "Aparece otra herramienta",
+      "Decides si cambias"
+    ],
+    "fuentes": [
+      "capcom-revertir-mejora",
+      "machinations-dormans",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nUna mejora de espada produce valor mientras uses la espada. Al aparecer otra arma, el tiempo de probarla y los materiales para ponerla al día también pesan. Monster Hunter Rise: Sunbreak permite revertir determinadas mejoras y recuperar materiales. El manual advierte que algunos se devuelven como restos.\n\n## Variantes de diseño\n\nUn reembolso completo facilita experimentar. Un reembolso parcial conserva un coste por estabilizar una configuración. Puedes mover las mejoras a una ranura general, usar prueba gratuita o regalar niveles iniciales. La regla cambia qué premia el sistema cuando aparecen alternativas.\n\n## Diseño de situaciones y lectura\n\nPon el coste siguiente y el reembolso junto a la comparación de armas. Anticipa en qué tipo de encuentro sirve cada una. Si quieres que cambien, da ocasión de probarla antes de gastar.\n\n## Laboratorio jugable\n\nEmpiezas con una espada mejorada y cuatro materiales. Tras el primer encuentro aparece la lanza. Cambia de arma, mejora o prueba el combate. Compara reembolso de dos materiales frente a ninguno.\n\n## Implementación en Unity\n\nGuarda el componente como InversionEnArmas.cs y añádelo a un objeto de la escena. Conecta cuatro botones a Cambiar, Revertir, Mejorar y Resolver. Muestra los dos niveles antes de cambiar. Los ajustes de coste y reembolso son intencionadamente distintos para que comprar y revertir no sea una fuente de materiales.\n\n```csharp\nusing UnityEngine;\n\npublic class InversionEnArmas : MonoBehaviour\n{\n    [SerializeField] bool permiteReembolso;\n    public int Ronda { get; private set; }\n    public int Materiales { get; private set; } = 4;\n    public int Espada { get; private set; } = 1;\n    public int Lanza { get; private set; }\n    public int Puntos { get; private set; }\n    public bool UsaLanza { get; private set; }\n\n    public void Cambiar()\n    {\n        if (Ronda > 0 && Ronda < 4) UsaLanza = !UsaLanza;\n    }\n\n    public void Revertir()\n    {\n        if (!permiteReembolso || Ronda == 0 || Ronda >= 4 || Espada == 0) return;\n        Espada--;\n        Materiales += 2;\n    }\n\n    public void Mejorar()\n    {\n        if (Ronda >= 4 || Materiales < 3) return;\n        Materiales -= 3;\n        if (UsaLanza) Lanza++;\n        else Espada++;\n    }\n\n    public void Resolver()\n    {\n        if (Ronda >= 4) return;\n        bool lejos = Ronda++ % 2 == 1;\n        Puntos += (lejos == UsaLanza ? 3 : 1) + (UsaLanza ? Lanza : Espada);\n    }\n}\n```\n\n## Pruebas y ajustes\n\nCuenta cambios después de aparecer la lanza y materiales sin gastar al final. Si el reembolso sube los cambios pero todos vuelven al mismo arma, revisa en qué encuentros cada una tiene sentido."
+  },
+  {
+    "id": "vida-y-ventanas",
+    "tema": "Dificultad y equilibrio",
+    "titulo": "Vida y ventanas de ataque",
+    "resumen": "Dos formas de endurecer el mismo encuentro.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "vida-y-ventanas",
+    "esquema": [
+      "Lees la guardia",
+      "Atacas o te proteges",
+      "Mides tiempo y daño"
+    ],
+    "fuentes": [
+      "sekiro-postura",
+      "subset-into-the-breach",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nSubir la vida de un enemigo aumenta los aciertos necesarios. Reducir sus ventanas seguras cambia cuándo puedes hacerlos. El primero puede alargar la ejecución de una rutina. El segundo puede exigir observar mejor, asumir riesgo o usar otra herramienta. En Sekiro, vitalidad y postura ofrecen dos maneras de presionar un mismo encuentro.\n\n## Variantes de diseño\n\nPuedes aumentar la resistencia, acortar una recuperación o añadir una respuesta a ataques repetidos. Una ventana más corta pide precisión si hay una señal legible. Si también cambias la señal, ya estás evaluando dos cosas.\n\n## Diseño de situaciones y lectura\n\nMantén animaciones y daños constantes durante la comparación. Señala cuándo el enemigo está abierto. Si varias ventanas parecen iguales pero una causa castigo, revisa el aviso antes de atribuirlo a habilidad.\n\n## Laboratorio jugable\n\nElige atacar o defender en cada turno. La variante de más vida pide seis golpes y abre la guardia cada dos turnos. La de pocas ventanas pide cuatro golpes y abre la guardia cada tres. Las dos pueden resolverse en doce turnos jugando con cuidado.\n\n## Implementación en Unity\n\nGuarda el componente como GuardiaPorTurnos.cs y añádelo a un objeto de la escena. Muestra GuardiaAbierta antes de resolver el turno. Conecta los botones a Resolver con true para atacar y false para defender. Conserva frecuencia y vida como parámetros separados cuando pases el encuentro a tiempo real.\n\n```csharp\nusing UnityEngine;\n\npublic class GuardiaPorTurnos : MonoBehaviour\n{\n    [SerializeField] bool menosVentanas;\n    public int Turno { get; private set; }\n    public int Golpes { get; private set; }\n    public int Dano { get; private set; }\n    public int VidaEnemiga => menosVentanas ? 4 : 6;\n    public bool GuardiaAbierta => (Turno + 1) % (menosVentanas ? 3 : 2) == 0;\n\n    public void Resolver(bool atacar)\n    {\n        if (Golpes >= VidaEnemiga) return;\n        bool abierta = GuardiaAbierta;\n        Turno++;\n        if (!atacar) return;\n        if (abierta) Golpes++;\n        else Dano++;\n    }\n}\n```\n\n## Pruebas y ajustes\n\nSepara los turnos totales, golpes recibidos y ataques desperdiciados. Si las dos versiones duran lo mismo, pregunta cuál obligó a prestar atención. Si te limitas a contar bajas, pueden parecer idénticas."
+  },
+  {
+    "id": "ayudas-dificultad",
+    "tema": "Dificultad y equilibrio",
+    "titulo": "Ayudas de dificultad",
+    "resumen": "Qué cambia cuando das una pista o reduces la exigencia tras varios intentos.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "ayudas-dificultad",
+    "esquema": [
+      "Se registra un fallo",
+      "Aparece una ayuda",
+      "Cambia el siguiente intento"
+    ],
+    "fuentes": [
+      "supergiant-hades-faq",
+      "mda-hunicke-leblanc-zubek",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nUna pista añade información: dónde mirar, qué acción probar o qué regla se pasó por alto. Un ajuste de dificultad cambia algo del reto, como el margen disponible o el daño. Supergiant explica que el modo dios de Hades se activa voluntariamente y aumenta la resistencia con las derrotas. Sirve para pensar quién inicia la ayuda y cuándo se aplica.\n\n## Variantes de diseño\n\nPuedes ofrecer ayuda desde el principio, habilitarla tras varios fallos o adaptar un parámetro de forma gradual. Si alguien está probando a propósito una jugada arriesgada, una racha de fallos puede ser una mala señal para intervenir.\n\n## Diseño de situaciones y lectura\n\nComunica cuándo se activa el ajuste y qué regla cambia. Evita dar la solución entera en la primera pista. Si el reto pide leer una señal, una pista sobre esa señal es más diagnóstica que aumentar la vida del jugador.\n\n## Laboratorio jugable\n\nIntenta aguantar una secuencia de tres señales. Tras dos fallos, compara una pista opcional que recuerda la regla con una adaptación anunciada: se permite un error por intento.\n\n## Implementación en Unity\n\nGuarda el componente como AyudaPorIntentos.cs y añádelo a un objeto de la escena. Usa Paso para mostrar la señal y enlaza Responder con true para moverse y false para cubrirse. Muestra la regla cuando PistaVisible se active. Si usas ajuste automático, enseña AyudaActiva y cuándo ya se gastó el margen.\n\n```csharp\nusing UnityEngine;\n\npublic class AyudaPorIntentos : MonoBehaviour\n{\n    [SerializeField] bool ajusteAutomatico;\n    public int Paso { get; private set; }\n    public int Fallos { get; private set; }\n    public bool MargenGastado { get; private set; }\n    public bool PistaVisible { get; private set; }\n    public bool AyudaActiva => ajusteAutomatico && Fallos >= 2;\n\n    public void PedirPista()\n    {\n        if (!ajusteAutomatico && Fallos >= 2 && Paso < 3) PistaVisible = true;\n    }\n\n    public void Responder(bool moverse)\n    {\n        if (Paso >= 3) return;\n        if (moverse == (Paso % 2 == 1)) { Paso++; return; }\n        if (AyudaActiva && !MargenGastado)\n        {\n            MargenGastado = true;\n            Paso++;\n            return;\n        }\n        Fallos++;\n        Paso = 0;\n        MargenGastado = false;\n    }\n}\n```\n\n## Pruebas y ajustes\n\nAnota cuándo se pidió ayuda, cuántos errores quedan y qué regla puede explicar la persona al terminar. Para saber si aprendió la secuencia o la regla, prueba después señales en otro orden."
+  },
+  {
+    "id": "sekiro-postura",
+    "titulo": "Vitalidad y postura en Sekiro",
+    "tema": "Dificultad y equilibrio",
+    "referencia": "FromSoftware. Sekiro: Shadows Die Twice Web Manual, Mechanics.",
+    "fuente": "https://www.fromsoftware.jp/manual/sekiroshadowsdietwice/stadia/mechanics.html",
+    "cuerpo": "El manual explica cómo los ataques y los desvíos presionan la postura. También relaciona la vitalidad con la velocidad a la que se recupera. La combinación permite estudiar la iniciativa y el progreso de un duelo.",
+    "resumen": "El manual explica cómo los ataques y los desvíos presionan la postura.",
+    "idioma": "Inglés",
+    "formato": "Documentación"
+  },
+  {
+    "id": "ea-it-takes-two",
+    "titulo": "Habilidades y desafíos cooperativos en It Takes Two",
+    "tema": "Dinámicas",
+    "referencia": "Electronic Arts y Hazelight. It Takes Two Features.",
+    "fuente": "https://www.ea.com/games/it-takes-two/it-takes-two/features",
+    "cuerpo": "La presentación oficial describe desafíos que se resuelven en pareja y habilidades que cambian con los niveles. Sirve de referencia para estudiar qué decisiones puede repartir un puzle cooperativo.",
+    "resumen": "La presentación oficial describe desafíos que se resuelven en pareja y habilidades que cambian con los niveles.",
+    "idioma": "Inglés",
+    "formato": "Documentación"
+  },
+  {
+    "id": "gow-ragnarok-accesibilidad",
+    "titulo": "Puntos de control de minijefes en God of War Ragnarök",
+    "tema": "Jugabilidad y bucles",
+    "referencia": "PlayStation y Santa Monica Studio. God of War Ragnarök Accessibility.",
+    "fuente": "https://www.playstation.com/en-us/games/god-of-war-ragnarok/accessibility/",
+    "cuerpo": "La guía recoge los puntos de control de minijefes como ayuda en dificultades compatibles. Conservan parte del progreso del combate después de una derrota.",
+    "resumen": "La guía recoge los puntos de control de minijefes como ayuda en dificultades compatibles.",
+    "idioma": "Inglés",
+    "formato": "Documentación"
+  },
+  {
+    "id": "capcom-revertir-mejora",
+    "titulo": "Revertir una mejora en Monster Hunter Rise: Sunbreak",
+    "tema": "Sistemas y economías",
+    "referencia": "Capcom. Monster Hunter Rise: Sunbreak Official Web Manual, Weapons & Armor.",
+    "fuente": "https://game.capcom.com/manual/Multi-Platform/en/xone/page/9/1",
+    "cuerpo": "Capcom explica cómo identificar las mejoras que admiten volver atrás. El juego devuelve materiales y, en algunos casos, parte vuelve en forma de restos.",
+    "resumen": "Capcom explica cómo identificar las mejoras que admiten volver atrás.",
+    "idioma": "Inglés",
+    "formato": "Documentación"
+  },
+  {
+    "id": "supergiant-hades-faq",
+    "titulo": "Modo dios y resistencia al daño en Hades",
+    "tema": "Dificultad y equilibrio",
+    "referencia": "Supergiant Games. Hades FAQ.",
+    "fuente": "https://www.supergiantgames.com/blog/hades-faq/",
+    "cuerpo": "La FAQ presenta el modo dios como una opción que aumenta la resistencia al daño y agrega protección después de las derrotas. Permite discutir cuándo se ofrece un ajuste y cómo se aplica.",
+    "resumen": "La FAQ presenta el modo dios como una opción que aumenta la resistencia al daño y agrega protección después de las derrotas.",
+    "idioma": "Inglés",
+    "formato": "Documentación"
   }
 ]

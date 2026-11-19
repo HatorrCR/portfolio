@@ -673,6 +673,168 @@ function addJump3D() {
 }
 
 const systemLabs = {
+  'iniciativa-combate': {
+    modes: ['Sin premio', 'Premio por atacar'],
+    start: () => ({round: 0, pts: 0}),
+    view: s => [['Intercambios', s.round + ' / 6'], ['Puntos', s.pts]],
+    hint: s => s.round === 6 ? 'Duelo terminado.' : 'El rival se prepara para ' + ['contraatacar', 'atacar', 'defender'][s.round % 3] + '.',
+    actions: (s, mode) => ['Atacar', 'Esperar', 'Fintar'].map((name, choice) =>
+      [name, s.round < 6, () => {
+        const points = [[-2, 0, 0], [0, 2, 0], [1, -1, 2]][s.round % 3][choice]
+          + (mode && choice === 0 ? 2 : 0);
+        s.round++;
+        s.pts += points;
+        return 'Resultado del intercambio: ' + points + ' puntos.';
+      }])
+  },
+  'roles-cooperativos': {
+    modes: ['Pistas compartidas', 'Pistas repartidas'],
+    start: () => ({round: 0, role: 0, points: 0}),
+    view: s => [['Ronda', Math.min(s.round + 1, 3) + ' / 3'], ['Aciertos', s.points]],
+    hint: (s, mode) => {
+      if (s.round === 3) return 'Partida terminada. Cambiad los roles y probad otra variante.';
+      const a = ['estrella', 'luna', 'estrella'][s.round], b = ['azul', 'roja', 'roja'][s.round];
+      if (!s.role) return 'Rol A. Pista: la puerta tiene una ' + a + '. Memorízala y pasa el turno.';
+      return 'Rol B. Pista: la puerta es ' + b + '.' + (mode ? ' Pregunta al otro rol por el símbolo.' : ' El símbolo es ' + a + '.');
+    },
+    actions: s => [
+      ['Pasar el turno al rol B', s.round < 3 && s.role === 0, () => { s.role = 1; return ''; }],
+      ...['Estrella azul', 'Estrella roja', 'Luna azul', 'Luna roja'].map((name, door) =>
+        [name, s.round < 3 && s.role === 1, () => {
+          const correct = door === [0, 3, 1][s.round];
+          if (correct) s.points++;
+          s.round++;
+          s.role = 0;
+          return correct ? 'Puerta correcta.' : 'La puerta no coincide con las dos pistas.';
+        }])
+    ]
+  },
+  'ritmo-en-rondas': {
+    modes: ['Elección rápida', 'Gestión de inventario'],
+    start: () => ({round: 0, active: 0, pending: 0, moves: 0, damage: 0}),
+    view: s => [['Rondas', s.round + ' / 4'], ['Preparativos', s.moves], ['Daño', s.damage], ['Protección', ['Ninguna', 'Escudo', 'Filtro', 'Ambas'][s.active]]],
+    hint: s => s.round === 4 ? 'Combate terminado.' :
+      'Siguiente amenaza: ' + ['golpe', 'vapor', 'golpe', 'golpe y vapor'][s.round] + '. Preparado: ' + ['nada', 'escudo', 'filtro', 'ambos'][s.pending] + '.',
+    actions: (s, mode) => [
+      ...['Escudo', 'Filtro'].map((name, i) => [name, s.round < 4, () => {
+        const gear = i + 1;
+        if (mode) s.pending ^= gear;
+        else s.active = gear;
+        s.moves++;
+        return mode ? 'Inventario modificado. Puedes confirmar el equipo.' : name + ' equipado.';
+      }]),
+      ['Confirmar equipo', Boolean(mode) && s.round < 4 && s.pending !== s.active, () => {
+        s.active = s.pending;
+        s.moves++;
+        return 'Equipo confirmado.';
+      }],
+      ['Jugar ronda', s.round < 4, () => {
+        const lacks = [1, 2, 1, 3][s.round++] & ~s.active;
+        const hit = Number(Boolean(lacks & 1)) + Number(Boolean(lacks & 2));
+        s.damage += hit;
+        return hit ? 'Daño de esta ronda: ' + hit + '.' : 'Saliste sin daño.';
+      }]
+    ]
+  },
+  'reinicio-tras-fallar': {
+    modes: ['Reinicio completo', 'Punto de control', 'Atajo descubierto'],
+    start: () => ({room: 0, steps: 0, failed: false, done: false}),
+    view: s => [['Tramos recorridos', s.room + ' / 4'], ['Pasos totales', s.steps], ['Caídas', Number(s.failed)]],
+    hint: s => s.done ? 'Encuentro superado.' : s.room === 4 ? 'El encuentro final está delante.' : 'Avanza por el siguiente tramo.',
+    actions: (s, mode) => [
+      ['Avanzar', s.room < 4, () => { s.room++; s.steps++; return 'Tramo recorrido.'; }],
+      ['Tomar atajo', mode === 2 && s.failed && s.room < 4, () => { s.room = 4; s.steps++; return 'Has vuelto al encuentro.'; }],
+      ['Intentar encuentro', s.room === 4 && !s.done, () => {
+        if (s.failed) { s.done = true; return 'Encuentro superado.'; }
+        s.failed = true;
+        s.room = mode === 1 ? 2 : 0;
+        return 'Primer intento fallido. ' + (mode === 2 ? 'El atajo queda abierto.' : 'Vuelve a intentarlo.');
+      }]
+    ]
+  },
+  'descuentos-inventario': {
+    modes: ['Cuatro plazas', 'Seis plazas'],
+    start: () => ({gold: 20, items: 0, keys: 0}),
+    view: (s, mode) => [['Oro', s.gold], ['Consumibles', s.items], ['Llaves', s.keys + ' / 2'], ['Plazas libres', (mode ? 6 : 4) - s.items - s.keys]],
+    hint: s => s.keys === 2 && s.items >= 2 ? 'Objetivo cumplido. Compara cuánto oro y qué reserva te quedan.' : 'Objetivo: dos llaves y al menos dos consumibles.',
+    actions: (s, mode) => {
+      const space = (mode ? 6 : 4) - s.items - s.keys;
+      const open = s.keys < 2 || s.items < 2;
+      return [
+        ['Comprar uno · 5', open && s.gold >= 5 && space >= 1, () => { s.gold -= 5; s.items++; return 'Compraste un consumible.'; }],
+        ['Comprar paquete · 10', open && s.gold >= 10 && space >= 3, () => { s.gold -= 10; s.items += 3; return 'Compraste tres consumibles.'; }],
+        ['Usar consumible', open && s.items > 0, () => { s.items--; return 'Liberaste una plaza.'; }],
+        ['Recoger llave', s.keys < 2 && space > 0, () => { s.keys++; return 'Llave guardada.'; }]
+      ];
+    }
+  },
+  'mejorar-o-cambiar-arma': {
+    modes: ['Sin reembolso', 'Reembolso de dos materiales'],
+    start: () => ({round: 0, materials: 4, spear: false, swordLevel: 1, spearLevel: 0, points: 0}),
+    view: s => [['Encuentros', s.round + ' / 4'], ['Materiales', s.materials],
+      ['Arma activa', s.spear ? 'Lanza' : 'Espada'], ['Niveles espada / lanza', s.swordLevel + ' / ' + s.spearLevel], ['Puntos', s.points]],
+    hint: s => s.round === 4 ? 'Recorrido completo.' : s.round % 2 ? 'La amenaza está lejos. La lanza tiene ventaja.' : 'La amenaza está cerca. La espada tiene ventaja.',
+    actions: (s, mode) => [
+      ['Cambiar arma', s.round > 0 && s.round < 4, () => { s.spear = !s.spear; return 'Arma cambiada.'; }],
+      ['Revertir mejora de espada', Boolean(mode) && s.round > 0 && s.round < 4 && s.swordLevel > 0, () => {
+        s.swordLevel--; s.materials += 2; return 'Recuperaste dos materiales.';
+      }],
+      ['Mejorar arma activa · 3', s.round < 4 && s.materials >= 3, () => {
+        s.materials -= 3;
+        if (s.spear) s.spearLevel++;
+        else s.swordLevel++;
+        return 'Mejora aplicada.';
+      }],
+      ['Resolver encuentro', s.round < 4, () => {
+        const far = s.round++ % 2 === 1;
+        const gain = (far === s.spear ? 3 : 1) + (s.spear ? s.spearLevel : s.swordLevel);
+        s.points += gain;
+        return 'Resultado del encuentro: ' + gain + ' puntos.';
+      }]
+    ]
+  },
+  'vida-y-ventanas': {
+    modes: ['Más vida', 'Menos ventanas'],
+    start: () => ({turn: 0, hits: 0, damage: 0}),
+    view: (s, mode) => [['Turnos', s.turn], ['Golpes acertados', s.hits + ' / ' + (mode ? 4 : 6)], ['Daño recibido', s.damage]],
+    hint: (s, mode) => s.hits === (mode ? 4 : 6) ? 'Encuentro superado.' :
+      (s.turn + 1) % (mode ? 3 : 2) === 0 ? 'Guardia abierta.' : 'Guardia cerrada.',
+    actions: (s, mode) => ['Atacar', 'Defender'].map((name, choice) => [
+      name, s.hits < (mode ? 4 : 6), () => {
+        const open = ++s.turn % (mode ? 3 : 2) === 0;
+        if (choice === 1) return 'Esperaste a cubierto.';
+        if (open) { s.hits++; return 'Golpe acertado.'; }
+        s.damage++;
+        return 'El enemigo te castigó por atacar con la guardia cerrada.';
+      }
+    ])
+  },
+  'ayudas-dificultad': {
+    modes: ['Pista opcional', 'Ajuste automático'],
+    start: () => ({step: 0, fails: 0, errors: 0, hint: false}),
+    view: (s, mode) => [['Señales resueltas', s.step + ' / 3'], ['Intentos fallidos', s.fails],
+      ['Margen restante', mode && s.fails >= 2 ? 1 - s.errors : 0]],
+    hint: (s, mode) => {
+      if (s.step === 3) return 'Secuencia resuelta.';
+      const signal = ['círculo', 'triángulo', 'círculo'][s.step];
+      return 'Señal: ' + signal + '.' + (s.hint ? ' El círculo pide cubrirse. El triángulo pide moverse.' :
+        mode && s.fails >= 2 ? ' Ajuste activo: puedes cometer un error por intento.' : '');
+    },
+    actions: (s, mode) => [
+      ['Pedir pista', !mode && s.fails >= 2 && !s.hint && s.step < 3, () => { s.hint = true; return ''; }],
+      ...['Cubrirse', 'Moverse'].map((name, choice) => [name, s.step < 3, () => {
+        if (choice === s.step % 2) { s.step++; return 'Respuesta correcta.'; }
+        if (mode && s.fails >= 2 && s.errors === 0) {
+          s.errors++;
+          s.step++;
+          return 'Error absorbido por el ajuste.';
+        }
+        s.fails++;
+        s.step = s.errors = 0;
+        return 'Fallaste la secuencia. Vuelve a empezar.';
+      }])
+    ]
+  },
   'pociones-para-luego': {
     modes: ['Reserva finita', 'Recarga intermedia'],
     start: () => ({room: 0, hp: 10, potions: 2}),
@@ -1315,7 +1477,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=camaras-laboratorios', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=guias-sistemas-2', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);

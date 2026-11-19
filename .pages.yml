@@ -374,6 +374,10 @@ content:
       - name: fuente
         label: Enlace HTTPS a la fuente original
         type: string
+      - name: editorial
+        label: Texto propio (mostrar en las áreas de diseño)
+        type: boolean
+        default: false
       - name: idioma
         label: Idioma del original (para el archivo de papers)
         type: select

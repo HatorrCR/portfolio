@@ -420,6 +420,141 @@ function addJumpLab() {
   return controls;
 }
 
+function addJump3D() {
+  const panel = document.querySelector('#plantilla-salto-3d').content.firstElementChild.cloneNode(true);
+  reading.append(panel);
+  const canvas = panel.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  const view = panel.querySelector('[data-vista-3d]');
+  const shadow = panel.querySelector('[data-sombra-3d]');
+  const status = panel.querySelector('[data-estado-3d]');
+  const held = new Set();
+  const keys = {ArrowLeft:'KeyA', ArrowRight:'KeyD', ArrowUp:'KeyW', ArrowDown:'KeyS'};
+  const platforms = [[0,3,-1.7,1.7], [5,8.5,0.2,1.65]];
+  const isSupported = (x,z) => platforms.some(([l,r,n,f]) => x>=l && x<=r && z>=n && z<=f);
+  const step = 1/120;
+  let x, y, z, vy, grounded, requested, cut, won;
+  let last = 0, elapsed = 0, pendingFrame = false;
+
+  function draw() {
+    const overhead = view.value === 'cenital';
+    const px = (x,z) => 65 + x*66 + (overhead ? 0 : z*23);
+    const py = (z,y=0) => 190 + z*(overhead ? 63 : 36) - (overhead ? 0 : y*50);
+    function polygon(points, color) {
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      points.forEach(([x,z,y=0],i) => {
+        if (i) ctx.lineTo(px(x,z),py(z,y));
+        else ctx.moveTo(px(x,z),py(z,y));
+      });
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.fillStyle = '#fff6e6';
+    ctx.fillRect(0,0,680,320);
+    for (const [l,r,n,f] of platforms) {
+      if (!overhead) polygon([[l,f],[r,f],[r,f,-0.3],[l,f,-0.3]], '#193c3d');
+      polygon([[l,n],[r,n],[r,f],[l,f]], '#356062');
+    }
+    ctx.fillStyle = won ? '#fff6e6' : '#f7c477';
+    ctx.fillRect(px(7.7,0.9),py(0.9)-12,19,12);
+    if (shadow.checked) {
+      ctx.fillStyle = 'rgba(47,35,29,.38)';
+      ctx.beginPath();
+      ctx.ellipse(px(x,z),py(z),11,5,0,0,Math.PI*2);
+      ctx.fill();
+    }
+    ctx.fillStyle = '#a64328';
+    ctx.fillRect(px(x,z)-9,py(z,y)-20,18,20);
+    ctx.fillStyle = '#fff6e6';
+    ctx.fillRect(px(x,z)+2,py(z,y)-15,4,4);
+    ctx.fillStyle = '#40382e';
+    ctx.font = '16px system-ui';
+    ctx.fillText('W / ↑  al fondo     S / ↓  hacia ti', 24, 292);
+  }
+
+  function reset(message) {
+    x = 1.2;
+    y = z = vy = 0;
+    grounded = true;
+    requested = cut = won = false;
+    status.textContent = message;
+    draw();
+  }
+
+  function update() {
+    const dx = Number(held.has('KeyD')) - Number(held.has('KeyA'));
+    const dz = Number(held.has('KeyS')) - Number(held.has('KeyW'));
+    const speed = 5.5 / Math.max(1, Math.hypot(dx,dz));
+    x = Math.max(0, Math.min(8.6,x+dx*speed*step));
+    z = Math.max(-2, Math.min(1.9,z+dz*speed*step));
+    if (grounded && !isSupported(x,z)) grounded = false;
+    if (requested && grounded) {
+      grounded = false;
+      vy = 9.8;
+      cut = false;
+    }
+    requested = false;
+    if (!grounded) {
+      if (!held.has('Space') && !cut && vy>0) {
+        vy = Math.min(vy,4.4);
+        cut = true;
+      }
+      const before = y;
+      y += vy*step;
+      vy -= 25*step;
+      if (before>=0 && y<=0 && vy<=0 && isSupported(x,z)) {
+        y = vy = 0;
+        grounded = true;
+      }
+    }
+    if (y < -2.3) reset('Al foso. Ajusta la profundidad antes de despegar y vuelve a probar.');
+    if (!won && grounded && x>=7.7 && z>=0.2 && z<=1.65) {
+      won = true;
+      status.textContent = 'Bandera conseguida. Repite desde arriba o quita la sombra para comparar.';
+    }
+  }
+
+  function frame(now) {
+    elapsed += last ? Math.min((now-last)/1000,0.05) : 0;
+    last = now;
+    while (elapsed >= step) {
+      update();
+      elapsed -= step;
+    }
+    draw();
+    if (held.size || !grounded || requested) requestAnimationFrame(frame);
+    else {
+      pendingFrame = false;
+      last = elapsed = 0;
+    }
+  }
+
+  canvas.addEventListener('keydown', event => {
+    const key = keys[event.code] ?? event.code;
+    if (!['KeyA','KeyD','KeyW','KeyS','KeyR','Space'].includes(key)) return;
+    event.preventDefault();
+    if (event.repeat) return;
+    if (key === 'KeyR') {
+      held.clear();
+      reset('Otra vez desde el inicio.');
+      return;
+    }
+    if (key === 'Space') requested = true;
+    held.add(key);
+    if (!pendingFrame) {
+      pendingFrame = true;
+      requestAnimationFrame(frame);
+    }
+  });
+  canvas.addEventListener('keyup', event => held.delete(keys[event.code] ?? event.code));
+  canvas.addEventListener('blur', () => held.clear());
+  window.addEventListener('blur', () => held.clear());
+  panel.addEventListener('change', draw);
+  reset('Empieza alineándote con la plataforma de llegada.');
+}
+
 function showReading(entries, archive) {
   const id = params.get('lectura') ?? archive?.id;
   if (!id) {
@@ -457,7 +592,7 @@ function showReading(entries, archive) {
         pre.tabIndex = 0;
         pre.setAttribute('aria-label', 'Código C#');
         pre.append(element('code', block.trim()));
-        if (visualJump) {
+        if (visualJump || id === 'salto-3d-guia') {
           const details = element('details', '', 'detalle-codigo');
           details.append(element('summary', 'Ver código C#'), pre);
           reading.append(details);
@@ -470,6 +605,7 @@ function showReading(entries, archive) {
           const content = heading ? element(heading[1] === '##' ? 'h2' : 'h3', heading[2]) : element('p', paragraph);
           if (heading?.[1] === '##' && index) addToIndex(content, 'apartado-' + (index.children.length + 1) + '-' + slug(heading[2]));
           reading.append(content);
+          if (id === 'salto-3d-guia' && heading?.[2] === 'Ponte al mando') addJump3D();
           if (jumpControls && heading?.[2] === 'Ponte al mando') {
             const game = document.querySelector('#plantilla-juego-salto').content.firstElementChild.cloneNode(true);
             reading.append(game);
@@ -514,7 +650,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=sin-registro', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=salto-3d', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);

@@ -110,3 +110,7 @@ footer { border-top: 1px solid var(--linea); }
 #subcategorias { margin: 1.25rem 0 .75rem; }
 
 .codigo { max-width: 100%; overflow-x: auto; padding: 1rem; border: 1px solid var(--linea); background: #fffdf7; font: .875rem/1.55 var(--mono); }
+
+.barra { flex-wrap: wrap; row-gap: 8px; }
+#novedades { border-top: 3px double var(--tinta); margin-top: 36px; padding: 24px 0 48px; }
+#novedades h2 { margin-bottom: 20px; }

@@ -1300,5 +1300,159 @@
     "fuente": "https://book.leveldesignbook.com/process/preproduction/pacing",
     "referencia": "The Level Design Book. Pacing.",
     "cuerpo": "Cómo ordenar situaciones de enseñanza, prueba y variación. Incluye ejemplos de Portal."
+  },
+  {
+    "id": "decisiones-consecuencias",
+    "tema": "Diseño narrativo",
+    "titulo": "Decisiones y consecuencias",
+    "resumen": "Cómo comunicar el efecto de una decisión ahora o al regresar al refugio.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "decisiones-consecuencias",
+    "esquema": [
+      "Eliges",
+      "Ocurre el cambio",
+      "Descubres la consecuencia"
+    ],
+    "fuentes": [
+      "narrativa-ink-elecciones",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nEliges entre acompañar a una vecina o proteger una caja de suministros. El interés está en lo que estás dispuesto a perder y en si después puedes reconstruir qué cambió. Una consecuencia visible enseña la relación enseguida. Una demora permite que la elección pese mientras avanzas.\n\n## Variantes de diseño\n\nPuedes mostrar el coste al elegir, adelantarlo con una señal o enseñarlo al regresar. Da margen para deducir la relación si pasan varias escenas. La consecuencia tardía puede ser igual de clara si alguien recoge una frase o un objeto que recuerde la decisión.\n\n## Laboratorio jugable\n\nElige una acción y vuelve al refugio. En ambas variantes ocurre lo mismo. Cambia cuándo ves el resultado e intenta explicar de dónde viene antes de volver a mirar la elección.\n\n## Implementación en Unity\n\nGuarda el componente como ConsecuenciaDeRefugio.cs. Conecta Elegir con true para acompañar y false para vigilar. Llama a Regresar al llegar al refugio y muestra el resultado cuando ResultadoVisible sea 0 o 1.\n\n```csharp\nusing UnityEngine;\n\npublic class ConsecuenciaDeRefugio : MonoBehaviour\n{\n    [SerializeField] bool revelarAlRegresar;\n    int decision = -1;\n    bool regreso;\n\n    public void Elegir(bool acompanar)\n    {\n        if (decision < 0) decision = acompanar ? 0 : 1;\n    }\n\n    public void Regresar()\n    {\n        if (decision >= 0) regreso = true;\n    }\n\n    public int ResultadoVisible =>\n        decision >= 0 && (!revelarAlRegresar || regreso) ? decision : -1;\n}\n```\n\n## Pruebas y ajustes\n\nCambia únicamente el momento de la revelación. Pregunta qué cree que pasó, en qué momento lo supo y qué señal utilizó. Una recapitulación puede ayudar si recuerda el resultado pero lo atribuye a otra acción."
+  },
+  {
+    "id": "dialogos-ramificados",
+    "tema": "Diseño narrativo",
+    "titulo": "Diálogos ramificados",
+    "resumen": "Qué cambia cuando una conversación recuerda lo que hiciste antes.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "dialogos-ramificados",
+    "esquema": [
+      "Decides qué hacer con el cuaderno",
+      "Hablas con la guardiana",
+      "Responde según el estado"
+    ],
+    "fuentes": [
+      "narrativa-ink-elecciones",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nDos respuestas pueden llevar a la misma escena con un matiz distinto. Otra rama puede abrir una pista o cerrarla. Writing with ink describe elecciones y variables como mecanismos para decidir qué texto y opciones aparecen según el estado de la historia.\n\n## Variantes de diseño\n\nPuedes comprobar reputación acumulada, una acción concreta o la información que ya posee el jugador. Para este caso interesa una acción reconocible, haber devuelto un cuaderno. Una condición legible ayuda a que la respuesta del personaje parezca relacionada con lo que ocurrió.\n\n## Laboratorio jugable\n\nDevuelve o guarda el cuaderno y habla con la guardiana. Prueba pedir la pista de frente o presionarla. La guardiana solo tiene en cuenta el cuaderno en la variante con memoria.\n\n## Implementación en Unity\n\nGuarda el componente como DialogoConMemoria.cs. Llama a RegistrarCuaderno al resolver la primera escena. Pasa true a CompartePista cuando el jugador pregunta con calma y usa el resultado para elegir el texto.\n\n```csharp\nusing UnityEngine;\n\npublic class DialogoConMemoria : MonoBehaviour\n{\n    [SerializeField] bool usaMemoria;\n    bool cuadernoDevuelto;\n\n    public void RegistrarCuaderno(bool devuelto) => cuadernoDevuelto = devuelto;\n\n    public bool CompartePista(bool preguntarConCalma)\n    {\n        return preguntarConCalma && (!usaMemoria || cuadernoDevuelto);\n    }\n}\n```\n\n## Pruebas y ajustes\n\nAnota qué opción abrió la pista y qué parte de la respuesta comunica el porqué. Si una persona no reconoce que la escena recuerda la devolución, haz que la guardiana mencione el cuaderno."
+  },
+  {
+    "id": "narrativa-ambiental",
+    "tema": "Diseño narrativo",
+    "titulo": "Narrativa ambiental",
+    "resumen": "Cómo reconstruir una escena a partir de lo que quedó en el espacio.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "narrativa-ambiental",
+    "esquema": [
+      "Examinas el taller",
+      "Relacionas las pistas",
+      "Formulas una explicación"
+    ],
+    "fuentes": [
+      "narrativa-jenkins-espacio",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nUn taller vacío puede contar lo que ocurrió mediante objetos, posiciones y huellas de uso. Jenkins describe la narrativa integrada en el espacio como información que el jugador descubre y organiza. Si encuentra instrucciones o una nota, parte de esa reconstrucción puede quedar resuelta por el texto.\n\n## Variantes de diseño\n\nUna nota puede aclarar una cronología difícil. Las marcas en el suelo pueden sugerir una acción sin explicarla entera. Coloca dos pistas que empujen hacia la misma lectura y deja espacio para una hipótesis alternativa cuando el mundo admita ambigüedad.\n\n## Laboratorio jugable\n\nExamina el taller y decide qué ocurrió. La versión con nota permite leer una explicación. En la otra, observa la marca del agua y el carro antes de elegir. La prueba te pide relacionar ambas pistas si quieres cerrar el caso.\n\n## Implementación en Unity\n\nGuarda el componente como EvidenciasDelTaller.cs. Asigna los índices 0, 1 y 2 a pared, carro y nota. Habilita la respuesta cuando PuedeConcluir sea verdadero. En escena, conserva un registro legible de las pistas visitadas.\n\n```csharp\nusing UnityEngine;\n\npublic class EvidenciasDelTaller : MonoBehaviour\n{\n    [SerializeField] bool usarNota;\n    int vistas;\n\n    public void Observar(int pista)\n    {\n        if (pista < 0 || pista > 2 || (pista == 2 && !usarNota)) return;\n        vistas |= 1 << pista;\n    }\n\n    public bool PuedeConcluir => (vistas & 3) == 3 || (vistas & 4) != 0;\n    public bool Concluir(bool fueInundacion) => PuedeConcluir && fueInundacion;\n}\n```\n\n## Pruebas y ajustes\n\nPregunta qué objeto sostiene la explicación y si pudo imaginar otra. Si la mayoría acierta por descarte sin mirar el escenario, cambia las hipótesis o exige que señalen una pista concreta."
+  },
+  {
+    "id": "narrativa-mecanicas",
+    "tema": "Diseño narrativo",
+    "titulo": "Narrativa y mecánicas",
+    "resumen": "Qué cambia cuando una decisión de historia usa tus propios recursos.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "narrativa-mecanicas",
+    "esquema": [
+      "Ves cuántas raciones necesitas",
+      "Decides cuánto donar",
+      "Intentas viajar"
+    ],
+    "fuentes": [
+      "mda-hunicke-leblanc-zubek",
+      "machinations-dormans",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nDecir «doy una ración» y sacar una ración de tu mochila pueden contar la misma acción. La segunda versión vincula esa promesa con otra regla, cuánta comida necesitas para viajar. El marco MDA ayuda a preguntar qué dinámica aparece cuando ambas reglas comparten un recurso.\n\n## Variantes de diseño\n\nPuedes usar un fondo común, el inventario personal o una reserva que se repone. Si tocar el inventario puede impedir que el jugador siga, enseña cuánto necesita reservar y qué opciones tendrá si se queda corto.\n\n## Laboratorio jugable\n\nEmpiezas con tres raciones. El siguiente viaje pide dos. Reparte hasta dos al refugio y emprende el viaje. Compara una reserva común con las raciones que salen de tu propia mochila.\n\n## Implementación en Unity\n\nGuarda el componente como RacionesDelRefugio.cs. Vincula Donar a la interacción con el refugio y comprueba PuedeViajar al intentar salir. Muestra ambas cantidades junto a la opción de donar.\n\n```csharp\nusing UnityEngine;\n\npublic class RacionesDelRefugio : MonoBehaviour\n{\n    [SerializeField] bool inventarioPersonal;\n    public int Mochila { get; private set; } = 3;\n    public int Donadas { get; private set; }\n    public bool PuedeViajar => Mochila >= 2;\n\n    public void Donar()\n    {\n        if (Donadas >= 2 || (inventarioPersonal && Mochila == 0)) return;\n        Donadas++;\n        if (inventarioPersonal) Mochila--;\n    }\n}\n```\n\n## Pruebas y ajustes\n\nPregunta cuántas raciones pensabas donar antes de conocer el coste. Separa quién decide guardar una y quién se equivoca porque no entendió de qué bolsillo salía."
+  },
+  {
+    "id": "voz-personaje-traduccion",
+    "tema": "Localización",
+    "titulo": "Voz de personaje en traducción",
+    "resumen": "Cómo conservar el tono y la intención de una réplica al traducirla.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "voz-personaje-traduccion",
+    "esquema": [
+      "Lees la escena",
+      "Eliges el registro",
+      "Escuchas el resultado"
+    ],
+    "fuentes": [
+      "localizacion-igda",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nUna frase puede informar, bromear o marcar distancia a la vez. Antes de traducirla, anota quién habla, con quién y qué quiere provocar. La guía de localización de IGDA recomienda aportar material contextual a quienes traducen. Una nota de voz de personaje reduce decisiones a ciegas.\n\n## Variantes de diseño\n\nPuedes acercarte a la estructura original o buscar una expresión que produzca el mismo efecto en español. Una variante que funcione para una capitana que suelta ironías puede sobrar en boca de alguien que anima con sinceridad.\n\n## Laboratorio jugable\n\nElige una traducción de dos réplicas y léelas en escena. Compara la lectura literal con una adaptación al registro informal de la capitana. Aquí evaluamos qué opción encaja con esa voz concreta.\n\n## Implementación en Unity\n\nGuarda el componente como ReplicaDePersonaje.cs. Introduce las dos versiones de una réplica en el Inspector. Usa Texto para cargar la alternativa en el mismo cuadro de diálogo. Para un juego publicado, conserva las frases en tablas de traducción y pasa al componente sus claves.\n\n```csharp\nusing UnityEngine;\n\npublic class ReplicaDePersonaje : MonoBehaviour\n{\n    [SerializeField] string literal;\n    [SerializeField] string adaptada;\n    public string Texto(bool priorizarVoz) => priorizarVoz ? adaptada : literal;\n}\n```\n\n## Pruebas y ajustes\n\nLee la réplica en voz alta y observa qué entiende otra persona acerca del personaje. Apunta si pierde información, si cambia el blanco del chiste o si mueve el tono hacia una variedad geográfica que no buscabas."
+  },
+  {
+    "id": "traducir-con-contexto",
+    "tema": "Localización",
+    "titulo": "Traducir con contexto",
+    "resumen": "Cómo el hablante, la escena y el evento cambian el sentido de una línea.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "traducir-con-contexto",
+    "esquema": [
+      "Identificas la frase",
+      "Compruebas su función",
+      "Eliges la traducción"
+    ],
+    "fuentes": [
+      "localizacion-igda",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\n«You’re clear» puede autorizar a alguien a pasar o confirmar que ya está a salvo. Si el texto llega separado de su escena, ambas lecturas son plausibles. Puedes registrar quién habla, qué activa la línea y dónde aparece para que la traducción tenga esa información.\n\n## Variantes de diseño\n\nUna captura permite ver la interfaz y el espacio disponible. Una descripción del disparador explica por qué aparece el texto. Para frases que se reutilizan en contextos distintos, usa claves separadas cuando tengan significados distintos.\n\n## Laboratorio jugable\n\nTraduce dos apariciones de la misma frase con o sin contexto visible. Al elegir, se revela la escena y puedes ver si tu traducción cumplía la función de ese momento.\n\n## Implementación en Unity\n\nGuarda el componente como ClaveDeReplica.cs. Usa Clave para seleccionar la entrada de la tabla de traducción a partir del evento narrativo. Mantén junto a cada clave una nota con su hablante, intención y disparador.\n\n```csharp\nusing UnityEngine;\n\npublic class ClaveDeReplica : MonoBehaviour\n{\n    public enum Contexto { ControlDeAcceso, FinDelPeligro }\n\n    public string Clave(Contexto contexto)\n    {\n        return contexto == Contexto.ControlDeAcceso\n            ? \"guardia.paso_autorizado\" : \"equipo.zona_segura\";\n    }\n}\n```\n\n## Pruebas y ajustes\n\nCuenta correcciones por falta de contexto y distingue significado de estilo. Si dos traducciones funcionan, registra por qué. Si la misma clave obliga a estropear alguna escena, revisa el identificador antes de pulir el español."
+  },
+  {
+    "id": "narrativa-ink-elecciones",
+    "titulo": "Elecciones y variables en ink",
+    "tema": "Diseño narrativo",
+    "formato": "Documentación",
+    "referencia": "inkle. Writing with ink.",
+    "fuente": "https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md",
+    "cuerpo": "La documentación de ink explica cómo presentar opciones y consultar variables para cambiar respuestas, rutas y texto. Permite estudiar cómo el estado de la historia condiciona lo que aparece en una escena.",
+    "idioma": "Inglés",
+    "resumen": "La documentación de ink explica cómo presentar opciones y consultar variables para cambiar respuestas, rutas y texto. Permite estudiar cómo el estado de la historia condiciona lo que aparece en una escena."
+  },
+  {
+    "id": "narrativa-jenkins-espacio",
+    "titulo": "Narrativa integrada en el espacio",
+    "tema": "Diseño narrativo",
+    "formato": "Artículo",
+    "referencia": "Henry Jenkins. Game Design as Narrative Architecture.",
+    "fuente": "https://mycours.es/zip/Game%20Design%20as%20Narrative%20Architecture%20-%20Henry%20Jenkins.pdf",
+    "cuerpo": "Jenkins describe diferentes relaciones entre relato y espacio. En la narrativa integrada, el jugador encuentra información repartida por el escenario y reconstruye su sentido.",
+    "idioma": "Inglés",
+    "resumen": "Jenkins describe diferentes relaciones entre relato y espacio. En la narrativa integrada, el jugador encuentra información repartida por el escenario y reconstruye su sentido."
+  },
+  {
+    "id": "localizacion-igda",
+    "titulo": "Buenas prácticas de localización de videojuegos",
+    "tema": "Localización",
+    "formato": "Documentación",
+    "referencia": "IGDA Localization SIG. Best Practices for Game Localization, v2.2.",
+    "fuente": "https://igda-website.s3.us-east-2.amazonaws.com/wp-content/uploads/2021/04/09142137/Best-Practices-for-Game-Localization-v22.pdf",
+    "cuerpo": "La guía recoge prácticas para preparar textos de juego, dar contexto a quienes traducen y revisar la traducción en su entorno de uso.",
+    "idioma": "Inglés",
+    "resumen": "La guía recoge prácticas para preparar textos de juego, dar contexto a quienes traducen y revisar la traducción en su entorno de uso."
   }
 ]

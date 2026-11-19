@@ -1163,6 +1163,101 @@ function exposed(x,y,mode) {
   return [1,3].includes(y) && x<6 && x>(mode ? 4 : 2);
 }
 
+const narrativeLabs = {
+  'decisiones-consecuencias': {
+    modes: ['Resultado inmediato', 'Resultado al regresar'],
+    start: () => ({choice:-1, back:false}),
+    view: s => [['Escena', s.back ? 'Refugio' : 'Camino']],
+    hint: (s,mode) => {
+      if (s.choice < 0) return 'Una vecina necesita llegar al refugio. También puedes vigilar los suministros.';
+      if (mode && !s.back) return 'Continúas hacia el refugio. Allí sabrás cómo acabó todo.';
+      return s.choice === 0 ? 'La vecina llegó contigo. Alguien se llevó una caja.' : 'Salvaste la caja. La vecina tuvo que pasar la noche fuera.';
+    },
+    actions: s => [
+      ['Acompañar a la vecina', s.choice < 0, () => { s.choice = 0; return ''; }],
+      ['Vigilar la caja', s.choice < 0, () => { s.choice = 1; return ''; }],
+      ['Volver al refugio', s.choice >= 0 && !s.back, () => { s.back = true; return ''; }]
+    ]
+  },
+  'dialogos-ramificados': {
+    modes: ['Solo importa el diálogo', 'El diálogo recuerda acciones'],
+    start: () => ({book:0, result:''}),
+    view: s => [['Cuaderno', ['Pendiente','Devuelto','Guardado'][s.book]]],
+    hint: s => s.result || (s.book ? 'La guardiana te pregunta qué buscas.' : 'Encuentras el cuaderno de la guardiana.'),
+    actions: (s,mode) => [
+      ['Devolver el cuaderno', !s.book, () => { s.book=1; return ''; }],
+      ['Guardar el cuaderno', !s.book, () => { s.book=2; return ''; }],
+      ['Pedir la pista con calma', s.book>0 && !s.result, () => {
+        s.result = mode && s.book===2 ? 'Guardiana: He perdido mi cuaderno. Hoy no tengo ganas de hablar.' :
+          (mode ? 'Guardiana: Gracias por devolverme el cuaderno. ' : 'Guardiana: ') + 'Busca detrás del reloj.';
+        return '';
+      }],
+      ['Exigir la pista', s.book>0 && !s.result, () => { s.result = 'Guardiana: Con esas maneras, busca por tu cuenta.'; return ''; }]
+    ]
+  },
+  'narrativa-ambiental': {
+    modes: ['Taller con nota', 'Solo pistas del entorno'],
+    start: () => ({clues:0, done:false}),
+    view: s => [['Pistas examinadas', [1,2,4].filter(bit => s.clues & bit).length]],
+    hint: s => s.done ? 'Caso cerrado. ¿Qué pista te convenció?' : 'El taller está vacío. Examina lo que dejaron antes de responder.',
+    actions: (s,mode) => {
+      const ready = !s.done && ((s.clues & 3) === 3 || Boolean(s.clues & 4));
+      return [
+        ['Examinar la pared', !s.done, () => { s.clues |= 1; return 'Una línea de barro recorre la pared a la altura de la cintura.'; }],
+        ['Examinar el carro', !s.done, () => { s.clues |= 2; return 'Lo subieron a una mesa junto con las herramientas que aún están secas.'; }],
+        ['Leer la nota', !mode && !s.done, () => { s.clues |= 4; return 'Nota: El agua volvió a entrar. Subid las herramientas y salid.'; }],
+        ['Hubo una inundación', ready, () => { s.done = true; return 'La marca del agua y el carro elevado encajan con esa lectura.'; }],
+        ['Hubo un robo', ready, () => 'La hipótesis no explica la marca de barro ni por qué están las herramientas sobre la mesa.']
+      ];
+    }
+  },
+  'narrativa-mecanicas': {
+    modes: ['Reserva común', 'Inventario personal'],
+    start: () => ({items:3,given:0,done:false}),
+    view: s => [['Raciones en la mochila', s.items], ['Raciones donadas',s.given]],
+    hint: (s,mode) => s.done ? 'Terminó la escena.' : 'El viaje pide dos raciones. ' +
+      (mode ? 'Las donaciones salen de tu mochila.' : 'Las donaciones salen de una reserva común.'),
+    actions: (s,mode) => [
+      ['Donar una ración', !s.done && s.given < 2, () => { s.given++; if(mode)s.items--; return 'El refugio recibe una ración.'; }],
+      ['Emprender el viaje', !s.done, () => {
+        s.done=true;
+        return s.items >= 2 ? 'Tienes comida suficiente para salir.' : 'Te quedas en el refugio. Te falta una ración para el viaje.';
+      }]
+    ]
+  },
+  'voz-personaje-traduccion': {
+    start: () => ({round:0,lines:[]}),
+    view: s => [['Réplicas elegidas',s.round+' / 2']],
+    hint: s => ['El casco está abollado. La capitana se burla: “Nice parking.”',
+      'El motor arranca a la tercera. La misma capitana remata: “About time.”',
+      'Escena completa. Capitana: «' + s.lines.join('» / «') + '».'][s.round],
+    actions: s => [
+      ['Lectura literal: «'+(['Qué buen aparcamiento','Ya iba siendo hora'][s.round] ?? 'Terminada')+'»',s.round < 2,() => {
+        s.lines.push(['Qué buen aparcamiento','Ya iba siendo hora'][s.round++]);
+        return 'Leída con énfasis suficiente, la ironía también puede funcionar.';
+      }],
+      ['Adaptar el tono: «'+(['Menudo aterrizaje','Ya le costaba'][s.round] ?? 'Terminada')+'»',s.round < 2,() => {
+        s.lines.push(['Menudo aterrizaje','Ya le costaba'][s.round++]);
+        return 'La frase se ajusta al registro informal. Comprueba si conserva la intención.';
+      }]
+    ]
+  },
+  'traducir-con-contexto': {
+    modes: ['Solo la línea', 'Línea y contexto'],
+    start: () => ({round:0, fixes:0}),
+    view: s => [['Líneas revisadas',s.round+' / 2'],['Correcciones',s.fixes]],
+    hint: (s,mode) => s.round === 2 ? 'Revisión terminada.' : 'Original: “You’re clear.”' +
+      (mode ? (s.round ? ' Por radio, el equipo confirma que ya no hay peligro.' : ' En un control, una guardia te autoriza a entrar.') : ''),
+    actions: s => ['Puedes pasar', 'Estás a salvo'].map((line,i) => [line,s.round < 2,() => {
+      const round = s.round++;
+      const match = i===round;
+      if(!match)s.fixes++;
+      return (round ? 'Escena: el equipo confirma que ya no hay peligro. ' : 'Escena: la guardia autoriza el paso. ') +
+        (match ? 'La traducción cumple esa función.' : 'Cambia la traducción para que cumpla esa función.');
+    }])
+  }
+};
+
 function addSystemLab(config, id) {
   const lab = element('section', '', 'referencias laboratorio-sistemas');
   lab.setAttribute('aria-label', 'Prueba interactiva');
@@ -1263,7 +1358,8 @@ function addSystemLab(config, id) {
     }
     const nextHint = config.hint(state, mode);
     if (hint.textContent !== nextHint) hint.textContent = nextHint;
-    config.actions(state, mode, schedule).forEach(([, available], index) => {
+    config.actions(state, mode, schedule).forEach(([name, available], index) => {
+      if (buttons[index].textContent !== name) buttons[index].textContent = name;
       buttons[index].setAttribute('aria-disabled', String(!available));
     });
   }
@@ -1578,7 +1674,8 @@ function showReading(entries, archive) {
   const archiveReading = resource && isArchive(resource);
   const labId = resource?.laboratorio;
   const systemLab = Object.hasOwn(systemLabs, labId) ? systemLabs[labId] :
-    Object.hasOwn(levelLabs, labId) ? levelLabs[labId] : null;
+    Object.hasOwn(levelLabs, labId) ? levelLabs[labId] :
+    Object.hasOwn(narrativeLabs, labId) ? narrativeLabs[labId] : null;
   const editorial = Boolean(resource && isEditorial(resource));
   const archiveIndex = archiveReading || systemLab || (editorial && /^## /m.test(resource.cuerpo)) ? element('nav', '', 'referencias') : null;
   const index = archiveIndex ? element('ol', '') : null;
@@ -1696,7 +1793,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=guias-niveles', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=guias-narrativas', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);

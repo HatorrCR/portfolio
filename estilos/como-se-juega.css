@@ -106,3 +106,5 @@ footer { border-top: 1px solid var(--linea); }
 .idiomas a[aria-current="page"] { background: var(--plano); color: #fbf7ef; border-color: var(--plano); border-top-color: #e3a784; }
 #lectura h2 { margin-top: 1.35em; font-size: 1.45rem; }
 .referencias { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid var(--linea); }
+
+#subcategorias { margin: 1.25rem 0 .75rem; }

@@ -166,3 +166,22 @@ footer { border-top: 1px solid var(--linea); }
 .lab-carriles div { display: grid; align-content: start; min-height: 5.2rem; }
 .lab-carriles .amenaza { background: #f8d8cb; border-color: #8a3721; }
 .lab-carriles span { font-weight: 700; text-decoration: underline; }
+
+.laboratorio-mecanica > :first-child,
+.laboratorio-mecanica .prueba-jugable > :first-child { margin-top: 0; }
+.laboratorio-mecanica .prueba-jugable { margin: 0; }
+.laboratorio-mecanica canvas:focus-visible { outline: 2px solid #8a3721; outline-offset: 3px; }
+.laboratorio-mecanica .ajustes-salto select {
+  width: 100%;
+  padding: .4rem .55rem;
+  font: inherit;
+  color: var(--tinta);
+  background: #fffdf7;
+  border: 1px solid var(--linea);
+}
+.laboratorio-mecanica .estado-laboratorio {
+  margin: .8rem 0 0;
+  padding: .5rem .7rem;
+  background: #fffdf7;
+  border-left: 3px solid #a64328;
+}

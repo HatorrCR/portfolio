@@ -155,6 +155,101 @@ function showSources(resource, entries) {
   return {section, heading};
 }
 
+const labColors = {
+  paper: '#fff6e6', horizon: '#eadac1', grid: '#dec9ad',
+  ground: '#356062', face: '#193c3d', player: '#a64328',
+  ink: '#40382e', flag: '#f7c477', shadow: 'rgba(47,35,29,.42)'
+};
+
+function paintLabAvatar(ctx, x, y, size, facing = 1, stretch = 0) {
+  ctx.fillStyle = labColors.player;
+  ctx.fillRect(x - size/2 - stretch, y - size + stretch, size + stretch*2, size - stretch);
+  ctx.fillStyle = labColors.paper;
+  ctx.fillRect(x + (facing < 0 ? -5 : 2), y - size + 5 + stretch, 4, 4);
+}
+
+function perspectiveLabView(view) {
+  return view === 'primera' || view === 'tercera';
+}
+
+function labCamera(ctx, view, x, y, z) {
+  const overhead = view === 'cenital';
+  const firstPerson = view === 'primera';
+  const perspective = perspectiveLabView(view);
+  const cameraX = x - (firstPerson ? 0 : 3.2);
+  const cameraY = Math.max(0.35, y + (firstPerson ? 0.62 : 2.1));
+  const pitch = firstPerson ? 0.2 : 0.44;
+  const cos = Math.cos(pitch), sin = Math.sin(pitch);
+  const near = 0.2;
+  function cameraPoint([worldX,worldZ,worldY=0]) {
+    if (!perspective) return [65 + worldX*66 + (overhead ? 0 : worldZ*23),
+      190 + worldZ*(overhead ? 63 : 36) - (overhead ? 0 : worldY*50), 1];
+    const ahead = worldX-cameraX;
+    const up = worldY-cameraY;
+    return [worldZ-z, up*cos + ahead*sin, ahead*cos - up*sin];
+  }
+  const screen = ([side,up,depth]) => perspective
+    ? [340 + 300*side/depth, 148 - 300*up/depth] : [side,up];
+  function path(points) {
+    const camera = points.map(cameraPoint);
+    const visible = [];
+    let previous = camera.at(-1);
+    for (const current of camera) {
+      if ((previous[2] >= near) !== (current[2] >= near)) {
+        const t = (near-previous[2])/(current[2]-previous[2]);
+        visible.push([previous[0]+(current[0]-previous[0])*t,previous[1]+(current[1]-previous[1])*t,near]);
+      }
+      if (current[2] >= near) visible.push(current);
+      previous = current;
+    }
+    if (visible.length < 3) return false;
+    ctx.beginPath();
+    visible.forEach((point,i) => {
+      const [sx,sy] = screen(point);
+      if (i) ctx.lineTo(sx,sy);
+      else ctx.moveTo(sx,sy);
+    });
+    ctx.closePath();
+    return true;
+  }
+  function polygon(points, color) {
+    if (!path(points)) return;
+    ctx.fillStyle = color;
+    ctx.fill();
+  }
+
+  function paintBackground() {
+    ctx.fillStyle = labColors.paper;
+    ctx.fillRect(0, 0, 680, 320);
+    if (perspective) {
+      ctx.fillStyle = labColors.horizon;
+      ctx.fillRect(0, 0, 680, 148 - 300*Math.tan(pitch));
+    }
+  }
+
+  function paintPlayer(worldX, worldY, worldZ) {
+    if (firstPerson) {
+      ctx.fillStyle = labColors.ink;
+      ctx.fillRect(334,157,12,2);
+      ctx.fillRect(339,152,2,12);
+      return;
+    }
+    const foot = cameraPoint([worldX,worldZ,worldY]);
+    if (foot[2] < near) return;
+    const [sx,sy] = screen(foot);
+    paintLabAvatar(ctx, sx, sy, perspective ? Math.min(32,72/foot[2]) : 20);
+  }
+
+  function paintShadow(x, z) {
+    polygon(Array.from({length:16}, (_,i) => {
+      const angle = i*Math.PI/8;
+      return [x+Math.cos(angle)*0.24,z+Math.sin(angle)*0.2];
+    }), labColors.shadow);
+  }
+
+  return { overhead, perspective, path, polygon, paintBackground, paintPlayer, paintShadow };
+}
+
 function addPlayableJump(lab, controls) {
   const canvas = lab.querySelector('[data-juego-salto]');
   const ctx = canvas.getContext('2d');
@@ -198,24 +293,24 @@ function addPlayableJump(lab, controls) {
   function paint() {
     const px = value => 25 + value * 62;
     const py = value => 205 - value * 46;
-    ctx.fillStyle = '#fff6e6';
+    ctx.fillStyle = labColors.paper;
     ctx.fillRect(0, 0, 680, 252);
-    ctx.fillStyle = '#dec9ad';
+    ctx.fillStyle = labColors.grid;
     for (let line = 1; line <= 4; line++) ctx.fillRect(25, py(line), 620, 1);
-    ctx.fillStyle = '#254f52';
+    ctx.fillStyle = labColors.ground;
     for (const [left,right,top] of scene.platforms) {
       if (scene.hiddenLanding && left > 0 && !revealed) continue;
       ctx.fillRect(px(left), py(top), (right-left)*62, top ? 12 : 47);
     }
     const [goalX,goalY] = scene.goal;
     if (!scene.hiddenLanding || revealed) {
-      ctx.fillStyle = '#40382e';
+      ctx.fillStyle = labColors.ink;
       ctx.fillRect(px(goalX), py(goalY)-44, 3, 44);
-      ctx.fillStyle = won ? '#254f52' : '#a64328';
+      ctx.fillStyle = won ? labColors.ground : '#a64328';
       ctx.fillRect(px(goalX)+3, py(goalY)-44, 23, 14);
     }
     ctx.font = '15px system-ui';
-    ctx.fillStyle = '#40382e';
+    ctx.fillStyle = labColors.ink;
     if (scene.hiddenLanding && !revealed) ctx.fillText('La llegada aparece al despegar', 270, 230);
     else if (scene.enemy != null && enemyAlive) {
       ctx.fillStyle = '#a64328';
@@ -231,10 +326,7 @@ function addPlayableJump(lab, controls) {
       ctx.fillRect(px(x)-spread-4, py(y)-4, 5, 3);
       ctx.fillRect(px(x)+spread, py(y)-5, 5, 3);
     }
-    ctx.fillStyle = '#a64328';
-    ctx.fillRect(px(x)-10-stretch, py(y)-22+stretch, 20+stretch*2, 20-stretch);
-    ctx.fillStyle = '#fff6e6';
-    ctx.fillRect(px(x)+(vx<0?-5:2), py(y)-17+stretch, 4, 4);
+    paintLabAvatar(ctx, px(x), py(y), 22, vx, stretch);
     if (sensor.checked) {
       ctx.strokeStyle = '#9931a5';
       ctx.lineWidth = 2;
@@ -400,7 +492,7 @@ function addJumpLab() {
     ctx.lineWidth = 1;
     ctx.strokeStyle = '#d8c8b6';
     ctx.font = '15px system-ui';
-    ctx.fillStyle = '#40382e';
+    ctx.fillStyle = labColors.ink;
     for (let level = 0; level <= 3; level++) {
       ctx.beginPath();
       ctx.moveTo(40, y(level));
@@ -422,7 +514,7 @@ function addJumpLab() {
     ctx.fillText('Punto más alto', x(rise) + 8, y(height) - 8);
     ctx.beginPath();
     ctx.arc(x(current), y(position(current)), 7, 0, Math.PI * 2);
-    ctx.fillStyle = '#254f52';
+    ctx.fillStyle = labColors.ground;
     ctx.fill();
   }
   lab.addEventListener('input', draw);
@@ -451,99 +543,34 @@ function addJump3D() {
   let x, y, z, vx, vy, vz, grounded, requested, cut, won;
   let last = 0, elapsed = 0, pendingFrame = false;
 
-  const isPerspective = () => view.value === 'primera' || view.value === 'tercera';
+  const isPerspective = () => perspectiveLabView(view.value);
 
   function draw() {
-    const overhead = view.value === 'cenital';
-    const firstPerson = view.value === 'primera';
-    const perspective = isPerspective();
-    const cameraX = x - (firstPerson ? 0 : 3.2);
-    const cameraY = Math.max(0.35, y + (firstPerson ? 0.62 : 2.1));
-    const pitch = firstPerson ? 0.2 : 0.44;
-    const cos = Math.cos(pitch), sin = Math.sin(pitch);
-    const near = 0.2;
-    function cameraPoint([worldX,worldZ,worldY=0]) {
-      if (!perspective) return [65 + worldX*66 + (overhead ? 0 : worldZ*23),
-        190 + worldZ*(overhead ? 63 : 36) - (overhead ? 0 : worldY*50), 1];
-      const ahead = worldX-cameraX;
-      const up = worldY-cameraY;
-      return [worldZ-z, up*cos + ahead*sin, ahead*cos - up*sin];
-    }
-    const screen = ([side,up,depth]) => perspective
-      ? [340 + 300*side/depth, 148 - 300*up/depth] : [side,up];
-    function path(points) {
-      const camera = points.map(cameraPoint);
-      const visible = [];
-      let previous = camera.at(-1);
-      for (const current of camera) {
-        if ((previous[2] >= near) !== (current[2] >= near)) {
-          const t = (near-previous[2])/(current[2]-previous[2]);
-          visible.push([previous[0]+(current[0]-previous[0])*t,previous[1]+(current[1]-previous[1])*t,near]);
-        }
-        if (current[2] >= near) visible.push(current);
-        previous = current;
-      }
-      if (visible.length < 3) return false;
-      ctx.beginPath();
-      visible.forEach((point,i) => {
-        const [sx,sy] = screen(point);
-        if (i) ctx.lineTo(sx,sy);
-        else ctx.moveTo(sx,sy);
-      });
-      ctx.closePath();
-      return true;
-    }
-    function polygon(points, color) {
-      if (!path(points)) return;
-      ctx.fillStyle = color;
-      ctx.fill();
-    }
+    const { overhead, perspective, path, polygon, paintBackground, paintPlayer, paintShadow } =
+      labCamera(ctx, view.value, x, y, z);
     const surface = ([l,r,n,f]) => [[l,n],[r,n],[r,f],[l,f]];
-    ctx.fillStyle = '#fff6e6';
-    ctx.fillRect(0,0,680,320);
-    if (perspective) {
-      ctx.fillStyle = '#eadac1';
-      ctx.fillRect(0,0,680,148 - 300*Math.tan(pitch));
-    }
+    paintBackground();
     for (const platform of [...platforms].reverse()) {
       const [l,r,n,f] = platform;
-      if (perspective) polygon([[l,n],[l,f],[l,f,-0.3],[l,n,-0.3]], '#193c3d');
-      else if (!overhead) polygon([[l,f],[r,f],[r,f,-0.3],[l,f,-0.3]], '#193c3d');
-      polygon(surface(platform), '#356062');
+      if (perspective) polygon([[l,n],[l,f],[l,f,-0.3],[l,n,-0.3]], labColors.face);
+      else if (!overhead) polygon([[l,f],[r,f],[r,f,-0.3],[l,f,-0.3]], labColors.face);
+      polygon(surface(platform), labColors.ground);
     }
     const goal = goalZ();
-    polygon([[7.7,goal-0.14],[8.02,goal-0.14],[8.02,goal+0.14],[7.7,goal+0.14]], won ? '#fff6e6' : '#f7c477');
+    polygon([[7.7,goal-0.14],[8.02,goal-0.14],[8.02,goal+0.14],[7.7,goal+0.14]], won ? labColors.paper : labColors.flag);
     if (!overhead) {
-      polygon([[7.72,goal],[7.72,goal+0.03],[7.72,goal+0.03,0.65],[7.72,goal,0.65]], '#40382e');
-      polygon([[7.72,goal,0.65],[7.72,goal+0.22,0.65],[7.72,goal+0.22,0.46],[7.72,goal,0.46]], '#f7c477');
+      polygon([[7.72,goal],[7.72,goal+0.03],[7.72,goal+0.03,0.65],[7.72,goal,0.65]], labColors.ink);
+      polygon([[7.72,goal,0.65],[7.72,goal+0.22,0.65],[7.72,goal+0.22,0.46],[7.72,goal,0.46]], labColors.flag);
     }
     const supportingPlatform = y >= 0 && platforms.find(([l,r,n,f]) => x>=l && x<=r && z>=n && z<=f);
     if (shadow.checked && supportingPlatform && path(surface(supportingPlatform))) {
       ctx.save();
       ctx.clip();
-      const disc = Array.from({length:16}, (_,i) => {
-        const angle = i*Math.PI/8;
-        return [x+Math.cos(angle)*0.24,z+Math.sin(angle)*0.2];
-      });
-      polygon(disc, 'rgba(47,35,29,.42)');
+      paintShadow(x, z);
       ctx.restore();
     }
-    if (!firstPerson) {
-      const foot = cameraPoint([x,z,y]);
-      if (foot[2] >= near) {
-        const [sx,sy] = screen(foot);
-        const size = perspective ? Math.min(32,72/foot[2]) : 20;
-        ctx.fillStyle = '#a64328';
-        ctx.fillRect(sx-size/2,sy-size,size*0.9,size);
-        ctx.fillStyle = '#fff6e6';
-        ctx.fillRect(sx+size*0.1,sy-size*0.73,4,4);
-      }
-    } else {
-      ctx.fillStyle = '#40382e';
-      ctx.fillRect(334,157,12,2);
-      ctx.fillRect(339,152,2,12);
-    }
-    ctx.fillStyle = '#40382e';
+    paintPlayer(x, y, z);
+    ctx.fillStyle = labColors.ink;
     ctx.font = '16px system-ui';
     if (!perspective) ctx.fillText('W / ↑  al fondo     S / ↓  hacia ti', 24, 309);
   }
@@ -891,15 +918,16 @@ function addSystemLab(config, id) {
 }
 
 function addDashLab(is3D) {
-  const lab = element('section', '', 'laboratorio-salto');
+  const lab = element('section', '', 'laboratorio-salto laboratorio-mecanica');
   const canvas = element('canvas', 'Prueba de desplazamiento rápido.');
   canvas.width = 680;
-  canvas.height = 270;
+  canvas.height = is3D ? 320 : 252;
   canvas.tabIndex = 0;
   canvas.setAttribute('aria-label', 'Laboratorio de dash. Usa las flechas o WASD, Espacio para dash y R para reiniciar.');
   const ctx = canvas.getContext('2d');
+  if (!ctx) return;
   const options = element('div', '', 'ajustes-salto');
-  const status = element('p', '', 'meta');
+  const status = element('p', '', 'estado-laboratorio');
   status.setAttribute('role', 'status');
   const label = element('label', 'Variante');
   const select = element('select', '');
@@ -907,17 +935,28 @@ function addDashLab(is3D) {
     ['Horizontal', 'En ocho direcciones', 'Con recarga en el aire'];
   variants.forEach(name => select.append(element('option', name)));
   label.append(select);
+  const view = is3D ? document.querySelector('#plantilla-salto-3d').content
+    .querySelector('[data-vista-3d]').cloneNode(true) : null;
+  if (view) {
+    const viewLabel = element('label', 'Vista');
+    viewLabel.append(view);
+    options.append(viewLabel);
+  }
   options.append(label);
   const controls = is3D
-    ? 'Selecciona la prueba. Flechas o WASD para moverte, Espacio para el dash y R para reiniciar. Cruza la línea de peligro para llegar a la meta.'
+    ? 'Selecciona la prueba. Flechas o WASD para moverte, Espacio para el dash y R para reiniciar. En primera y tercera persona, W avanza y A/D se desplazan a los lados. Busca un paso hasta la bandera.'
     : 'Selecciona la prueba. Flechas o WASD para moverte, J para saltar, Espacio para el dash y R para reiniciar. Cruza el foso y llega a la bandera.';
-  lab.append(canvas, element('p', controls), options, status);
+  const instructions = element('p', controls);
+  instructions.id = is3D ? 'controles-dash-3d' : 'controles-dash-2d';
+  canvas.setAttribute('aria-describedby', instructions.id);
+  lab.append(instructions, canvas, options, status);
   reading.append(lab);
 
   const keys = new Set();
   const duration = .16;
   const bounds = { left: 18, right: 662, near: 15, far: 185 };
-  const floor = 209;
+  const floor = 205;
+  const goal = { x: 607, end: 656, near: 76, far: 123 };
   const wall3D = { x: 293, z: 60, w: 31, d: 87 };
   const hazard = { x: 463, w: 33, gate: 62 };
   const pit = { start: 245, end: 384 };
@@ -942,7 +981,8 @@ function addDashLab(is3D) {
     const x = Number(held('arrowright', 'd')) - Number(held('arrowleft', 'a'));
     const y = Number(held('arrowdown', 's')) - Number(held('arrowup', 'w'));
     const length = Math.hypot(x, y);
-    return length ? [x / length, y / length] : [0, 0];
+    if (!length) return [0, 0];
+    return view && perspectiveLabView(view.value) ? [-y / length, x / length] : [x / length, y / length];
   }
 
   function dash() {
@@ -953,66 +993,91 @@ function addDashLab(is3D) {
     }
     let [x, y] = axes();
     if (!is3D && select.selectedIndex === 0) { x = Math.sign(x); y = 0; }
-    state.direction = x || y ? [x, y] : [state.facing, 0];
+    state.direction = x || y ? [x, y] : [view && perspectiveLabView(view.value) ? 1 : state.facing, 0];
     state.left = duration;
     if (!is3D) { state.charges--; state.vy = 0; }
     report('Dash en marcha.');
   }
 
   function draw() {
-    ctx.clearRect(0, 0, 680, 270);
-    ctx.fillStyle = '#fffcf3';
-    ctx.fillRect(0, 0, 680, 270);
     if (is3D) {
-      const project = (x, z, y = 0) => [25 + x * .90 + (z - 100) * .27, 42 + z * 1.02 - y];
-      const polygon = (points, color) => {
-        ctx.beginPath();
-        points.forEach((p, i) => i ? ctx.lineTo(...project(...p)) : ctx.moveTo(...project(...p)));
-        ctx.closePath();
-        ctx.fillStyle = color;
-        ctx.fill();
+      const worldX = x => x / 79;
+      const worldZ = z => (z - 100) / 50;
+      const x = worldX(state.x), z = worldZ(state.z);
+      const { overhead, perspective, path, polygon, paintBackground, paintPlayer, paintShadow } =
+        labCamera(ctx, view.value, x, 0, z);
+      const toWorld = points => points.map(([x,z,y]) => [worldX(x),worldZ(z),y]);
+      const face = (points, color) => polygon(toWorld(points), color);
+      const tile = (left, right, near, far, color, y = 0) =>
+        face([[left,near,y],[right,near,y],[right,far,y],[left,far,y]], color);
+      const {left, right, near, far} = bounds;
+      paintBackground();
+      if (!overhead) {
+        face([[left,far],[right,far],[right,far,-.3],[left,far,-.3]], labColors.face);
+        if (perspective) face([[left,near],[left,far],[left,far,-.3],[left,near,-.3]], labColors.face);
+      }
+      tile(left, right, near, far, labColors.ground);
+      tile(hazard.x, hazard.x + hazard.w, near, hazard.gate, labColors.flag);
+      tile(hazard.x, hazard.x + hazard.w, hazard.gate, far, labColors.player);
+      for (let edge = hazard.gate + 15; edge < far; edge += 18) {
+        face([[hazard.x,edge],[hazard.x+hazard.w,edge-7],
+          [hazard.x+hazard.w,edge-4],[hazard.x,edge+3]], labColors.flag);
+      }
+      tile(goal.x, goal.end, goal.near, goal.far, labColors.flag);
+      const flagZ = (goal.near + goal.far) / 2;
+      if (!overhead) {
+        face([[goal.end-8,flagZ],[goal.end-8,flagZ+1.5],[goal.end-8,flagZ+1.5,.65],[goal.end-8,flagZ,.65]], labColors.ink);
+        face([[goal.end-8,flagZ,.65],[goal.end-8,flagZ+15,.65],[goal.end-8,flagZ+15,.44],[goal.end-8,flagZ,.44]], labColors.flag);
+      }
+      const wall = wall3D;
+      const wallRight = wall.x + wall.w, wallFar = wall.z + wall.d;
+      const paintWall = () => {
+        if (!overhead) {
+          face([[wall.x,wallFar],[wallRight,wallFar],[wallRight,wallFar,.7],[wall.x,wallFar,.7]], labColors.face);
+          face([[wall.x,wall.z],[wall.x,wallFar],[wall.x,wallFar,.7],[wall.x,wall.z,.7]], labColors.face);
+        }
+        tile(wall.x, wallRight, wall.z, wallFar, '#759799', overhead ? 0 : .7);
       };
-      const tile = (x, z, w, d, color, y = 0) => polygon([[x,z,y],[x+w,z,y],[x+w,z+d,y],[x,z+d,y]], color);
-      tile(bounds.left, bounds.near, bounds.right - bounds.left, bounds.far - bounds.near, '#e3e2d1');
-      tile(hazard.x, hazard.gate, hazard.w, bounds.far - hazard.gate, '#a6533c');
-      tile(607, 76, 37, 47, '#9fba91');
-      const { x, z, w, d } = wall3D;
-      const drawWall = () => {
-        polygon([[x,z+d],[x+w,z+d],[x+w,z+d,35],[x,z+d,35]], '#375d66');
-        polygon([[x+w,z],[x+w,z+d],[x+w,z+d,35],[x+w,z,35]], '#26464c');
-        tile(x,z,w,d,'#68909a',35);
-      };
-      if (state.z >= z + d) drawWall();
-      const [px, py] = project(state.x, state.z);
-      ctx.fillStyle = '#2c5252';
-      ctx.beginPath();
-      ctx.ellipse(px, py, 9, 4, 0, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.fillStyle = state.left > 0 ? '#9d3d29' : '#244954';
-      ctx.fillRect(px - 7, py - 25, 14, 23);
-      if (state.z < z + d) drawWall();
-      ctx.fillStyle = '#302725';
-      ctx.font = '14px system-ui';
-      ctx.fillText('Paso seguro', 411, 72);
-      ctx.fillText('Peligro', 451, 214);
-      ctx.fillText('Meta', 573, 133);
+      const wallBehind = perspective ? state.x > wallRight : state.z > wallFar;
+      if (wallBehind) paintWall();
+      if (path(toWorld([[left,near],[right,near],[right,far],[left,far]]))) {
+        ctx.save();
+        ctx.clip();
+        paintShadow(x, z);
+        ctx.restore();
+      }
+      paintPlayer(x, 0, z);
+      if (!wallBehind) paintWall();
     } else {
-      ctx.fillStyle = '#477080';
-      ctx.fillRect(0, floor, pit.start, 61);
-      ctx.fillRect(pit.end, floor, 680 - pit.end, 61);
-      ctx.fillStyle = '#ded2bd';
+      ctx.fillStyle = labColors.paper;
+      ctx.fillRect(0, 0, 680, 252);
+      ctx.fillStyle = labColors.grid;
+      for (let line = 1; line <= 4; line++) ctx.fillRect(25, floor - line*46, 620, 1);
+      ctx.fillStyle = labColors.ground;
+      ctx.fillRect(0, floor, pit.start, 47);
+      ctx.fillRect(pit.end, floor, 680 - pit.end, 47);
       ctx.fillRect(493, floor - 54, 29, 54);
-      ctx.fillStyle = '#446e42';
-      ctx.fillRect(623, floor - 45, 4, 45);
-      ctx.fillRect(627, floor - 45, 24, 16);
-      ctx.fillStyle = state.left > 0 ? '#9d3d29' : '#244954';
-      ctx.fillRect(state.x - 9, state.y - 11, 18, 22);
+      ctx.fillStyle = labColors.ink;
+      ctx.fillRect(623, floor - 44, 3, 44);
+      ctx.fillStyle = state.finished ? labColors.ground : labColors.player;
+      ctx.fillRect(626, floor - 44, 23, 14);
+      if (state.left > 0) {
+        const [dx,dy] = state.direction;
+        ctx.fillStyle = labColors.grid;
+        ctx.beginPath();
+        ctx.ellipse(state.x - dx*19, state.y - dy*19, 11, 4, Math.atan2(dy,dx), 0, 2*Math.PI);
+        ctx.fill();
+      }
+      paintLabAvatar(ctx, state.x, state.y + 11, 20, state.facing);
     }
-    ctx.fillStyle = '#302725';
-    ctx.font = '14px system-ui';
-    const meter = is3D ? (state.cooldown > 0 ? 'Recarga: ' + state.cooldown.toFixed(1) + ' s' : 'Dash listo') :
+    ctx.fillStyle = labColors.paper;
+    ctx.fillRect(10, 8, 160, 25);
+    ctx.fillStyle = labColors.ink;
+    ctx.font = '15px system-ui';
+    const meter = is3D ? (state.left > 0 ? 'Dash en marcha' :
+      state.cooldown > 0 ? 'Recarga: ' + state.cooldown.toFixed(1) + ' s' : 'Dash listo') :
       'Cargas: ' + state.charges;
-    ctx.fillText(state.finished ? '¡Meta!' : meter, 17, 25);
+    ctx.fillText(state.finished ? '¡Meta!' : meter, 17, 26);
   }
 
   function move3D(x, z, dt, active) {
@@ -1033,7 +1098,7 @@ function addDashLab(is3D) {
       reset('La línea te alcanzó. Usa la abertura del fondo o prueba la protección.');
       return;
     }
-    if (state.x > 607 && state.z > 76 && state.z < 123) finish();
+    if (state.x > goal.x && state.x < goal.end && state.z > goal.near && state.z < goal.far) finish();
   }
 
   function move2D(x, y, dt, active) {
@@ -1125,6 +1190,10 @@ function addDashLab(is3D) {
   });
   canvas.addEventListener('keyup', event => keys.delete(event.key.toLowerCase()));
   select.addEventListener('change', () => reset());
+  view?.addEventListener('change', () => {
+    keys.clear();
+    draw();
+  });
   reset();
 }
 
@@ -1246,7 +1315,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=fichas-dash', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=camaras-laboratorios', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);

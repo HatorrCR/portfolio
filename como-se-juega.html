@@ -6,9 +6,9 @@
 <meta name="description" content="Estudios, charlas y ejercicios para aprender diseño de videojuegos en español.">
 <title>Cómo se juega · Diseño de videojuegos en español</title>
 <link rel="stylesheet" href="estilos/comun.css">
-<link rel="stylesheet" href="estilos/como-se-juega.css?v=laboratorios-sistemas">
+<link rel="stylesheet" href="estilos/como-se-juega.css?v=camaras-laboratorios">
 <script defer src="scripts/navegacion.js"></script>
-<script defer src="scripts/como-se-juega.js?v=fichas-dash"></script>
+<script defer src="scripts/como-se-juega.js?v=camaras-laboratorios"></script>
 </head>
 <body data-nav="none">
 <header class="cabecera">
@@ -72,11 +72,10 @@
   </section>
 </template>
 <template id="plantilla-juego-salto">
-  <div class="laboratorio-salto">
-    <p>Tu misión es llegar a la bandera. El muñeco pone las piernas. Tú decides cuánto duran en el aire.</p>
+  <div class="laboratorio-salto laboratorio-mecanica">
     <div class="prueba-jugable">
-      <canvas data-juego-salto width="680" height="252" tabindex="0" aria-label="Prueba del salto. Usa A y D o las flechas para moverte. Espacio para saltar y R para reiniciar." aria-describedby="controles-juego-salto">Usa el gráfico de arriba para comparar las trayectorias.</canvas>
       <p id="controles-juego-salto">Selecciona el recuadro para jugar con el teclado. Flechas o A/D para moverte. Mantén Espacio para un salto largo. Suéltalo pronto para uno corto. R para volver al inicio.</p>
+      <canvas data-juego-salto width="680" height="252" tabindex="0" aria-label="Prueba del salto. Usa A y D o las flechas para moverte. Espacio para saltar y R para reiniciar." aria-describedby="controles-juego-salto">Usa el gráfico de arriba para comparar las trayectorias.</canvas>
       <div class="ajustes-salto">
         <label>Escenario <select data-escenario-salto><option value="normal">Foso ancho a la vista</option><option value="estrecha">Aterrizaje estrecho</option><option value="oculta">Llegada oculta</option><option value="rebote">Enemigo y repisa</option></select></label>
         <label>Control en el aire <select data-control-aereo><option value="inmediato">Inmediato</option><option value="progresivo">Progresivo</option><option value="bloqueado">Bloqueado al despegar</option></select></label>
@@ -87,7 +86,7 @@
         <label><input data-ayuda="coyote" type="checkbox" checked> Tiempo de coyote</label>
         <label><input data-ayuda="buffer" type="checkbox" checked> Búfer de salto</label>
       </div>
-      <p data-estado-juego role="status">Acércate al borde y prueba el primer salto.</p>
+      <p class="estado-laboratorio" data-estado-juego role="status">Acércate al borde y prueba el primer salto.</p>
     </div>
   </div>
 </template>
@@ -98,17 +97,17 @@
   </div>
 </template>
 <template id="plantilla-salto-3d">
-  <section class="laboratorio-salto" aria-labelledby="titulo-demo-3d">
+  <section class="laboratorio-salto laboratorio-mecanica" aria-labelledby="titulo-demo-3d">
     <h3 id="titulo-demo-3d">El foso tiene fondo. Y anchura.</h3>
     <p id="controles-salto-3d">Selecciona el recuadro o llega con Tab. Usa WASD o las flechas para moverte, mantén Espacio para saltar alto y pulsa R para reiniciar. En primera y tercera persona, W avanza y A/D te desplazan a los lados.</p>
     <canvas width="680" height="320" tabindex="0" aria-label="Prueba jugable de salto en 3D" aria-describedby="controles-salto-3d">Prueba de plataformas con profundidad y cuatro vistas.</canvas>
-    <div class="ayudas-salto">
+    <div class="ajustes-salto">
       <label>Vista <select data-vista-3d><option value="oblicua">Oblicua</option><option value="cenital">Desde arriba</option><option value="tercera">Tercera persona</option><option value="primera">Primera persona</option></select></label>
       <label>Llegada <select data-escenario-3d><option value="desplazada">Desplazada</option><option value="alineada">Alineada</option><option value="estrecha">Estrecha</option></select></label>
       <label>Control en el aire <select data-aire-3d><option value="inmediato">Inmediato</option><option value="progresivo">Progresivo</option><option value="bloqueado">Bloqueado</option></select></label>
       <label><input data-sombra-3d type="checkbox" checked> Mostrar sombra de apoyo</label>
     </div>
-    <p data-estado-3d role="status">Empieza alineándote con la plataforma de llegada.</p>
+    <p class="estado-laboratorio" data-estado-3d role="status">Empieza alineándote con la plataforma de llegada.</p>
   </section>
 </template>
 <section id="lectura" hidden aria-labelledby="titulo-lectura"></section>

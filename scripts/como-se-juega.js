@@ -88,6 +88,23 @@ const normalize = value => value.normalize('NFD').replace(/\p{Diacritic}/gu, '')
 const slug = value => normalize(value).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const archiveUrl = name => 'como-se-juega.html?' + new URLSearchParams({tema: 'Mecánicas', coleccion: slug(name)});
 const isArchive = entry => entry.tema === 'Mecánicas' && isEditorial(entry) && entry.subtema;
+const editorialLabel = entry => isArchive(entry) ? 'Ficha de mecánica' : 'Guía de diseño';
+
+function editorialSection(entry) {
+  const name = designTopic(entry);
+  if (name === 'Mecánicas') return { name, query: { tema: name } };
+  const area = Object.entries(disciplines).find(([, [, categories]]) => Object.hasOwn(categories, name));
+  return { name, query: area ? { diseno: area[0], categoria: name } : { tema: entry.tema } };
+}
+
+function editorialCard(entry, href) {
+  const kind = isArchive(entry) ? 'mecanica' : 'guia';
+  const card = link('', href);
+  card.className = 'tarjeta-editorial tarjeta-editorial--' + kind;
+  card.append(element('span', editorialLabel(entry), 'etiqueta-editorial'),
+    element('h3', entry.titulo), element('p', entry.resumen));
+  return card;
+}
 
 function element(tag, text, className) {
   const node = document.createElement(tag);
@@ -111,15 +128,12 @@ function fillOptions(select, values) {
 }
 
 function showFeatured(entries) {
-  const resource = entries.find(entry => entry.formato === 'Guía') ?? entries[0];
+  const resource = entries.find(entry => !isEditorial(entry));
   if (!resource) return;
   document.querySelector('#destacado-meta').textContent = resource.formato + ' · ' + resource.tema;
   document.querySelector('#destacado-titulo').textContent = resource.titulo;
   document.querySelector('#destacado-resumen').textContent = resource.resumen;
   document.querySelector('#destacado-enlace').href = '?lectura=' + encodeURIComponent(resource.id);
-  const hasDiagram = resource.id === 'tutoriales-laberinto';
-  document.querySelector('#esquema-tutorial').hidden = !hasDiagram;
-  document.querySelector('#destacado').classList.toggle('con-esquema', hasDiagram);
   document.querySelector('#destacado').hidden = false;
 }
 
@@ -1370,10 +1384,11 @@ function showReading(entries, archive) {
   title.id = 'titulo-lectura';
   const archiveReading = resource && isArchive(resource);
   const systemLab = resource?.laboratorio && Object.hasOwn(systemLabs, resource.laboratorio) ? systemLabs[resource.laboratorio] : null;
-  const archiveIndex = archiveReading || systemLab ? element('nav', '', 'referencias') : null;
+  const editorial = Boolean(resource && isEditorial(resource));
+  const archiveIndex = archiveReading || systemLab || (editorial && /^## /m.test(resource.cuerpo)) ? element('nav', '', 'referencias') : null;
   const index = archiveIndex ? element('ol', '') : null;
   if (archiveIndex) {
-    archiveIndex.setAttribute('aria-label', 'Índice de la guía');
+    archiveIndex.setAttribute('aria-label', archiveReading ? 'Índice de la ficha' : 'Índice de la guía');
     archiveIndex.append(element('h2', 'Índice'), index);
   }
   const addToIndex = (heading, id) => {
@@ -1383,15 +1398,24 @@ function showReading(entries, archive) {
     item.append(link(heading.textContent, '#' + id));
     index.append(item);
   };
-  const systemSection = systemLab && '?' + new URLSearchParams({diseno: 'sistemas', categoria: resource.tema}) + '#catalogo';
-  reading.append(link(systemLab ? 'Volver a ' + resource.tema : archiveReading ? 'Volver a Mecánicas' : 'Volver a la biblioteca',
-    systemSection || (archiveReading ? 'como-se-juega.html?tema=Mec%C3%A1nicas#catalogo' : libraryUrl)), title);
+  const section = editorial ? editorialSection(resource) : null;
+  reading.append(link(section ? 'Volver a ' + section.name : 'Volver a la biblioteca',
+    section ? '?' + new URLSearchParams(section.query) + '#catalogo' : libraryUrl));
+  if (editorial) {
+    reading.classList.add(archiveReading ? 'lectura-mecanica' : 'lectura-guia');
+    const header = element('header', '', 'cabecera-editorial');
+    header.append(element('p', editorialLabel(resource) + ' · ' + section.name, 'etiqueta-editorial'),
+      title, element('p', resource.resumen, 'entradilla-editorial'));
+    reading.append(header);
+  } else {
+    reading.append(title);
+  }
   if (archiveIndex) reading.append(archiveIndex);
   if (resource) {
     const visualJump = id === 'salto-2d-guia';
     const dashGuide = id === 'dash-2d-guia' || id === 'dash-3d-guia';
     document.title = resource.titulo + ' · Cómo se juega';
-    reading.append(element('p', resource.formato + ' · ' + resource.tema, 'meta'));
+    if (!editorial) reading.append(element('p', resource.formato + ' · ' + resource.tema, 'meta'));
     const jumpControls = visualJump ? addJumpLab() : null;
     for (const [blockIndex, block] of resource.cuerpo.split(/^\x60\x60\x60(?:csharp)?[ \t]*\r?$/m).entries()) {
       if (blockIndex % 2 === 1) {
@@ -1470,14 +1494,14 @@ function showReading(entries, archive) {
         }
       }
     }
-    if (archiveReading || systemLab) document.querySelector('#catalogo').hidden = true;
+    if (editorial) document.querySelector('#catalogo').hidden = true;
   }
   reading.hidden = false;
   document.querySelector('.portada').hidden = true;
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=guias-sistemas-2', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=archivo-editorial', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);
@@ -1486,7 +1510,8 @@ async function loadCatalog() {
   const category = discipline && Object.hasOwn(discipline[1], designCategory) ? designCategory : '';
   const topTopic = !isPapers && !isInterviews && !sourceSection && allTopics.includes(currentTopic) ? currentTopic : '';
   const editorialView = Boolean(discipline || topTopic);
-  const entries = catalog.filter(entry =>
+  const sectionHub = Boolean(discipline && !category);
+  const entries = sectionHub ? [] : catalog.filter(entry =>
     (editorialView ? isEditorial(entry) : !isEditorial(entry)) &&
     (!isPapers || entry.formato === 'Estudio') &&
     (!language || entry.idioma === languages[language]) &&
@@ -1503,9 +1528,7 @@ async function loadCatalog() {
   if ((topTopic === 'Mecánicas' || category === 'Mecánicas') && !archive && archives.length) {
     mechanics.hidden = false;
     for (const entry of archives) {
-      const card = link('', archiveUrl(entry.subtema));
-      card.append(element('span', entry.subtema, 'area-titulo'), element('span', entry.resumen, 'area-recuento'));
-      mechanics.append(card);
+      mechanics.append(editorialCard(entry, archiveUrl(entry.subtema)));
     }
   }
   const sections = document.querySelector('#secciones');
@@ -1548,7 +1571,8 @@ async function loadCatalog() {
   const chooseLanguage = (isPapers && !language) || (topTopic === 'Mecánicas' && !archive && !entries.length && archives.length > 0);
   search.form.hidden = chooseLanguage || editorialView || isHome;
   status.hidden = chooseLanguage || editorialView;
-  results.hidden = chooseLanguage;
+  results.hidden = chooseLanguage || sectionHub;
+  results.classList.toggle('archivo-guias', editorialView && !sectionHub);
   if (language) document.querySelector('[data-papers="' + language + '"]').setAttribute('aria-current', 'page');
   const topics = [...new Set(entries.map(entry => entry.tema))];
   const showTopics = !editorialView && (Boolean(language) || (!sectionTitle && !isHome)) && topics.length > 0;
@@ -1561,7 +1585,7 @@ async function loadCatalog() {
   }
   fillOptions(format, entries.map(entry => entry.formato));
   showReading(catalog, archive);
-  if (editorialView && !archive && !entries.length && mechanics.hidden) {
+  if (editorialView && !sectionHub && !archive && !entries.length && mechanics.hidden) {
     status.hidden = false;
   }
 
@@ -1596,6 +1620,11 @@ async function loadCatalog() {
       normalize([entry.titulo, entry.resumen, entry.tema, entry.formato].join(' ')).includes(query)
     );
     const cards = matches.map(entry => {
+      if (isEditorial(entry)) {
+        return editorialCard(entry, '?' + new URLSearchParams({
+          ...editorialSection(entry).query, lectura: entry.id
+        }));
+      }
       const card = element('article', '', 'ficha');
       const title = element('h3', '');
       title.append(link(entry.titulo, '?' + libraryQuery({...(topic.value ? {tema: topic.value} : {}), lectura: entry.id})));

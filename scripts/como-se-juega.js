@@ -142,7 +142,7 @@ function showSources(resource) {
     section.append(list);
   }
   reading.append(section);
-  return heading;
+  return {section, heading};
 }
 
 function showReading(entries, archive) {
@@ -190,8 +190,8 @@ function showReading(entries, archive) {
         }
       }
     }
-    const sourceHeading = showSources(resource);
-    if (sourceHeading && index) addToIndex(sourceHeading, 'referencias');
+    const references = showSources(resource);
+    if (references && index) addToIndex(references.heading, 'referencias');
     if (resource.subtema) {
       const related = entries.filter(entry => entry.tema === resource.tema &&
         entry.subtema === resource.subtema && entry.id !== id && (archiveReading || isArchive(entry)));
@@ -205,9 +205,10 @@ function showReading(entries, archive) {
         list.append(item);
       }
       if (related.length) {
-        const heading = element('h2', archiveReading ? 'Fichas de las fuentes' : 'Archivo de la mecánica');
+        const heading = element(archiveReading && references ? 'h3' : 'h2', archiveReading ? 'Fichas de las fuentes' : 'Archivo de la mecánica');
         addToIndex(heading, 'fichas-relacionadas');
-        reading.append(heading, list);
+        const destination = archiveReading && references ? references.section : reading;
+        destination.append(heading, list);
       }
     }
     if (archiveReading) document.querySelector('#catalogo').hidden = true;
@@ -270,7 +271,8 @@ async function loadCatalog() {
       back.hidden = false;
       back.append(link(discipline?.[0] ?? disciplines.sistemas[0], '?diseno=' + (discipline ? areaKey : 'sistemas') + '#catalogo'));
     }
-  } else {
+  } else if (!isHome && (!params.has('lectura') || librarySection)) {
+    sections.hidden = false;
     const sectionLinks = [
       ['Papers', '?papers=todos'],
       ['Entrevistas', '?seccion=entrevistas'],

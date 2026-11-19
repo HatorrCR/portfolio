@@ -427,14 +427,18 @@ function addJump3D() {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
   const view = panel.querySelector('[data-vista-3d]');
+  const scenario = panel.querySelector('[data-escenario-3d]');
+  const air = panel.querySelector('[data-aire-3d]');
   const shadow = panel.querySelector('[data-sombra-3d]');
   const status = panel.querySelector('[data-estado-3d]');
   const held = new Set();
   const keys = {ArrowLeft:'KeyA', ArrowRight:'KeyD', ArrowUp:'KeyW', ArrowDown:'KeyS'};
-  const platforms = [[0,3,-1.7,1.7], [5,8.5,0.2,1.65]];
+  const landings = {desplazada: [5,8.5,0.2,1.65], alineada: [5,8.5,-0.75,0.75], estrecha: [5,8.5,0.6,1.1]};
+  const platforms = [[0,3,-1.7,1.7], landings.desplazada];
+  const goalZ = () => (platforms[1][2] + platforms[1][3]) / 2;
   const isSupported = (x,z) => platforms.some(([l,r,n,f]) => x>=l && x<=r && z>=n && z<=f);
   const step = 1/120;
-  let x, y, z, vy, grounded, requested, cut, won;
+  let x, y, z, vx, vy, vz, grounded, requested, cut, won;
   let last = 0, elapsed = 0, pendingFrame = false;
 
   const isPerspective = () => view.value === 'primera' || view.value === 'tercera';
@@ -497,10 +501,11 @@ function addJump3D() {
       else if (!overhead) polygon([[l,f],[r,f],[r,f,-0.3],[l,f,-0.3]], '#193c3d');
       polygon(surface(platform), '#356062');
     }
-    polygon([[7.7,0.72],[8.02,0.72],[8.02,1.12],[7.7,1.12]], won ? '#fff6e6' : '#f7c477');
+    const goal = goalZ();
+    polygon([[7.7,goal-0.14],[8.02,goal-0.14],[8.02,goal+0.14],[7.7,goal+0.14]], won ? '#fff6e6' : '#f7c477');
     if (!overhead) {
-      polygon([[7.72,0.9],[7.72,0.93],[7.72,0.93,0.65],[7.72,0.9,0.65]], '#40382e');
-      polygon([[7.72,0.9,0.65],[7.72,1.22,0.65],[7.72,1.22,0.46],[7.72,0.9,0.46]], '#f7c477');
+      polygon([[7.72,goal],[7.72,goal+0.03],[7.72,goal+0.03,0.65],[7.72,goal,0.65]], '#40382e');
+      polygon([[7.72,goal,0.65],[7.72,goal+0.22,0.65],[7.72,goal+0.22,0.46],[7.72,goal,0.46]], '#f7c477');
     }
     const supportingPlatform = y >= 0 && platforms.find(([l,r,n,f]) => x>=l && x<=r && z>=n && z<=f);
     if (shadow.checked && supportingPlatform && path(surface(supportingPlatform))) {
@@ -535,7 +540,7 @@ function addJump3D() {
 
   function reset(message) {
     x = 1.2;
-    y = z = vy = 0;
+    y = z = vx = vy = vz = 0;
     grounded = true;
     requested = cut = won = false;
     status.textContent = message;
@@ -548,8 +553,17 @@ function addJump3D() {
     const dx = isPerspective() ? forward : lateral;
     const dz = isPerspective() ? lateral : -forward;
     const speed = 5.5 / Math.max(1, Math.hypot(dx,dz));
-    x = Math.max(0, Math.min(8.6,x+dx*speed*step));
-    z = Math.max(-2, Math.min(1.9,z+dz*speed*step));
+    if (grounded || air.value === 'inmediato') {
+      vx = dx*speed;
+      vz = dz*speed;
+    } else if (air.value === 'progresivo') {
+      const deltaX = dx*speed - vx, deltaZ = dz*speed - vz;
+      const fraction = Math.min(1, 18*step / Math.max(0.0001, Math.hypot(deltaX,deltaZ)));
+      vx += deltaX*fraction;
+      vz += deltaZ*fraction;
+    }
+    x = Math.max(0, Math.min(8.6,x+vx*step));
+    z = Math.max(-2, Math.min(1.9,z+vz*step));
     if (grounded && !isSupported(x,z)) grounded = false;
     if (requested && grounded) {
       grounded = false;
@@ -571,7 +585,7 @@ function addJump3D() {
       }
     }
     if (y < -2.3) reset('Al foso. Ajusta la profundidad antes de despegar y vuelve a probar.');
-    if (!won && grounded && x>=7.7 && z>=0.2 && z<=1.65) {
+    if (!won && grounded && x>=7.7 && isSupported(x,z)) {
       won = true;
       status.textContent = 'Bandera conseguida. Repite desde arriba o quita la sombra para comparar.';
     }
@@ -612,6 +626,11 @@ function addJump3D() {
   canvas.addEventListener('keyup', event => held.delete(keys[event.code] ?? event.code));
   canvas.addEventListener('blur', () => held.clear());
   window.addEventListener('blur', () => held.clear());
+  scenario.addEventListener('change', () => {
+    platforms[1] = landings[scenario.value] ?? landings.desplazada;
+    held.clear();
+    reset('Llegada cambiada. Vuelve al recuadro para probar.');
+  });
   panel.addEventListener('change', draw);
   reset('Empieza alineándote con la plataforma de llegada.');
 }
@@ -711,7 +730,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=salto-3d', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=guias-unity', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);

@@ -279,5 +279,146 @@
       }
     ],
     "cuerpo": "## Qué estudia\n\nLos autores describen la creación de un videojuego educativo en un aula multinivel de un colegio rural de Málaga. Estudian las experiencias del alumnado y las posibilidades y dificultades del proyecto.\n\n## Idea clave\n\nEl interés está en el proceso de creación. Diseñar y programar permite observar cómo el grupo convierte una idea en reglas, reparte tareas y revisa decisiones cuando el juego empieza a funcionar.\n\n## Hasta dónde llega\n\nLa investigación describe una experiencia escolar situada. Sirve para entender lo que ocurrió en el aula y formular preguntas para otros proyectos. Su diseño no permite cuantificar un efecto general sobre el rendimiento escolar.\n\n## Cómo llevarlo a la práctica\n\nEn un taller, pide a cada equipo que anote una regla que cambió después de probar el juego y por qué. Esa decisión cuenta algo del aprendizaje que una demo final puede dejar oculto."
+  },
+  {
+    "id": "salto-2d-guia",
+    "titulo": "El salto 2D, de la trayectoria al código",
+    "tema": "Mecánicas",
+    "subtema": "Salto 2D",
+    "idioma": "Español",
+    "formato": "Guía",
+    "resumen": "Física, parámetros, código C# y pruebas para diseñar un salto de plataformas.",
+    "cuerpo": "## Qué estamos diseñando\n\nEl salto tiene tres capas: la trayectoria, el permiso para despegar y el control durante el vuelo. La trayectoria decide cuándo y dónde puedes llegar. El permiso decide si se acepta la pulsación. El control aéreo determina cuánto puedes corregir una vez en el aire.\n\n## Altura, ápice y alcance\n\nCon Y positiva hacia arriba y gravedad constante, si la altura deseada es h y el tiempo hasta el ápice es t, la gravedad de subida es g = 2h/t² y la velocidad inicial es v₀ = 2h/t. Para h = 2 unidades y t = 0,35 s, resultan g ≈ 32,65 unidades/s² y v₀ ≈ 11,43 unidades/s. A la misma cota, sin topes ni colisiones, una caída con el doble de gravedad dura t/√2. A 6 unidades/s horizontales, el alcance pasa de 4,20 a 3,58 unidades. Con aceleración horizontal, calcula el desplazamiento a partir de la velocidad de cada paso.\n\n## Núcleo en C#\n\nEste núcleo es independiente del motor. El controlador llama a Launch cuando autoriza el salto. Advance devuelve el desplazamiento vertical y actualiza la velocidad, partiendo el paso si cruza el ápice. El motor de colisiones debe aplicar el desplazamiento y llamar a StopVerticalMotion cuando un contacto bloquee el movimiento vertical.\n\n```csharp\npublic sealed class JumpMotor\n{\n    public float VelocityY { get; private set; }\n    private readonly float launchSpeed, riseGravity, fallGravity, releaseSpeed;\n\n    public JumpMotor(float height, float apexTime, float fallMultiplier, float releaseFraction)\n    {\n        if (!(height > 0 && apexTime > 0 && fallMultiplier > 0 &&\n              releaseFraction >= 0 && releaseFraction <= 1))\n            throw new System.ArgumentException(\"Parámetros de salto inválidos\");\n\n        launchSpeed = 2f * height / apexTime;\n        riseGravity = launchSpeed / apexTime;\n        fallGravity = riseGravity * fallMultiplier;\n        releaseSpeed = launchSpeed * releaseFraction;\n    }\n\n    public void Launch() => VelocityY = launchSpeed;\n\n    public void Release()\n    {\n        if (VelocityY > releaseSpeed) VelocityY = releaseSpeed;\n    }\n\n    public void StopVerticalMotion() => VelocityY = 0f;\n\n    public float Advance(float dt)\n    {\n        if (dt <= 0f) return 0f;\n\n        float riseTime = VelocityY > 0f\n            ? System.Math.Min(dt, VelocityY / riseGravity)\n            : 0f;\n        float distance = 0f;\n        if (riseTime > 0f)\n        {\n            distance = VelocityY * riseTime - 0.5f * riseGravity * riseTime * riseTime;\n            VelocityY = System.Math.Max(0f, VelocityY - riseGravity * riseTime);\n        }\n\n        float fallTime = dt - riseTime;\n        if (fallTime > 0f)\n        {\n            distance += VelocityY * fallTime - 0.5f * fallGravity * fallTime * fallTime;\n            VelocityY -= fallGravity * fallTime;\n        }\n        return distance;\n    }\n}\n```\n\n## Altura variable y caída\n\nCon Release limitas la velocidad restante. Si sueltas inmediatamente y conservas el 45 % de la velocidad de salida, la subida restante ideal es el 20,25 % de la altura completa. Si sueltas tarde, ya has ganado altura. También puedes aumentar la gravedad al soltar o sostener el ascenso durante una ventana. Una gravedad suave cerca del ápice da margen para corregir el aterrizaje y cambia el alcance. Un tope de caída evita que la velocidad crezca indefinidamente.\n\n## Coyote, búfer y orden del paso\n\nGuarda la pulsación como un evento hasta que la física la consuma o caduque. Durante el paso, actualiza el contacto de suelo y abre la ventana de coyote al abandonar el borde. Si existe una pulsación vigente y permiso para despegar, inicia el salto y consume ambos. Al detectar un aterrizaje, prueba el búfer antes de descartarlo. Decide de antemano qué ocurre si se soltó el botón antes del aterrizaje. Doble salto y salto de pared pueden tener permisos propios, con una prioridad explícita cuando coinciden.\n\n## Unity 6\n\nCon Rigidbody2D dinámico, asigna la componente Y de linearVelocity al despegar y preserva X. Usa gravityScale para delegar la gravedad al motor. Si la gravedad global es vertical, usa escala = gravedad deseada / magnitud de Physics2D.gravity.y. Si integras tú el desplazamiento, evita aplicar además la gravedad automática y elige una estrategia de movimiento con colisiones que consuma ese desplazamiento.\n\n```csharp\n// Dentro de FixedUpdate. jumpRequested debe sobrevivir entre pasos.\nVector2 velocity = body.linearVelocity;\nif (jumpRequested && grounded)\n{\n    velocity.y = launchSpeed;\n    jumpRequested = false;\n}\nbody.linearVelocity = velocity;\nbody.gravityScale = (velocity.y > 0f ? riseGravity : fallGravity)\n    / Mathf.Abs(Physics2D.gravity.y);\n```\n\n## Godot 4 en C#\n\nEn CharacterBody2D, una opción directa es integrar tu velocidad en _PhysicsProcess y asignarla a Velocity antes de MoveAndSlide(). La Y de pantalla apunta hacia abajo, así que un despegue es negativo. Para aplicar el desplazamiento exacto de Advance mediante MoveAndSlide, usa su equivalente medio en el paso, −desplazamiento/dt, y conserva la velocidad final dentro de JumpMotor. Lee después IsOnFloor e IsOnCeiling para sincronizar los contactos.\n\n```csharp\n// Dentro de _PhysicsProcess, con jumpRequested ya leído.\nVector2 velocity = Velocity;\nif (!IsOnFloor())\n    velocity.Y += (velocity.Y < 0f ? riseGravity : fallGravity) * (float)delta;\nif (jumpRequested && IsOnFloor())\n    velocity.Y = -launchSpeed;\nVelocity = velocity;\nMoveAndSlide();\n```\n\n## Qué probar antes de construir el nivel\n\nMide altura real, tiempo de ápice, tiempo de vuelo y alcance entre bordes de los colliders. Prueba una pulsación corta y una larga, un techo bajo, una pulsación por delante y por detrás del borde, un aterrizaje anticipado y una plataforma móvil. Repite con distintas frecuencias de render y el mismo paso de física. Si el jugador cree que pulsó a tiempo, compara su pulsación con el registro del último contacto y la ventana que aplicaste.",
+    "referencia": "Desglose técnico a partir de las fuentes de esta colección.",
+    "materiales": [
+      {
+        "nombre": "Kyle Pittman. Building a Better Jump. GDC 2016.",
+        "url": "https://www.gdcvault.com/play/1023559/Math-for-Game-Programmers-Building%3A"
+      },
+      {
+        "nombre": "Maddy Thorson. Celeste & Forgiveness.",
+        "url": "https://www.mattmakesgames.com/articles/celeste_and_forgiveness/index.html"
+      },
+      {
+        "nombre": "Noel Berry y equipo de Celeste. Player.cs, código publicado.",
+        "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+      },
+      {
+        "nombre": "Mark Brown. Platformer Toolkit.",
+        "url": "https://gmtk.itch.io/platformer-toolkit"
+      },
+      {
+        "nombre": "Unity. Scripting API, Rigidbody2D.linearVelocity.",
+        "url": "https://docs.unity.com/en-us/engine/6000.7/script-reference/unityengine/rigidbody2d/linearvelocity"
+      },
+      {
+        "nombre": "Unity. Scripting API, Rigidbody2D.gravityScale.",
+        "url": "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Rigidbody2D-gravityScale.html"
+      },
+      {
+        "nombre": "Godot Engine. CharacterBody2D, referencia de clase.",
+        "url": "https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html"
+      },
+      {
+        "nombre": "Godot Engine. Using CharacterBody2D/3D, tutorial.",
+        "url": "https://docs.godotengine.org/en/stable/tutorials/physics/using_character_body_2d.html"
+      }
+    ]
+  },
+  {
+    "id": "salto-2d-pittman",
+    "titulo": "Kyle Pittman y la trayectoria del salto",
+    "tema": "Mecánicas",
+    "subtema": "Salto 2D",
+    "idioma": "Inglés",
+    "formato": "Charla",
+    "resumen": "Diseñar desde altura, tiempo y alcance",
+    "cuerpo": "## Qué aporta\n\nLa charla parte de objetivos que el diseñador puede medir y deriva los valores que gobiernan la trayectoria. Extiende el modelo a saltos de altura variable y a ascensos y caídas con ritmos distintos.\n\n## Cómo llevarlo a la práctica\n\nElige un hueco objetivo y calcula el alcance dos veces, primero con gravedad simétrica y luego con una caída más rápida. Comprueba cuánto margen queda al aterrizar.",
+    "referencia": "Kyle Pittman. Building a Better Jump. GDC 2016.",
+    "fuente": "https://www.gdcvault.com/play/1023559/Math-for-Game-Programmers-Building%3A"
+  },
+  {
+    "id": "salto-2d-thorson",
+    "titulo": "Por qué Celeste perdona una pulsación tardía",
+    "tema": "Mecánicas",
+    "subtema": "Salto 2D",
+    "idioma": "Inglés",
+    "formato": "Artículo",
+    "resumen": "Tolerancia al borde, al aterrizaje y en el ápice",
+    "cuerpo": "## Qué aporta\n\nThorson muestra tres ajustes que afectan al salto: permitirlo brevemente tras perder el suelo, guardar una pulsación anticipada y reducir la gravedad cerca del ápice mientras se mantiene el botón. También ilustra correcciones al rozar esquinas.\n\n## Cómo llevarlo a la práctica\n\nHaz dos pasadas idénticas por un borde, con y sin margen de coyote. Registra el instante de la pulsación respecto al último contacto con el suelo.",
+    "referencia": "Maddy Thorson. Celeste & Forgiveness.",
+    "fuente": "https://www.mattmakesgames.com/articles/celeste_and_forgiveness/index.html"
+  },
+  {
+    "id": "salto-2d-celeste-codigo",
+    "titulo": "Cómo se implementa el salto de Celeste en C#",
+    "tema": "Mecánicas",
+    "subtema": "Salto 2D",
+    "idioma": "Inglés",
+    "formato": "Artículo",
+    "resumen": "Lectura guiada del controlador",
+    "cuerpo": "## Qué aporta\n\nBusca JumpGraceTime, VarJumpTime, HalfGravThreshold y el método Jump. Sigue dónde se arma y consume la tolerancia y dónde se mantiene el ascenso durante la ventana variable. El código emplea su propia convención vertical y depende de los estados del personaje.\n\n## Cómo llevarlo a la práctica\n\nAnota para cada temporizador quién lo inicia, quién lo consume y qué lo cancela. Conserva esa separación en tu controlador aunque cambien los valores.",
+    "referencia": "Noel Berry y equipo de Celeste. Player.cs, código publicado.",
+    "fuente": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+  },
+  {
+    "id": "salto-2d-gmtk",
+    "titulo": "Platformer Toolkit, laboratorio jugable de parámetros",
+    "tema": "Mecánicas",
+    "subtema": "Salto 2D",
+    "idioma": "Inglés",
+    "formato": "Artículo",
+    "resumen": "Comparar sensaciones con el mismo nivel",
+    "cuerpo": "## Qué aporta\n\nEl ensayo interactivo permite ajustar más de treinta variables, entre ellas la altura, la velocidad máxima y el margen de coyote. El mismo recorrido permite comparar cambios sin rediseñar los obstáculos entre pruebas.\n\n## Cómo llevarlo a la práctica\n\nHaz una repetición de referencia y modifica una sola variable. Describe el efecto observado con algo medible: el hueco que cruzas, las correcciones que haces o los saltos que pierdes al borde.",
+    "referencia": "Mark Brown. Platformer Toolkit.",
+    "fuente": "https://gmtk.itch.io/platformer-toolkit"
+  },
+  {
+    "id": "salto-2d-unity-velocidad",
+    "titulo": "Unity 6 y la velocidad de Rigidbody2D",
+    "tema": "Mecánicas",
+    "subtema": "Salto 2D",
+    "idioma": "Inglés",
+    "formato": "Artículo",
+    "resumen": "Asignar el despegue sin borrar la velocidad horizontal",
+    "cuerpo": "## Qué aporta\n\nlinearVelocity representa la velocidad del cuerpo en unidades por segundo. Puedes leer el vector y sustituir solo su componente vertical al saltar. La gravedad, la amortiguación y las colisiones también pueden modificarlo.\n\n## Cómo llevarlo a la práctica\n\nAplica el despegue durante el paso de física y compara un salto quieto con uno en carrera. Verifica que ambos salen con la misma velocidad vertical.",
+    "referencia": "Unity. Scripting API, Rigidbody2D.linearVelocity.",
+    "fuente": "https://docs.unity.com/en-us/engine/6000.7/script-reference/unityengine/rigidbody2d/linearvelocity"
+  },
+  {
+    "id": "salto-2d-unity-gravedad",
+    "titulo": "Unity 6 y la escala de gravedad por cuerpo",
+    "tema": "Mecánicas",
+    "subtema": "Salto 2D",
+    "idioma": "Inglés",
+    "formato": "Artículo",
+    "resumen": "Usar gravedades distintas al subir y caer",
+    "cuerpo": "## Qué aporta\n\ngravityScale multiplica la gravedad global para ese cuerpo. Con gravedad global vertical, puedes fijar una escala durante el ascenso y otra cuando la velocidad vertical pasa a ser descendente.\n\n## Cómo llevarlo a la práctica\n\nSi integras tu propia gravedad, pon gravityScale a cero. Si delegas la integración a Unity, calcula la escala a partir de la gravedad global y mide el resultado.",
+    "referencia": "Unity. Scripting API, Rigidbody2D.gravityScale.",
+    "fuente": "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Rigidbody2D-gravityScale.html"
+  },
+  {
+    "id": "salto-2d-godot-cuerpo",
+    "titulo": "Godot 4 y el contacto de CharacterBody2D",
+    "tema": "Mecánicas",
+    "subtema": "Salto 2D",
+    "idioma": "Inglés",
+    "formato": "Artículo",
+    "resumen": "Mover un personaje con colisiones",
+    "cuerpo": "## Qué aporta\n\nCharacterBody2D está diseñado para ser movido por código. Velocity expresa una velocidad y MoveAndSlide resuelve el desplazamiento. IsOnFloor e IsOnCeiling describen contactos del último movimiento.\n\n## Cómo llevarlo a la práctica\n\nConsulta el suelo antes y después de MoveAndSlide. Detecta la transición de aterrizaje para reponer saltos, y utiliza el contacto de techo para cancelar el ascenso.",
+    "referencia": "Godot Engine. CharacterBody2D, referencia de clase.",
+    "fuente": "https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html"
+  },
+  {
+    "id": "salto-2d-godot-controlador",
+    "titulo": "Godot 4 y el controlador mínimo de plataformas",
+    "tema": "Mecánicas",
+    "subtema": "Salto 2D",
+    "idioma": "Inglés",
+    "formato": "Artículo",
+    "resumen": "Integrar gravedad, entrada y movimiento",
+    "cuerpo": "## Qué aporta\n\nEl tutorial reúne la gravedad, el permiso de salto en suelo y MoveAndSlide en el paso de física. En C#, la llamada es MoveAndSlide() y el salto normal usa una velocidad Y negativa porque la pantalla crece hacia abajo.\n\n## Cómo llevarlo a la práctica\n\nConstruye primero el salto fijo y prueba una plataforma y un techo. Añade después el búfer como estado propio para saber qué pulsación se consumió y cuándo.",
+    "referencia": "Godot Engine. Using CharacterBody2D/3D, tutorial.",
+    "fuente": "https://docs.godotengine.org/en/stable/tutorials/physics/using_character_body_2d.html"
   }
 ]

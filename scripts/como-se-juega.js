@@ -20,19 +20,58 @@ const sourceSections = {
   articulos: ['Artículos', ['Artículo']],
   documentacion: ['Documentación técnica', ['Documentación']],
   codigo: ['Código fuente', ['Código fuente']],
-  demos: ['Demos', ['Demo']]
+  demos: ['Demos', ['Demo']],
+  guias: ['Guías', ['Guía']],
+  videos: ['Vídeos', ['Vídeo']]
 };
 const sectionKey = params.get('seccion');
 const sourceSection = !isPapers && Object.hasOwn(sourceSections, sectionKey) ? sourceSections[sectionKey] : null;
+const disciplines = {
+  sistemas: ['Diseño de sistemas', {
+    'Mecánicas': 'Reglas, acciones y estados del jugador.',
+    'Dinámicas': 'Comportamientos y estrategias que surgen al interactuar las reglas.',
+    'Jugabilidad y bucles': 'Secuencias de acciones y objetivos que estructuran una partida.',
+    'Sistemas y economías': 'Recursos, recompensas y progresión.',
+    'Dificultad y equilibrio': 'Reto, opciones viables y ajuste de parámetros.'
+  }],
+  niveles: ['Diseño de niveles', {
+    'Espacios y recorridos': 'Geometría, orientación, rutas y ritmo espacial.',
+    'Encuentros y puzles': 'Obstáculos, situaciones y retos colocados en un espacio.'
+  }],
+  narrativa: ['Diseño narrativo', {
+    'Diseño narrativo': 'Historia interactiva, personajes, mundo y decisiones narrativas.',
+    'Localización': 'Adaptación de diálogos, voz y elementos narrativos al público.'
+  }],
+  interfaz: ['Interfaz y experiencia de usuario', {
+    'Interfaz e interacción': 'HUD, menús, controles y navegación.',
+    'Respuesta y legibilidad': 'Señales visuales o sonoras que comunican lo que ocurre.',
+    'Tutoriales y aprendizaje': 'Incorporación del jugador y enseñanza de reglas.',
+    'Experiencia de usuario y accesibilidad': 'Barreras de acceso, usabilidad y ajustes.'
+  }]
+};
+const areaKey = params.get('diseno');
+const discipline = Object.hasOwn(disciplines, areaKey) ? disciplines[areaKey] : null;
+const designCategory = params.get('categoria') ?? '';
+const categoriesById = {
+  'mda-hunicke-leblanc-zubek': 'Dinámicas',
+  'juiciness-kao': 'Respuesta y legibilidad',
+  'idiomas-esports-postigo': ''
+};
+function designTopic(entry) {
+  return categoriesById[entry.id] ?? (entry.tema === 'Diseño de niveles' ? 'Espacios y recorridos' : entry.tema);
+}
+const librarySection = sectionKey === 'biblioteca' || location.hash === '#catalogo';
+const isHome = !params.has('lectura') && !sectionKey && !discipline && !isPapers && !currentTopic && !librarySection;
 const libraryQuery = values => new URLSearchParams({
   ...(isPapers ? {papers: selected} : {}),
   ...(isInterviews ? {seccion: 'entrevistas'} : {}),
   ...(collection ? {coleccion: collection} : {}),
   ...(sourceSection ? {seccion: sectionKey} : {}),
+  ...(discipline ? {diseno: areaKey, ...(designCategory ? {categoria: designCategory} : {})} : {}),
   ...(currentTopic ? {tema: currentTopic} : {}),
   ...values
 });
-const libraryUrl = 'como-se-juega.html?' + libraryQuery({}) + '#catalogo';
+const libraryUrl = 'como-se-juega.html?' + libraryQuery({...(discipline || currentTopic || isPapers || sourceSection || isInterviews ? {} : {seccion: 'biblioteca'})}) + '#catalogo';
 const studyAreas = [
   'Mecánicas',
   'Diseño de niveles',
@@ -183,19 +222,22 @@ async function loadCatalog() {
   const archives = catalog.filter(isArchive);
   const archive = archives.find(entry => slug(entry.subtema) === collection);
   const allTopics = [...new Set([...studyAreas, ...catalog.map(entry => entry.tema)])];
+  const category = discipline && Object.hasOwn(discipline[1], designCategory) ? designCategory : '';
   const topTopic = !isPapers && !isInterviews && !sourceSection && allTopics.includes(currentTopic) ? currentTopic : '';
   const entries = catalog.filter(entry =>
     (!isPapers || entry.formato === 'Estudio') &&
     (!language || entry.idioma === languages[language]) &&
     (!isInterviews || entry.formato === 'Entrevista') &&
     (!sourceSection || sourceSection[1].includes(entry.formato)) &&
-    (!topTopic || (entry.tema === topTopic && !(topTopic === 'Mecánicas' && entry.subtema))) &&
+    (!discipline || Object.hasOwn(discipline[1], designTopic(entry))) &&
+    (!category || designTopic(entry) === category) &&
+    (!topTopic || ((topTopic === 'Mecánicas' ? designTopic(entry) === topTopic && !entry.subtema : entry.tema === topTopic))) &&
     !isArchive(entry)
   );
   const sectionTitle = language ? 'Papers en ' + languages[language].toLowerCase() :
-    isPapers ? 'Papers' : isInterviews ? 'Entrevistas' : (sourceSection?.[0] ?? topTopic);
+    isPapers ? 'Papers' : isInterviews ? 'Entrevistas' : (sourceSection?.[0] ?? (discipline ? category || discipline[0] : topTopic));
   const mechanics = document.querySelector('#archivo-mecanicas');
-  if (topTopic === 'Mecánicas' && !archive && archives.length) {
+  if ((topTopic === 'Mecánicas' || category === 'Mecánicas') && !archive && archives.length) {
     mechanics.hidden = false;
     for (const entry of archives) {
       const card = link('', archiveUrl(entry.subtema));
@@ -204,18 +246,32 @@ async function loadCatalog() {
     }
   }
   const sections = document.querySelector('#secciones');
+  const updates = document.querySelector('#novedades');
+  updates.hidden = !isHome;
+  if (isHome) document.querySelector('#catalogo').hidden = true;
   if (sectionTitle) {
     document.querySelector('#titulo-catalogo').textContent = sectionTitle;
     document.querySelector('#volver-biblioteca').hidden = false;
     document.querySelector('.portada').hidden = true;
     sections.hidden = true;
+    if (discipline && !category) {
+      sections.hidden = false;
+      for (const [name, description] of Object.entries(discipline[1])) {
+        const card = link('', name === 'Mecánicas' ? '?tema=Mec%C3%A1nicas#catalogo' : '?' + libraryQuery({categoria: name}) + '#catalogo');
+        card.append(element('span', name, 'area-titulo'), element('span', description, 'area-recuento'));
+        sections.append(card);
+      }
+    }
+    if (discipline || topTopic === 'Mecánicas') {
+      const back = document.querySelector('#volver-diseno');
+      back.hidden = false;
+      back.append(link(discipline?.[0] ?? disciplines.sistemas[0], '?diseno=' + (discipline ? areaKey : 'sistemas') + '#catalogo'));
+    }
   } else {
     const sectionLinks = [
       ['Papers', '?papers=todos'],
-      ['Mecánicas', '?tema=Mec%C3%A1nicas'],
       ['Entrevistas', '?seccion=entrevistas'],
-      ...Object.entries(sourceSections).map(([key, [title]]) => [title, '?seccion=' + key]),
-      ...allTopics.filter(name => name !== 'Mecánicas').map(name => [name, '?tema=' + encodeURIComponent(name)])
+      ...Object.entries(sourceSections).map(([key, [title]]) => [title, '?seccion=' + key])
     ];
     sections.replaceChildren(...sectionLinks.map(([name, url]) => {
       const card = link('', url + '#catalogo');
@@ -225,13 +281,13 @@ async function loadCatalog() {
   }
   if (isPapers) document.querySelector('#idiomas').hidden = false;
   document.querySelector('#volver-papers').hidden = !language;
-  const chooseLanguage = isPapers && !language;
+  const chooseLanguage = (isPapers && !language) || (topTopic === 'Mecánicas' && !archive && !entries.length && archives.length > 0);
   search.form.hidden = chooseLanguage;
   status.hidden = chooseLanguage;
   results.hidden = chooseLanguage;
   if (language) document.querySelector('[data-papers="' + language + '"]').setAttribute('aria-current', 'page');
   const topics = [...new Set(entries.map(entry => entry.tema))];
-  const showTopics = Boolean(language) && topics.length > 0;
+  const showTopics = (Boolean(language) || (!sectionTitle && !isHome)) && topics.length > 0;
   document.querySelector('#subcategorias').hidden = !showTopics;
   document.querySelector('#filtro-tema').hidden = !showTopics;
   document.querySelector('#filtro-formato').hidden = isPapers || isInterviews;
@@ -276,7 +332,7 @@ async function loadCatalog() {
       const card = element('article', '', 'ficha');
       const title = element('h3', '');
       title.append(link(entry.titulo, '?' + libraryQuery({...(topic.value ? {tema: topic.value} : {}), lectura: entry.id})));
-      card.append(element('div', entry.formato + ' · ' + entry.tema, 'meta'), title, element('p', entry.resumen));
+      card.append(element('div', entry.formato + ' · ' + (discipline ? designTopic(entry) : entry.tema), 'meta'), title, element('p', entry.resumen));
       return card;
     });
     results.replaceChildren(...cards);

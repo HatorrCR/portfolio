@@ -11,8 +11,16 @@ const params = new URLSearchParams(location.search);
 const languages = { es: 'Español', en: 'Inglés' };
 const selected = params.get('papers');
 const language = Object.hasOwn(languages, selected) ? selected : '';
-const libraryQuery = values => new URLSearchParams(language ? {papers: language, ...values} : values);
-const libraryUrl = language ? 'como-se-juega.html?' + libraryQuery({}) + '#catalogo' : 'como-se-juega.html#catalogo';
+const isPapers = selected === 'todos' || Boolean(language);
+const isInterviews = !isPapers && params.get('seccion') === 'entrevistas';
+const currentTopic = params.get('tema') ?? '';
+const libraryQuery = values => new URLSearchParams({
+  ...(isPapers ? {papers: selected} : {}),
+  ...(isInterviews ? {seccion: 'entrevistas'} : {}),
+  ...(currentTopic ? {tema: currentTopic} : {}),
+  ...values
+});
+const libraryUrl = 'como-se-juega.html?' + libraryQuery({}) + '#catalogo';
 const studyAreas = [
   'Mecánicas',
   'Diseño de niveles',
@@ -82,7 +90,7 @@ function showSources(resource) {
 function showReading(entries) {
   const id = params.get('lectura');
   if (!id) {
-    showFeatured(entries);
+    if (!document.querySelector('.portada').hidden) showFeatured(entries);
     return;
   }
   const resource = entries.find(entry => entry.id === id);
@@ -106,20 +114,51 @@ async function loadCatalog() {
   const response = await fetch('datos/como-se-juega.json?v=papers', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
-  const entries = language ? catalog.filter(entry =>
-    entry.formato === 'Estudio' && entry.idioma === languages[language]
-  ) : catalog;
-  if (language) {
-    const current = document.querySelector('[data-papers="' + language + '"]');
-    current.setAttribute('aria-current', 'page');
-    document.querySelector('#titulo-catalogo').textContent = current.textContent.trim();
+  const allTopics = [...new Set([...studyAreas, ...catalog.map(entry => entry.tema)])];
+  const topTopic = !isPapers && !isInterviews && allTopics.includes(currentTopic) ? currentTopic : '';
+  const entries = catalog.filter(entry =>
+    (!isPapers || entry.formato === 'Estudio') &&
+    (!language || entry.idioma === languages[language]) &&
+    (!isInterviews || entry.formato === 'Entrevista') &&
+    (!topTopic || entry.tema === topTopic)
+  );
+  const sectionTitle = language ? 'Papers en ' + languages[language].toLowerCase() :
+    isPapers ? 'Papers' : isInterviews ? 'Entrevistas' : topTopic;
+  const sections = document.querySelector('#secciones');
+  if (sectionTitle) {
+    document.querySelector('#titulo-catalogo').textContent = sectionTitle;
     document.querySelector('#volver-biblioteca').hidden = false;
     document.querySelector('.portada').hidden = true;
+    sections.hidden = true;
+  } else {
+    const sectionLinks = [
+      ['Papers', '?papers=todos'],
+      ['Mecánicas', '?tema=Mec%C3%A1nicas'],
+      ['Entrevistas', '?seccion=entrevistas'],
+      ...allTopics.filter(name => name !== 'Mecánicas').map(name => [name, '?tema=' + encodeURIComponent(name)])
+    ];
+    sections.replaceChildren(...sectionLinks.map(([name, url]) => {
+      const card = link('', url + '#catalogo');
+      card.append(element('span', name, 'area-titulo'));
+      return card;
+    }));
   }
-  const topics = [...new Set([...(language ? [] : studyAreas), ...entries.map(entry => entry.tema)])];
-  const requestedTopic = new URLSearchParams(location.search).get('tema') ?? '';
-  fillOptions(topic, topics);
-  if (topics.includes(requestedTopic)) topic.value = requestedTopic;
+  if (isPapers) document.querySelector('#idiomas').hidden = false;
+  document.querySelector('#volver-papers').hidden = !language;
+  const chooseLanguage = isPapers && !language;
+  search.form.hidden = chooseLanguage;
+  status.hidden = chooseLanguage;
+  results.hidden = chooseLanguage;
+  if (language) document.querySelector('[data-papers="' + language + '"]').setAttribute('aria-current', 'page');
+  const topics = [...new Set(entries.map(entry => entry.tema))];
+  const showTopics = Boolean(language) && topics.length > 0;
+  document.querySelector('#subcategorias').hidden = !showTopics;
+  document.querySelector('#filtro-tema').hidden = !showTopics;
+  document.querySelector('#filtro-formato').hidden = isPapers || isInterviews;
+  if (showTopics) {
+    fillOptions(topic, topics);
+    if (topics.includes(currentTopic)) topic.value = currentTopic;
+  }
   fillOptions(format, entries.map(entry => entry.formato));
   showReading(catalog);
 
@@ -127,7 +166,7 @@ async function loadCatalog() {
   for (const entry of entries) {
     topicCounts.set(entry.tema, (topicCounts.get(entry.tema) ?? 0) + 1);
   }
-  const shortcuts = topics.map(name => {
+  const shortcuts = (showTopics ? topics : []).map(name => {
     const shortcut = link('', 'como-se-juega.html?' + libraryQuery({tema: name}) + '#catalogo');
     const count = topicCounts.get(name) ?? 0;
     shortcut.append(
@@ -144,7 +183,7 @@ async function loadCatalog() {
     return shortcut;
   });
   areas.replaceChildren(...shortcuts);
-  areas.hidden = false;
+  areas.hidden = !showTopics;
 
   function render() {
     const query = normalize(search.value.trim());
@@ -156,7 +195,7 @@ async function loadCatalog() {
     const cards = matches.map(entry => {
       const card = element('article', '', 'ficha');
       const title = element('h3', '');
-      title.append(link(entry.titulo, '?' + libraryQuery({lectura: entry.id})));
+      title.append(link(entry.titulo, '?' + libraryQuery({...(topic.value ? {tema: topic.value} : {}), lectura: entry.id})));
       card.append(element('div', entry.formato + ' · ' + entry.tema, 'meta'), title, element('p', entry.resumen));
       return card;
     });
@@ -166,7 +205,8 @@ async function loadCatalog() {
       else shortcut.removeAttribute('aria-current');
     }
     const emptyTopic = topic.value && !entries.some(entry => entry.tema === topic.value);
-    status.textContent = emptyTopic ? 'Todavía no hay recursos en esta área.' :
+    status.textContent = !entries.length && sectionTitle ? 'Todavía no hay recursos en esta sección.' :
+      emptyTopic ? 'Todavía no hay recursos en esta área.' :
       matches.length === 0 ? 'No hay recursos que coincidan.' :
       matches.length === 1 ? '1 recurso' : matches.length + ' recursos';
   }

@@ -128,7 +128,5 @@ footer { border-top: 1px solid var(--linea); }
 .margen-salto strong, .margen-salto span { padding: 7px 10px; background: #fff8eb; border-left: 3px solid #b96442; }
 
 .prueba-jugable { margin-block: 14px 24px; }
-.mandos-salto, .ayudas-salto { display: flex; flex-wrap: wrap; gap: 8px 12px; margin-block: 10px; }
-.mandos-salto button { touch-action: none; padding: 8px 12px; font: inherit; color: var(--tinta); background: #fffdf7; border: 1px solid var(--linea); border-radius: 5px; cursor: pointer; }
-.mandos-salto button:active { background: #ead9c0; }
+.ayudas-salto { display: flex; flex-wrap: wrap; gap: 8px 12px; margin-block: 10px; }
 .laboratorio-salto h3 { margin-top: 24px; }

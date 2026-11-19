@@ -1000,12 +1000,180 @@ const systemLabs = {
   }
 };
 
+const mapMoves = [[0,-1],[-1,0],[1,0],[0,1]];
+const mapDirections = ['↑ Norte', '← Oeste', 'Este →', 'Sur ↓'];
+
+function mapActions(state, canMove, onMove) {
+  return mapMoves.map(([dx,dy], i) => {
+    const x = state.x + dx, y = state.y + dy;
+    return [mapDirections[i], !state.done && canMove(x,y), () => {
+      state.x = x;
+      state.y = y;
+      state.steps++;
+      return onMove();
+    }];
+  });
+}
+
+function levelGrid(width, height, describe) {
+  return Array.from({length:height}, (_,y) =>
+    Array.from({length:width}, (_,x) => describe(x,y)));
+}
+
+const town = ['##...##','##.#.##','.......','.#.#.#.','.......'];
+const walkTown = (x,y) => town[y]?.[x] === '.';
+const sightRoom = ['..#....','..#....','.......','..#....','.......'];
+const walkSightRoom = (x,y) => sightRoom[y]?.[x] === '.';
+const levelLabs = {
+  'hitos-orientacion': {
+    modes: ['Sin torre', 'Con torre'],
+    start: () => ({x:1,y:4,steps:0,returning:false,done:false}),
+    view: s => [['Pasos', s.steps], ['Objetivo', s.returning ? 'Volver a casa' : 'Llegar a la plaza']],
+    hint: (s, mode) => {
+      if (s.done) return 'Has vuelto a casa.';
+      const task = s.returning ? 'Regresa a casa.' : 'Ve a la plaza del extremo noreste.';
+      const bearing = [s.y > 0 ? 'al norte' : '', s.x === 3 ? '' : s.x > 3 ? 'al oeste' : 'al este'].filter(Boolean);
+      return task + (mode ? bearing.length ? ' La torre queda ' + bearing.join(' y ') + '.' : ' Estás junto a la torre.' : '');
+    },
+    board: (s, mode) => levelGrid(3,3,(col,row) => {
+      const x = s.x+col-1, y = s.y+row-1;
+      if (col === 1 && row === 1) return ['player','Tú'];
+      if (x === 1 && y === 4) return ['goal','Casa'];
+      if (x === 4 && y === 0) return ['goal','Plaza'];
+      if (mode && x === 3 && y === 0) return ['goal','Torre'];
+      return walkTown(x,y) ? ['floor',''] : ['wall',''];
+    }),
+    actions: s => mapActions(s,walkTown,() => {
+      if (s.x === 4 && s.y === 0) { s.returning = true; return 'Llegaste a la plaza.'; }
+      if (s.returning && s.x === 1 && s.y === 4) { s.done = true; return 'Has vuelto a casa.'; }
+      return '';
+    })
+  },
+  'atajos-rutas': {
+    modes: ['Puerta bloqueada', 'Puerta desbloqueable'],
+    start: () => ({node:0,legs:0,steps:0,items:0,open:false}),
+    view: s => [['Vueltas', s.legs + ' / 2'], ['Minutos', s.steps], ['Recursos', s.items]],
+    hint: s => s.legs === 2 ? 'Recorrido completo.' : s.node ? 'Estás en el patio. Puedes volver a la entrada.' : 'Estás en la entrada. Llega al patio y vuelve.',
+    board: s => [[['floor','Ruta larga · 3'],['goal','Recursos'],['floor','Ruta larga · 3']],[
+      [s.node ? 'floor' : 'player','Entrada'],[s.open ? 'goal' : 'wall',s.open ? 'Atajo · 1' : 'Cerrado'],[s.node ? 'player' : 'floor','Patio']]],
+    actions: (s,mode) => {
+      const travel = fast => {
+        s.steps += fast ? 1 : 3;
+        if (!fast && s.items < 2) s.items++;
+        if (s.node) s.legs++;
+        s.node = 1-s.node;
+        return fast ? 'Pasaste por el atajo.' : 'Recorriste el camino largo.';
+      };
+      return [
+        ['Ruta larga',s.legs < 2,() => travel(false)],
+        ['Abrir atajo',mode === 1 && s.node === 1 && !s.open,() => { s.open = true; return 'El atajo queda abierto.'; }],
+        ['Tomar atajo',s.legs < 2 && s.open,() => travel(true)]
+      ];
+    }
+  },
+  'anticipacion-revelacion': {
+    modes: ['Meta visible', 'Meta oculta'],
+    start: () => ({x:0,y:2,steps:0,done:false}),
+    view: s => [['Pasos',s.steps],['Llegada',s.done ? 'Alcanzada' : 'Pendiente']],
+    hint: (s,mode) => s.done ? 'Encontraste la salida.' : mode && s.x < 3 ? 'El muro tapa el otro lado de la sala.' : 'La salida queda abajo a la derecha.',
+    board: (s,mode) => levelGrid(7,5,(x,y) => {
+      if (x===s.x && y===s.y) return ['player','Tú'];
+      if (mode && s.x < 3 && x >= 3) return ['unknown',''];
+      if (x===6 && y===4) return ['goal','Salida'];
+      return walkSightRoom(x,y) ? ['floor',''] : ['wall',''];
+    }),
+    actions: s => mapActions(s,walkSightRoom,() => {
+      s.done = s.x === 6 && s.y === 4;
+      return s.done ? 'Llegaste a la salida.' : '';
+    })
+  },
+  'ensenar-puzle-espacio': {
+    modes: ['Puerta a la vista', 'Puerta tras el muro'],
+    start: () => ({x:0,y:2,steps:0,open:false,done:false}),
+    view: s => [['Pasos', s.steps], ['Interruptor',s.open ? 'Activado' : 'Sin activar']],
+    hint: s => s.done ? 'Atravesaste la puerta.' : s.open ? 'Oíste abrirse una puerta. Encuentra el paso.' : 'Busca y activa el interruptor.',
+    board: (s,mode) => levelGrid(7,5,(x,y) => {
+      if (x===s.x && y===s.y) return ['player','Tú'];
+      if (mode && s.x < 3 && x >= 3) return ['unknown',''];
+      if (x===6 && y===2) return [s.open ? 'goal' : 'wall',s.open ? 'Abierta' : 'Puerta'];
+      if (x===1 && y===1) return ['goal','Mando'];
+      return walkSightRoom(x,y) ? ['floor',''] : ['wall',''];
+    }),
+    actions: s => [
+      ...mapActions(s,(x,y) => walkSightRoom(x,y) && (s.open || x!==6 || y!==2),() => {
+        s.done = s.x===6 && s.y===2;
+        return s.done ? 'Atravesaste la puerta.' : '';
+      }),
+      ['Activar interruptor',s.x===1 && s.y===1 && !s.open,() => { s.open = true; return 'Clic. Se abrió el paso.'; }]
+    ]
+  },
+  'cobertura-lineas-vision': {
+    modes: ['Cobertura central', 'Cobertura lateral'],
+    start: () => ({x:0,y:2,steps:0,hits:0,done:false}),
+    view: s => [['Pasos',s.steps],['Casillas expuestas',s.hits]],
+    hint: s => s.done ? 'Llegaste a la salida.' : 'Los vigilantes miran a la izquierda. El rayado señala las casillas expuestas.',
+    board: (s,mode) => levelGrid(7,5,(x,y) => {
+      if (x===s.x && y===s.y) return ['player','Tú'];
+      if (x===6 && y===2) return ['goal','Salida'];
+      if (x===6 && [1,3].includes(y)) return ['hazard','Vigía'];
+      if (isCover(x,y,mode)) return ['wall','Muro'];
+      return exposed(x,y,mode) ? ['hazard',''] : ['floor',''];
+    }),
+    actions: (s,mode) => mapActions(s,(x,y) => x>=0 && x<7 && y>=0 && y<5 &&
+      !isCover(x,y,mode) && !(x===6 && [1,3].includes(y)),() => {
+      if (exposed(s.x,s.y,mode)) s.hits++;
+      s.done = s.x===6 && s.y===2;
+      return s.done ? 'Llegaste a la salida.' : exposed(s.x,s.y,mode) ? 'El vigía te vio en esta casilla.' : '';
+    })
+  },
+  'combinar-obstaculos': {
+    modes: ['Secuencia de aprendizaje', 'Combinación directa'],
+    start: () => ({stage:0,beat:0,tries:0,done:false}),
+    view: s => [['Pulso',s.beat],['Fallos',s.tries]],
+    hint: (s,mode) => s.done ? 'Obstáculo superado.' :
+      (mode || s.stage===2 ? 'Espera a que la plataforma y el paso estén listos a la vez.' :
+        s.stage===0 ? 'Practica cuándo llega la plataforma.' : 'Practica cuándo se abre el paso.'),
+    board: (s,mode) => [[['player','Tú'],
+      mode || s.stage!==1 ? [s.beat%2===0?'goal':'wall',s.beat%2===0?'Plataforma lista':'Plataforma lejos'] : ['floor','Suelo'],
+      mode || s.stage!==0 ? [s.beat%3===1?'goal':'hazard',s.beat%3===1?'Paso abierto':'Paso cerrado'] : ['floor','Paso libre'],
+      ['goal','Meta']]],
+    actions: (s,mode) => [
+      ['Esperar un pulso',!s.done,() => { s.beat++; return ''; }],
+      ['Cruzar',!s.done,() => {
+        const needPlatform = mode || s.stage!==1, needGate = mode || s.stage!==0;
+        if ((needPlatform && s.beat%2!==0) || (needGate && s.beat%3!==1)) {
+          s.tries++;
+          s.beat++;
+          return 'El obstáculo no estaba listo. Avanzó un pulso.';
+        }
+        if (mode || s.stage===2) { s.done = true; return 'Combinación superada.'; }
+        s.stage++;
+        s.beat=0;
+        return 'Práctica superada. Pasa al siguiente tramo.';
+      }]
+    ]
+  }
+};
+
+function isCover(x,y,mode) {
+  return mode ? x===4 && [1,3,4].includes(y) : x===2 && y>=1 && y<=3;
+}
+
+function exposed(x,y,mode) {
+  return [1,3].includes(y) && x<6 && x>(mode ? 4 : 2);
+}
+
 function addSystemLab(config, id) {
   const lab = element('section', '', 'referencias laboratorio-sistemas');
   lab.setAttribute('aria-label', 'Prueba interactiva');
   lab.tabIndex = 0;
   const lanes = id === 'avisar-ataques' ? element('div', '', 'lab-carriles') : null;
   if (lanes) lanes.setAttribute('aria-hidden', 'true');
+  const board = config.board ? element('div', '', 'tablero-nivel') : null;
+  if (board) {
+    board.setAttribute('role', 'group');
+    board.setAttribute('aria-label', 'Plano del nivel');
+  }
   let state = config.start();
   let mode = 0;
   let timer;
@@ -1040,6 +1208,7 @@ function addSystemLab(config, id) {
   resetButton.addEventListener('click', reset);
   lab.append(stats, hint);
   if (lanes) lab.append(lanes);
+  if (board) lab.append(board);
   lab.append(controls, feedback);
   const schedule = (finish, delay) => {
     timer = setTimeout(() => {
@@ -1076,6 +1245,22 @@ function addSystemLab(config, id) {
       lane.classList.toggle('amenaza', state.target === i);
       return lane;
     }));
+    if (board) {
+      const tileNames = {player:'Jugador', goal:'Punto de interés', floor:'Camino', wall:'Bloqueado', unknown:'Oculto', hazard:'Peligro'};
+      board.replaceChildren(...config.board(state, mode).map((row, i) => {
+        const line = element('div', '', 'fila-nivel');
+        line.style.gridTemplateColumns = 'repeat(' + row.length + ', minmax(0, 1fr))';
+        line.setAttribute('role', 'group');
+        line.setAttribute('aria-label', 'Fila ' + (i+1));
+        line.append(...row.map(([kind,label], col) => {
+          const tile = element('span', label, 'casilla-nivel casilla-nivel--' + kind);
+          tile.setAttribute('role', 'img');
+          tile.setAttribute('aria-label', 'Columna ' + (col+1) + ': ' + (label || tileNames[kind]));
+          return tile;
+        }));
+        return line;
+      }));
+    }
     const nextHint = config.hint(state, mode);
     if (hint.textContent !== nextHint) hint.textContent = nextHint;
     config.actions(state, mode, schedule).forEach(([, available], index) => {
@@ -1083,6 +1268,14 @@ function addSystemLab(config, id) {
     });
   }
 
+  if (Object.hasOwn(levelLabs, id) && actions[0]?.[0] === mapDirections[0]) {
+    lab.addEventListener('keydown', event => {
+      const index = ['ArrowUp', 'ArrowLeft', 'ArrowRight', 'ArrowDown'].indexOf(event.key);
+      if (event.target.tagName === 'SELECT' || index < 0) return;
+      event.preventDefault();
+      act(index);
+    });
+  }
   if (id === 'avisar-ataques') lab.addEventListener('keydown', event => {
     if (event.target.tagName === 'SELECT' || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
     event.preventDefault();
@@ -1383,7 +1576,9 @@ function showReading(entries, archive) {
   const title = element('h1', resource?.titulo ?? 'Recurso no encontrado');
   title.id = 'titulo-lectura';
   const archiveReading = resource && isArchive(resource);
-  const systemLab = resource?.laboratorio && Object.hasOwn(systemLabs, resource.laboratorio) ? systemLabs[resource.laboratorio] : null;
+  const labId = resource?.laboratorio;
+  const systemLab = Object.hasOwn(systemLabs, labId) ? systemLabs[labId] :
+    Object.hasOwn(levelLabs, labId) ? levelLabs[labId] : null;
   const editorial = Boolean(resource && isEditorial(resource));
   const archiveIndex = archiveReading || systemLab || (editorial && /^## /m.test(resource.cuerpo)) ? element('nav', '', 'referencias') : null;
   const index = archiveIndex ? element('ol', '') : null;
@@ -1501,7 +1696,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=archivo-editorial', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=guias-niveles', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);

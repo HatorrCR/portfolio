@@ -1133,5 +1133,172 @@
     "resumen": "La FAQ presenta el modo dios como una opción que aumenta la resistencia al daño y agrega protección después de las derrotas.",
     "idioma": "Inglés",
     "formato": "Documentación"
+  },
+  {
+    "id": "hitos-orientacion",
+    "tema": "Espacios y recorridos",
+    "titulo": "Hitos y orientación",
+    "resumen": "Cómo un punto reconocible ayuda a orientarse y volver por un lugar ya recorrido.",
+    "editorial": true,
+    "formato": "Guía",
+    "idioma": "Español",
+    "laboratorio": "hitos-orientacion",
+    "esquema": [
+      "Reconoces el hito",
+      "Eliges un rumbo",
+      "Compruebas dónde estás"
+    ],
+    "fuentes": [
+      "nivel-wayfinding",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nSales de una calle y todas parecen la misma. Una torre reconocible puede darte un rumbo incluso cuando pasar por la calle más recta es imposible. The Level Design Book distingue entre pistas para decidir por dónde ir y referencias para reconocer dónde estás. Una torre puede hacer ambas cosas si la ves en momentos distintos.\n\n## Variantes de diseño\n\nUn hito global se ve desde varios barrios. Uno local, como un toldo o una fuente, distingue dos cruces cercanos. También puedes guiar con iluminación o una silueta singular. Si todas las esquinas tienen un cartel luminoso, cada uno compite con los demás.\n\n## Diseño de situaciones y lectura\n\nSitúa el hito fuera del camino y comprueba en qué cruces se ve. Después cambia la altura de un edificio y vuelve a medir. Un hito visible desde todas partes puede reducir la exploración si también delata todos los destinos.\n\n## Laboratorio jugable\n\nEncuentra la plaza y regresa a casa viendo solo el cruce inmediato. La segunda variante indica el rumbo de la torre cuando estás en el barrio. Para comparar con menos efecto de memoria, cambia el orden de las variantes entre dos jugadores.\n\n## Implementación en Unity\n\nGuarda el componente como RumboDelHito.cs. Asigna la torre a hito y llama a ObtenerRumbo desde tu sistema de orientación. El componente toma como referencia el plano XZ. Úsalo para probar rumbos en el editor antes de decidir cuáles conviene mostrar en partida.\n\n```csharp\nusing UnityEngine;\n\npublic class RumboDelHito : MonoBehaviour\n{\n    [SerializeField] Transform hito;\n\n    public Vector3 ObtenerRumbo()\n    {\n        if (hito == null) return Vector3.zero;\n        return Vector3.ProjectOnPlane(hito.position - transform.position, Vector3.up).normalized;\n    }\n}\n```\n\n## Pruebas y ajustes\n\nCuenta pasos de ida y de vuelta. Pregunta dónde creen que está la casa antes de mostrar el plano. Si siguen la torre para llegar a la plaza pero se pierden al volver, prueba un hito local cerca del último cruce."
+  },
+  {
+    "id": "atajos-rutas",
+    "tema": "Espacios y recorridos",
+    "titulo": "Atajos y rutas alternativas",
+    "resumen": "Qué gana el jugador cuando un camino conocido se puede recorrer de otra manera.",
+    "editorial": true,
+    "formato": "Guía",
+    "idioma": "Español",
+    "laboratorio": "atajos-rutas",
+    "esquema": [
+      "Ves la puerta cerrada",
+      "Llegas por la ruta larga",
+      "Abres el retorno"
+    ],
+    "fuentes": [
+      "nintendo-morph-ball",
+      "nivel-wayfinding",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nUn atajo devuelve al jugador a una parte del mapa con un coste menor. Una ruta alternativa puede ofrecer algo distinto: seguridad, recursos o un encuentro. En Metroid Dread, algunas habilidades abren recorridos antes inaccesibles. Aquí probamos otra condición de acceso: cruzar primero y desbloquear desde el otro lado.\n\n## Variantes de diseño\n\nUna puerta de retorno puede ahorrar trayecto indefinidamente. Un pasaje de una sola dirección cambia dónde has de tomar la decisión. Una ruta larga puede conservar valor si ofrece recursos limitados o si resulta más segura.\n\n## Diseño de situaciones y lectura\n\nMuestra antes la conexión cerrada. Cuando se abra desde atrás, deja que se reconozca el punto al que vuelve. Si la ruta larga ofrece un premio, sitúalo donde el jugador pueda saber que renuncia a él al usar el atajo.\n\n## Laboratorio jugable\n\nHaz dos vueltas entre la entrada y el patio. La ruta larga tarda tres minutos y tiene dos recursos en total. El atajo tarda un minuto, pero solo puedes abrirlo desde el patio. Compara tiempo y recursos.\n\n## Implementación en Unity\n\nGuarda el componente como AtajoDeRetorno.cs. Asigna el objeto que bloquea físicamente la puerta y conecta AbrirDesdePatio al punto de interacción del lado del patio. El componente guarda la apertura durante la escena. Para conservarla entre visitas, persiste el estado en tu sistema de guardado.\n\n```csharp\nusing UnityEngine;\n\npublic class AtajoDeRetorno : MonoBehaviour\n{\n    [SerializeField] GameObject bloqueo;\n    public bool Abierto { get; private set; }\n\n    public void AbrirDesdePatio()\n    {\n        if (Abierto || bloqueo == null) return;\n        Abierto = true;\n        bloqueo.SetActive(false);\n    }\n}\n```\n\n## Pruebas y ajustes\n\nObserva cuándo se usa la puerta y cuántas veces se vuelve por la ruta larga. Si siempre conviene el atajo, decide si buscabas comodidad o una elección. Para lo segundo, prueba un premio que tenga valor también en la segunda vuelta."
+  },
+  {
+    "id": "anticipacion-revelacion",
+    "tema": "Espacios y recorridos",
+    "titulo": "Anticipación y revelación",
+    "resumen": "Cómo cambia el recorrido cuando ves antes la meta o la descubres al avanzar.",
+    "editorial": true,
+    "formato": "Guía",
+    "idioma": "Español",
+    "laboratorio": "anticipacion-revelacion",
+    "esquema": [
+      "Entras en la sala",
+      "La vista cambia",
+      "Decides el siguiente giro"
+    ],
+    "fuentes": [
+      "nivel-composicion",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nVer la meta al entrar permite planear el recorrido. Revelarla tras un giro traslada la decisión al momento en que aparece. El capítulo de composición de The Level Design Book trata las líneas de visión como trayectorias que conectan espacios. Puedes dejar ver un destino y reservar para más tarde el camino que conduce hasta él.\n\n## Variantes de diseño\n\nPuedes enseñar la silueta entera, dejar un vistazo parcial u ocultarla hasta un cambio de altura. Enseñar mucho pronto favorece el plan. Ocultar parte de la escena favorece el descubrimiento y puede aumentar las idas y venidas.\n\n## Diseño de situaciones y lectura\n\nCompara las dos entradas desde la cámara que usará el jugador. En un prototipo cenital puedes delimitar lo visible. En un nivel 3D usa un muro, una curva o un desnivel real y comprueba desde qué punto la meta entra en campo.\n\n## Laboratorio jugable\n\nRecorre la misma sala con la salida visible desde el inicio y con el lado derecho oculto hasta cruzar la abertura. Fíjate en la primera dirección que eliges y en cuándo puedes trazar el último tramo.\n\n## Implementación en Unity\n\nGuarda el componente como RevelarZona.cs. Asigna al campo zona un panel de niebla o un marcador visual. Llama a ActualizarVisibilidad cuando el avatar cambie de lado. En 3D, el muro puede ocultar la geometría real y este componente controlar únicamente ayudas de interfaz.\n\n```csharp\nusing UnityEngine;\n\npublic class RevelarZona : MonoBehaviour\n{\n    [SerializeField] GameObject zona;\n    [SerializeField] bool visibleDesdeEntrada;\n\n    public void ActualizarVisibilidad(bool trasElMuro)\n    {\n        if (zona != null) zona.SetActive(visibleDesdeEntrada || trasElMuro);\n    }\n}\n```\n\n## Pruebas y ajustes\n\nMide pasos, primer giro y retrocesos. Pregunta qué esperaba encontrar antes de que apareciera la salida. Si en ambas versiones el único camino se ve al instante, crea una bifurcación antes de la revelación para probar su efecto."
+  },
+  {
+    "id": "ensenar-puzle-espacio",
+    "tema": "Encuentros y puzles",
+    "titulo": "Enseñar un puzle con el espacio",
+    "resumen": "Cómo colocar una acción y su consecuencia para que se entiendan juntas.",
+    "editorial": true,
+    "formato": "Guía",
+    "idioma": "Español",
+    "laboratorio": "ensenar-puzle-espacio",
+    "esquema": [
+      "Ves el mando",
+      "Lo activas",
+      "Localizas lo que ha cambiado"
+    ],
+    "fuentes": [
+      "nivel-ritmo",
+      "nivel-composicion",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nPulsar un botón dice poco si nada cambia dentro de la vista. Colocar interruptor y puerta en el mismo encuadre deja observar causa y efecto. La prueba siguiente puede volver a colocar la puerta fuera de la vista para comprobar qué regla ha entendido el jugador.\n\n## Variantes de diseño\n\nPuedes usar la posición de ambos objetos, un sonido direccional o un elemento compartido como un cable. Cada forma de comunicar el cambio le pide al jugador mirar un sitio distinto. Si necesita resolver la relación, evita hacerlo caminar demasiado antes de poder comprobarla.\n\n## Diseño de situaciones y lectura\n\nColoca el primer interruptor donde también se vea la puerta. Desde la salida, prepara una situación parecida con otro ángulo. Mantén el mismo aspecto y sonido para que se pueda reconocer la regla al cambiar la geometría.\n\n## Laboratorio jugable\n\nMueve al personaje hasta el mando, actívalo y atraviesa la puerta. En una variante ves el efecto desde el inicio. En la otra el muro tapa la puerta hasta que cruzas la abertura, aunque el clic sigue sonando.\n\n## Implementación en Unity\n\nGuarda el componente como MandoDePuerta.cs. Arrastra el bloqueo al Inspector y llama a Activar desde el punto de interacción. Usa el mismo evento para reproducir el clic de activación en las dos variantes. Ajusta la posición de la puerta en el nivel para que la comparación dependa del espacio.\n\n```csharp\nusing UnityEngine;\n\npublic class MandoDePuerta : MonoBehaviour\n{\n    [SerializeField] GameObject bloqueo;\n    [SerializeField] AudioSource sonido;\n    public bool Activado { get; private set; }\n\n    public void Activar()\n    {\n        if (Activado || bloqueo == null) return;\n        Activado = true;\n        bloqueo.SetActive(false);\n        if (sonido != null) sonido.Play();\n    }\n}\n```\n\n## Pruebas y ajustes\n\nRegistra si el jugador busca la puerta o vuelve a pulsar el mando. Después cambia la posición del interruptor sin modificar el efecto. Si el primer puzle se resuelve pero no el segundo, busca qué parte de la regla dependía del encuadre."
+  },
+  {
+    "id": "cobertura-lineas-vision",
+    "tema": "Encuentros y puzles",
+    "titulo": "Cobertura y líneas de visión",
+    "resumen": "Cómo mover una cobertura cambia lo que ves, lo que te ve y el recorrido que eliges.",
+    "editorial": true,
+    "formato": "Guía",
+    "idioma": "Español",
+    "laboratorio": "cobertura-lineas-vision",
+    "esquema": [
+      "Localizas al vigía",
+      "Lees dónde tapa el muro",
+      "Eliges por dónde avanzar"
+    ],
+    "fuentes": [
+      "nivel-cobertura",
+      "nivel-composicion",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nUna cobertura corta la línea de visión desde un punto concreto. Un muro útil frente a un vigía puede dejarte expuesto al segundo. The Level Design Book recomienda pensar en la visibilidad del encuentro: si todo enemigo aparece completamente tapado, al jugador le puede costar entender qué lo amenaza.\n\n## Variantes de diseño\n\nUna cobertura central crea una interrupción del campo visual. Las laterales pueden proteger acercamientos o desvíos. Cambia solo dónde están los muros y mantenlas comparables en tamaño para que el efecto se pueda atribuir al trazado.\n\n## Diseño de situaciones y lectura\n\nTraza una línea desde cada vigía hasta varios puntos del recorrido. Después comprueba qué ve el jugador desde esos mismos puntos. En 3D, calibra alturas de ojos, puertas y bordes; una cobertura que llega a la cintura corta una línea baja y deja pasar otra alta.\n\n## Laboratorio jugable\n\nElige un recorrido con los mismos dos vigías y dos configuraciones de cobertura. El rayado indica exposición. Llegar por el centro puede acortar o alargar el camino según dónde esté el muro.\n\n## Implementación en Unity\n\nGuarda el componente como LineaDeVision.cs. Asigna el punto de ojos y marca las capas que tapan la visión. Llama a TieneVision después de comprobar alcance y ángulo en tu vigía. Pasa un punto representativo del avatar. Prueba también cabeza y torso si tu cobertura tiene alturas distintas.\n\n```csharp\nusing UnityEngine;\n\npublic class LineaDeVision : MonoBehaviour\n{\n    [SerializeField] Transform ojos;\n    [SerializeField] LayerMask bloqueos;\n\n    public bool TieneVision(Vector3 objetivo)\n    {\n        return ojos != null && !Physics.Linecast(ojos.position, objetivo, bloqueos,\n            QueryTriggerInteraction.Ignore);\n    }\n}\n```\n\n## Pruebas y ajustes\n\nCompara pasos y casillas expuestas. Si la ruta más corta es también la más segura, prueba qué pasaría si el objetivo estuviera en otro carril. Conserva una forma de leer el riesgo antes de entrar al espacio vigilado."
+  },
+  {
+    "id": "combinar-obstaculos",
+    "tema": "Encuentros y puzles",
+    "titulo": "Combinación de obstáculos",
+    "resumen": "Cómo practicar dos reglas por separado antes de pedir que se apliquen juntas.",
+    "editorial": true,
+    "formato": "Guía",
+    "idioma": "Español",
+    "laboratorio": "combinar-obstaculos",
+    "esquema": [
+      "Practicas la plataforma",
+      "Practicas el paso",
+      "Cruzas cuando coinciden"
+    ],
+    "fuentes": [
+      "nivel-ritmo",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nCruzar una plataforma móvil exige entender su ritmo. Un paso que se abre y se cierra exige leer otro. Reunirlos crea una decisión nueva aunque cada elemento resulte familiar. The Level Design Book describe la secuencia de enseñar, probar y dar un giro como una manera de ordenar estas situaciones.\n\n## Variantes de diseño\n\nPuedes introducir cada obstáculo en orden, invertir el orden o empezar por la combinación. La secuencia puede ayudar a separar qué regla falla. Si el coste de equivocarse en la primera práctica es alto, quizá haga falta un espacio seguro antes de pedir precisión.\n\n## Diseño de situaciones y lectura\n\nDibuja una zona desde la que se vean simultáneamente la plataforma y el paso. Coloca la práctica cerca de la combinación. Si ambas reglas tienen señales con ritmos distintos, evita que sus sonidos se tapen mutuamente.\n\n## Laboratorio jugable\n\nAvanza por pulsos. La plataforma llega cada dos y el paso se abre cuando el pulso deja resto uno al dividir entre tres. Practica cada elemento antes de combinarlos o salta directamente a la combinación. La primera coincidencia ocurre en el pulso cuatro.\n\n## Implementación en Unity\n\nGuarda el componente como ObstaculosPorPulso.cs. Enlaza Esperar y Cruzar a botones de ensayo. Actualiza los indicadores con PlataformaLista y PasoAbierto después de cada pulso. Para una versión en tiempo real, alimenta una sola fuente de tiempo para que animación y ventana de paso coincidan.\n\n```csharp\nusing UnityEngine;\n\npublic class ObstaculosPorPulso : MonoBehaviour\n{\n    [SerializeField] bool combinacionDirecta;\n    public int Pulso { get; private set; }\n    public int Tramo { get; private set; }\n    public int Fallos { get; private set; }\n    public bool Superado { get; private set; }\n    public bool PlataformaLista => Pulso % 2 == 0;\n    public bool PasoAbierto => Pulso % 3 == 1;\n\n    public void Esperar()\n    {\n        if (!Superado) Pulso++;\n    }\n\n    public void Cruzar()\n    {\n        if (Superado) return;\n        bool usaPlataforma = combinacionDirecta || Tramo != 1;\n        bool usaPaso = combinacionDirecta || Tramo != 0;\n        if ((usaPlataforma && !PlataformaLista) || (usaPaso && !PasoAbierto))\n        {\n            Fallos++;\n            Pulso++;\n            return;\n        }\n        if (combinacionDirecta || Tramo == 2) Superado = true;\n        else { Tramo++; Pulso = 0; }\n    }\n}\n```\n\n## Pruebas y ajustes\n\nCuenta fallos en la combinación por separado de los fallos de práctica. Si un jugador sabe cuándo llega la plataforma y aun así falla, pregunta si vio el estado de la puerta. Cambia una fase y repite para comprobar que aprendió la regla en lugar de recordar el cuatro."
+  },
+  {
+    "id": "nivel-wayfinding",
+    "titulo": "Orientación y puntos de referencia",
+    "tema": "Diseño de niveles",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Qué pistas ayudan a decidir por dónde ir y qué elementos ayudan a reconocer dónde estás.",
+    "fuente": "https://book.leveldesignbook.com/process/blockout/wayfinding",
+    "referencia": "The Level Design Book. Wayfinding.",
+    "cuerpo": "Qué pistas ayudan a decidir por dónde ir y qué elementos ayudan a reconocer dónde estás."
+  },
+  {
+    "id": "nivel-composicion",
+    "titulo": "Composición y líneas de visión",
+    "tema": "Diseño de niveles",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Cómo leer líneas de visión, encuadres y relaciones visibles entre espacios.",
+    "fuente": "https://book.leveldesignbook.com/process/blockout/massing/composition",
+    "referencia": "The Level Design Book. Composition.",
+    "cuerpo": "Cómo leer líneas de visión, encuadres y relaciones visibles entre espacios."
+  },
+  {
+    "id": "nivel-cobertura",
+    "titulo": "Cobertura y visibilidad en encuentros",
+    "tema": "Diseño de niveles",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Tipos de cobertura y efectos de ocultar a enemigos o cortar líneas de visión.",
+    "fuente": "https://book.leveldesignbook.com/process/combat/cover",
+    "referencia": "The Level Design Book. Cover.",
+    "cuerpo": "Tipos de cobertura y efectos de ocultar a enemigos o cortar líneas de visión."
+  },
+  {
+    "id": "nivel-ritmo",
+    "titulo": "Ritmo, enseñanza y variación en niveles",
+    "tema": "Diseño de niveles",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Cómo ordenar situaciones de enseñanza, prueba y variación. Incluye ejemplos de Portal.",
+    "fuente": "https://book.leveldesignbook.com/process/preproduction/pacing",
+    "referencia": "The Level Design Book. Pacing.",
+    "cuerpo": "Cómo ordenar situaciones de enseñanza, prueba y variación. Incluye ejemplos de Portal."
   }
 ]

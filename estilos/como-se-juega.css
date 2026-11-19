@@ -231,3 +231,25 @@ footer { border-top: 1px solid var(--linea); }
 #lectura .cabecera-editorial h1 { margin-block: .4rem .6rem; }
 .cabecera-editorial p { margin: 0; }
 .entradilla-editorial { color: var(--secundario); }
+
+.tablero-nivel { display: grid; gap: 3px; max-width: 34rem; margin: .8rem 0 1rem; }
+.fila-nivel { display: grid; gap: 3px; }
+.casilla-nivel {
+  display: grid;
+  min-height: 2.6rem;
+  place-content: center;
+  padding: .18rem;
+  border: 1px solid #d3c3ab;
+  background: #fff9ed;
+  color: #40382e;
+  font: 650 clamp(.67rem, 1.6vw, .83rem)/1.1 var(--mono);
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+.casilla-nivel--player { background: #a64328; color: #fff; }
+.casilla-nivel--goal { background: #f7d493; color: #40382e; }
+.casilla-nivel--wall { background: #356062; color: #fff; }
+.casilla-nivel--unknown { background: #e1d8ca; border-style: dashed; }
+.casilla-nivel--hazard {
+  background: repeating-linear-gradient(135deg, #f8d8cb, #f8d8cb 5px, #ecc1b0 5px, #ecc1b0 9px);
+}

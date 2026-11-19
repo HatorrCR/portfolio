@@ -61,6 +61,7 @@ function designTopic(entry) {
   return categoriesById[entry.id] ?? (entry.tema === 'Diseño de niveles' ? 'Espacios y recorridos' : entry.tema);
 }
 const librarySection = sectionKey === 'biblioteca' || location.hash === '#catalogo';
+const isEditorial = entry => entry.editorial === true;
 const isHome = !params.has('lectura') && !sectionKey && !discipline && !isPapers && !currentTopic && !librarySection;
 const libraryQuery = values => new URLSearchParams({
   ...(isPapers ? {papers: selected} : {}),
@@ -86,7 +87,7 @@ const normalize = value => value.normalize('NFD').replace(/\p{Diacritic}/gu, '')
 
 const slug = value => normalize(value).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const archiveUrl = name => 'como-se-juega.html?' + new URLSearchParams({tema: 'Mecánicas', coleccion: slug(name)});
-const isArchive = entry => entry.tema === 'Mecánicas' && entry.formato === 'Guía' && entry.subtema;
+const isArchive = entry => entry.tema === 'Mecánicas' && isEditorial(entry) && entry.subtema;
 
 function element(tag, text, className) {
   const node = document.createElement(tag);
@@ -216,7 +217,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=archivo-mecanicas', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=biblioteca-editorial', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);
@@ -224,7 +225,9 @@ async function loadCatalog() {
   const allTopics = [...new Set([...studyAreas, ...catalog.map(entry => entry.tema)])];
   const category = discipline && Object.hasOwn(discipline[1], designCategory) ? designCategory : '';
   const topTopic = !isPapers && !isInterviews && !sourceSection && allTopics.includes(currentTopic) ? currentTopic : '';
+  const editorialView = Boolean(discipline || topTopic);
   const entries = catalog.filter(entry =>
+    (editorialView ? isEditorial(entry) : !isEditorial(entry)) &&
     (!isPapers || entry.formato === 'Estudio') &&
     (!language || entry.idioma === languages[language]) &&
     (!isInterviews || entry.formato === 'Entrevista') &&
@@ -248,10 +251,10 @@ async function loadCatalog() {
   const sections = document.querySelector('#secciones');
   const updates = document.querySelector('#novedades');
   updates.hidden = !isHome;
-  if (isHome) document.querySelector('#catalogo').hidden = true;
+  if (isHome || (params.has('lectura') && !sectionTitle && !librarySection)) document.querySelector('#catalogo').hidden = true;
   if (sectionTitle) {
     document.querySelector('#titulo-catalogo').textContent = sectionTitle;
-    document.querySelector('#volver-biblioteca').hidden = false;
+    document.querySelector('#volver-biblioteca').hidden = editorialView;
     document.querySelector('.portada').hidden = true;
     sections.hidden = true;
     if (discipline && !category) {
@@ -282,12 +285,12 @@ async function loadCatalog() {
   if (isPapers) document.querySelector('#idiomas').hidden = false;
   document.querySelector('#volver-papers').hidden = !language;
   const chooseLanguage = (isPapers && !language) || (topTopic === 'Mecánicas' && !archive && !entries.length && archives.length > 0);
-  search.form.hidden = chooseLanguage;
-  status.hidden = chooseLanguage;
+  search.form.hidden = chooseLanguage || editorialView || isHome;
+  status.hidden = chooseLanguage || editorialView;
   results.hidden = chooseLanguage;
   if (language) document.querySelector('[data-papers="' + language + '"]').setAttribute('aria-current', 'page');
   const topics = [...new Set(entries.map(entry => entry.tema))];
-  const showTopics = (Boolean(language) || (!sectionTitle && !isHome)) && topics.length > 0;
+  const showTopics = !editorialView && (Boolean(language) || (!sectionTitle && !isHome)) && topics.length > 0;
   document.querySelector('#subcategorias').hidden = !showTopics;
   document.querySelector('#filtro-tema').hidden = !showTopics;
   document.querySelector('#filtro-formato').hidden = isPapers || isInterviews;
@@ -297,6 +300,9 @@ async function loadCatalog() {
   }
   fillOptions(format, entries.map(entry => entry.formato));
   showReading(catalog, archive);
+  if (editorialView && !archive && !entries.length && mechanics.hidden) {
+    status.hidden = false;
+  }
 
   const topicCounts = new Map();
   for (const entry of entries) {
@@ -341,7 +347,8 @@ async function loadCatalog() {
       else shortcut.removeAttribute('aria-current');
     }
     const emptyTopic = topic.value && !entries.some(entry => entry.tema === topic.value);
-    status.textContent = !entries.length && sectionTitle ? 'Todavía no hay recursos en esta sección.' :
+    status.textContent = !entries.length && editorialView ? 'Todavía no hay textos publicados en esta sección.' :
+      !entries.length && sectionTitle ? 'Todavía no hay recursos en esta sección.' :
       emptyTopic ? 'Todavía no hay recursos en esta área.' :
       matches.length === 0 ? 'No hay recursos que coincidan.' :
       matches.length === 1 ? '1 recurso' : matches.length + ' recursos';

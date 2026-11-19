@@ -1454,5 +1454,118 @@
     "cuerpo": "La guía recoge prácticas para preparar textos de juego, dar contexto a quienes traducen y revisar la traducción en su entorno de uso.",
     "idioma": "Inglés",
     "resumen": "La guía recoge prácticas para preparar textos de juego, dar contexto a quienes traducen y revisar la traducción en su entorno de uso."
+  },
+  {
+    "id": "prioridad-hud",
+    "tema": "Interfaz e interacción",
+    "titulo": "Jerarquía del HUD",
+    "resumen": "Cómo ordenar los indicadores para que la información necesaria aparezca antes.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "prioridad-hud",
+    "esquema": [
+      "Identificas la tarea",
+      "Buscas el indicador",
+      "Tomas la decisión"
+    ],
+    "fuentes": [
+      "ux-nielsen-heuristicas",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nUna pantalla puede mostrar seis datos y seguir escondiendo el que necesitas para actuar. Empieza por identificar la decisión que ocurre allí. Si el arma está a punto de quedarse sin balas, la munición compite con la vida por el primer vistazo. El oro puede esperar.\n\n## Variantes de diseño\n\nPuedes ordenar por urgencia, agrupar por tarea o mostrar un indicador solo cuando cambia. Un estado contextual reduce ruido, pero si aparece tarde puede impedir planear. Mantén cada dato que el jugador necesita comprobar antes de actuar.\n\n## Laboratorio jugable\n\nResponde dos preguntas con los mismos seis indicadores. En la segunda variante, Vida, Armadura y Munición aparecen juntas al principio. Alterna el orden de las variantes entre jugadores para que recordar las respuestas pese menos.\n\n## Implementación en Unity\n\nGuarda el componente como OrdenDeIndicadores.cs. Pon los indicadores bajo el mismo contenedor con un grupo de diseño. Asigna en el Inspector Vida, Armadura y Munición en ese orden. Llama al método para probar la variante agrupada.\n\n```csharp\nusing UnityEngine;\n\npublic class OrdenDeIndicadores : MonoBehaviour\n{\n    [SerializeField] RectTransform[] indicadoresDeCombate;\n\n    public void PriorizarCombate()\n    {\n        for (int i = indicadoresDeCombate.Length - 1; i >= 0; i--)\n        {\n            if (indicadoresDeCombate[i] != null)\n                indicadoresDeCombate[i].SetAsFirstSibling();\n        }\n    }\n}\n```\n\n## Pruebas y ajustes\n\nMide tiempo hasta la primera respuesta y errores de consulta. Si todos aciertan, haz la prueba en movimiento o con un elemento que compita por la mirada. Mantén los valores constantes entre comparaciones."
+  },
+  {
+    "id": "estado-de-accion",
+    "tema": "Respuesta y legibilidad",
+    "titulo": "Estado de una acción",
+    "resumen": "Cómo comunicar que una acción ha empezado y cuándo termina.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "estado-de-accion",
+    "esquema": [
+      "Pulsas Guardar",
+      "Se confirma la orden",
+      "Llega el resultado"
+    ],
+    "fuentes": [
+      "ux-nielsen-heuristicas",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nAl pulsar Guardar, entre la orden y el resultado hay un intervalo. Si la pantalla no cambia, es difícil distinguir una orden recibida de un botón que no respondió. Una confirmación breve informa de que el sistema está trabajando. Reserva el mensaje de éxito para cuando termine la operación.\n\n## Variantes de diseño\n\nPara tareas instantáneas, basta con el resultado. Para esperas largas puedes mostrar un estado, un progreso medible o una opción de cancelar si la operación lo admite. Si algo falla, explica qué pasó y qué opciones quedan.\n\n## Laboratorio jugable\n\nPrueba a guardar en las dos variantes. La espera dura lo mismo. Una muestra el estado «Guardando…» de inmediato y la otra solo comunica el resultado final. El contador registra las pulsaciones repetidas sin iniciar guardados paralelos.\n\n## Implementación en Unity\n\nGuarda el componente como EstadoDeGuardado.cs. Invoca el guardado real solo si SolicitarGuardado devuelve true. Llama a ResolverGuardado con el resultado y actualiza la etiqueta al cambiar de estado.\n\n```csharp\nusing UnityEngine;\n\npublic class EstadoDeGuardado : MonoBehaviour\n{\n    public string Estado { get; private set; } = \"Preparado\";\n    bool pendiente;\n\n    public bool SolicitarGuardado()\n    {\n        if (pendiente) return false;\n        pendiente = true;\n        Estado = \"Guardando…\";\n        return true;\n    }\n\n    public void ResolverGuardado(bool exito)\n    {\n        if (!pendiente) return;\n        pendiente = false;\n        Estado = exito ? \"Partida guardada\" : \"No se pudo guardar\";\n    }\n}\n```\n\n## Pruebas y ajustes\n\nMide pulsaciones repetidas y pregunta si el jugador se atrevería a cerrar el juego durante la espera. Comprueba también si puede distinguir un fallo de un guardado que todavía está en curso."
+  },
+  {
+    "id": "instrucciones-a-tiempo",
+    "tema": "Tutoriales y aprendizaje",
+    "titulo": "Instrucciones en el momento de uso",
+    "resumen": "Qué cambia al explicar los controles de golpe o justo cuando hacen falta.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "instrucciones-a-tiempo",
+    "esquema": [
+      "Lees la instrucción",
+      "Actúas",
+      "Compruebas el siguiente paso"
+    ],
+    "fuentes": [
+      "ux-andersen-tutoriales",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nUna instrucción sirve si puedes relacionarla con algo que estás intentando hacer. Mostrar tres órdenes al inicio permite revisar toda la tarea, pero pide recordarlas cuando la situación cambia. Un aviso junto a la acción reduce ese esfuerzo. El estudio de Andersen y colaboradores compara variantes de tutoriales en juegos de distinta complejidad, por lo que conviene probar el efecto en tu propio juego.\n\n## Variantes de diseño\n\nPuedes dar una lista inicial, mostrar una pista por paso o dejar que el jugador la solicite. Una explicación justo a tiempo también puede interrumpir si tapa la acción. Usa texto breve y permite repetirlo si la primera lectura coincidió con otra cosa.\n\n## Laboratorio jugable\n\nColoca, sella y envía una caja. Una variante muestra las instrucciones juntas al principio. La otra da la instrucción que toca en cada paso. El orden y los botones se mantienen.\n\n## Implementación en Unity\n\nGuarda el componente como InstruccionesDeTarea.cs. Conecta los botones a Intentar con los índices 0, 1 y 2. Tras cada acción actualiza la ayuda mediante Pista y mantén el texto disponible en una ayuda de consulta si tu escena lo necesita.\n\n```csharp\nusing UnityEngine;\n\npublic class InstruccionesDeTarea : MonoBehaviour\n{\n    [SerializeField] bool ayudaPorPaso;\n    readonly string[] instrucciones = { \"Mover la caja\", \"Sellar la caja\", \"Enviar la caja\" };\n    public int Paso { get; private set; }\n    public bool Terminada => Paso == instrucciones.Length;\n\n    public string Pista()\n    {\n        if (Terminada) return \"\";\n        if (ayudaPorPaso) return instrucciones[Paso];\n        return Paso == 0 ? string.Join(\" / \", instrucciones) : \"\";\n    }\n\n    public bool Intentar(int accion)\n    {\n        if (Terminada || accion != Paso) return false;\n        Paso++;\n        return true;\n    }\n}\n```\n\n## Pruebas y ajustes\n\nCuenta errores por paso y pide repetir el ejercicio sin pistas fuera del laboratorio. Completar una tarea con instrucciones a la vista y recordarla después son dos resultados distintos."
+  },
+  {
+    "id": "tamano-texto-interfaz",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "titulo": "Tamaño de texto y espacio disponible",
+    "resumen": "Cómo ampliar el texto sin perder información ni tapar controles.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "tamano-texto-interfaz",
+    "esquema": [
+      "Aumentas la fuente",
+      "El texto se redistribuye",
+      "Confirmas la ruta"
+    ],
+    "fuentes": [
+      "ux-xbox-texto",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\nAmpliar una fuente también cambia cuántas palabras caben por línea. Un aviso puede ocupar dos líneas en una ventana y cuatro en otra. La guía de Xbox sobre presentación de texto recoge consideraciones de tamaño y legibilidad para interfaces de juego. La prueba más sencilla es leer el texto real donde aparecerá.\n\n## Variantes de diseño\n\nReserva alturas flexibles para mensajes y permite desplazar contenido largo. Comprueba las acciones principales cuando cambia el tamaño del texto. Si un botón deja de caber, deja que el rótulo salte de línea o reorganiza las acciones.\n\n## Laboratorio jugable\n\nSelecciona y confirma la ruta en ambos tamaños. Estrecha la ventana o aumenta el zoom y comprueba si puedes leer el aviso completo y llegar a los dos controles.\n\n## Implementación en Unity\n\nGuarda el componente como EscalaDeTexto.cs. Asigna un texto de TextMeshPro con ajuste de línea y un contenedor flexible. Conecta el selector a Aplicar. Comprueba en la vista de juego que el grupo de diseño reserva el espacio adicional.\n\n```csharp\nusing UnityEngine;\n\npublic class EscalaDeTexto : MonoBehaviour\n{\n    [SerializeField] TMPro.TMP_Text aviso;\n    float tamanoBase;\n\n    void Awake()\n    {\n        if (aviso != null) tamanoBase = aviso.fontSize;\n    }\n\n    public void Aplicar(bool textoAmpliado)\n    {\n        if (aviso == null) return;\n        aviso.fontSize = textoAmpliado ? tamanoBase * 1.35f : tamanoBase;\n    }\n}\n```\n\n## Pruebas y ajustes\n\nUsa mensajes cortos y largos, incluido el idioma con cadenas más extensas. Comprueba también el recorrido por teclado. Anota si el foco llega a un control y en qué parte de la pantalla queda."
+  },
+  {
+    "id": "ux-nielsen-heuristicas",
+    "titulo": "Visibilidad del estado y heurísticas de usabilidad",
+    "tema": "Respuesta y legibilidad",
+    "formato": "Artículo",
+    "referencia": "Jakob Nielsen. 10 Usability Heuristics for User Interface Design.",
+    "fuente": "https://www.nngroup.com/articles/ten-usability-heuristics/",
+    "resumen": "La guía sitúa la visibilidad del estado entre las heurísticas de usabilidad. También propone que lo relevante compita con el mínimo de elementos innecesarios.",
+    "cuerpo": "La guía sitúa la visibilidad del estado entre las heurísticas de usabilidad. También propone que lo relevante compita con el mínimo de elementos innecesarios.",
+    "idioma": "Inglés"
+  },
+  {
+    "id": "ux-andersen-tutoriales",
+    "titulo": "Efecto de los tutoriales según la complejidad del juego",
+    "tema": "Tutoriales y aprendizaje",
+    "formato": "Estudio",
+    "referencia": "Erik Andersen y colaboradores (2012). The Impact of Tutorials on Games of Varying Complexity. CHI.",
+    "fuente": "https://grail.cs.washington.edu/wp-content/uploads/2015/08/andersen2012tio.pdf",
+    "resumen": "Compara variantes de tutoriales en juegos de distinta complejidad. Sirve para diseñar pruebas que separen el momento, la presentación y el tipo de instrucción.",
+    "cuerpo": "Compara variantes de tutoriales en juegos de distinta complejidad. Sirve para diseñar pruebas que separen el momento, la presentación y el tipo de instrucción.",
+    "idioma": "Inglés"
+  },
+  {
+    "id": "ux-xbox-texto",
+    "titulo": "Presentación de texto en juegos",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "formato": "Documentación",
+    "referencia": "Microsoft. Xbox Accessibility Guideline 101: Text display.",
+    "fuente": "https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/101",
+    "resumen": "La guía aborda legibilidad y presentación del texto. Sus consideraciones ayudan a revisar tamaño, espacio y lectura cuando se amplían los avisos de una interfaz.",
+    "cuerpo": "La guía aborda legibilidad y presentación del texto. Sus consideraciones ayudan a revisar tamaño, espacio y lectura cuando se amplían los avisos de una interfaz.",
+    "idioma": "Inglés"
   }
 ]

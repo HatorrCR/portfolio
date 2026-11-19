@@ -1258,6 +1258,66 @@ const narrativeLabs = {
   }
 };
 
+const uxLabs = {
+  'prioridad-hud': {
+    modes: ['Datos en una lista', 'Datos agrupados por tarea'],
+    start: () => ({round:0, correct:0}),
+    view: (s,mode) => {
+      const all = [['Vida','28 / 100'],['Oro','140'],['Munición','2 / 12'],['Fichas','3'],['Armadura','60'],['Llaves','2']];
+      return mode ? [all[0],all[4],all[2],all[1],all[3],all[5]] : all;
+    },
+    hint: s => ['Tu arma necesita tres balas. ¿Qué indicador compruebas antes de disparar?',
+      'Vas a cruzar una zona que quita 30 puntos de vida e ignora la armadura. ¿Qué indicador miras?',
+      'Prueba terminada. Respuestas correctas: ' + s.correct + ' de 2.'][s.round],
+    actions: s => ['Vida','Armadura','Munición'].map((name,i) => [name,s.round<2,() => {
+      const ok = i === [2,0][s.round++];
+      if(ok)s.correct++;
+      return ok ? 'Ese era el indicador que necesitabas.' : 'La tarea dependía de otro indicador.';
+    }])
+  },
+  'estado-de-accion': {
+    modes: ['Resultado al final', 'Confirmación y resultado'],
+    start: () => ({pending:false, done:false, retries:0}),
+    view: s => [['Pulsaciones repetidas',s.retries]],
+    hint: (s,mode) => s.done ? 'Tu partida se ha guardado.' : mode && s.pending ? 'Guardando…' : 'Puedes guardar la partida.',
+    actions: (s,mode,schedule) => [
+      ['Guardar partida',!s.done,() => {
+        if(s.pending){s.retries++;return '';}
+        s.pending=true;
+        schedule(() => { s.pending=false; s.done=true; return 'Guardado completado.'; },2200);
+        return '';
+      }]
+    ]
+  },
+  'instrucciones-a-tiempo': {
+    modes: ['Instrucciones al inicio', 'Instrucciones durante la tarea'],
+    start: () => ({step:0, mistakes:0}),
+    view: s => [['Tareas',s.step+' / 3'],['Errores',s.mistakes]],
+    hint: (s,mode) => {
+      if(s.step===3)return 'Ejercicio completado.';
+      const tasks=['La caja está fuera de sitio.','La caja está en posición.','La caja está cerrada.'];
+      const tips=['Usa Mover para colocar la caja.','Usa Sellar para cerrar la caja.','Usa Enviar para despacharla.'];
+      return tasks[s.step]+' '+(mode ? tips[s.step] : s.step===0 ? tips.join(' ') : '');
+    },
+    actions: s => ['Mover','Sellar','Enviar'].map((name,i)=>[name,s.step<3,()=>{
+      if(i!==s.step){s.mistakes++;return 'Esa acción no toca todavía.';}
+      s.step++;
+      return 'Paso completado.';
+    }])
+  },
+  'tamano-texto-interfaz': {
+    modes: ['Texto base', 'Texto ampliado'],
+    largeText: true,
+    start: () => ({selected:false,received:false}),
+    view: s => [['Alerta','La compuerta norte cierra en 15 segundos.'],['Ruta disponible','Compuerta sur'],['Estado',s.received ? 'Ruta confirmada' : s.selected ? 'Ruta seleccionada' : 'Ruta pendiente']],
+    hint: s => s.received ? 'Ruta confirmada. Prueba el otro tamaño y estrecha la ventana para comparar.' : 'Selecciona la ruta y confírmala. Comprueba qué ocurre con las líneas largas al estrechar la ventana.',
+    actions: s => [
+      ['Usar la compuerta sur',!s.selected,()=>{s.selected=true;return 'Ruta seleccionada.';}],
+      ['Confirmar ruta',s.selected&&!s.received,()=>{s.received=true;return 'Confirmación recibida.';}]
+    ]
+  }
+};
+
 function addSystemLab(config, id) {
   const lab = element('section', '', 'referencias laboratorio-sistemas');
   lab.setAttribute('aria-label', 'Prueba interactiva');
@@ -1328,6 +1388,8 @@ function addSystemLab(config, id) {
   }
 
   function render() {
+    if (config.largeText) lab.classList.toggle('texto-ampliado', Boolean(mode));
+    if (id === 'prioridad-hud') lab.classList.toggle('hud-agrupado', Boolean(mode));
     stats.replaceChildren(...config.view(state, mode).map(([name, value]) => {
       const stat = element('div', '');
       stat.append(element('dt', name), element('dd', String(value)));
@@ -1675,7 +1737,8 @@ function showReading(entries, archive) {
   const labId = resource?.laboratorio;
   const systemLab = Object.hasOwn(systemLabs, labId) ? systemLabs[labId] :
     Object.hasOwn(levelLabs, labId) ? levelLabs[labId] :
-    Object.hasOwn(narrativeLabs, labId) ? narrativeLabs[labId] : null;
+    Object.hasOwn(narrativeLabs, labId) ? narrativeLabs[labId] :
+    Object.hasOwn(uxLabs, labId) ? uxLabs[labId] : null;
   const editorial = Boolean(resource && isEditorial(resource));
   const archiveIndex = archiveReading || systemLab || (editorial && /^## /m.test(resource.cuerpo)) ? element('nav', '', 'referencias') : null;
   const index = archiveIndex ? element('ol', '') : null;
@@ -1793,7 +1856,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=guias-narrativas', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=guias-ux', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);

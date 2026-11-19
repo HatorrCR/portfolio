@@ -253,3 +253,12 @@ footer { border-top: 1px solid var(--linea); }
 .casilla-nivel--hazard {
   background: repeating-linear-gradient(135deg, #f8d8cb, #f8d8cb 5px, #ecc1b0 5px, #ecc1b0 9px);
 }
+
+.laboratorio-sistemas.texto-ampliado { font-size: 1.35em; }
+.laboratorio-sistemas.texto-ampliado .lab-estadisticas dt,
+.laboratorio-sistemas.texto-ampliado .lab-estadisticas dd { font-size: 1em; }
+.laboratorio-sistemas .lab-estadisticas div { min-width: 0; overflow-wrap: anywhere; }
+.laboratorio-sistemas.hud-agrupado .lab-estadisticas > div:nth-child(-n+3) {
+  border-block-start: 3px solid #356062;
+  background: #eaf2ed;
+}

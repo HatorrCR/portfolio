@@ -210,28 +210,8 @@ function addPlayableJump(lab, controls) {
     if (!event.repeat) press(event.code, action);
   });
   canvas.addEventListener('keyup', event => held.delete(event.code));
-  canvas.addEventListener('blur', () => {
-    for (const key of held.keys()) if (typeof key === 'string') held.delete(key);
-  });
+  canvas.addEventListener('blur', () => held.clear());
   window.addEventListener('blur', () => held.clear());
-  for (const button of lab.querySelectorAll('[data-mando]')) {
-    const action = button.dataset.mando;
-    button.addEventListener('pointerdown', event => {
-      if (event.button !== 0) return;
-      button.setPointerCapture(event.pointerId);
-      press(event.pointerId, action);
-    });
-    button.addEventListener('lostpointercapture', event => held.delete(event.pointerId));
-    button.addEventListener('click', event => {
-      if (event.detail !== 0) return;
-      if (action === 'reiniciar') reset('Otra vez desde el inicio.');
-      else if (action === 'salto') queued = buffer.checked ? 0.1 : 0;
-      else {
-        x = Math.max(0.15, Math.min(9.8, x + (action === 'izquierda' ? -0.25 : 0.25)));
-        paint();
-      }
-    });
-  }
 
   function update() {
     const height = Number(controls.altura.value);
@@ -355,7 +335,7 @@ function addJumpLab() {
   }
   lab.addEventListener('input', draw);
   draw();
-  addPlayableJump(lab, controls);
+  return controls;
 }
 
 function showReading(entries, archive) {
@@ -388,7 +368,7 @@ function showReading(entries, archive) {
     const visualJump = id === 'salto-2d-guia';
     document.title = resource.titulo + ' · Cómo se juega';
     reading.append(element('p', resource.formato + ' · ' + resource.tema, 'meta'));
-    if (visualJump) addJumpLab();
+    const jumpControls = visualJump ? addJumpLab() : null;
     for (const [blockIndex, block] of resource.cuerpo.split(/^\x60\x60\x60(?:csharp)?[ \t]*\r?$/m).entries()) {
       if (blockIndex % 2 === 1) {
         const pre = element('pre', '', 'codigo');
@@ -408,6 +388,11 @@ function showReading(entries, archive) {
           const content = heading ? element('h2', heading[1]) : element('p', paragraph);
           if (heading && index) addToIndex(content, 'apartado-' + (index.children.length + 1) + '-' + slug(heading[1]));
           reading.append(content);
+          if (jumpControls && heading?.[1] === 'Ponte al mando') {
+            const game = document.querySelector('#plantilla-juego-salto').content.firstElementChild.cloneNode(true);
+            reading.append(game);
+            addPlayableJump(game, jumpControls);
+          }
           if (visualJump && heading?.[1] === '¿Pulsé demasiado pronto o demasiado tarde?') {
             reading.append(document.querySelector('#plantilla-margen-salto').content.cloneNode(true));
           }
@@ -442,7 +427,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=salto-jugable', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=tipos-salto', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);

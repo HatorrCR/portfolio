@@ -6,9 +6,9 @@
 <meta name="description" content="Estudios, charlas y ejercicios para aprender diseño de videojuegos en español.">
 <title>Cómo se juega · Diseño de videojuegos en español</title>
 <link rel="stylesheet" href="estilos/comun.css">
-<link rel="stylesheet" href="estilos/como-se-juega.css?v=salto-jugable">
+<link rel="stylesheet" href="estilos/como-se-juega.css?v=tipos-salto">
 <script defer src="scripts/navegacion.js"></script>
-<script defer src="scripts/como-se-juega.js?v=salto-jugable"></script>
+<script defer src="scripts/como-se-juega.js?v=tipos-salto"></script>
 </head>
 <body data-nav="none">
 <header class="cabecera">
@@ -57,24 +57,7 @@
 </section>
 <template id="plantilla-laboratorio-salto">
   <section class="laboratorio-salto" aria-labelledby="titulo-laboratorio-salto">
-    <h2 id="titulo-laboratorio-salto">Prueba el salto</h2>
-    <p>Tu misión es llegar a la bandera. El muñeco pone las piernas. Tú decides cuánto duran en el aire.</p>
-    <div class="prueba-jugable">
-      <canvas data-juego-salto width="680" height="252" tabindex="0" aria-label="Prueba del salto. Usa A y D o las flechas para moverte. Espacio para saltar y R para reiniciar." aria-describedby="controles-juego-salto">Usa el gráfico de abajo para comparar las trayectorias.</canvas>
-      <p id="controles-juego-salto">Selecciona el recuadro para jugar con el teclado. Flechas o A/D para moverte. Mantén Espacio para un salto largo. Suéltalo pronto para uno corto. R para volver al inicio.</p>
-      <div class="mandos-salto" role="group" aria-label="Mandos del salto">
-        <button type="button" data-mando="izquierda">Izquierda</button>
-        <button type="button" data-mando="derecha">Derecha</button>
-        <button type="button" data-mando="salto">Saltar</button>
-        <button type="button" data-mando="reiniciar">Reiniciar</button>
-      </div>
-      <div class="ayudas-salto">
-        <label><input data-ayuda="coyote" type="checkbox" checked> Tiempo de coyote</label>
-        <label><input data-ayuda="buffer" type="checkbox" checked> Búfer de salto</label>
-      </div>
-      <p data-estado-juego role="status">Acércate al borde y prueba el primer salto.</p>
-    </div>
-    <h3>La trayectoria bajo la lupa</h3>
+    <h2 id="titulo-laboratorio-salto">La trayectoria bajo la lupa</h2>
     <p>El gráfico muestra un salto mantenido, con carrera constante. Mueve el punto para ver dónde estaría el personaje en cada momento.</p>
     <canvas data-grafico-salto width="680" height="250" aria-label="Trayectoria calculada del salto" role="img">La trayectoria parte del suelo, alcanza su punto más alto y vuelve a la misma altura.</canvas>
     <div class="ajustes-salto">
@@ -84,8 +67,21 @@
       <label>Recorrer el salto <input data-salto="progreso" type="range" min="0" max="100" value="50"></label>
     </div>
     <p class="meta" data-salto-medidas aria-live="polite"></p>
-    <p>Modelo ideal con velocidad horizontal constante de 6 unidades/s y aterrizaje a la altura de salida.</p>
   </section>
+</template>
+<template id="plantilla-juego-salto">
+  <div class="laboratorio-salto">
+    <p>Tu misión es llegar a la bandera. El muñeco pone las piernas. Tú decides cuánto duran en el aire.</p>
+    <div class="prueba-jugable">
+      <canvas data-juego-salto width="680" height="252" tabindex="0" aria-label="Prueba del salto. Usa A y D o las flechas para moverte. Espacio para saltar y R para reiniciar." aria-describedby="controles-juego-salto">Usa el gráfico de arriba para comparar las trayectorias.</canvas>
+      <p id="controles-juego-salto">Selecciona el recuadro para jugar con el teclado. Flechas o A/D para moverte. Mantén Espacio para un salto largo. Suéltalo pronto para uno corto. R para volver al inicio.</p>
+      <div class="ayudas-salto">
+        <label><input data-ayuda="coyote" type="checkbox" checked> Tiempo de coyote</label>
+        <label><input data-ayuda="buffer" type="checkbox" checked> Búfer de salto</label>
+      </div>
+      <p data-estado-juego role="status">Acércate al borde y prueba el primer salto.</p>
+    </div>
+  </div>
 </template>
 <template id="plantilla-margen-salto">
   <div class="margen-salto">

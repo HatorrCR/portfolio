@@ -359,6 +359,10 @@ content:
             - Charla
             - Entrevista
             - Artículo
+            - Conferencia
+            - Documentación
+            - Código fuente
+            - Demo
       - name: resumen
         label: Resumen para la ficha
         type: text

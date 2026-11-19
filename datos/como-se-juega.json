@@ -527,5 +527,71 @@
         "url": "https://researcher.itu.dk/p/en/research-outputs/designing-game-feel-a-survey"
       }
     ]
+  },
+  {
+    "id": "salto-3d-mario-64",
+    "titulo": "Super Mario 64: salto triple, salto largo y cámara",
+    "tema": "Mecánicas",
+    "subtema": "Salto 3D",
+    "idioma": "Inglés",
+    "formato": "Artículo",
+    "resumen": "El manual documenta saltos con entradas y condiciones distintas, además de los controles de cámara.",
+    "cuerpo": "## Qué aporta\n\nEl manual documenta saltos con entradas y condiciones distintas, además de los controles de cámara. El triple encadena despegues y el largo parte de la carrera. Compáralos por cuándo se habilitan y por el espacio que te piden antes de saltar.",
+    "referencia": "Nintendo. Super Mario 64, manual de Nintendo 64.",
+    "fuente": "https://www.nintendo.com/eu/media/downloads/games_8/emanuals/nintendo_8/Manual_Nintendo64_SuperMario64_EN.pdf"
+  },
+  {
+    "id": "salto-3d-uncharted",
+    "titulo": "Uncharted 4: apuntar hacia el siguiente agarre",
+    "tema": "Mecánicas",
+    "subtema": "Salto 3D",
+    "idioma": "Inglés",
+    "formato": "Artículo",
+    "resumen": "El equipo describe un sistema de alcance analógico y animaciones para distintas posiciones de agarre.",
+    "cuerpo": "## Qué aporta\n\nEl equipo describe un sistema de alcance analógico y animaciones para distintas posiciones de agarre. Úsalo para estudiar el salto hacia un destino contextual: la dirección del jugador ayuda a elegir un agarre, y el movimiento debe llevarlo a una posición coherente.",
+    "referencia": "Naughty Dog, entrevista técnica sobre la escalada de Uncharted 4. PlayStation.Blog (2022).",
+    "fuente": "https://blog.playstation.com/2022/10/18/naughty-dog-breaks-down-uncharted-4s-climbing-evolution-as-uncharted-legacy-of-thieves-collection-launches-on-pc-this-week/"
+  },
+  {
+    "id": "salto-3d-godot",
+    "titulo": "Godot: movimiento y salto con CharacterBody3D",
+    "tema": "Mecánicas",
+    "subtema": "Salto 3D",
+    "idioma": "Inglés",
+    "formato": "Documentación",
+    "resumen": "El tutorial separa la dirección en el plano horizontal de la gravedad y el impulso vertical.",
+    "cuerpo": "## Qué aporta\n\nEl tutorial separa la dirección en el plano horizontal de la gravedad y el impulso vertical. La velocidad se pasa a MoveAndSlide, que mueve al personaje y actualiza los contactos. Incluye ejemplos en C#.",
+    "referencia": "Godot Engine. Moving the player with code, tutorial estable.",
+    "fuente": "https://docs.godotengine.org/en/stable/getting_started/first_3d_game/03.player_movement_code.html"
+  },
+  {
+    "id": "salto-3d-unity",
+    "titulo": "Unity: movimiento y colisiones con CharacterController",
+    "tema": "Mecánicas",
+    "subtema": "Salto 3D",
+    "idioma": "Inglés",
+    "formato": "Documentación",
+    "resumen": "Move recibe un desplazamiento, no una velocidad, y no aplica gravedad automáticamente.",
+    "cuerpo": "## Qué aporta\n\nMove recibe un desplazamiento, no una velocidad, y no aplica gravedad automáticamente. El resultado incluye indicadores de colisión por arriba, abajo o de lado. Úsalos para impedir que el personaje siga subiendo cuando se ha pegado con un techo.",
+    "referencia": "Unity 6. Scripting API, CharacterController.Move.",
+    "fuente": "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/CharacterController.Move.html"
+  },
+  {
+    "id": "salto-3d-guia",
+    "titulo": "Salto 3D: llegar al otro lado y caer donde toca",
+    "tema": "Mecánicas",
+    "subtema": "Salto 3D",
+    "idioma": "Español",
+    "formato": "Guía",
+    "editorial": true,
+    "resumen": "Profundidad, cámara, control aéreo y aterrizajes. Incluye una demo con vista oblicua y cenital.",
+    "referencia": "Guía y prototipo propios basados en las fuentes enlazadas.",
+    "materiales": [
+      {
+        "nombre": "Kyle Pittman · Building a Better Jump (ficha en Biblioteca)",
+        "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?seccion=conferencias&lectura=salto-2d-pittman"
+      }
+    ],
+    "cuerpo": "## El salto tiene tres coordenadas\n\nEn 2D mirabas el hueco y calculabas si llegabas al otro lado. En 3D puedes llegar a la distancia correcta y caer un metro por delante de la plataforma. El salto sigue teniendo una altura y un tiempo de vuelo. Ahora también necesitas saber en qué punto del plano XZ aterrizas.\n\nPara diseñarlo, calcula la altura y el tiempo de subida como en 2D. Después dibuja una huella de aterrizaje en el suelo. Si el personaje puede girar en el aire, esa huella es una zona de destinos posibles. El nivel decide qué parte de esa zona tiene suelo.\n\n## Control, cámara y sombra\n\nSepara la velocidad vertical de la horizontal. Si el control va relativo a la cámara, proyecta «hacia delante» y «hacia la derecha» sobre el suelo y limita la longitud del vector de entrada. Así pulsar dos direcciones a la vez no se convierte en un turbo que nadie pidió.\n\nLa cámara decide qué puedes ver antes de despegar. La sombra ayuda a leer dónde está el personaje sobre el plano. Un buen ejercicio es dejar la física igual y cambiar solo la vista. Si fallas por el mismo lado varias veces, mira primero la información que estás dando.\n\n## Salto libre, encadenado y dirigido\n\nEn Super Mario 64 puedes saltar libremente y usar condiciones distintas para el salto largo o el triple. Uno te pide carrera y una entrada concreta. El otro te pide enlazar despegues. Tu repertorio se amplía cuando el juego reconoce lo que estabas haciendo antes del salto.\n\nEn Uncharted 4, la escalada ofrece otro problema. Tienes que alcanzar un agarre que existe en el escenario. Naughty Dog describe cómo combina dirección analógica, posiciones alcanzables y animaciones. Si tu salto va a un anclaje, decide cómo se elige, cuándo se confirma y qué pasa si queda fuera de alcance.\n\n## Ponte al mando\n\nLa plataforma de llegada está desplazada hacia ti. Alinea al personaje con S antes de saltar hacia la derecha. Luego prueba el mismo salto desde arriba, y una tercera vez con la sombra apagada. En la vista cenital el salto conserva su altura y su tiempo, aunque la cámara no dibuja esa altura.\n\n## C# y colisiones\n\nEn Godot 4, usa CharacterBody3D cuando controles tú al personaje. Guarda la velocidad horizontal y vertical en el mismo vector. El ejemplo presupone que ya capturaste la pulsación y calculaste la dirección. Lee el contacto de suelo después de mover para usarlo en el paso siguiente.\n\n```csharp\n// Godot 4. Fragmento de _PhysicsProcess(double delta).\n// planarDirection ya está normalizada, relativa a la cámara\n// y proyectada sobre el plano horizontal.\nbool grounded = IsOnFloor();\nVector3 velocity = Velocity;\nvelocity.X = planarDirection.X * moveSpeed;\nvelocity.Z = planarDirection.Z * moveSpeed;\nif (grounded && jumpPressed)\n    velocity.Y = launchSpeed;\nelse if (!grounded)\n    velocity.Y -= gravity * (float)delta;\nelse\n    velocity.Y = 0f;\nVelocity = velocity;\nMoveAndSlide();\n```\n\nEn Unity 6, CharacterController.Move espera el desplazamiento del paso. Integra la gravedad y entrega velocidad × delta. Si necesitas cancelar una subida por un choque, comprueba CollisionFlags.Above después de mover. Si usas un Rigidbody, el reparto entre tu código y la física del motor cambia.\n\n## Antes de darlo por bueno\n\nPrueba un aterrizaje centrado y otro en diagonal. Gira la cámara en una segunda prueba y comprueba que moverse hacia delante siga siendo intuitivo. Por último, elige cómo detectas apoyo. La demo usa un punto central sobre plataformas rectangulares. En un juego con cápsulas y pendientes, comprueba qué contacto cuenta como suelo y qué ocurre en la esquina."
   }
 ]

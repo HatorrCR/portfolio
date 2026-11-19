@@ -14,9 +14,12 @@ const language = Object.hasOwn(languages, selected) ? selected : '';
 const isPapers = selected === 'todos' || Boolean(language);
 const isInterviews = !isPapers && params.get('seccion') === 'entrevistas';
 const currentTopic = params.get('tema') ?? '';
+const isJump = !isPapers && !isInterviews && currentTopic === 'Mecánicas' && params.get('coleccion') === 'salto-2d';
+const jumpUrl = 'como-se-juega.html?tema=Mec%C3%A1nicas&coleccion=salto-2d';
 const libraryQuery = values => new URLSearchParams({
   ...(isPapers ? {papers: selected} : {}),
   ...(isInterviews ? {seccion: 'entrevistas'} : {}),
+  ...(isJump ? {coleccion: 'salto-2d'} : {}),
   ...(currentTopic ? {tema: currentTopic} : {}),
   ...values
 });
@@ -100,18 +103,39 @@ function showReading(entries) {
   if (resource) {
     document.title = resource.titulo + ' · Cómo se juega';
     reading.append(element('p', resource.formato + ' · ' + resource.tema, 'meta'));
-    for (const paragraph of resource.cuerpo.split(/\r?\n\s*\r?\n/).filter(Boolean)) {
-      const heading = paragraph.match(/^## ([^\r\n]+)$/);
-      reading.append(heading ? element('h2', heading[1]) : element('p', paragraph));
+    for (const [index, block] of resource.cuerpo.split(/^\x60\x60\x60(?:csharp)?[ \t]*\r?$/m).entries()) {
+      if (index % 2 === 1) {
+        const pre = element('pre', '', 'codigo');
+        pre.tabIndex = 0;
+        pre.setAttribute('aria-label', 'Código C#');
+        pre.append(element('code', block.trim()));
+        reading.append(pre);
+      } else {
+        for (const paragraph of block.trim().split(/\r?\n\s*\r?\n/).filter(Boolean)) {
+          const heading = paragraph.match(/^## ([^\r\n]+)$/);
+          reading.append(heading ? element('h2', heading[1]) : element('p', paragraph));
+        }
+      }
     }
     showSources(resource);
+    if (resource.subtema === 'Salto 2D') {
+      const related = entries.filter(entry => entry.subtema === resource.subtema &&
+        entry.id !== id && (resource.formato === 'Guía' || entry.formato === 'Guía'));
+      const list = element('ul', '');
+      for (const entry of related) {
+        const item = element('li', '');
+        item.append(link(entry.titulo, jumpUrl + '&lectura=' + encodeURIComponent(entry.id)));
+        list.append(item);
+      }
+      if (related.length) reading.append(element('h2', 'Lecturas de Salto 2D'), list);
+    }
   }
   reading.hidden = false;
   document.querySelector('.portada').hidden = true;
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=papers', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=salto-2d', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const allTopics = [...new Set([...studyAreas, ...catalog.map(entry => entry.tema)])];
@@ -120,10 +144,14 @@ async function loadCatalog() {
     (!isPapers || entry.formato === 'Estudio') &&
     (!language || entry.idioma === languages[language]) &&
     (!isInterviews || entry.formato === 'Entrevista') &&
-    (!topTopic || entry.tema === topTopic)
+    (!topTopic || entry.tema === topTopic) &&
+    (!isJump || entry.subtema === 'Salto 2D')
   );
   const sectionTitle = language ? 'Papers en ' + languages[language].toLowerCase() :
-    isPapers ? 'Papers' : isInterviews ? 'Entrevistas' : topTopic;
+    isPapers ? 'Papers' : isInterviews ? 'Entrevistas' : isJump ? 'Salto 2D' : topTopic;
+  const jumpCollection = document.querySelector('#coleccion-salto');
+  if (topTopic === 'Mecánicas' && !isJump) jumpCollection.hidden = false;
+  if (isJump) document.querySelector('#volver-mecanicas').hidden = false;
   const sections = document.querySelector('#secciones');
   if (sectionTitle) {
     document.querySelector('#titulo-catalogo').textContent = sectionTitle;

@@ -108,3 +108,5 @@ footer { border-top: 1px solid var(--linea); }
 .referencias { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid var(--linea); }
 
 #subcategorias { margin: 1.25rem 0 .75rem; }
+
+.codigo { max-width: 100%; overflow-x: auto; padding: 1rem; border: 1px solid var(--linea); background: #fffdf7; font: .875rem/1.55 var(--mono); }

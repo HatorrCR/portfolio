@@ -344,6 +344,9 @@ content:
         label: Tema (reutiliza el mismo nombre al agrupar recursos)
         type: string
         required: true
+      - name: subtema
+        label: Colección dentro del tema
+        type: string
       - name: formato
         label: Formato
         type: select

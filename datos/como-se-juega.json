@@ -557,5 +557,271 @@
       }
     ],
     "cuerpo": "## Fundamentos\n\n### Ahora el suelo tiene dos ejes\n\nEn 2D miras el hueco y calculas si llegas al otro lado. En 3D puedes clavar la distancia y caer un metro por delante de la plataforma. Y mide la altura. X y Z dicen dónde están tus pies sobre el suelo. Dibuja primero el punto de caída en ese plano y luego pregúntate cuánto puede moverlo el jugador en el aire.\n\n### Altura, tiempo y alcance\n\nPara apuntar a una altura h en t segundos, empieza con gravedad de subida = 2h/t² e impulso vertical = 2h/t. Si pones h = 2 m y t = 0,40 s, salen 25 m/s² y 10 m/s. Con la misma gravedad de bajada y suelo a la misma altura, el vuelo ideal dura 0,80 s. A 5,5 m/s en línea recta recorres 4,40 m. La demo integra por pasos y usa un impulso de 9,8, así que toma estas cifras como ejemplo de cálculo, no como medidas de la demo.\n\n### La diagonal no trae un turbo de regalo\n\nLimita la longitud del vector de entrada a uno. Así un mando analógico conserva las inclinaciones suaves y W+D no corre más que W. Si la cámara manda sobre los controles, proyecta su orientación sobre el suelo antes de calcular el movimiento.\n\n## Tipos de salto\n\n### Libre, largo y encadenado\n\nEn Super Mario 64 el salto largo empieza con carrera y una entrada concreta. El triple necesita encadenar despegues. Puedes usar esas condiciones para diseñar rutas: un salto largo pide pista antes del borde, mientras que una cadena pide sitio y ritmo entre aterrizajes.\n\n### Dirigido hacia un agarre\n\nEn Uncharted 4, la dirección analógica ayuda a elegir hacia dónde se estira Drake. Si diseñas un salto hacia un anclaje, decide cómo eliges el destino, qué pasa si hay dos candidatos y cuándo se compromete el personaje con el movimiento. La animación tiene que acompañar al destino y a la posición de las manos.\n\n### Variable, automático y como ataque\n\nUn toque puede darte un salto corto y mantener el botón puede alargar la subida. Es lo que puedes comparar en la demo. En Ocarina of Time, Link salta al avanzar hacia un hueco adecuado. Ese automático cambia quién decide cuándo se despega. Para prototipar un pisotón, comprueba el contacto desde arriba y que el personaje esté bajando. Luego decide si el golpe da un rebote.\n\n## Diseño de niveles y lectura\n\n### La cámara también te dice dónde caes\n\nEn vista cenital ves bien la huella de las plataformas, pero pierdes la lectura del vuelo. En primera persona ves el borde desde el personaje y necesitas otras pistas para juzgar la caída. En tercera ves dónde está el cuerpo respecto a la plataforma. Alterna estas vistas con la misma física. Si aparece el mismo error cada vez que cambias de cámara, quizá el salto ya estaba bien y lo que falla es la pista visual.\n\n### Deja un sitio donde quepan los pies\n\nSepara la anchura del hueco, la profundidad de la llegada y el margen de apoyo. Una plataforma estrecha puede quedar perfectamente dentro del alcance y exigir mucha precisión lateral. En la demo se comprueba el centro del personaje. Para tu juego, verifica cuándo una cápsula cuenta como apoyada junto a los bordes o en una pendiente.\n\n### La sombra es una pista sobre el suelo\n\nUna sombra de apoyo ayuda a leer dónde estás en XZ. Vincúlala a una superficie que exista debajo. Si sigue dibujándose al caer al vacío, parece que todavía hay un suelo invisible esperando al muñeco.\n\n## Laboratorio jugable\n\n### Ponte al mando\n\nEmpieza con la plataforma desplazada. Ajusta la profundidad antes de saltar y cruza el foso. En las cámaras de primera y tercera persona avanzas con W. En la oblicua y en la cenital cruzas hacia la derecha con D.\n\n### Seis pruebas con el mismo foso\n\n1. Compara la plataforma alineada con la desplazada. Mantén el salto y cambia solo el punto desde el que sales.\n2. Elige la llegada estrecha. Prueba un aterrizaje centrado y luego uno en diagonal.\n3. Cambia de dirección en el aire. Compara el control inmediato, progresivo y bloqueado desde que dejas el suelo.\n4. Repite el mismo cruce en primera y tercera persona. Cambia a cenital para comprobar dónde apuntaban tus pies.\n5. Apaga la sombra e intenta el mismo salto. Pregúntate qué pista te queda para corregir.\n6. Desde el mismo punto, alterna un toque con una pulsación larga. El foso dictará sentencia.\n\n## Implementación en Unity\n\n### CharacterController y movimiento relativo a la cámara\n\nEste fragmento presupone un CharacterController, una cámara en view y tu lectura de entrada. Conserva grounded y verticalSpeed entre llamadas. Move recibe desplazamiento, así que multiplica la velocidad por dt. Mantén las constantes de salto en tu componente para ajustar el prototipo sin tocar el código.\n\n```csharp\n// Fragmento de un MonoBehaviour con CharacterController.\n// input es el Vector2 leído desde tu sistema de entrada.\n// jumpPressed y jumpReleased se capturan una vez por pulsación.\nvoid Step(Vector2 input, bool jumpPressed, bool jumpReleased, float dt)\n{\n    Vector3 forward = Vector3.ProjectOnPlane(view.forward, Vector3.up);\n    if (forward.sqrMagnitude < 0.0001f)\n    {\n        Vector3 rightOnGround = Vector3.ProjectOnPlane(view.right, Vector3.up);\n        forward = Vector3.Cross(rightOnGround, Vector3.up);\n    }\n    forward.Normalize();\n    Vector3 right = Vector3.Cross(Vector3.up, forward);\n    Vector3 direction = Vector3.ClampMagnitude(right * input.x + forward * input.y, 1f);\n\n    if (grounded)\n        verticalSpeed = jumpPressed ? launchSpeed : -2f;\n\n    if (jumpReleased && verticalSpeed > releaseSpeed)\n        verticalSpeed = releaseSpeed;\n\n    float gravity = verticalSpeed > 0f ? riseGravity : fallGravity;\n    verticalSpeed -= gravity * dt;\n\n    Vector3 velocity = direction * moveSpeed + Vector3.up * verticalSpeed;\n    CollisionFlags contacts = controller.Move(velocity * dt);\n    grounded = (contacts & CollisionFlags.Below) != 0;\n\n    if ((contacts & CollisionFlags.Above) != 0 && verticalSpeed > 0f)\n        verticalSpeed = 0f;\n}\n```\n\n### Dónde aplicar la gravedad y leer el suelo\n\nCharacterController.Move no aplica gravedad. El ejemplo la acumula en verticalSpeed y usa los contactos devueltos tras mover. Un choque arriba debe cancelar el ascenso y el contacto por abajo habilita el siguiente salto. Si usas Rigidbody dinámico, decide qué calcula el motor y qué calcula tu código antes de aplicar un segundo empuje o gravedad.\n\n## Pruebas y ajustes\n\n### Comprueba bordes y pendientes\n\nPrueba una llegada por el centro y otra con el personaje medio fuera. En una rampa, decide qué ángulo cuenta como suelo. En una plataforma móvil, prueba si conservas un poco de su impulso al despegar.\n\n### Distingue fallo físico de fallo de lectura\n\nSi el jugador aterriza corto, mide el vuelo real y cuánto avanzó. Si aterriza al lado, mira la cámara, la sombra y el margen lateral. Y si pulsa Espacio sin resultado, separa la captura de entrada de la comprobación de suelo antes de tocar la gravedad."
+  },
+  {
+    "id": "pociones-para-luego",
+    "tema": "Dinámicas",
+    "titulo": "La poción que guardaste hasta los créditos",
+    "resumen": "Cómo cambia el uso de consumibles cuando sabes cuándo volverás a reponerlos.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "pociones-para-luego",
+    "esquema": [
+      "Pierdes vida",
+      "¿Gastas una carga?",
+      "Combate o refugio"
+    ],
+    "fuentes": [
+      "mda-hunicke-leblanc-zubek",
+      "estus-hogueras",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\n### Curar ahora o reservar\n\nUna poción cura 4 puntos. El daño del próximo combate es incierto, así que tomarla ahora es renunciar a una posible cura en el peor momento. También puedes morir con la mochila llena. Esa contradicción sale de juntar curación, escasez e incertidumbre.\n\nEn Dark Souls, las hogueras reponen el Estus. La pregunta entre hogueras es cuántas cargas puedes gastar antes del siguiente descanso.\n\n## Variantes de diseño\n\n### Quién repone y cuándo\n\nPuedes dar una reserva finita para toda la expedición, rellenar al llegar al refugio o convertir una parte de la cura en un recurso que caduca al salir de la sala. Anunciar el refugio cambia la decisión incluso si la cantidad total repartida sigue siendo la misma.\n\n## Diseño de situaciones y lectura\n\n### Lo que sabe el jugador\n\nVida actual, daño visible y distancia al siguiente refugio cuentan historias distintas. Enseña qué se recupera al descansar. Si el jugador tiene 7 de 10 puntos, una cura de 4 desperdicia 1. Esa pérdida pequeña puede valer la pena si el próximo golpe hace 7.\n\n## Laboratorio jugable\n\n### Cruza cuatro salas\n\nSobrevive a cuatro salas. Cambia entre reserva finita y recarga tras la segunda sala. Puedes repetir la misma secuencia de daño y ver cuántas pociones te llevas al final.\n\n## Implementación en Unity\n\n### Curación y reserva\n\nUsa dos Button y muestra Vida, Pociones y Salas en el HUD. Refresca las etiquetas después de Curar y Entrar. Reinicia recargando la escena para que ambas variantes partan de las mismas condiciones.\n\n```csharp\nusing UnityEngine;\n\npublic class ReservaDePociones : MonoBehaviour\n{\n    [SerializeField] bool recargaIntermedia;\n    readonly int[] dano = { 3, 4, 2, 5 };\n    public int Vida { get; private set; } = 10;\n    public int Pociones { get; private set; } = 2;\n    public int Salas { get; private set; }\n\n    public void Curar()\n    {\n        if (Vida == 0 || Vida == 10 || Pociones == 0 || Salas == dano.Length) return;\n        Pociones--;\n        Vida = Mathf.Min(10, Vida + 4);\n    }\n\n    public void Entrar()\n    {\n        if (Vida == 0 || Salas == dano.Length) return;\n        Vida = Mathf.Max(0, Vida - dano[Salas]);\n        if (Vida == 0) return;\n        Salas++;\n        if (recargaIntermedia && Salas == 2) Pociones = 2;\n    }\n}\n```\n\n## Pruebas y ajustes\n\n### Mide cuándo se gasta\n\nAnota la sala de la primera cura, las derrotas con pociones disponibles y la vida desperdiciada al curar. Compara una recarga anunciada con una sorpresa. Si solo cambias la comunicación, puedes observar cuánto pesa la incertidumbre."
+  },
+  {
+    "id": "campear-ventana",
+    "tema": "Dinámicas",
+    "titulo": "La ventana que te invita a quedarte quieto",
+    "resumen": "Un refugio se convierte en estrategia dominante cuando quedarse cuesta menos que moverse.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "campear-ventana",
+    "esquema": [
+      "Cobertura frontal",
+      "Aparece el flanco",
+      "¿Aguantas o rotas?"
+    ],
+    "fuentes": [
+      "mda-hunicke-leblanc-zubek",
+      "booth-director-l4d",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\n### Una posición demasiado cómoda\n\nSi desde una ventana tienes cobertura, visión y munición suficiente, ¿por qué ibas a salir? Quedarse quieto es una respuesta razonable a las reglas. El problema aparece cuando esa respuesta resuelve todos los encuentros de la misma manera.\n\n## Variantes de diseño\n\n### Tres formas de mover al jugador\n\nUna ruta de flanqueo cambia quién tiene la ventaja espacial. Un objetivo que se desplaza cambia dónde vale la pena estar. Una presión que sube y luego da tregua cambia cuándo vale la pena quedarse. El director de Left 4 Dead sirve para estudiar esa alternancia de tensión y descanso.\n\n## Diseño de situaciones y lectura\n\n### Haz visible la salida\n\nAntes de subir el daño enemigo, dibuja los ángulos visibles desde la ventana y cuenta las salidas con cobertura. Da un aviso antes de abrir el flanco y deja tiempo para leerlo. Si huir obliga a cruzar una explanada, quizá quedarse siga siendo la opción menos mala.\n\n## Laboratorio jugable\n\n### Defiende seis oleadas\n\nResiste seis oleadas. Compara la ventana fija con un flanco que se abre en la tercera ronda. La segunda posición da menos puntos por ronda, pero evita el flanco.\n\n## Implementación en Unity\n\n### Resolver cada oleada\n\nConecta dos Button a Resolver con true para la ventana y false para el pasillo. Enciende un indicador cuando FlancoAbierto sea verdadero. Fuera del prototipo, activa el flanco después de un aviso que el jugador pueda leer.\n\n```csharp\nusing UnityEngine;\n\npublic class VentanaPorOleadas : MonoBehaviour\n{\n    [SerializeField] bool flancoActivo;\n    public int Oleada { get; private set; }\n    public int Vida { get; private set; } = 3;\n    public int Puntos { get; private set; }\n    public bool FlancoAbierto => flancoActivo && Oleada >= 2;\n\n    public void Resolver(bool enVentana)\n    {\n        if (Oleada == 6 || Vida == 0) return;\n        if (enVentana && FlancoAbierto) Vida--;\n        Puntos += enVentana ? 3 : 2;\n        Oleada++;\n    }\n}\n```\n\n## Pruebas y ajustes\n\n### Observa cuándo rotan\n\nMide cuántas oleadas pasa cada jugador en la ventana y cuánto tarda en cambiar tras el aviso. Si todos rotan en el mismo instante, prueba abrir el flanco más tarde en una parte de las partidas y observa si aparece una decisión."
+  },
+  {
+    "id": "extraer-o-seguir",
+    "tema": "Jugabilidad y bucles",
+    "titulo": "¿Cobramos ya o una sala más?",
+    "resumen": "Dos cadencias de extracción y una mochila que cada vez cuesta más perder.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "extraer-o-seguir",
+    "esquema": [
+      "Entras y recoges",
+      "Aseguras o arriesgas",
+      "La mochila vuelve a cero"
+    ],
+    "fuentes": [
+      "hunt-guia-extraccion",
+      "mda-hunicke-leblanc-zubek",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\n### El botín todavía está en juego\n\nEl bucle es explorar, ganar botín y decidir si lo pones a salvo. Con 20 monedas en la mochila y una siguiente sala que paga 10, una apuesta con probabilidad de éxito del 80 % vale 24 monedas en promedio. Salir garantiza 20. La diferencia entre esas dos cifras tiene poco que decir sobre cómo te sienta perder todo.\n\n## Variantes de diseño\n\n### Cada sala o por tramos\n\nUna salida por sala deja ajustar el riesgo a cada paso. Una salida cada tres salas convierte el tramo entero en el compromiso. Hunt: Showdown da un caso para observar cómo el desplazamiento y la espera añaden riesgo a la propia extracción.\n\n## Diseño de situaciones y lectura\n\n### Dibuja la próxima salida\n\nMarca las salidas que vienen y distingue botín pendiente de botín asegurado. Puedes conceder extracción parcial sin regalar una salida gratis. Decide si el peligro aparece al alcanzar el punto, durante la espera o en ambos momentos.\n\n## Laboratorio jugable\n\n### Abre la siguiente puerta\n\nAvanza hasta seis salas. El riesgo mostrado crece con la profundidad. Prueba salida por sala y salida cada tres. El contador se conserva al cerrar una expedición y desaparece al reiniciar el laboratorio.\n\n## Implementación en Unity\n\n### Cerrar la expedición\n\nConecta Avanzar y Extraer a sus botones. Actualiza la disponibilidad de Extraer a partir de PuedeExtraer. Fija la misma semilla al iniciar las dos variantes si quieres comparar secuencias reproducibles.\n\n```csharp\nusing UnityEngine;\n\npublic class ExpedicionDeBotin : MonoBehaviour\n{\n    [SerializeField] bool cadaTresSalas;\n    System.Random azar = new System.Random();\n    public int Sala { get; private set; }\n    public int Mochila { get; private set; }\n    public int Banco { get; private set; }\n    public int Expediciones { get; private set; }\n    public int Riesgo => 10 + Sala * 8;\n    public bool PuedeExtraer => Sala > 0 && (!cadaTresSalas || Sala % 3 == 0);\n\n    public void FijarSemilla(int semilla) => azar = new System.Random(semilla);\n\n    public void Avanzar()\n    {\n        if (Sala == 6) return;\n        if (azar.Next(100) < Riesgo)\n        {\n            Cerrar();\n            return;\n        }\n        Sala++;\n        Mochila += 10;\n    }\n\n    public void Extraer()\n    {\n        if (!PuedeExtraer) return;\n        Banco += Mochila;\n        Cerrar();\n    }\n\n    void Cerrar()\n    {\n        Sala = 0;\n        Mochila = 0;\n        Expediciones++;\n    }\n}\n```\n\n## Pruebas y ajustes\n\n### Mide profundidad y pérdidas\n\nCompara la profundidad de salida, la proporción de expediciones perdidas y el botín asegurado por expedición. Pregunta qué salida esperaba encontrar quien se pasó de largo. Una derrota por codicia cuenta algo distinto de una derrota porque el icono parecía una puerta decorativa."
+  },
+  {
+    "id": "botin-abre-rutas",
+    "tema": "Jugabilidad y bucles",
+    "titulo": "El botín que cambia tu siguiente ruta",
+    "resumen": "Una recompensa puede cambiar lo que haces al volver al cruce.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "botin-abre-rutas",
+    "esquema": [
+      "Ves la rejilla",
+      "Consigues el filtro",
+      "El atajo queda abierto"
+    ],
+    "fuentes": [
+      "nintendo-morph-ball",
+      "mda-hunicke-leblanc-zubek",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\n### Volver al mismo sitio con otras opciones\n\nSi el premio añade daño, vuelves al mismo itinerario con mejores números. Si abre un atajo o te permite atravesar vapor, revisas un mapa que ya creías conocer. En Metroid Dread, Nintendo describe cómo el deslizamiento y la Morfosfera permiten pasar por conductos estrechos. La relectura del mapa es lo que nos interesa del ejemplo.\n\n## Variantes de diseño\n\n### Llaves, herramientas y ventanas\n\nUna llave de un solo uso obliga a elegir una puerta. Una herramienta permanente permite planear trayectos futuros. Una ruta temporal pide aprovechar la ventana. Si la recompensa es aleatoria, garantiza al menos un itinerario básico viable.\n\n## Diseño de situaciones y lectura\n\n### Que se vea la rejilla\n\nEnseña primero el obstáculo. Una rejilla humeante al llegar al cruce da contexto al filtro que encuentras después. Pon algo reconocible a ambos extremos del atajo. El jugador tiene que poder decir por dónde salió sin consultar un plano de fontanería.\n\n## Laboratorio jugable\n\n### Elige en el cruce\n\nVuelve al mismo cruce tres veces. Puedes recoger un filtro o llevarte monedas. El filtro permite una ruta corta a partir de la siguiente vuelta. Compara los minutos invertidos y el botín que te llevas.\n\n## Implementación en Unity\n\n### Registrar la herramienta\n\nConecta las tres acciones del cruce a botones o a interacciones. La rejilla debe leer Filtro y reflejarlo también en el indicador visual. El contador de minutos representa el coste de cada ruta.\n\n```csharp\nusing UnityEngine;\n\npublic class RutaConFiltro : MonoBehaviour\n{\n    public int Vueltas { get; private set; }\n    public int Minutos { get; private set; }\n    public int Oro { get; private set; }\n    public bool Filtro { get; private set; }\n\n    public void RecogerFiltro()\n    {\n        if (Vueltas != 0) return;\n        Filtro = true;\n        Completar(3, 0);\n    }\n\n    public void TomarDesvio()\n    {\n        if (Vueltas < 3) Completar(3, 12);\n    }\n\n    public void TomarAtajo()\n    {\n        if (Filtro && Vueltas < 3) Completar(1, 8);\n    }\n\n    void Completar(int minutos, int oro)\n    {\n        Vueltas++;\n        Minutos += minutos;\n        Oro += oro;\n    }\n}\n```\n\n## Pruebas y ajustes\n\n### Comprueba si cambia la ruta\n\nCuenta cuántas personas prueban la rejilla después de conseguir el filtro y cuántas entienden qué han ganado. Cambia el valor de las monedas hasta que la primera elección dependa del objetivo. Si se puede volver por el premio gratis, mide de nuevo."
+  },
+  {
+    "id": "mina-compra-mina",
+    "tema": "Sistemas y economías",
+    "titulo": "La mina que se compra otra mina",
+    "resumen": "Una simulación para ver cuándo reinvertir convierte una ventaja pequeña en una enorme.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "mina-compra-mina",
+    "esquema": [
+      "Minas producen oro",
+      "Reinviertes el oro",
+      "Sube la producción"
+    ],
+    "fuentes": [
+      "machinations-dormans",
+      "aoe-aldeanos",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\n### El oro que fabrica más oro\n\nUna mina produce 4 monedas por turno. Si cuesta 12, tarda tres turnos de producción en devolver ese gasto. A partir de ahí puede financiar la siguiente. Cuantas más minas tienes, antes compras otra. Dormans llama la atención sobre esta clase de relaciones entre flujos de recursos.\n\nAge of Empires II: Definitive Edition propone entrenar aldeanos y ponerlos a recoger recursos. Como en la mina, invertir puede aumentar los ingresos futuros. Aquí también cuentan el tiempo de entrenamiento y el límite de población.\n\n## Variantes de diseño\n\n### Coste fijo, coste creciente y límites\n\nCon coste fijo, producir más facilita cada compra futura. Con un coste que sube 8 por cada mina que ya tienes después de la primera, el retorno se alarga. También puedes limitar las parcelas o cobrar mantenimiento. Cada palanca cambia un momento distinto de la partida.\n\n## Diseño de situaciones y lectura\n\n### Separa producción, saldo y gasto\n\nRepresenta la cadena con un esquema: minas → monedas por turno → compra → más minas. Dibuja una segunda salida de las monedas hacia un objetivo distinto, como reparar un puente. Así puedes preguntar cuándo vale la pena consumir el excedente.\n\n## Laboratorio jugable\n\n### Doce turnos de minería\n\nTienes doce turnos y una mina. Compra cuando quieras o guarda el oro. Cambia el precio fijo por el creciente y repite la misma política de compras. Observa saldo y producción por separado.\n\n## Implementación en Unity\n\n### Cobrar y reinvertir\n\nEnlaza Comprar y PasarTurno a dos botones. Muestra Produccion y Precio junto al saldo. Elegir un precio antes de pasar turno permite comprobar exactamente cuándo recuperas la inversión.\n\n```csharp\nusing UnityEngine;\n\npublic class EconomiaDeMinas : MonoBehaviour\n{\n    [SerializeField] bool precioCreciente;\n    public int Turno { get; private set; }\n    public int Oro { get; private set; }\n    public int Minas { get; private set; } = 1;\n    public int Produccion => 4 * Minas;\n    public int Precio => 12 + (precioCreciente ? 8 * (Minas - 1) : 0);\n\n    public void PasarTurno()\n    {\n        if (Turno == 12) return;\n        Turno++;\n        Oro += Produccion;\n    }\n\n    public void Comprar()\n    {\n        if (Turno == 12 || Oro < Precio) return;\n        Oro -= Precio;\n        Minas++;\n    }\n}\n```\n\n## Pruebas y ajustes\n\n### Compara estrategias\n\nCompara estrategias con el mismo horizonte y muestra el valor final. Si el objetivo es oro líquido, una mina comprada a un turno del final probablemente estorba. Prueba una ventaja inicial de 4 monedas y mide cuánto se abre la brecha al turno doce."
+  },
+  {
+    "id": "cofres-de-oro",
+    "tema": "Sistemas y economías",
+    "titulo": "Cuando un cofre de oro ya no emociona",
+    "resumen": "Lo que da valor a una moneda es lo que todavía puedes hacer con ella.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "cofres-de-oro",
+    "esquema": [
+      "El cofre suma oro",
+      "La tienda ofrece mejoras",
+      "¿Queda algo que comprar?"
+    ],
+    "fuentes": [
+      "blizzard-diablo-costes",
+      "machinations-dormans",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\n### Oro con un destino\n\nUn cofre de 20 monedas importa si te deja a un paso de una compra. Cuando tienes 200 y todo está pagado, el mismo cofre ocupa sitio en pantalla. Blizzard documenta cambios en los costes de mejoras de Diablo IV. Es un ejemplo de cómo una actualización puede cambiar los destinos disponibles para la moneda.\n\n## Variantes de diseño\n\n### Gastos únicos y repetibles\n\nUna mejora única drena el saldo una vez. Una reparación o una mejora repetible crea demanda en más etapas. Una recompensa mixta puede seguir interesando después de agotar la tienda. Poner un gasto recurrente demasiado alto también puede convertir el premio en combustible para seguir donde estabas.\n\n## Diseño de situaciones y lectura\n\n### Da valor al próximo cofre\n\nDibuja el inventario de destinos al lado del saldo. Señala cuánto cuesta la siguiente compra que tiene sentido. Si la moneda de un cofre jamás cambia una decisión, puedes probar una opción entre oro y un recurso que abra otra forma de jugar.\n\n## Laboratorio jugable\n\n### Abre cofres y compra\n\nAbre cofres de 20 monedas y compra mejoras a 30. Compara una tienda con dos compras disponibles y otra que sigue ofreciendo mejoras. Fíjate en cuántos cofres te acercan de verdad a un gasto.\n\n## Implementación en Unity\n\n### Entradas y gastos\n\nVincula Abrir y Comprar y bloquea la compra cuando QuedanMejoras sea falso o el saldo quede por debajo de 30. Conserva esta comprobación en el método, aunque también desactives el botón.\n\n```csharp\nusing UnityEngine;\n\npublic class CofresYTienda : MonoBehaviour\n{\n    [SerializeField] bool comprasRepetibles;\n    public int Cofres { get; private set; }\n    public int Oro { get; private set; }\n    public int Mejoras { get; private set; }\n    public bool QuedanMejoras => comprasRepetibles || Mejoras < 2;\n\n    public void Abrir()\n    {\n        if (Cofres == 8) return;\n        Cofres++;\n        Oro += 20;\n    }\n\n    public void Comprar()\n    {\n        if (!QuedanMejoras || Oro < 30) return;\n        Oro -= 30;\n        Mejoras++;\n    }\n}\n```\n\n## Pruebas y ajustes\n\n### Cuenta los cofres que quedan\n\nRegistra el porcentaje de cofres que se quedan sin abrir, el saldo al final y las compras que realmente se usan. Si el oro sobra solo al final, prueba un destino tardío. Si sobra desde el principio, revisa cuánto entra y qué tan interesantes son las primeras compras."
+  },
+  {
+    "id": "avisar-ataques",
+    "tema": "Dificultad y equilibrio",
+    "titulo": "Ese golpe te avisó. ¿Te dio tiempo?",
+    "resumen": "Separar la anticipación, la lectura y la respuesta al ajustar un ataque.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "avisar-ataques",
+    "esquema": [
+      "Aviso",
+      "Ventana de respuesta",
+      "Impacto"
+    ],
+    "fuentes": [
+      "subset-into-the-breach",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\n### Qué sabes antes del impacto\n\nUn ataque puede ser duro porque exige una respuesta precisa o porque la señal pasa desapercibida. Divide la secuencia en aviso, ventana de respuesta e impacto. Into the Breach comunica los ataques enemigos por adelantado. El reto consiste en resolver varias amenazas con las acciones disponibles.\n\n## Variantes de diseño\n\n### Formas de avisar\n\nUna anticipación animada comunica de dónde viene el golpe. Un área marcada comunica qué espacio quedará afectado. Un sonido puede avisar de un ataque fuera de plano. En tiempo real, puedes mantener la duración y cambiar el momento en que aparece la información útil.\n\n## Diseño de situaciones y lectura\n\n### Señales que sobreviven al combate\n\nColoca la señal donde la vista ya está trabajando. Una forma y un texto de dirección pueden seguir funcionando cuando el color se pierde entre efectos. Valida desde la cámara habitual y cuando dos avisos coinciden. La sala de pruebas vacía es muy educada con los diseñadores.\n\n## Laboratorio jugable\n\n### Esquiva tres ataques\n\nSobrevive a tres ataques. Muévete con flechas o con los controles del laboratorio. Compara 1,5 y 0,65 segundos de aviso. El impacto y el patrón de carriles se mantienen.\n\n## Implementación en Unity\n\n### Aviso e impacto\n\nConecta dos acciones de movimiento a Mover con −1 y +1. Resalta el carril Objetivo mientras esté entre 0 y 2 y limpia la marca al volver a −1. Lanzar se puede llamar desde un botón o desde el controlador del enemigo. El temporizador usa tiempo real.\n\n```csharp\nusing System.Collections;\nusing UnityEngine;\n\npublic class AvisoPorCarriles : MonoBehaviour\n{\n    [SerializeField] bool avisoCorto;\n    readonly int[] patron = { 1, 0, 2 };\n    public int Carril { get; private set; } = 1;\n    public int Objetivo { get; private set; } = -1;\n    public int Resueltos { get; private set; }\n    public int Golpes { get; private set; }\n\n    public void Mover(int paso) => Carril = Mathf.Clamp(Carril + paso, 0, 2);\n\n    public void Lanzar()\n    {\n        if (Objetivo < 0 && Resueltos < patron.Length)\n            StartCoroutine(ResolverAtaque());\n    }\n\n    IEnumerator ResolverAtaque()\n    {\n        Objetivo = patron[Resueltos];\n        yield return new WaitForSecondsRealtime(avisoCorto ? 0.65f : 1.5f);\n        if (Carril == Objetivo) Golpes++;\n        Objetivo = -1;\n        Resueltos++;\n    }\n\n    void OnDisable()\n    {\n        StopAllCoroutines();\n        Objetivo = -1;\n    }\n}\n```\n\n## Pruebas y ajustes\n\n### Separa dirección y tiempo\n\nMide aciertos y recoge qué pensó cada jugador que iba a pasar. Registra por separado errores de dirección y respuestas fuera de tiempo. Si al ampliar la ventana sigue escapando hacia el carril peligroso, revisa primero la señal."
+  },
+  {
+    "id": "armas-situacionales",
+    "tema": "Dificultad y equilibrio",
+    "titulo": "¿Mejor arma? Depende de dónde estés",
+    "resumen": "Cómo comparar opciones cuando la distancia y la cobertura cambian el encuentro.",
+    "formato": "Guía",
+    "idioma": "Español",
+    "editorial": true,
+    "laboratorio": "armas-situacionales",
+    "esquema": [
+      "Lees la distancia",
+      "Eliges un arma",
+      "Comparas disparos"
+    ],
+    "fuentes": [
+      "mda-hunicke-leblanc-zubek",
+      "bungie-alcance-armas",
+      "unity-componentes-sistemas"
+    ],
+    "cuerpo": "## Fundamentos\n\n### El promedio esconde los extremos\n\nUn promedio puede esconder que el arma A gana de cerca y el arma B de lejos. Compara cada arma con los encuentros que realmente produce tu nivel. Si nueve de cada diez peleas son en pasillos, la campeona del campo abierto tendrá poco que celebrar.\n\nBungie explicó un ajuste a la distancia a la que las escopetas podían liquidar de un disparo en Destiny 2. Ese límite cambia qué encuentros favorecen el arma.\n\n## Variantes de diseño\n\n### Qué puede compensar el alcance\n\nPuedes compensar alcance con cadencia, daño inmediato con tiempo de recarga o potencia con exposición. Haz una matriz de escenarios. Para cada cruce apunta cuánto tardas en resolverlo, cuánta munición cuesta y a qué peligro te expones.\n\n## Diseño de situaciones y lectura\n\n### Cambia la sala antes que el arma\n\nDibuja dos salas con los mismos enemigos. En una obliga a acercarse por una esquina. En la otra ofrece visión desde lejos. Para una segunda prueba, añade cobertura antes de tocar el daño. Así puedes detectar si el problema estaba en la herramienta o en los encuentros.\n\n## Laboratorio jugable\n\n### Cuatro encuentros, dos armas\n\nEscoge escopeta o rifle para cuatro encuentros. El banco de pruebas alterna distancias de forma predecible. Cambia la distribución de encuentros y comprueba si quedarte con la misma arma sigue siendo una buena decisión.\n\n## Implementación en Unity\n\n### Resolver disparos por distancia\n\nConecta dos acciones a Disparar con false para la escopeta y true para el rifle. Muestra Lejos antes de cada elección y deja el resultado anterior visible. Este banco simula costes en disparos y permite añadir después recarga o exposición.\n\n```csharp\nusing UnityEngine;\n\npublic class BancoDeArmas : MonoBehaviour\n{\n    [SerializeField] bool campoAbierto;\n    public int Encuentros { get; private set; }\n    public int ResueltosDeUnTiro { get; private set; }\n    public int Municion { get; private set; }\n    public bool Lejos => Encuentros == 3 ? !campoAbierto : campoAbierto;\n\n    public void Disparar(bool rifle)\n    {\n        if (Encuentros == 4) return;\n        bool deUnTiro = Lejos == rifle;\n        Municion += deUnTiro ? 1 : 3;\n        if (deUnTiro) ResueltosDeUnTiro++;\n        Encuentros++;\n    }\n}\n```\n\n## Pruebas y ajustes\n\n### Compara por escenario\n\nRegistra el resultado por arma y distancia antes de calcular el promedio. Mira si cambiar de arma cuesta lo suficiente para que elegir de antemano tenga sentido. Un empate global puede coexistir con una elección obvia en cada sala."
+  },
+  {
+    "id": "booth-director-l4d",
+    "titulo": "El director de intensidad de Left 4 Dead",
+    "tema": "Dinámicas",
+    "formato": "Conferencia",
+    "idioma": "Inglés",
+    "referencia": "Michael Booth (2009). The AI Systems of Left 4 Dead. AIIDE.",
+    "fuente": "https://cdn.cloudflare.steamstatic.com/apps/valve/2009/ai_systems_of_l4d_mike_booth.pdf",
+    "resumen": "La presentación de Valve explica cómo el director ajusta el ritmo de la partida.",
+    "cuerpo": "La presentación de Valve explica cómo el director ajusta el ritmo de la partida. Alterna fases de tensión y descanso a partir de una estimación de la intensidad. Sirve para pensar cuándo conviene presionar al jugador y cuándo dejarle recuperar el aliento."
+  },
+  {
+    "id": "hunt-guia-extraccion",
+    "titulo": "Cómo se asegura el botín en Hunt: Showdown",
+    "tema": "Jugabilidad y bucles",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "referencia": "Crytek. Hunt: Showdown Player Guides.",
+    "fuente": "https://www.huntshowdown.com/player-guide/en_US",
+    "resumen": "Crytek describe la diferencia entre portar una recompensa y convertirla en dinero y experiencia.",
+    "cuerpo": "Crytek describe la diferencia entre portar una recompensa y convertirla en dinero y experiencia. La extracción tiene sus propias condiciones, incluido un temporizador que un rival puede bloquear. Úsalo para identificar dónde acaba el bucle de riesgo."
+  },
+  {
+    "id": "nintendo-morph-ball",
+    "titulo": "Los poderes de Samus y los caminos que abren",
+    "tema": "Jugabilidad y bucles",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "referencia": "Nintendo (2021). Metroid Dread Report Vol. 5: The powers of Samus Aran.",
+    "fuente": "https://www.nintendo.com/en-gb/News/2021/August/Metroid-Dread-Report-Vol-5-The-powers-of-Samus-Aran-2026540.html",
+    "resumen": "Nintendo describe cómo cambian los recorridos al conseguir habilidades.",
+    "cuerpo": "Nintendo describe cómo cambian los recorridos al conseguir habilidades. El deslizamiento y la Morfosfera resuelven pasos estrechos. Es un caso para estudiar cómo un obstáculo visto antes adquiere un significado nuevo."
+  },
+  {
+    "id": "blizzard-diablo-costes",
+    "titulo": "Cambios de costes y materiales en Diablo IV",
+    "tema": "Sistemas y economías",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "referencia": "Blizzard Entertainment. Diablo IV Patch Notes (1.3–1.5).",
+    "fuente": "https://news.blizzard.com/en-gb/article/24140806/diablo-iv-patch-notes-1-3-1-5",
+    "resumen": "Este historial de versiones registra ajustes a la economía de mejoras, incluida la transmutación directa de materiales de Masterworking.",
+    "cuerpo": "Este historial de versiones registra ajustes a la economía de mejoras, incluida la transmutación directa de materiales de Masterworking. Úsalo para identificar qué recurso entra, cuál sale y para qué versión se describe cada regla."
+  },
+  {
+    "id": "subset-into-the-breach",
+    "titulo": "Ataques anunciados en Into the Breach",
+    "tema": "Dificultad y equilibrio",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "referencia": "Subset Games. Into the Breach, ficha oficial.",
+    "fuente": "https://www.subsetgames.com/itb.html",
+    "resumen": "Subset Games explica que los enemigos anuncian sus ataques antes de ejecutarlos.",
+    "cuerpo": "Subset Games explica que los enemigos anuncian sus ataques antes de ejecutarlos. El jugador puede usar esa información para proteger objetivos y resolver varias amenazas simultáneas. El ejemplo ayuda a separar la legibilidad de la exigencia táctica."
+  },
+  {
+    "id": "unity-componentes-sistemas",
+    "titulo": "Componentes MonoBehaviour en Unity 6",
+    "tema": "Prototipado y pruebas",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "referencia": "Unity Technologies. Scripting API: MonoBehaviour, Unity 6.",
+    "fuente": "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.html",
+    "resumen": "La documentación recoge la clase base para comportamientos que se añaden a objetos de una escena.",
+    "cuerpo": "La documentación recoge la clase base para comportamientos que se añaden a objetos de una escena. Los prototipos de sistemas usan estos componentes para guardar el estado y exponer acciones a la interfaz."
+  },
+  {
+    "id": "bungie-alcance-armas",
+    "titulo": "Bungie ajusta el alcance de las escopetas",
+    "tema": "Dificultad y equilibrio",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "referencia": "Bungie (2022). This Week at Bungie, 1 de diciembre.",
+    "fuente": "https://www.bungie.net/7/en/News/article/51999",
+    "resumen": "El equipo explica por qué revisó la consistencia y el alcance de las bajas de un disparo con escopetas.",
+    "cuerpo": "El equipo explica por qué revisó la consistencia y el alcance de las bajas de un disparo con escopetas. El caso permite estudiar la distancia a la que un arma puede cumplir su función en una versión concreta."
+  },
+  {
+    "id": "aoe-aldeanos",
+    "titulo": "Aldeanos y crecimiento en Age of Empires II",
+    "tema": "Sistemas y economías",
+    "formato": "Guía",
+    "idioma": "Inglés",
+    "referencia": "Age of Empires. Expanding Your Empire, guía oficial de Age of Empires II: Definitive Edition.",
+    "fuente": "https://www.ageofempires.com/learn-to-play/expanding-your-empire-aoe2/",
+    "resumen": "La guía relaciona el entrenamiento de aldeanos en el centro urbano con la recolección de recursos.",
+    "cuerpo": "La guía relaciona el entrenamiento de aldeanos en el centro urbano con la recolección de recursos. Es un ejemplo de inversión en capacidad productiva, limitada por comida, tiempo, población e infraestructura."
+  },
+  {
+    "id": "estus-hogueras",
+    "titulo": "Cómo se repone el Estus en Dark Souls",
+    "tema": "Dinámicas",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "referencia": "Dark Souls Wikidot. Estus Flask. Wiki comunitaria.",
+    "fuente": "https://darksouls.wikidot.com/estus-flask",
+    "resumen": "La ficha explica la curación con Estus y su reposición en hogueras.",
+    "cuerpo": "La ficha explica la curación con Estus y su reposición en hogueras. El ejemplo ayuda a comparar un consumible que se repone al descansar con una reserva que se gasta durante toda la excursión."
   }
 ]

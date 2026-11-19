@@ -123,20 +123,30 @@ function showFeatured(entries) {
   document.querySelector('#destacado').hidden = false;
 }
 
-function showSources(resource) {
+function showSources(resource, entries) {
   const sources = [...(resource.materiales ?? [])];
   if (resource.fuente) sources.unshift({nombre: 'Publicación original', url: resource.fuente});
   const links = sources.filter(source => /^https:\/\//i.test(source.url ?? ''));
-  if (!resource.referencia && !links.length) return;
+  const fichas = (resource.fuentes ?? []).map(id => entries.find(entry => entry.id === id)).filter(Boolean);
+  if (!resource.referencia && !links.length && !fichas.length) return;
   const section = element('section', '', 'referencias');
   const heading = element('h2', 'Fuentes');
   section.append(heading);
   if (resource.referencia) section.append(element('p', resource.referencia));
-  if (links.length) {
+  if (links.length || fichas.length) {
     const list = element('ul', '');
     for (const source of links) {
       const item = element('li', '');
       item.append(link(source.nombre, source.url));
+      list.append(item);
+    }
+    for (const source of fichas) {
+      const item = element('li', '');
+      const route = Object.entries(sourceSections).find(([, [, formats]]) => formats.includes(source.formato));
+      const query = new URLSearchParams(source.formato === 'Estudio' ? {papers: 'en'} :
+        {seccion: route?.[0] ?? 'biblioteca'});
+      query.set('lectura', source.id);
+      item.append(link(source.formato + ' · ' + source.titulo, '?' + query));
       list.append(item);
     }
     section.append(list);
@@ -635,6 +645,251 @@ function addJump3D() {
   reset('Empieza alineándote con la plataforma de llegada.');
 }
 
+const systemLabs = {
+  'pociones-para-luego': {
+    modes: ['Reserva finita', 'Recarga intermedia'],
+    start: () => ({room: 0, hp: 10, potions: 2}),
+    view: s => [['Salas superadas', s.room + ' / 4'], ['Vida', s.hp], ['Pociones', s.potions]],
+    actions: (s, mode) => [
+      ['Tomar poción', s.hp > 0 && s.hp < 10 && s.potions > 0 && s.room < 4, () => {
+        s.potions--;
+        s.hp = Math.min(10, s.hp + 4);
+        return 'Poción usada.';
+      }],
+      ['Entrar en la sala', s.hp > 0 && s.room < 4, () => {
+        const damage = [3, 4, 2, 5][s.room];
+        s.hp = Math.max(0, s.hp - damage);
+        if (!s.hp) return 'Caíste con ' + s.potions + ' pociones en la mochila.';
+        s.room++;
+        if (mode && s.room === 2) {
+          s.potions = 2;
+          return 'Golpe de ' + damage + '. El refugio repone tu reserva a dos.';
+        }
+        return 'Golpe de ' + damage + '.' + (s.room === 4 ? ' ¡Llegaste!' : '');
+      }]
+    ],
+    hint: (s, mode) => mode ? 'Hay un refugio después de la sala 2.' : 'La reserva dura toda la expedición.'
+  },
+  'campear-ventana': {
+    modes: ['Ventana fija', 'Flanco activo'],
+    start: () => ({wave: 0, hp: 3, score: 0}),
+    view: s => [['Oleadas', s.wave + ' / 6'], ['Vida', s.hp], ['Puntos', s.score]],
+    hint: (s, mode) => mode && s.wave >= 2 ? 'El flanco está abierto. La ventana recibe daño.' : 'La ventana tiene cobertura frontal.',
+    actions: (s, mode) => ['Cubrir la ventana', 'Moverse al pasillo'].map((label, position) =>
+      [label, s.wave < 6 && s.hp > 0, () => {
+        s.wave++;
+        const flanked = mode && !position && s.wave >= 3;
+        if (flanked) s.hp--;
+        s.score += position ? 2 : 3;
+        return !s.hp ? 'El flanco te dejó sin vida.' : flanked ? 'Te alcanzaron por el flanco.' : 'Oleada superada.';
+      }])
+  },
+  'extraer-o-seguir': {
+    modes: ['Salida por sala', 'Salida cada tres salas'],
+    start: () => ({room: 0, bag: 0, bank: 0, runs: 0}),
+    view: s => [['Sala', s.room + ' / 6'], ['En la mochila', s.bag], ['Asegurado', s.bank], ['Expediciones cerradas', s.runs]],
+    hint: (s, mode) => s.room === 6 ? 'Ya puedes extraer.' : 'Riesgo de perder la expedición: ' + (10 + s.room * 8) + ' %. ' +
+      (mode ? 'Salidas en salas 3 y 6.' : 'Salidas en todas las salas.'),
+    actions: (s, mode) => [
+      ['Avanzar', s.room < 6, () => {
+        if (Math.random() * 100 < 10 + s.room * 8) {
+          s.room = s.bag = 0;
+          s.runs++;
+          return 'Perdiste la mochila. Empieza otra expedición.';
+        }
+        s.room++;
+        s.bag += 10;
+        return 'Guardas diez monedas en la mochila.';
+      }],
+      ['Extraer', s.room > 0 && (!mode || s.room % 3 === 0), () => {
+        s.bank += s.bag;
+        s.room = s.bag = 0;
+        s.runs++;
+        return 'Botín asegurado. Empieza otra expedición.';
+      }]
+    ]
+  },
+  'botin-abre-rutas': {
+    start: () => ({trip: 0, time: 0, gold: 0, filter: false}),
+    view: s => [['Vueltas', s.trip + ' / 3'], ['Minutos', s.time], ['Monedas', s.gold], ['Filtro', s.filter ? 'Sí' : 'No']],
+    hint: s => s.filter ? 'El filtro te deja pasar por el vapor.' : 'La rejilla está llena de vapor. El desvío tarda tres minutos.',
+    actions: s => [
+      ['Desvío y filtro', s.trip === 0, () => {
+        s.filter = true;
+        s.trip++;
+        s.time += 3;
+        return 'Conseguiste el filtro.';
+      }],
+      ['Desvío y monedas', s.trip < 3, () => {
+        s.trip++;
+        s.time += 3;
+        s.gold += 12;
+        return 'Doce monedas por el camino largo.';
+      }],
+      ['Cruzar la rejilla', s.trip < 3 && s.filter, () => {
+        s.trip++;
+        s.time++;
+        s.gold += 8;
+        return 'Ocho monedas por el atajo.';
+      }]
+    ]
+  },
+  'mina-compra-mina': {
+    modes: ['Precio fijo', 'Precio creciente'],
+    start: () => ({turn: 0, gold: 0, mines: 1}),
+    view: (s, mode) => [['Turno', s.turn + ' / 12'], ['Oro', s.gold], ['Minas', s.mines], ['Oro por turno', s.mines * 4], ['Precio', 12 + (mode ? (s.mines - 1) * 8 : 0)]],
+    hint: s => s.turn === 12 ? 'Cuenta el oro líquido al final.' : 'Puedes comprar antes de cerrar el turno.',
+    actions: (s, mode) => {
+      const price = 12 + (mode ? (s.mines - 1) * 8 : 0);
+      return [
+        ['Pasar turno', s.turn < 12, () => { s.turn++; s.gold += 4 * s.mines; return 'Cobras la producción.'; }],
+        ['Comprar mina', s.turn < 12 && s.gold >= price, () => { s.gold -= price; s.mines++; return 'La nueva mina produce desde el siguiente cobro.'; }]
+      ];
+    }
+  },
+  'cofres-de-oro': {
+    modes: ['Dos compras', 'Compras repetibles'],
+    start: () => ({chests: 0, gold: 0, buys: 0}),
+    view: s => [['Cofres', s.chests + ' / 8'], ['Oro', s.gold], ['Mejoras', s.buys]],
+    hint: (s, mode) => mode || s.buys < 2 ? 'La próxima mejora cuesta 30.' : 'La tienda ha vendido todas sus mejoras.',
+    actions: (s, mode) => [
+      ['Abrir cofre', s.chests < 8, () => { s.chests++; s.gold += 20; return 'Veinte monedas más.'; }],
+      ['Comprar mejora', s.gold >= 30 && (mode || s.buys < 2), () => { s.gold -= 30; s.buys++; return 'Mejora comprada.'; }]
+    ]
+  },
+  'avisar-ataques': {
+    modes: ['Aviso de 1,5 s', 'Aviso de 0,65 s'],
+    start: () => ({round: 0, lane: 1, hits: 0, target: -1}),
+    view: s => [['Ataques resueltos', s.round + ' / 3'], ['Tu carril', ['Izquierdo', 'Central', 'Derecho'][s.lane]], ['Golpes recibidos', s.hits]],
+    hint: s => s.target < 0 ? 'Las flechas izquierda y derecha cambian de carril.' :
+      '¡Ataque al carril ' + ['izquierdo', 'central', 'derecho'][s.target] + '!',
+    actions: (s, mode, schedule) => [
+      ['← Izquierda', s.lane > 0, () => { s.lane--; }],
+      ['Derecha →', s.lane < 2, () => { s.lane++; }],
+      ['Lanzar ataque', s.round < 3 && s.target < 0, () => {
+        s.target = [1, 0, 2][s.round];
+        schedule(() => {
+          const hit = s.lane === s.target;
+          if (hit) s.hits++;
+          s.target = -1;
+          s.round++;
+          return hit ? 'Te alcanzó.' : 'Esquivaste el ataque.';
+        }, mode ? 650 : 1500);
+        return '';
+      }]
+    ]
+  },
+  'armas-situacionales': {
+    modes: ['Pasillos', 'Campo abierto'],
+    start: () => ({round: 0, hits: 0, ammo: 0}),
+    view: s => [['Encuentros', s.round + ' / 4'], ['Resueltos de un tiro', s.hits], ['Disparos necesarios', s.ammo]],
+    hint: (s, mode) => s.round >= 4 ? 'Ronda completa.' :
+      'Distancia del próximo encuentro: ' + ((s.round === 3 ? !mode : Boolean(mode)) ? 'lejos.' : 'cerca.'),
+    actions: (s, mode) => ['Escopeta', 'Rifle'].map((label, weapon) =>
+      [label, s.round < 4, () => {
+        const far = s.round === 3 ? !mode : Boolean(mode);
+        const quick = far === Boolean(weapon);
+        s.round++;
+        s.ammo += quick ? 1 : 3;
+        if (quick) s.hits++;
+        return quick ? 'Resuelto con un disparo.' : 'Hicieron falta tres disparos.';
+      }])
+  }
+};
+
+function addSystemLab(config, id) {
+  const lab = element('section', '', 'referencias laboratorio-sistemas');
+  lab.setAttribute('aria-label', 'Prueba interactiva');
+  lab.tabIndex = 0;
+  const lanes = id === 'avisar-ataques' ? element('div', '', 'lab-carriles') : null;
+  if (lanes) lanes.setAttribute('aria-hidden', 'true');
+  let state = config.start();
+  let mode = 0;
+  let timer;
+  const stats = element('dl', '', 'lab-estadisticas');
+  const hint = element('p', '');
+  hint.setAttribute('role', 'status');
+  const feedback = element('p', '');
+  feedback.setAttribute('role', 'status');
+  const controls = element('div', '', 'lab-botones');
+
+  const reset = () => {
+    clearTimeout(timer);
+    state = config.start();
+    feedback.textContent = '';
+    render();
+  };
+
+  if (config.modes) {
+    const label = element('label', 'Variante ');
+    const select = element('select', '');
+    for (const name of config.modes) select.append(element('option', name));
+    select.addEventListener('change', () => {
+      mode = select.selectedIndex;
+      reset();
+    });
+    label.append(select);
+    lab.append(label);
+  }
+
+  const resetButton = element('button', 'Reiniciar');
+  resetButton.type = 'button';
+  resetButton.addEventListener('click', reset);
+  lab.append(stats, hint);
+  if (lanes) lab.append(lanes);
+  lab.append(controls, feedback);
+  const schedule = (finish, delay) => {
+    timer = setTimeout(() => {
+      feedback.textContent = finish();
+      render();
+    }, delay);
+  };
+  const actions = config.actions(state, mode, schedule);
+  const buttons = actions.map(([name], index) => {
+    const button = element('button', name);
+    button.type = 'button';
+    button.addEventListener('click', () => act(index));
+    return button;
+  });
+
+  function act(index) {
+    const [, available, run] = config.actions(state, mode, schedule)[index];
+    if (!available) return;
+    const message = run();
+    if (message !== undefined) feedback.textContent = message;
+    render();
+  }
+
+  function render() {
+    stats.replaceChildren(...config.view(state, mode).map(([name, value]) => {
+      const stat = element('div', '');
+      stat.append(element('dt', name), element('dd', String(value)));
+      return stat;
+    }));
+    if (lanes) lanes.replaceChildren(...['Izquierdo', 'Central', 'Derecho'].map((name, i) => {
+      const lane = element('div', name);
+      if (state.target === i) lane.append(element('strong', 'Ataque'));
+      if (state.lane === i) lane.append(element('span', 'Tú'));
+      lane.classList.toggle('amenaza', state.target === i);
+      return lane;
+    }));
+    const nextHint = config.hint(state, mode);
+    if (hint.textContent !== nextHint) hint.textContent = nextHint;
+    config.actions(state, mode, schedule).forEach(([, available], index) => {
+      buttons[index].setAttribute('aria-disabled', String(!available));
+    });
+  }
+
+  if (id === 'avisar-ataques') lab.addEventListener('keydown', event => {
+    if (event.target.tagName === 'SELECT' || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+    event.preventDefault();
+    act(event.key === 'ArrowLeft' ? 0 : 1);
+  });
+  controls.append(...buttons, resetButton);
+  reading.append(lab);
+  render();
+}
+
 function showReading(entries, archive) {
   const id = params.get('lectura') ?? archive?.id;
   if (!id) {
@@ -645,10 +900,11 @@ function showReading(entries, archive) {
   const title = element('h1', resource?.titulo ?? 'Recurso no encontrado');
   title.id = 'titulo-lectura';
   const archiveReading = resource && isArchive(resource);
-  const archiveIndex = archiveReading ? element('nav', '', 'referencias') : null;
-  const index = archiveReading ? element('ol', '') : null;
+  const systemLab = resource?.laboratorio && Object.hasOwn(systemLabs, resource.laboratorio) ? systemLabs[resource.laboratorio] : null;
+  const archiveIndex = archiveReading || systemLab ? element('nav', '', 'referencias') : null;
+  const index = archiveIndex ? element('ol', '') : null;
   if (archiveIndex) {
-    archiveIndex.setAttribute('aria-label', 'Índice de la mecánica');
+    archiveIndex.setAttribute('aria-label', 'Índice de la guía');
     archiveIndex.append(element('h2', 'Índice'), index);
   }
   const addToIndex = (heading, id) => {
@@ -658,8 +914,9 @@ function showReading(entries, archive) {
     item.append(link(heading.textContent, '#' + id));
     index.append(item);
   };
-  reading.append(link(archiveReading ? 'Volver a Mecánicas' : 'Volver a la biblioteca',
-    archiveReading ? 'como-se-juega.html?tema=Mec%C3%A1nicas#catalogo' : libraryUrl), title);
+  const systemSection = systemLab && '?' + new URLSearchParams({diseno: 'sistemas', categoria: resource.tema}) + '#catalogo';
+  reading.append(link(systemLab ? 'Volver a ' + resource.tema : archiveReading ? 'Volver a Mecánicas' : 'Volver a la biblioteca',
+    systemSection || (archiveReading ? 'como-se-juega.html?tema=Mec%C3%A1nicas#catalogo' : libraryUrl)), title);
   if (archiveIndex) reading.append(archiveIndex);
   if (resource) {
     const visualJump = id === 'salto-2d-guia';
@@ -672,7 +929,7 @@ function showReading(entries, archive) {
         pre.tabIndex = 0;
         pre.setAttribute('aria-label', 'Código C#');
         pre.append(element('code', block.trim()));
-        if (visualJump || id === 'salto-3d-guia') {
+        if (archiveReading || systemLab) {
           const details = element('details', '', 'detalle-codigo');
           details.append(element('summary', 'Ver código C#'), pre);
           reading.append(details);
@@ -685,6 +942,17 @@ function showReading(entries, archive) {
           const content = heading ? element(heading[1] === '##' ? 'h2' : 'h3', heading[2]) : element('p', paragraph);
           if (heading?.[1] === '##' && index) addToIndex(content, 'apartado-' + (index.children.length + 1) + '-' + slug(heading[2]));
           reading.append(content);
+          if (systemLab && heading?.[2] === 'Variantes de diseño') {
+            const diagram = element('ol', '', 'esquema-sistemas');
+            diagram.setAttribute('aria-label', 'Secuencia del sistema');
+            diagram.append(...resource.esquema.map(step => element('li', step)));
+            reading.insertBefore(diagram, content);
+          }
+          if (systemLab && heading?.[1] === '##' && heading[2] === 'Implementación en Unity') {
+            reading.removeChild(content);
+            addSystemLab(systemLab, id);
+            reading.append(content);
+          }
           if (id === 'salto-3d-guia' && heading?.[2] === 'Ponte al mando') addJump3D();
           if (jumpControls && heading?.[2] === 'Ponte al mando') {
             const game = document.querySelector('#plantilla-juego-salto').content.firstElementChild.cloneNode(true);
@@ -697,7 +965,7 @@ function showReading(entries, archive) {
         }
       }
     }
-    const references = showSources(resource);
+    const references = showSources(resource, entries);
     if (references && index) addToIndex(references.heading, 'referencias');
     if (resource.subtema) {
       const related = entries.filter(entry => entry.tema === resource.tema &&
@@ -723,14 +991,14 @@ function showReading(entries, archive) {
         }
       }
     }
-    if (archiveReading) document.querySelector('#catalogo').hidden = true;
+    if (archiveReading || systemLab) document.querySelector('#catalogo').hidden = true;
   }
   reading.hidden = false;
   document.querySelector('.portada').hidden = true;
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=guias-unity', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=laboratorios-sistemas', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);

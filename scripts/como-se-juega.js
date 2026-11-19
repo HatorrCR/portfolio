@@ -129,7 +129,7 @@ function showSources(resource) {
   const links = sources.filter(source => /^https:\/\//i.test(source.url ?? ''));
   if (!resource.referencia && !links.length) return;
   const section = element('section', '', 'referencias');
-  const heading = element('h2', 'Referencias y materiales');
+  const heading = element('h2', 'Fuentes');
   section.append(heading);
   if (resource.referencia) section.append(element('p', resource.referencia));
   if (links.length) {
@@ -384,16 +384,16 @@ function showReading(entries, archive) {
         }
       } else {
         for (const paragraph of block.trim().split(/\r?\n\s*\r?\n/).filter(Boolean)) {
-          const heading = paragraph.match(/^## ([^\r\n]+)$/);
-          const content = heading ? element('h2', heading[1]) : element('p', paragraph);
-          if (heading && index) addToIndex(content, 'apartado-' + (index.children.length + 1) + '-' + slug(heading[1]));
+          const heading = paragraph.match(/^(#{2,3}) ([^\r\n]+)$/);
+          const content = heading ? element(heading[1] === '##' ? 'h2' : 'h3', heading[2]) : element('p', paragraph);
+          if (heading?.[1] === '##' && index) addToIndex(content, 'apartado-' + (index.children.length + 1) + '-' + slug(heading[2]));
           reading.append(content);
-          if (jumpControls && heading?.[1] === 'Ponte al mando') {
+          if (jumpControls && heading?.[2] === 'Ponte al mando') {
             const game = document.querySelector('#plantilla-juego-salto').content.firstElementChild.cloneNode(true);
             reading.append(game);
             addPlayableJump(game, jumpControls);
           }
-          if (visualJump && heading?.[1] === '¿Pulsé demasiado pronto o demasiado tarde?') {
+          if (visualJump && heading?.[2] === '¿Pulsé demasiado pronto o demasiado tarde?') {
             reading.append(document.querySelector('#plantilla-margen-salto').content.cloneNode(true));
           }
         }
@@ -414,10 +414,15 @@ function showReading(entries, archive) {
         list.append(item);
       }
       if (related.length) {
-        const heading = element(archiveReading && references ? 'h3' : 'h2', archiveReading ? 'Fichas de las fuentes' : 'Archivo de la mecánica');
-        addToIndex(heading, 'fichas-relacionadas');
-        const destination = archiveReading && references ? references.section : reading;
-        destination.append(heading, list);
+        if (archiveReading && references) {
+          const existingList = references.section.querySelector('ul');
+          if (existingList) existingList.prepend(...list.children);
+          else references.section.append(list);
+        } else {
+          const heading = element('h2', archiveReading ? 'Fuentes' : 'Archivo de la mecánica');
+          addToIndex(heading, 'fichas-relacionadas');
+          reading.append(heading, list);
+        }
       }
     }
     if (archiveReading) document.querySelector('#catalogo').hidden = true;
@@ -427,7 +432,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=tipos-salto', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=fuentes-salto', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);

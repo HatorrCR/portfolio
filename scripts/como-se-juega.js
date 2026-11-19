@@ -437,41 +437,100 @@ function addJump3D() {
   let x, y, z, vy, grounded, requested, cut, won;
   let last = 0, elapsed = 0, pendingFrame = false;
 
+  const isPerspective = () => view.value === 'primera' || view.value === 'tercera';
+
   function draw() {
     const overhead = view.value === 'cenital';
-    const px = (x,z) => 65 + x*66 + (overhead ? 0 : z*23);
-    const py = (z,y=0) => 190 + z*(overhead ? 63 : 36) - (overhead ? 0 : y*50);
-    function polygon(points, color) {
-      ctx.fillStyle = color;
+    const firstPerson = view.value === 'primera';
+    const perspective = isPerspective();
+    const cameraX = x - (firstPerson ? 0 : 3.2);
+    const cameraY = Math.max(0.35, y + (firstPerson ? 0.62 : 2.1));
+    const pitch = firstPerson ? 0.2 : 0.44;
+    const cos = Math.cos(pitch), sin = Math.sin(pitch);
+    const near = 0.2;
+    function cameraPoint([worldX,worldZ,worldY=0]) {
+      if (!perspective) return [65 + worldX*66 + (overhead ? 0 : worldZ*23),
+        190 + worldZ*(overhead ? 63 : 36) - (overhead ? 0 : worldY*50), 1];
+      const ahead = worldX-cameraX;
+      const up = worldY-cameraY;
+      return [worldZ-z, up*cos + ahead*sin, ahead*cos - up*sin];
+    }
+    const screen = ([side,up,depth]) => perspective
+      ? [340 + 300*side/depth, 148 - 300*up/depth] : [side,up];
+    function path(points) {
+      const camera = points.map(cameraPoint);
+      const visible = [];
+      let previous = camera.at(-1);
+      for (const current of camera) {
+        if ((previous[2] >= near) !== (current[2] >= near)) {
+          const t = (near-previous[2])/(current[2]-previous[2]);
+          visible.push([previous[0]+(current[0]-previous[0])*t,previous[1]+(current[1]-previous[1])*t,near]);
+        }
+        if (current[2] >= near) visible.push(current);
+        previous = current;
+      }
+      if (visible.length < 3) return false;
       ctx.beginPath();
-      points.forEach(([x,z,y=0],i) => {
-        if (i) ctx.lineTo(px(x,z),py(z,y));
-        else ctx.moveTo(px(x,z),py(z,y));
+      visible.forEach((point,i) => {
+        const [sx,sy] = screen(point);
+        if (i) ctx.lineTo(sx,sy);
+        else ctx.moveTo(sx,sy);
       });
       ctx.closePath();
+      return true;
+    }
+    function polygon(points, color) {
+      if (!path(points)) return;
+      ctx.fillStyle = color;
       ctx.fill();
     }
+    const surface = ([l,r,n,f]) => [[l,n],[r,n],[r,f],[l,f]];
     ctx.fillStyle = '#fff6e6';
     ctx.fillRect(0,0,680,320);
-    for (const [l,r,n,f] of platforms) {
-      if (!overhead) polygon([[l,f],[r,f],[r,f,-0.3],[l,f,-0.3]], '#193c3d');
-      polygon([[l,n],[r,n],[r,f],[l,f]], '#356062');
+    if (perspective) {
+      ctx.fillStyle = '#eadac1';
+      ctx.fillRect(0,0,680,148 - 300*Math.tan(pitch));
     }
-    ctx.fillStyle = won ? '#fff6e6' : '#f7c477';
-    ctx.fillRect(px(7.7,0.9),py(0.9)-12,19,12);
-    if (shadow.checked) {
-      ctx.fillStyle = 'rgba(47,35,29,.38)';
-      ctx.beginPath();
-      ctx.ellipse(px(x,z),py(z),11,5,0,0,Math.PI*2);
-      ctx.fill();
+    for (const platform of [...platforms].reverse()) {
+      const [l,r,n,f] = platform;
+      if (perspective) polygon([[l,n],[l,f],[l,f,-0.3],[l,n,-0.3]], '#193c3d');
+      else if (!overhead) polygon([[l,f],[r,f],[r,f,-0.3],[l,f,-0.3]], '#193c3d');
+      polygon(surface(platform), '#356062');
     }
-    ctx.fillStyle = '#a64328';
-    ctx.fillRect(px(x,z)-9,py(z,y)-20,18,20);
-    ctx.fillStyle = '#fff6e6';
-    ctx.fillRect(px(x,z)+2,py(z,y)-15,4,4);
+    polygon([[7.7,0.72],[8.02,0.72],[8.02,1.12],[7.7,1.12]], won ? '#fff6e6' : '#f7c477');
+    if (!overhead) {
+      polygon([[7.72,0.9],[7.72,0.93],[7.72,0.93,0.65],[7.72,0.9,0.65]], '#40382e');
+      polygon([[7.72,0.9,0.65],[7.72,1.22,0.65],[7.72,1.22,0.46],[7.72,0.9,0.46]], '#f7c477');
+    }
+    const supportingPlatform = y >= 0 && platforms.find(([l,r,n,f]) => x>=l && x<=r && z>=n && z<=f);
+    if (shadow.checked && supportingPlatform && path(surface(supportingPlatform))) {
+      ctx.save();
+      ctx.clip();
+      const disc = Array.from({length:16}, (_,i) => {
+        const angle = i*Math.PI/8;
+        return [x+Math.cos(angle)*0.24,z+Math.sin(angle)*0.2];
+      });
+      polygon(disc, 'rgba(47,35,29,.42)');
+      ctx.restore();
+    }
+    if (!firstPerson) {
+      const foot = cameraPoint([x,z,y]);
+      if (foot[2] >= near) {
+        const [sx,sy] = screen(foot);
+        const size = perspective ? Math.min(32,72/foot[2]) : 20;
+        ctx.fillStyle = '#a64328';
+        ctx.fillRect(sx-size/2,sy-size,size*0.9,size);
+        ctx.fillStyle = '#fff6e6';
+        ctx.fillRect(sx+size*0.1,sy-size*0.73,4,4);
+      }
+    } else {
+      ctx.fillStyle = '#40382e';
+      ctx.fillRect(334,157,12,2);
+      ctx.fillRect(339,152,2,12);
+    }
     ctx.fillStyle = '#40382e';
     ctx.font = '16px system-ui';
-    ctx.fillText('W / ↑  al fondo     S / ↓  hacia ti', 24, 292);
+    if (!perspective) ctx.fillText('W / ↑  al fondo     S / ↓  hacia ti', 24, 309);
   }
 
   function reset(message) {
@@ -484,8 +543,10 @@ function addJump3D() {
   }
 
   function update() {
-    const dx = Number(held.has('KeyD')) - Number(held.has('KeyA'));
-    const dz = Number(held.has('KeyS')) - Number(held.has('KeyW'));
+    const lateral = Number(held.has('KeyD')) - Number(held.has('KeyA'));
+    const forward = Number(held.has('KeyW')) - Number(held.has('KeyS'));
+    const dx = isPerspective() ? forward : lateral;
+    const dz = isPerspective() ? lateral : -forward;
     const speed = 5.5 / Math.max(1, Math.hypot(dx,dz));
     x = Math.max(0, Math.min(8.6,x+dx*speed*step));
     z = Math.max(-2, Math.min(1.9,z+dz*speed*step));

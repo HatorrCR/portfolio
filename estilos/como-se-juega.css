@@ -114,3 +114,15 @@ footer { border-top: 1px solid var(--linea); }
 .barra { flex-wrap: wrap; row-gap: 8px; }
 #novedades { border-top: 3px double var(--tinta); margin-top: 36px; padding: 24px 0 48px; }
 #novedades h2 { margin-bottom: 20px; }
+
+.laboratorio-salto { padding: clamp(12px,3vw,24px); margin-block: 20px; border: 1px solid var(--linea); background: #fff8eb; }
+.laboratorio-salto canvas { display: block; width: 100%; height: auto; background: #fffdf7; border: 1px solid var(--linea); }
+.ajustes-salto { display: grid; grid-template-columns: repeat(auto-fit,minmax(175px,1fr)); gap: 8px 18px; margin-block: 14px; }
+.ajustes-salto label { display: grid; gap: 4px; }
+.ajustes-salto input { width: 100%; accent-color: #8a3721; }
+.detalle-codigo { border-block: 1px solid var(--linea); margin-block: 12px; padding: 10px 0; }
+.detalle-codigo summary { cursor: pointer; font-weight: 700; }
+
+.margen-salto { display: grid; gap: 8px; margin-block: 14px; }
+.margen-salto p { display: grid; grid-template-columns: repeat(auto-fit,minmax(145px,1fr)); gap: 6px; margin: 0; }
+.margen-salto strong, .margen-salto span { padding: 7px 10px; background: #fff8eb; border-left: 3px solid #b96442; }

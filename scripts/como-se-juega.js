@@ -150,15 +150,46 @@ function addPlayableJump(lab, controls) {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
   const status = lab.querySelector('[data-estado-juego]');
+  const trace = lab.querySelector('[data-registro-salto]');
+  const mode = lab.querySelector('[data-escenario-salto]');
+  const air = lab.querySelector('[data-control-aereo]');
+  const sensor = lab.querySelector('[data-sensor-salto]');
+  const effects = lab.querySelector('[data-efectos-salto]');
   const coyote = lab.querySelector('[data-ayuda="coyote"]');
   const buffer = lab.querySelector('[data-ayuda="buffer"]');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const held = new Map();
-  const platformAt = x => x <= 3 || x >= 6;
   const isHeld = action => [...held.values()].includes(action);
+  const scenes = {
+    normal: {platforms: [[0,3,0],[6,10,0]], goal: [9.3,0]},
+    estrecha: {platforms: [[0,3,0],[6,6.85,0],[8,10,0]], goal: [9.3,0]},
+    oculta: {platforms: [[0,3,0],[6,10,0]], goal: [9.3,0], hiddenLanding: true},
+    rebote: {platforms: [[0,10,0],[6.7,9.7,2.65]], goal: [8.9,2.65], enemy: 5.4}
+  };
   const step = 1 / 120;
-  let x, y, vx, vy, grounded, grace, queued, shortHop, won;
-  let last = 0;
-  let elapsed = 0;
+  let scene, x, y, vx, vy, grounded, grace, queued, shortHop, won, enemyAlive, revealed, landingEffect;
+  let last = 0, elapsed = 0, clock = 0, events = [], audio;
+
+  function record(message) {
+    events = [...events.slice(-4), Math.round(clock * 1000) + ' ms · ' + message];
+    trace.replaceChildren(...events.map(value => element('li', value)));
+  }
+
+  function landingFeedback() {
+    if (!effects.checked) return;
+    landingEffect = 0.18;
+    if (!audio || audio.state !== 'running') return;
+    const oscillator = audio.createOscillator();
+    const gain = audio.createGain();
+    const now = audio.currentTime;
+    oscillator.frequency.setValueAtTime(150, now);
+    oscillator.frequency.exponentialRampToValueAtTime(60, now + 0.1);
+    gain.gain.setValueAtTime(0.055, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
+    oscillator.connect(gain).connect(audio.destination);
+    oscillator.start(now);
+    oscillator.stop(now + 0.12);
+  }
 
   function paint() {
     const px = value => 25 + value * 62;
@@ -166,40 +197,68 @@ function addPlayableJump(lab, controls) {
     ctx.fillStyle = '#fff6e6';
     ctx.fillRect(0, 0, 680, 252);
     ctx.fillStyle = '#dec9ad';
-    for (let line = 1; line <= 3; line++) ctx.fillRect(25, py(line), 620, 1);
+    for (let line = 1; line <= 4; line++) ctx.fillRect(25, py(line), 620, 1);
     ctx.fillStyle = '#254f52';
-    ctx.fillRect(px(0), py(0), 186, 47);
-    ctx.fillRect(px(6), py(0), 248, 47);
-    ctx.fillStyle = '#40382e';
+    for (const [left,right,top] of scene.platforms) {
+      if (scene.hiddenLanding && left > 0 && !revealed) continue;
+      ctx.fillRect(px(left), py(top), (right-left)*62, top ? 12 : 47);
+    }
+    const [goalX,goalY] = scene.goal;
+    if (!scene.hiddenLanding || revealed) {
+      ctx.fillStyle = '#40382e';
+      ctx.fillRect(px(goalX), py(goalY)-44, 3, 44);
+      ctx.fillStyle = won ? '#254f52' : '#a64328';
+      ctx.fillRect(px(goalX)+3, py(goalY)-44, 23, 14);
+    }
     ctx.font = '15px system-ui';
-    ctx.fillText('Hueco de 3 unidades', px(3) + 25, 230);
-    ctx.fillRect(px(9.3), py(0) - 49, 3, 49);
-    ctx.fillStyle = won ? '#254f52' : '#a64328';
-    ctx.fillRect(px(9.3) + 3, py(0) - 49, 24, 15);
-    ctx.fillRect(px(x) - 10, py(y) - 22, 20, 20);
+    ctx.fillStyle = '#40382e';
+    if (scene.hiddenLanding && !revealed) ctx.fillText('La llegada aparece al despegar', 270, 230);
+    else if (scene.enemy != null && enemyAlive) {
+      ctx.fillStyle = '#a64328';
+      ctx.fillRect(px(1.65)-8, py(0)-3, 16, 3);
+      ctx.fillStyle = '#623c83';
+      ctx.fillRect(px(scene.enemy)-14, py(0.75), 28, 35);
+    } else if (scene.enemy == null) ctx.fillText('Hueco de 3 unidades', 250, 230);
+    const effectVisible = effects.checked && landingEffect > 0 && !reducedMotion.matches;
+    const stretch = effectVisible ? 4 : 0;
+    if (effectVisible) {
+      ctx.fillStyle = '#ad8059';
+      const spread = 18 + (0.18 - landingEffect) * 105;
+      ctx.fillRect(px(x)-spread-4, py(y)-4, 5, 3);
+      ctx.fillRect(px(x)+spread, py(y)-5, 5, 3);
+    }
+    ctx.fillStyle = '#a64328';
+    ctx.fillRect(px(x)-10-stretch, py(y)-22+stretch, 20+stretch*2, 20-stretch);
     ctx.fillStyle = '#fff6e6';
-    ctx.fillRect(px(x) + (vx < 0 ? -5 : 2), py(y) - 17, 4, 4);
+    ctx.fillRect(px(x)+(vx<0?-5:2), py(y)-17+stretch, 4, 4);
+    if (sensor.checked) {
+      ctx.strokeStyle = '#9931a5';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(px(x)-10, py(y)-22, 20, 22);
+      ctx.fillStyle = '#9931a5';
+      ctx.fillRect(px(x)-3, py(y)-3, 6, 6);
+      for (const [left,right,top] of scene.platforms) {
+        if (scene.hiddenLanding && left > 0 && !revealed) continue;
+        ctx.fillRect(px(left)-1, py(top)-6, 2, 12);
+        ctx.fillRect(px(right)-1, py(top)-6, 2, 12);
+      }
+    }
   }
 
-  function reset(message) {
+  function reset(message, keepTrace = false) {
+    scene = scenes[mode.value] ?? scenes.normal;
     x = 1.2;
-    y = vx = vy = grace = 0;
+    y = vx = vy = grace = landingEffect = 0;
     queued = -1;
-    grounded = true;
-    shortHop = won = false;
+    grounded = enemyAlive = true;
+    shortHop = won = revealed = false;
+    if (!keepTrace) {
+      clock = 0;
+      events = [];
+      trace.replaceChildren();
+    }
     status.textContent = message;
     paint();
-  }
-
-  function press(key, action) {
-    if (held.has(key)) return;
-    if (action === 'reiniciar') {
-      held.clear();
-      reset('Otra vez desde el inicio.');
-      return;
-    }
-    if (action === 'salto' && !isHeld('salto')) queued = buffer.checked ? 0.1 : 0;
-    held.set(key, action);
   }
 
   const keys = {ArrowLeft:'izquierda', KeyA:'izquierda', ArrowRight:'derecha', KeyD:'derecha', Space:'salto', KeyR:'reiniciar'};
@@ -207,55 +266,95 @@ function addPlayableJump(lab, controls) {
     const action = keys[event.code];
     if (!action) return;
     event.preventDefault();
-    if (!event.repeat) press(event.code, action);
+    if (event.repeat) return;
+    if (effects.checked && window.AudioContext) {
+      try {
+        audio ??= new window.AudioContext();
+        if (audio.state === 'suspended') audio.resume().catch(() => {});
+      } catch { /* El audio es opcional. */ }
+    }
+    if (action === 'reiniciar') {
+      held.clear();
+      reset('Otra vez desde el inicio.');
+      return;
+    }
+    if (action === 'salto') {
+      queued = buffer.checked ? 0.1 : 0;
+      record('Pulsas salto');
+    }
+    held.set(event.code, action);
   });
   canvas.addEventListener('keyup', event => held.delete(event.code));
   canvas.addEventListener('blur', () => held.clear());
   window.addEventListener('blur', () => held.clear());
+  mode.addEventListener('change', () => {
+    held.clear();
+    reset('Escenario listo. Vuelve al recuadro para jugar.');
+  });
 
   function update() {
+    clock += step;
+    landingEffect = Math.max(0, landingEffect-step);
     const height = Number(controls.altura.value);
     const rise = Number(controls.subida.value);
-    const fallGravity = Number(controls.caida.value);
     const gravity = 2 * height / (rise * rise);
     const launch = gravity * rise;
-    vx = 6 * (Number(isHeld('derecha')) - Number(isHeld('izquierda')));
-    x = Math.max(0.15, Math.min(9.8, x + vx * step));
-    if (grounded && !platformAt(x)) {
+    const targetX = 6 * (Number(isHeld('derecha')) - Number(isHeld('izquierda')));
+    if (grounded || air.value === 'inmediato') vx = targetX;
+    else if (air.value === 'progresivo') vx += Math.max(-18*step, Math.min(18*step, targetX-vx));
+    x = Math.max(0.15, Math.min(scene.enemy != null && won ? 9.55 : 9.8, x + vx*step));
+    if (grounded && !scene.platforms.some(([l,r,top]) => x >= l && x <= r && y === top)) {
       grounded = false;
       grace = 0.1;
+      if (scene.hiddenLanding) revealed = true;
+      record('Sales del borde' + (coyote.checked ? ' · margen de 100 ms' : ''));
     }
     if (queued >= 0 && (grounded || (coyote.checked && grace > 0))) {
+      record(grounded ? 'Despegas desde el suelo' : 'Despegas gracias al tiempo de coyote');
       vy = launch;
-      grounded = false;
-      shortHop = false;
+      grounded = shortHop = false;
+      revealed = true;
       queued = -1;
       grace = 0;
     }
     if (!grounded) {
       if (vy > 0 && !shortHop && !isHeld('salto')) {
-        vy = Math.min(vy, launch * 0.45);
+        vy = Math.min(vy, launch*0.45);
         shortHop = true;
       }
       const oldY = y;
-      y += vy * step;
-      vy -= gravity * (vy > 0 ? 1 : fallGravity) * step;
-      if (vy <= 0 && oldY >= 0 && y <= 0 && platformAt(x)) {
-        grounded = true;
-        y = vy = grace = 0;
+      y += vy*step;
+      vy -= gravity * (vy > 0 ? 1 : Number(controls.caida.value)) * step;
+      if (enemyAlive && scene.enemy != null && vy <= 0 && oldY >= 0.75 && y <= 0.75 && Math.abs(x-scene.enemy) <= 0.23) {
+        enemyAlive = false;
+        shortHop = true;
+        y = 0.75;
+        vy = Math.sqrt(2*gravity*2.55);
+        record('Pisotón: rebotas hacia la repisa');
+        status.textContent = '¡Rebote! Sigue hacia la repisa.';
+        landingFeedback();
+      } else if (vy <= 0) {
+        const surfaces = scene.platforms.filter(([l,r,top]) => x>=l && x<=r && oldY>=top && y<=top);
+        if (surfaces.length) {
+          y = Math.max(...surfaces.map(platform => platform[2]));
+          grounded = true;
+          vy = grace = 0;
+          record(queued >= 0 ? 'Aterrizas con un salto pendiente' : 'Aterrizas');
+          landingFeedback();
+        }
       }
     }
-    if (queued >= 0) queued -= step;
-    grace = Math.max(0, grace - step);
-    if (y < -3) reset('Al foso. Prueba a despegar más cerca del borde o dale un poco más de tiempo al salto.');
-    if (!won && grounded && x >= 9.3) {
+    if (queued >= 0 && (queued -= step) < 0) record('Caduca la pulsación');
+    if (grace > 0 && (grace = Math.max(0,grace-step)) === 0 && coyote.checked) record('Se acaba el tiempo de coyote');
+    if (y < -3) reset('Al foso. El registro conserva lo que pasó justo antes de caer.', true);
+    if (!won && grounded && x >= scene.goal[0] && y === scene.goal[1]) {
       won = true;
-      status.textContent = 'Bandera conseguida. Dale más gravedad a la caída y prueba otra vez desde el mismo sitio.';
+      status.textContent = 'Bandera conseguida. Cambia una sola opción y vuelve a intentarlo.';
     }
   }
 
   function frame(now) {
-    elapsed += last ? Math.min((now - last) / 1000, 0.05) : 0;
+    elapsed += last ? Math.min((now-last)/1000, 0.05) : 0;
     last = now;
     while (elapsed >= step) {
       update();
@@ -432,7 +531,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=fuentes-salto', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=seis-pruebas-salto', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const archives = catalog.filter(isArchive);

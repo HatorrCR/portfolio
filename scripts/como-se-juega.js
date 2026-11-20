@@ -2095,6 +2095,28 @@ function showReading(entries, archive) {
           if (jumpControls && heading?.[2] === 'Ponte al mando') {
             const game = document.querySelector('#plantilla-juego-salto').content.firstElementChild.cloneNode(true);
             reading.append(game);
+            const route = document.querySelector('#plantilla-ruta-salto')?.content.firstElementChild.cloneNode(true);
+            if (route) {
+              game.before(route);
+              const variants = route.querySelectorAll('[data-version-salto]');
+              const scenario = game.querySelector('[data-escenario-salto]');
+              const canvas = game.querySelector('[data-juego-salto]');
+              for (const button of variants) {
+                button.setAttribute('aria-pressed', 'false');
+                button.addEventListener('click', () => {
+                  for (const variant of variants) variant.setAttribute('aria-pressed', String(variant === button));
+                  for (const control of Object.values(jumpControls)) control.value = control.defaultValue;
+                  jumpControls.altura.dispatchEvent(new Event('input'));
+                  scenario.value = 'normal';
+                  game.querySelector('[data-control-aereo]').value = 'inmediato';
+                  game.querySelector('[data-ayuda="buffer"]').checked = false;
+                  game.querySelector('[data-ayuda="coyote"]').checked = button.dataset.versionSalto === 'b';
+                  scenario.dispatchEvent(new Event('change'));
+                  canvas.focus();
+                });
+              }
+              if (location.hash === '#ruta-salto-2d') requestAnimationFrame(() => route.scrollIntoView());
+            }
             addPlayableJump(game, jumpControls);
           }
           if (visualJump && heading?.[2] === '¿Pulsé demasiado pronto o demasiado tarde?') {

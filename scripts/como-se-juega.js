@@ -27,24 +27,24 @@ const sourceSection = !isPapers && Object.hasOwn(sourceSections, sectionKey) ? s
 const disciplines = {
   sistemas: ['Diseño de sistemas', {
     'Mecánicas': 'Reglas, acciones y estados del jugador.',
-    'Dinámicas': 'Comportamientos y estrategias que surgen al interactuar las reglas.',
-    'Jugabilidad y bucles': 'Secuencias de acciones y objetivos que estructuran una partida.',
+    'Dinámicas': 'Lo que acaba haciendo la gente cuando las reglas se juntan.',
+    'Jugabilidad y bucles': 'Lo que haces una y otra vez en una partida, y por qué apetece repetir.',
     'Sistemas y economías': 'Recursos, recompensas y progresión.',
     'Dificultad y equilibrio': 'Reto, opciones viables y ajuste de parámetros.'
   }],
   niveles: ['Diseño de niveles', {
-    'Espacios y recorridos': 'Geometría, orientación, rutas y ritmo espacial.',
-    'Encuentros y puzles': 'Obstáculos, situaciones y retos colocados en un espacio.'
+    'Espacios y recorridos': 'Cómo te orientas, qué caminos eliges y cuándo decides desviarte.',
+    'Encuentros y puzles': 'Cómo colocar los obstáculos y dar pistas para resolverlos.'
   }],
   narrativa: ['Diseño narrativo', {
     'Diseño narrativo': 'Historia interactiva, personajes, mundo y decisiones narrativas.',
-    'Localización': 'Adaptación de diálogos, voz y elementos narrativos al público.'
+    'Localización': 'Cómo traducir lo que se dice sin perder la voz de quien habla.'
   }],
   interfaz: ['Interfaz y experiencia de usuario', {
     'Interfaz e interacción': 'HUD, menús, controles y navegación.',
     'Respuesta y legibilidad': 'Señales visuales o sonoras que comunican lo que ocurre.',
-    'Tutoriales y aprendizaje': 'Incorporación del jugador y enseñanza de reglas.',
-    'Experiencia de usuario y accesibilidad': 'Barreras de acceso, usabilidad y ajustes.'
+    'Tutoriales y aprendizaje': 'Cómo enseñar a jugar y cuándo viene bien una pista.',
+    'Experiencia de usuario y accesibilidad': 'Qué puede estorbar al jugar y qué ajustes ayudan.'
   }]
 };
 const areaKey = params.get('diseno');
@@ -1894,7 +1894,7 @@ function showReading(entries, archive) {
     index.append(item);
   };
   const section = editorial ? editorialSection(resource) : null;
-  reading.append(link(section ? 'Volver a ' + section.name : 'Volver a la biblioteca',
+  reading.append(link(section ? 'Volver a ' + section.name : 'Volver a la Biblioteca',
     section ? '?' + new URLSearchParams(section.query) + '#catalogo' : libraryUrl));
   if (editorial) {
     reading.classList.add(archiveReading ? 'lectura-mecanica' : 'lectura-guia');
@@ -1996,7 +1996,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=laboratorios-revisados', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=tono-editorial', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const own = catalog.filter(isEditorial);

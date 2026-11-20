@@ -1867,6 +1867,54 @@ function addDashLab(is3D) {
   reset();
 }
 
+function httpsLink(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' && !url.username && !url.password ? url : null;
+  } catch { return null; }
+}
+
+function videoFor(entry) {
+  for (const value of [entry.video, entry.fuente, ...(entry.materiales ?? []).map(item => item.url)]) {
+    const url = httpsLink(value);
+    if (!url) continue;
+    const host = url.hostname.replace(/^www\./, '');
+    const id = host === 'youtu.be' ? url.pathname.split('/')[1] : host === 'youtube.com' || host === 'm.youtube.com' ?
+      url.searchParams.get('v') ?? url.pathname.match(/^\/(?:embed|shorts)\/([^/]+)/)?.[1] : '';
+    if (/^[A-Za-z0-9_-]{11}$/.test(id ?? '')) return {url:url.href, id};
+    if (value === entry.video || entry.formato === 'Vídeo' || host === 'gdcvault.com' && url.pathname.startsWith('/play/')) {
+      return {url:url.href};
+    }
+  }
+  return null;
+}
+
+function videoBlock(entry, video) {
+  const block = element('section', '', 'video-biblioteca');
+  block.append(element('h3', 'Vídeo'), link('Abrir el vídeo en su fuente', video.url));
+  if (video.id) {
+    const preview = element('button', '', 'video-miniatura');
+    preview.type = 'button';
+    preview.setAttribute('aria-label', 'Reproducir: ' + entry.titulo);
+    const image = element('img', '');
+    image.alt = '';
+    image.loading = 'lazy';
+    image.src = 'https://i.ytimg.com/vi/' + video.id + '/hqdefault.jpg';
+    preview.append(image, element('span', 'Reproducir vídeo'));
+    preview.addEventListener('click', () => {
+      const player = element('iframe', '');
+      player.title = entry.titulo;
+      player.src = 'https://www.youtube-nocookie.com/embed/' + video.id + '?autoplay=1';
+      player.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      player.allowFullscreen = true;
+      preview.replaceWith(player);
+      player.focus();
+    });
+    block.append(preview);
+  }
+  return block;
+}
+
 function renderLibraryReading(resource, entries) {
   reading.classList.add('lectura-biblioteca');
   const intro = element('section', '', 'entrada-biblioteca');
@@ -1881,6 +1929,8 @@ function renderLibraryReading(resource, entries) {
     summary.append(heading ? element('h3', heading[1]) : element('p', paragraph));
   }
 
+  const video = videoFor(resource);
+  if (video) summary.append(videoBlock(resource, video));
   const supplementary = resource.materiales ?? [];
   if (supplementary.length || resource.figuras?.length || resource.esquemaBiblioteca || resource.fragmento) {
     const materials = element('div', '', 'materiales-biblioteca');
@@ -1901,6 +1951,8 @@ function renderLibraryReading(resource, entries) {
       image.addEventListener('error', () => { image.hidden = true; });
       const caption = element('figcaption', asset.pie + ' ');
       caption.append(link('Abrir imagen original', asset.url));
+      const videoUrl = httpsLink(asset.video) ?? (asset.miniatura && video ? httpsLink(video.url) : null);
+      if (videoUrl) caption.append(element('span', ' · '), link('Ver el vídeo', videoUrl.href));
       if (asset.url.endsWith('.gif')) {
         const animation = element('details', '', 'animacion-biblioteca');
         animation.append(element('summary', 'Ver animación'), image);
@@ -1990,6 +2042,7 @@ function showReading(entries, archive) {
   } else {
     reading.append(title);
   }
+  if (catalogDrafts().some(draft => draft.id === id)) reading.append(element('p', 'Estás viendo tu borrador local.', 'meta'));
   if (archiveIndex) reading.append(archiveIndex);
   if (resource) {
     const visualJump = id === 'salto-2d-guia';
@@ -2197,10 +2250,132 @@ function renderThemedHub(sections, own) {
   }
 }
 
+const catalogDraftKey = 'como-se-juega-fichas-borrador';
+const editableFields = {
+  id: 'Identificador', titulo: 'Título', tema: 'Tema', subtema: 'Subtema',
+  formato: 'Formato', idioma: 'Idioma', resumen: 'De qué va', cuerpo: 'Resumen y puntos clave',
+  referencia: 'Referencia', fuente: 'Fuente original', video: 'Enlace del vídeo'
+};
+
+function catalogDrafts() {
+  try {
+    const draft = JSON.parse(localStorage.getItem(catalogDraftKey) ?? '[]');
+    return Array.isArray(draft) ? draft.filter(entry => entry && typeof entry.id === 'string') : [];
+  } catch { return []; }
+}
+
+function applyCatalogDrafts(published) {
+  const entries = new Map(published.map(entry => [entry.id, entry]));
+  for (const draft of catalogDrafts()) entries.set(draft.id, draft);
+  return [...entries.values()];
+}
+
+function setupCatalogEditor(published, catalog) {
+  const dialog = document.querySelector('#editor-catalogo');
+  const open = document.querySelector('#abrir-editor');
+  if (!dialog || !open) return;
+  const picker = dialog.querySelector('#ficha-editor');
+  const fields = dialog.querySelector('#campos-editor');
+  const extras = dialog.querySelector('#extras-editor');
+  const status = dialog.querySelector('#estado-editor');
+  const inputs = new Map();
+  const records = new Map(catalog.map(entry => [entry.id, entry]));
+  const existing = new Set(published.map(entry => entry.id));
+  for (const entry of [...catalog].sort((a,b) => a.titulo.localeCompare(b.titulo, 'es'))) {
+    const option = element('option', entry.titulo);
+    option.value = entry.id;
+    picker.append(option);
+  }
+  for (const [key, label] of Object.entries(editableFields)) {
+    const row = element('label', label);
+    const input = element(['cuerpo','resumen'].includes(key) ? 'textarea' : 'input', '');
+    input.rows = key === 'cuerpo' ? 10 : 3;
+    input.required = ['id','titulo','tema','formato','resumen','cuerpo'].includes(key);
+    if (key === 'id') input.pattern = '[a-z0-9\\-]+';
+    if (['fuente','video'].includes(key)) input.type = 'url';
+    row.append(input);
+    inputs.set(key, input);
+    fields.append(row);
+  }
+  function select(id) {
+    picker.value = records.has(id) ? id : '';
+    const entry = records.get(picker.value) ?? {formato:'Artículo', idioma:'Español'};
+    for (const [key,input] of inputs) input.value = entry[key] ?? '';
+    inputs.get('id').readOnly = Boolean(picker.value);
+    extras.value = JSON.stringify(Object.fromEntries(Object.entries(entry).filter(([key]) => !Object.hasOwn(editableFields,key))), null, 2);
+    status.textContent = catalogDrafts().some(draft => draft.id === id) ? 'Esta ficha tiene un borrador local.' : '';
+  }
+
+  dialog.querySelector('#form-editor').addEventListener('submit', event => {
+    event.preventDefault();
+    try {
+      const entry = JSON.parse(extras.value || '{}');
+      if (!entry || Array.isArray(entry) || typeof entry !== 'object') throw Error('Los campos adicionales deben ser un objeto JSON.');
+      for (const [key,input] of inputs) {
+        delete entry[key];
+        if (input.value.trim()) entry[key] = input.value.trim();
+      }
+      if (!/^[a-z0-9-]+$/.test(entry.id) || (!picker.value && records.has(entry.id))) throw Error('Elige un identificador válido que todavía no exista.');
+      for (const key of ['fuente','video']) if (entry[key] && !httpsLink(entry[key])) throw Error('Usa una dirección HTTPS en ' + editableFields[key] + '.');
+      const arrays = {juegos:['nombre','observacion'], materiales:['nombre','url'], figuras:['url','alt','pie']};
+      for (const [key, keys] of Object.entries(arrays)) {
+        if (entry[key] !== undefined && (!Array.isArray(entry[key]) || entry[key].some(item => !item ||
+          keys.some(name => typeof item[name] !== 'string' || !item[name].trim()) || (keys.includes('url') && !httpsLink(item.url))))) {
+          throw Error('Revisa la lista «' + key + '» y sus campos: ' + keys.join(', ') + '.');
+        }
+      }
+      if (entry.fuentes !== undefined && (!Array.isArray(entry.fuentes) || entry.fuentes.some(id => typeof id !== 'string'))) {
+        throw Error('El campo «fuentes» debe ser una lista de identificadores.');
+      }
+      if (entry.esquemaBiblioteca && (!Array.isArray(entry.esquemaBiblioteca.flujo) || entry.esquemaBiblioteca.flujo.some(step => typeof step !== 'string'))) {
+        throw Error('El campo «flujo» del esquema debe ser una lista de textos.');
+      }
+      const drafts = catalogDrafts().filter(draft => draft.id !== entry.id);
+      drafts.push(entry);
+      localStorage.setItem(catalogDraftKey, JSON.stringify(drafts));
+      location.assign('como-se-juega.html?lectura=' + encodeURIComponent(entry.id));
+    } catch (error) { status.textContent = error.message; }
+  });
+  dialog.querySelector('#exportar-editor').addEventListener('click', async () => {
+    try {
+      if (!catalogDrafts().length) throw Error('Guarda al menos un borrador antes de descargar.');
+      const response = await fetch('datos/como-se-juega.json', {cache:'no-cache'});
+      if (!response.ok) throw Error('No se pudo comprobar la versión pública del catálogo.');
+      const latest = await response.json();
+      const all = applyCatalogDrafts(latest);
+      const file = new Blob([JSON.stringify(all,null,2) + '\n'], {type:'application/json'});
+      const url = URL.createObjectURL(file);
+      const anchor = link('', url);
+      anchor.download = 'como-se-juega.json';
+      anchor.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      status.textContent = 'Descargado. Incluye las fichas publicadas y tus borradores.';
+    } catch (error) { status.textContent = error.message; }
+  });
+  dialog.querySelector('#descartar-editor').addEventListener('click', () => {
+    const id = picker.value;
+    const drafts = catalogDrafts();
+    if (!drafts.some(draft => draft.id === id)) { status.textContent = 'Esta ficha no tiene borrador.'; return; }
+    try {
+      localStorage.setItem(catalogDraftKey, JSON.stringify(drafts.filter(draft => draft.id !== id)));
+      location.assign(existing.has(id) ? 'como-se-juega.html?lectura=' + encodeURIComponent(id) : 'como-se-juega.html?seccion=biblioteca');
+    } catch (error) { status.textContent = error.message; }
+  });
+  picker.addEventListener('change', () => select(picker.value));
+  dialog.querySelector('#cerrar-editor').addEventListener('click', () => dialog.close());
+  open.hidden = false;
+  open.addEventListener('click', () => {
+    select(params.get('lectura') ?? catalog.find(entry => isArchive(entry) && slug(entry.subtema) === collection)?.id);
+    dialog.showModal();
+  });
+}
+
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=fichas-biblioteca', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=editor-y-videos', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
-  const catalog = await response.json();
+  const published = await response.json();
+  const catalog = applyCatalogDrafts(published);
+  setupCatalogEditor(published, catalog);
   const own = catalog.filter(isEditorial);
   const sources = catalog.filter(entry => !isEditorial(entry));
   const archives = own.filter(isArchive);
@@ -2362,6 +2537,8 @@ async function loadCatalog() {
       title.append(link(entry.titulo, '?' + libraryQuery({...(topic.value ? {tema: topic.value} : {}), lectura: entry.id})));
       card.append(element('div', entry.formato + ' · ' + entry.tema, 'meta'), title,
         element('p', entry.resumen), countBadge(countSourceLinks(entry), 'enlace', 'enlaces'));
+      const video = videoFor(entry);
+      if (video) card.append(link('Ver vídeo', video.url));
       return card;
     }));
     status.textContent = matches.length === 1 ? '1 recurso' : matches.length ? matches.length + ' recursos' :

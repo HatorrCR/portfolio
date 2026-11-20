@@ -630,3 +630,21 @@ body { padding-bottom: 60px; }
 .ejemplos-biblioteca dt { font-weight: 750; color: var(--acento); }
 .ejemplos-biblioteca dd { margin: 0 0 .7rem; }
 [data-tema="oscuro"] :is(.entrada-biblioteca,.figura-biblioteca) { background: var(--panel-oscuro); }
+
+.video-biblioteca { margin-block: 1rem; padding: .85rem; border: 1px solid var(--linea); }
+.video-biblioteca h3 { margin-bottom: .45rem; }
+.video-biblioteca iframe, .video-miniatura {
+  display: block; width: 100%; aspect-ratio: 16 / 9; margin-top: .75rem; border: 0; background: #252525;
+}
+.video-miniatura { position: relative; padding: 0; cursor: pointer; color: #fff; }
+.video-miniatura img { width: 100%; height: 100%; object-fit: cover; }
+.video-miniatura span { position: absolute; left: 50%; top: 50%; translate: -50% -50%; background: #171717e8; padding: .5rem .75rem; border-radius: 4px; }
+#abrir-editor { position: fixed; z-index: 10; bottom: max(16px, env(safe-area-inset-bottom)); left: max(16px, env(safe-area-inset-left)); }
+#abrir-editor, #editor-catalogo button { min-height: 44px; padding: .4rem .75rem; border: 1px solid var(--linea); background: var(--papel); color: var(--tinta); font: inherit; border-radius: 4px; cursor: pointer; }
+#editor-catalogo { width: min(800px, calc(100% - 26px)); max-height: 92dvh; border: 1px solid var(--linea); background: var(--papel); color: var(--tinta); padding: clamp(.8rem, 3vw, 1.5rem); }
+#editor-catalogo::backdrop { background: #101412aa; }
+#editor-catalogo header, .acciones-editor { display: flex; justify-content: space-between; align-items: center; gap: .55rem; flex-wrap: wrap; }
+#campos-editor { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,15rem),1fr)); gap: .65rem; margin-block: .75rem; }
+#campos-editor label:has(textarea) { grid-column: 1 / -1; }
+#editor-catalogo textarea { display: block; width: 100%; margin-top: 4px; padding: 8px; border: 1px solid var(--linea); background: var(--papel); color: var(--tinta); font: inherit; }
+#editor-catalogo details summary { cursor: pointer; }

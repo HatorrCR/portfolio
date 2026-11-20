@@ -2292,5 +2292,448 @@
         "observacion": "Fíjate en cómo el tema de un personaje cambia las reglas de una de sus escenas mentales."
       }
     ]
+  },
+  {
+    "id": "fernandez-vara-narrativa-indicial",
+    "titulo": "Leer una historia a partir de lo que dejó en el escenario",
+    "tema": "Diseño narrativo",
+    "formato": "Estudio",
+    "idioma": "Inglés",
+    "resumen": "El artículo estudia cómo reconstruimos una historia a partir de huellas y objetos repartidos por el espacio.",
+    "cuerpo": "## En qué fijarte\n\nUna pista funciona como indicio cuando lo que ves te lleva a inferir qué lo produjo. Pon una llave debajo de un tablón recién movido y compara lo que cuenta esa colocación con lo que diría una nota. El espacio puede darte información que necesitas para decidir cómo seguir, además de sugerir qué ocurrió.",
+    "referencia": "Clara Fernández-Vara (2011). Game Spaces Speak Volumes: Indexical Storytelling. DiGRA.",
+    "fuente": "https://dl.digra.org/index.php/dl/article/view/512",
+    "juegos": [
+      {
+        "nombre": "Return of the Obra Dinn",
+        "observacion": "Busca una pista que solo cobre sentido al relacionar dónde estaba alguien con lo que estaba haciendo."
+      }
+    ]
+  },
+  {
+    "id": "sicart-contra-proceduralidad",
+    "titulo": "Qué aporta quien juega al significado de las reglas",
+    "tema": "Diseño narrativo",
+    "formato": "Estudio",
+    "idioma": "Inglés",
+    "resumen": "Sicart discute el lugar que ocupan las reglas y la apropiación del jugador al interpretar un juego.",
+    "cuerpo": "## En qué fijarte\n\nPrueba a observar dos partidas con el mismo conjunto de reglas. Busca algún gesto cuyo significado cambie según la intención de quien lo hace. Una lectura apoyada en las reglas se vuelve más útil si también explica qué margen hay para usarlas de otra forma.",
+    "referencia": "Miguel Sicart. Against Procedurality. Game Studies, edición alojada en 14(1).",
+    "fuente": "https://www.gamestudies.org/1401/articles/sicart_ap",
+    "juegos": [
+      {
+        "nombre": "Animal Crossing: New Horizons",
+        "observacion": "Compara qué sentido tiene colocar el mismo objeto al decorar, al guiar una visita o al preparar un juego con otra persona."
+      }
+    ]
+  },
+  {
+    "id": "gdc-into-the-breach-postmortem",
+    "titulo": "Qué se ganó y qué se perdió al recortar Into the Breach",
+    "tema": "Dificultad y equilibrio",
+    "formato": "Conferencia",
+    "idioma": "Inglés",
+    "resumen": "El equipo repasa la iteración y el contenido que quedó fuera del juego durante el desarrollo.",
+    "cuerpo": "## En qué fijarte\n\nEn un prototipo con muchas opciones, compara el turno antes y después de quitar una regla. Mira qué decisiones desaparecen y qué otras se entienden mejor. El postmortem es una forma de seguir cómo cambian las prioridades con las pruebas, a partir de situaciones concretas del desarrollo.",
+    "referencia": "Subset Games (2019). Into the Breach Design Postmortem. GDC.",
+    "fuente": "https://gdcvault.com/play/1026333/-Into-the-Breach-Design",
+    "juegos": [
+      {
+        "nombre": "Into the Breach",
+        "observacion": "Antes de actuar, cuenta cuántas amenazas puedes explicar con lo que ya está visible en el tablero."
+      }
+    ]
+  },
+  {
+    "id": "gdc-ftl-postmortem",
+    "titulo": "Diseñar FTL a partir de una sensación",
+    "tema": "Sistemas y economías",
+    "formato": "Conferencia",
+    "idioma": "Inglés",
+    "resumen": "El postmortem explica cómo prototiparon una experiencia a partir de la sensación de estar al mando de una nave.",
+    "cuerpo": "## En qué fijarte\n\nEl objetivo inicial sirve para comparar ideas que en papel parecen igual de buenas. Monta una avería mientras queda otra amenaza activa y observa qué prioriza quien juega. Si la situación solo se resuelve haciendo clic más deprisa, revisa qué información te permite decidir dónde mandar a la tripulación.",
+    "referencia": "Subset Games (2013). Designing Without a Pitch: FTL Postmortem. GDC.",
+    "fuente": "https://www.gdcvault.com/play/1018034/Designing-Without-a-Pitch-FTL",
+    "juegos": [
+      {
+        "nombre": "FTL: Faster Than Light",
+        "observacion": "Fíjate en qué te hace mandar ayuda a un compartimento y dejar otro problema sin resolver por un momento."
+      }
+    ]
+  },
+  {
+    "id": "level-design-metrics",
+    "titulo": "Qué medir antes de decorar un nivel",
+    "tema": "Espacios y recorridos",
+    "formato": "Guía",
+    "idioma": "Inglés",
+    "resumen": "La guía propone convertir las medidas que importan al jugar en referencias que puedas comprobar durante el diseño.",
+    "cuerpo": "## En qué fijarte\n\nMonta un espacio de prueba con huecos, escalones, puertas y pasillos. Registra desde qué tamaño empieza a fallar cada acción y cómo cambia al llevar carrera o girar la cámara. Usa las medidas para hablar de la misma situación con el equipo y deja margen para los casos que piden otra escala.",
+    "referencia": "The Level Design Book. Metrics.",
+    "fuente": "https://book.leveldesignbook.com/process/blockout/metrics",
+    "juegos": [
+      {
+        "nombre": "Super Mario 64",
+        "observacion": "Compara dos pasarelas y observa cuánto espacio necesitas para girar sin salirte."
+      }
+    ]
+  },
+  {
+    "id": "level-design-blockout",
+    "titulo": "Probar la forma de un nivel con cajas",
+    "tema": "Espacios y recorridos",
+    "formato": "Guía",
+    "idioma": "Inglés",
+    "resumen": "La guía explica cómo montar geometría provisional para recorrer, medir y cambiar un nivel pronto.",
+    "cuerpo": "## En qué fijarte\n\nHaz jugable un trayecto corto con volúmenes simples. Al probarlo, anota dónde el tamaño de una sala te ayuda a orientarte y dónde una pared oculta la salida. Conviene tocar la geometría cuando aún es barato moverla. Un acabado agradable puede disimular problemas de recorrido que seguirán ahí después.",
+    "referencia": "The Level Design Book. Blockout.",
+    "fuente": "https://book.leveldesignbook.com/process/blockout",
+    "juegos": [
+      {
+        "nombre": "Portal",
+        "observacion": "Imagina una cámara sin materiales y señala qué superficies tendrían que seguir siendo distinguibles para resolverla."
+      }
+    ]
+  },
+  {
+    "id": "xag-107-entrada",
+    "titulo": "Controles que no te obliguen a jugar de una sola manera",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La guía reúne barreras de entrada relacionadas con la precisión, las pulsaciones y los dispositivos que se pueden usar.",
+    "cuerpo": "## En qué fijarte\n\nHaz el recorrido completo desde el menú hasta la partida con una configuración distinta a la habitual. Revisa por separado las combinaciones simultáneas, las pulsaciones repetidas y las acciones que exigen mantener un botón. Un cambio de asignación puede resolver una dificultad y dejar intactas las otras.",
+    "referencia": "Microsoft. Xbox Accessibility Guideline 107: Input.",
+    "fuente": "https://learn.microsoft.com/en-us/gaming/accessibility/xbox-accessibility-guidelines/107",
+    "juegos": [
+      {
+        "nombre": "Celeste",
+        "observacion": "Entra en los ajustes con mando y comprueba si puedes cambiar una acción y luego usarla en juego."
+      }
+    ]
+  },
+  {
+    "id": "xag-104-subtitulos",
+    "titulo": "Qué información tiene que caber en los subtítulos",
+    "tema": "Respuesta y legibilidad",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La guía trata cómo mostrar diálogo y señales de audio que se necesitan para seguir lo que ocurre.",
+    "cuerpo": "## En qué fijarte\n\nPrueba a jugar sin sonido. Anota en qué momento te falta saber quién habla, desde dónde llega una alerta o qué ruido anuncia un cambio. Luego añade el aviso y repite en una escena cargada. La prueba es si recuperas información a tiempo sin que el texto oculte lo que estás intentando leer.",
+    "referencia": "Microsoft. Xbox Accessibility Guideline 104: Subtitles and captions.",
+    "fuente": "https://learn.microsoft.com/en-us/gaming/accessibility/xbox-accessibility-guidelines/104",
+    "juegos": [
+      {
+        "nombre": "The Last of Us Part II",
+        "observacion": "Revisa sus opciones de subtítulos y fíjate en cuánto cambia identificar quién habla durante una escena con varias voces."
+      }
+    ]
+  },
+  {
+    "id": "demo-evolution-trust",
+    "titulo": "Jugar con lo que pasa cuando dejarse de fiar sale caro",
+    "tema": "Dinámicas",
+    "formato": "Demo",
+    "idioma": "Inglés",
+    "resumen": "Un ensayo interactivo sobre lo que cambia al repetir decisiones de cooperación con otras estrategias.",
+    "cuerpo": "## En qué fijarte\n\nUna decisión de un solo turno no cuenta lo mismo que esa decisión repetida frente a la misma persona. Prueba cuánto cambia una estrategia si aparece un error de comunicación. Te permite observar cómo alguien puede responder a una traición que en realidad fue un fallo, y qué ocurre después.",
+    "referencia": "Nicky Case (2017). The Evolution of Trust.",
+    "fuente": "https://ncase.me/trust/",
+    "juegos": [
+      {
+        "nombre": "The Evolution of Trust",
+        "observacion": "Aumenta el ruido de comunicación y compara qué estrategias se recuperan de un malentendido."
+      }
+    ]
+  },
+  {
+    "id": "godot-demo-plataformas-2d",
+    "titulo": "Leer un plataformas 2D desde una escena pequeña",
+    "tema": "Mecánicas",
+    "formato": "Código fuente",
+    "idioma": "Inglés",
+    "resumen": "Una escena de ejemplo para revisar dónde se definen el movimiento y las piezas del nivel en Godot.",
+    "cuerpo": "## En qué fijarte\n\nEjecuta el ejemplo y cambia una sola medida del recorrido. Luego cambia una sola medida del personaje. Anota qué archivos intervienen en cada cambio y qué puede ajustar otra persona desde el editor sin tocar el código de movimiento.",
+    "referencia": "Godot Engine. 2D Platformer Demo. Repositorio oficial.",
+    "fuente": "https://github.com/godotengine/godot-demo-projects/tree/master/2d/platformer",
+    "juegos": [
+      {
+        "nombre": "Godot 2D Platformer Demo",
+        "observacion": "Conserva el mismo foso y compara un cambio de diseño del nivel con uno de alcance del personaje."
+      }
+    ]
+  },
+  {
+    "id": "video-gmtk-proteger-jugadores",
+    "titulo": "Cuándo la estrategia cómoda acaba quitándole gracia al juego",
+    "tema": "Sistemas y economías",
+    "formato": "Vídeo",
+    "idioma": "Inglés",
+    "resumen": "El ensayo analiza qué ocurre cuando jugar de la forma más eficiente te empuja hacia algo que resulta menos entretenido.",
+    "cuerpo": "## En qué fijarte\n\nObserva qué recompensa el sistema antes de juzgar la estrategia del jugador. Si quedarse quieto da el mismo progreso y menos riesgo, la decisión es comprensible. Prueba a dejar dos maneras de avanzar con costes diferentes y fíjate en si las dos se usan cuando cambia la situación.",
+    "referencia": "Mark Brown. How Game Designers Protect Players From Themselves. Game Maker’s Toolkit.",
+    "fuente": "https://www.youtube.com/watch?v=7L8vAGGitr8",
+    "juegos": [
+      {
+        "nombre": "Dark Souls",
+        "observacion": "Compara probar una zona con vida y frascos suficientes frente a avanzar agotado. Fíjate en cuándo una ruta conocida pasa de ser refugio a rutina."
+      }
+    ]
+  },
+  {
+    "id": "video-minish-cap-boss-keys",
+    "titulo": "Llaves, atajos y recorridos en The Minish Cap",
+    "tema": "Encuentros y puzles",
+    "formato": "Vídeo",
+    "idioma": "Inglés",
+    "resumen": "El episodio estudia cómo se enlazan las habitaciones de las mazmorras de The Minish Cap.",
+    "cuerpo": "## En qué fijarte\n\nRepresenta cada puerta como una decisión: puede estar abierta, pedir una llave o permitir volver por un camino más corto. Después dibuja dónde se consigue lo que falta. El esquema ayuda a comprobar si una bifurcación ofrece dos recorridos reales o si solo retrasa el mismo paso.",
+    "referencia": "Mark Brown. The Legend of Zelda: The Minish Cap’s dungeon design. Boss Keys, Game Maker’s Toolkit.",
+    "fuente": "https://www.youtube.com/watch?v=KEVJXqV7XMc",
+    "juegos": [
+      {
+        "nombre": "The Legend of Zelda: The Minish Cap",
+        "observacion": "Marca una puerta que recuerdes antes de tener la llave y mira qué vueltas ahorra al abrirse."
+      }
+    ]
+  },
+  {
+    "id": "video-gmtk-discapacidad-motriz",
+    "titulo": "Qué exige el juego a tus manos para hacer una acción",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "formato": "Vídeo",
+    "idioma": "Inglés",
+    "resumen": "El ensayo revisa barreras que pueden aparecer al usar controles que piden velocidad, precisión o pulsaciones concretas.",
+    "cuerpo": "## En qué fijarte\n\nRegistra qué acciones hay que mantener, repetir rápido o combinar. Después prueba si se puede completar el mismo recorrido con otra entrada. Revisa también los menús. La alternativa tiene que estar a mano antes de encontrarte con la barrera.",
+    "referencia": "Mark Brown. Making Games Better for Players with Motor Disabilities. Game Maker’s Toolkit.",
+    "fuente": "https://www.youtube.com/watch?v=Ufe0i26DGiA",
+    "juegos": [
+      {
+        "nombre": "Celeste",
+        "observacion": "Compara cuándo puedes pulsar una acción con holgura y cuándo una combinación te obliga a recolocar la mano."
+      }
+    ]
+  },
+  {
+    "id": "outer-wilds-curiosidad-gdc",
+    "titulo": "Usar la curiosidad para que el jugador elija su próximo viaje",
+    "tema": "Espacios y recorridos",
+    "formato": "Conferencia",
+    "idioma": "Inglés",
+    "resumen": "La presentación cuenta cómo una pista puede convertirse en recompensa y a la vez en motivo para viajar a otro lugar.",
+    "cuerpo": "## En qué fijarte\n\nTermina una visita con algo que puedas explicar y una pregunta que aún te lleve a decidir. Si la pista solo indica una dirección, observa qué se gana al explicar qué podría encontrarse allí. En un mapa con varios destinos, ensaya qué pasa si una pregunta te interesa menos que otra.",
+    "referencia": "Alex Beachum. Sparking Curiosity-Driven Exploration in Outer Wilds. GDC 2021.",
+    "fuente": "https://media.gdcvault.com/GDC%2B2021/beachum_gdc_2021%281%29.pdf",
+    "juegos": [
+      {
+        "nombre": "Outer Wilds",
+        "observacion": "Después de leer una pista, anota a dónde te apetece ir y qué esperas averiguar."
+      }
+    ],
+    "video": "https://www.youtube.com/watch?v=QaGu9tGCNbI"
+  },
+  {
+    "id": "level-design-massing",
+    "titulo": "Diseñar con volúmenes antes de añadir detalle",
+    "tema": "Espacios y recorridos",
+    "formato": "Guía",
+    "idioma": "Inglés",
+    "resumen": "La guía usa formas grandes y proporciones para estudiar cómo se organiza el espacio antes de trabajar el acabado.",
+    "cuerpo": "## En qué fijarte\n\nHaz un recorrido con tres volúmenes principales. Cambia la altura de uno y vuelve a mirar por dónde se entra, qué se ve desde lejos y qué zona parece accesible. Los bordes y las proporciones ya pueden contar una parte importante del nivel antes de añadir texturas.",
+    "referencia": "The Level Design Book. Massing.",
+    "fuente": "https://book.leveldesignbook.com/process/blockout/massing",
+    "juegos": [
+      {
+        "nombre": "Portal",
+        "observacion": "Desde la entrada de una sala, identifica qué volumen organiza el recorrido y qué piezas solo te ayudan a leerlo."
+      }
+    ]
+  },
+  {
+    "id": "godot-agentes-navegacion",
+    "titulo": "Seguir una ruta con agentes de navegación en Godot",
+    "tema": "Espacios y recorridos",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La documentación explica cómo obtener el siguiente punto de una ruta y usarlo en el movimiento del personaje.",
+    "cuerpo": "## En qué fijarte\n\nEl cálculo del camino y el movimiento efectivo del personaje son tareas separadas. Prueba una ruta rodeando un obstáculo y registra si el avance se queda parado porque no hay camino o porque tu controlador no se mueve hacia el siguiente punto. Esas dos situaciones piden arreglos distintos.",
+    "referencia": "Godot Engine. Using NavigationAgents.",
+    "fuente": "https://docs.godotengine.org/en/latest/tutorials/navigation/navigation_using_navigationagents.html",
+    "juegos": [
+      {
+        "nombre": "The Sims 4",
+        "observacion": "Como comparación de comportamiento, fíjate en cómo un personaje cambia de rumbo cuando un acceso está ocupado."
+      }
+    ]
+  },
+  {
+    "id": "yarn-spinner-codigo",
+    "titulo": "Seguir un diálogo desde el guion hasta la opción en pantalla",
+    "tema": "Diseño narrativo",
+    "formato": "Código fuente",
+    "idioma": "Inglés",
+    "resumen": "La especificación del proyecto ayuda a leer cómo se organizan una línea, una opción y un salto entre nodos.",
+    "cuerpo": "## En qué fijarte\n\nEscribe una conversación corta con dos opciones que vuelvan al mismo punto. Después añade una variable que haga que el personaje recuerde una de ellas. Sigue qué parte pertenece al guion y qué parte decide la interfaz, como el orden en que aparecen las opciones.",
+    "referencia": "Yarn Spinner Tool. Yarn Spinner, repositorio y especificación del lenguaje.",
+    "fuente": "https://github.com/YarnSpinnerTool/YarnSpinner/blob/main/Documentation/Yarn-Spec.md?plain=1",
+    "juegos": [
+      {
+        "nombre": "Night in the Woods",
+        "observacion": "Fíjate en cuándo la interfaz te pide elegir y cuándo deja que dos personajes sigan hablando sin intervención."
+      }
+    ]
+  },
+  {
+    "id": "ncase-redes-demo",
+    "titulo": "Probar cómo cambia un grupo al conectar a sus miembros",
+    "tema": "Dinámicas",
+    "formato": "Demo",
+    "idioma": "Inglés",
+    "resumen": "Una explicación interactiva sobre cómo la estructura de las conexiones cambia lo que sucede dentro de un grupo.",
+    "cuerpo": "## En qué fijarte\n\nCambia primero las conexiones y conserva la regla de comportamiento. Observa qué queda aislado y qué puede extenderse a más puntos. Repite con la misma red y una regla distinta. Comparar las dos pruebas ayuda a saber si la conducta cambia por quién está conectado con quién o por lo que cada persona hace.",
+    "referencia": "Nicky Case. The Wisdom and/or Madness of Crowds, prototipo interactivo.",
+    "fuente": "https://ncase.me/crowds-prototype/",
+    "juegos": [
+      {
+        "nombre": "The Wisdom and/or Madness of Crowds",
+        "observacion": "Mueve o añade enlaces y sigue en qué parte de la red cambia primero el resultado."
+      }
+    ]
+  },
+  {
+    "id": "xag-103-contraste",
+    "titulo": "Revisar el contraste cuando el fondo no para quieto",
+    "tema": "Respuesta y legibilidad",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La guía sirve para comprobar si textos y señales se distinguen al cambiar el fondo y las condiciones de lectura.",
+    "cuerpo": "## En qué fijarte\n\nPasa un aviso por escenas claras y oscuras con el mismo tamaño de letra. Añade un fondo estable o un borde y comprueba qué parte recupera legibilidad. Repite con movimiento detrás del aviso. Un menú quieto deja fuera una parte importante de esa prueba.",
+    "referencia": "Microsoft. Xbox Accessibility Guideline 103: Contrast.",
+    "fuente": "https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/103",
+    "juegos": [
+      {
+        "nombre": "Grounded",
+        "observacion": "Compara el texto de un menú con los avisos que se dibujan directamente sobre la escena."
+      }
+    ]
+  },
+  {
+    "id": "tlou2-accesibilidad-naughty-dog",
+    "titulo": "Qué barreras intenta cubrir The Last of Us Part II",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "El equipo describe ajustes de entrada, navegación y presentación que permiten adaptar momentos distintos de la partida.",
+    "cuerpo": "## En qué fijarte\n\nEscoge un ajuste y sigue qué tareas toca. Una ayuda de navegación puede orientar en el espacio, pero aún hay que poder leer cuándo usarla y llegar hasta ella por el menú. Prueba con dos ajustes activados a la vez para encontrar conflictos que no aparecen al revisarlos uno por uno.",
+    "referencia": "Naughty Dog (2020). The Last of Us Part II: Accessibility features detailed. PlayStation.Blog.",
+    "fuente": "https://blog.playstation.com/2020/06/09/the-last-of-us-part-ii-accessibility-features-detailed",
+    "juegos": [
+      {
+        "nombre": "The Last of Us Part II",
+        "observacion": "Revisa qué opciones están juntas y cuáles puedes combinar para completar una misma tarea."
+      }
+    ]
+  },
+  {
+    "id": "level-design-encounter",
+    "titulo": "Cómo plantear un encuentro que pida tomar decisiones",
+    "tema": "Encuentros y puzles",
+    "formato": "Guía",
+    "idioma": "Inglés",
+    "resumen": "El capítulo trata el encuentro como una situación de juego que combina amenazas, espacio y decisiones.",
+    "cuerpo": "## En qué fijarte\n\nAntes de colocar a los enemigos, escribe qué decisión te gustaría provocar. Luego monta el mismo encuentro en dos espacios. Si en ambos se juega igual, quizá descubrirás que la geometría aporta menos de lo que dibujaste en el plano. Aísla un cambio de acceso, cobertura o visibilidad para comparar.",
+    "referencia": "The Level Design Book. Encounter.",
+    "fuente": "https://book.leveldesignbook.com/process/combat/encounter",
+    "juegos": [
+      {
+        "nombre": "Gears 5",
+        "observacion": "Observa cómo cambia tu primera reacción al entrar en una zona con dos coberturas desde las que ves cosas distintas."
+      }
+    ]
+  },
+  {
+    "id": "xag-108-dificultad",
+    "titulo": "Ajustar el reto según la barrera que tiene delante el jugador",
+    "tema": "Dificultad y equilibrio",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La guía reúne formas de adaptar la dificultad y de explicar qué cambia al elegir cada opción.",
+    "cuerpo": "## En qué fijarte\n\nLas barreras pueden estar en leer la amenaza, en ejecutar la respuesta a tiempo o en repetir un tramo largo tras fallar. Prueba ajustes separados y describe qué modifica cada uno. Así el jugador puede decidir qué parte quiere conservar y cuál necesita adaptar.",
+    "referencia": "Microsoft. Xbox Accessibility Guideline 108: Game difficulty.",
+    "fuente": "https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/108",
+    "juegos": [
+      {
+        "nombre": "Hades",
+        "observacion": "Compara el efecto del Modo Dios sobre el daño recibido con lo que todavía tienes que aprender de los ataques."
+      }
+    ]
+  },
+  {
+    "id": "video-gmtk-accesibilidad-cognitiva",
+    "titulo": "Hacer más fácil seguir el juego cuando hay mucho que recordar",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "formato": "Vídeo",
+    "idioma": "Inglés",
+    "resumen": "El ensayo revisa barreras relacionadas con la memoria, la atención y la cantidad de información que hay que procesar.",
+    "cuerpo": "## En qué fijarte\n\nRetoma un juego tras varios días y anota qué debes recordar para decidir qué hacer ahora. Prueba un objetivo visible y un resumen consultable en momentos distintos. El primero puede orientar la siguiente acción y el segundo reconstruir por qué importa.",
+    "referencia": "Mark Brown. Improving Games for Those with Cognitive Disabilities. Game Maker’s Toolkit.",
+    "fuente": "https://www.youtube.com/watch?v=ObhvacfIOg0",
+    "juegos": [
+      {
+        "nombre": "The Witcher 3: Wild Hunt",
+        "observacion": "Vuelve a una misión tras una pausa y mira qué información recuperas del diario antes de continuar."
+      }
+    ]
+  },
+  {
+    "id": "juul-juegos-cuentan-historias",
+    "titulo": "Qué pasa con el tiempo cuando una historia se juega",
+    "tema": "Diseño narrativo",
+    "formato": "Estudio",
+    "idioma": "Inglés",
+    "resumen": "Juul estudia tensiones entre el tiempo de una historia y el tiempo en que interactúa quien juega.",
+    "cuerpo": "## En qué fijarte\n\nCompara una escena que presenta algo ya ocurrido con otra que te deja intervenir mientras ocurre. Mira cuándo puedes cambiar el resultado y cuándo tu acción solo cambia qué sabes. Distinguir esas dos cosas ayuda a plantear qué tipo de participación pide cada escena.",
+    "referencia": "Jesper Juul (2001). Games Telling Stories? Game Studies, 1(1).",
+    "fuente": "https://gamestudies.org/0101/juul-gts/",
+    "juegos": [
+      {
+        "nombre": "Return of the Obra Dinn",
+        "observacion": "Compara el presente de la investigación con los momentos anteriores que vuelves a observar."
+      }
+    ]
+  },
+  {
+    "id": "video-ai-games-director",
+    "titulo": "Cómo la presión de Left 4 Dead sube y baja durante una partida",
+    "tema": "Dinámicas",
+    "formato": "Vídeo",
+    "idioma": "Inglés",
+    "resumen": "Un análisis del director que complementa la presentación de Valve sobre cómo se regula la presión durante el recorrido.",
+    "cuerpo": "## En qué fijarte\n\nRecorre el mismo tramo varias veces y anota cuándo aparecen amenazas nuevas y cuándo tienes espacio para curarte. Fíjate en la alternancia más que en el número de enemigos de una sola ronda. En un prototipo, compara una sucesión fija con una que deje margen después del pico de presión.",
+    "referencia": "Tommy Thompson. The Director AI of Left 4 Dead. AI and Games.",
+    "fuente": "https://www.youtube.com/watch?v=WbHMxo11HcU",
+    "juegos": [
+      {
+        "nombre": "Left 4 Dead",
+        "observacion": "Registra qué haces en los intervalos entre ataques, como buscar suministros o reagruparte."
+      }
+    ]
+  },
+  {
+    "id": "godot-repositorio-demos",
+    "titulo": "Encontrar un ejemplo pequeño antes de abrir un proyecto entero",
+    "tema": "Prototipado y pruebas",
+    "formato": "Código fuente",
+    "idioma": "Inglés",
+    "resumen": "El repositorio agrupa proyectos de muestra que puedes abrir por separado para estudiar una técnica.",
+    "cuerpo": "## En qué fijarte\n\nEscoge una demo que aísle la interacción que necesitas. Ábrela con la versión adecuada y sigue qué escena arranca primero, qué evento activa el comportamiento y qué ocurre al cambiar un parámetro. Conserva una copia de referencia para comparar contra tu cambio.",
+    "referencia": "Godot Engine. Godot Demo Projects. Repositorio oficial.",
+    "fuente": "https://github.com/godotengine/godot-demo-projects",
+    "juegos": [
+      {
+        "nombre": "Godot Demo Projects",
+        "observacion": "Abre dos proyectos de muestra y observa qué piezas tienes que reutilizar y cuáles solo sirven para montar esa prueba concreta."
+      }
+    ]
   }
 ]

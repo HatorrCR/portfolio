@@ -6,9 +6,9 @@
 <meta name="description" content="Guías, charlas y pruebas jugables para entender cómo se diseñan los videojuegos.">
 <title>Cómo se juega · Diseño de videojuegos en español</title>
 <link rel="stylesheet" href="estilos/comun.css">
-<link rel="stylesheet" href="estilos/como-se-juega.css?v=fichas-biblioteca">
+<link rel="stylesheet" href="estilos/como-se-juega.css?v=editor-y-videos">
 <script defer src="scripts/navegacion.js"></script>
-<script defer src="scripts/como-se-juega.js?v=fichas-biblioteca"></script>
+<script defer src="scripts/como-se-juega.js?v=editor-y-videos"></script>
 <script>
 try {
   const mode = localStorage.getItem('como-se-juega-tema');
@@ -139,5 +139,22 @@ try {
 <button id="modo-pagina" type="button" aria-label="Modo oscuro" aria-pressed="false" hidden>
   <span aria-hidden="true">☾</span> <span>Oscuro</span>
 </button>
+<button id="abrir-editor" type="button" hidden>Editar fichas</button>
+<dialog id="editor-catalogo" aria-labelledby="titulo-editor">
+  <form id="form-editor">
+    <header><h2 id="titulo-editor">Editor de fichas</h2><button type="button" id="cerrar-editor">Cerrar</button></header>
+    <p>Los borradores se guardan en este navegador. Para publicar, descarga el catálogo y actualízalo desde tu cuenta de GitHub.</p>
+    <label>Ficha <select id="ficha-editor"><option value="">Nueva ficha</option></select></label>
+    <div id="campos-editor"></div>
+    <details><summary>Otros campos, listas y materiales</summary><label>Campos adicionales (JSON)<textarea id="extras-editor" rows="7" spellcheck="false"></textarea></label></details>
+    <p id="estado-editor" role="status"></p>
+    <div class="acciones-editor">
+      <button type="submit">Guardar borrador</button><button type="button" id="exportar-editor">Descargar catálogo</button>
+      <button type="button" id="descartar-editor">Descartar borrador</button>
+      <a href="https://github.com/HatorrCR/portfolio/edit/main/datos/como-se-juega.json">Publicar en GitHub</a>
+    </div>
+    <p><a href="https://github.com/HatorrCR/portfolio/edit/main/como-se-juega.html">Editar textos de portada y navegación</a> · <a href="https://github.com/HatorrCR/portfolio/edit/main/scripts/como-se-juega.js">Editar textos de interfaz y laboratorios</a></p>
+  </form>
+</dialog>
 </body>
 </html>

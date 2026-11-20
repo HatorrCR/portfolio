@@ -384,3 +384,33 @@ footer { border-top: 1px solid var(--linea); }
 @media (prefers-reduced-motion: no-preference) {
   .carrusel-texto, .carrusel-arte { animation: entrar-ficha 220ms ease-out both; }
 }
+
+.laboratorio-sistemas { padding: clamp(.85rem, 3vw, 1.55rem); border-top: 4px solid #356062; }
+.lab-intro h3 { margin: 0 0 .35rem; font-size: clamp(1.25rem, 3vw, 1.6rem); }
+.lab-intro p { margin: 0 0 1rem; color: var(--secundario); }
+.lab-herramientas {
+  display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between;
+  gap: .6rem; padding-block: .65rem; border-block: 1px solid var(--linea);
+}
+.lab-herramientas label { display: grid; gap: .3rem; min-width: 0; max-width: 100%; font-weight: 700; }
+.lab-herramientas select { max-width: 100%; min-height: 44px; }
+.lab-situacion { margin: 1rem 0 .55rem; padding: .7rem .85rem; background: #eee7d6; border-inline-start: 3px solid #a64328; }
+.lab-botones button:not([aria-disabled="true"]), .lab-resumen button {
+  background: #245956; border-color: #245956; color: #fffdf7;
+}
+.lab-botones button, .lab-reiniciar, .lab-resumen button {
+  min-height: 44px; max-width: 100%; overflow-wrap: anywhere; border-radius: .25rem;
+}
+.lab-reiniciar, .lab-resumen button { padding: .5rem .75rem; font: inherit; cursor: pointer; }
+.lab-reiniciar { background: #fffdf7; color: var(--tinta); border: 1px solid var(--linea); }
+.laboratorio-sistemas :is(button, select):focus-visible { outline: 2px solid #8a3721; outline-offset: 3px; }
+.lab-respuesta { color: var(--secundario); margin: .65rem 0 0; }
+.lab-respuesta:empty { display: none; }
+.lab-resumen { margin-top: 1rem; padding: .85rem; background: #eaf2ed; border: 1px solid #a6bcb1; }
+.lab-resumen h3, .lab-resumen h4 { margin: 0 0 .4rem; }
+.lab-resultados { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem),1fr)); gap: .6rem; }
+.lab-intento { min-width: 0; padding: .55rem .7rem; background: #fffdf7; }
+.lab-intento ul { padding-inline-start: 1.15rem; margin: .25rem 0; }
+.lab-resumen button { margin-block-start: .65rem; }
+.laboratorio-mecanica { border-top: 4px solid #356062; }
+.laboratorio-mecanica canvas { border-radius: .25rem; }

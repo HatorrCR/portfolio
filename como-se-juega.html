@@ -6,9 +6,9 @@
 <meta name="description" content="Estudios, charlas y ejercicios para aprender diseño de videojuegos en español.">
 <title>Cómo se juega · Diseño de videojuegos en español</title>
 <link rel="stylesheet" href="estilos/comun.css">
-<link rel="stylesheet" href="estilos/como-se-juega.css?v=carrusel-solo-portada">
+<link rel="stylesheet" href="estilos/como-se-juega.css?v=laboratorios-revisados">
 <script defer src="scripts/navegacion.js"></script>
-<script defer src="scripts/como-se-juega.js?v=carrusel-solo-portada"></script>
+<script defer src="scripts/como-se-juega.js?v=laboratorios-revisados"></script>
 </head>
 <body data-nav="none">
 <header class="cabecera">
@@ -26,7 +26,7 @@
 <section class="portada">
   <div class="presentacion">
     <h1>Diseño de videojuegos en español</h1>
-    <p>Estudios explicados, charlas comentadas y ejercicios para llevar esas ideas a tus propios juegos.</p>
+    <p>¿Por qué un salto se siente bien o un menú te hace dar más vueltas de la cuenta? Aquí lo probamos con guías, laboratorios y fuentes que puedes consultar.</p>
   </div>
   <section id="destacado" class="carrusel-portada" aria-label="Selección destacada" aria-roledescription="carrusel" hidden>
     <article id="carrusel-pieza" class="carrusel-pieza" aria-live="polite"></article>
@@ -64,7 +64,7 @@
 <template id="plantilla-juego-salto">
   <div class="laboratorio-salto laboratorio-mecanica">
     <div class="prueba-jugable">
-      <p id="controles-juego-salto">Selecciona el recuadro para jugar con el teclado. Flechas o A/D para moverte. Mantén Espacio para un salto largo. Suéltalo pronto para uno corto. R para volver al inicio.</p>
+      <p id="controles-juego-salto">Llega a la bandera. Haz clic en la prueba y muévete con A/D o las flechas. Mantén Espacio para saltar más alto o suéltalo antes para un salto corto. Con R vuelves al inicio.</p>
       <canvas data-juego-salto width="680" height="252" tabindex="0" aria-label="Prueba del salto. Usa A y D o las flechas para moverte. Espacio para saltar y R para reiniciar." aria-describedby="controles-juego-salto">Usa el gráfico de arriba para comparar las trayectorias.</canvas>
       <div class="ajustes-salto">
         <label>Escenario <select data-escenario-salto><option value="normal">Foso ancho a la vista</option><option value="estrecha">Aterrizaje estrecho</option><option value="oculta">Llegada oculta</option><option value="rebote">Enemigo y repisa</option></select></label>
@@ -89,7 +89,7 @@
 <template id="plantilla-salto-3d">
   <section class="laboratorio-salto laboratorio-mecanica" aria-labelledby="titulo-demo-3d">
     <h3 id="titulo-demo-3d">El foso tiene fondo. Y anchura.</h3>
-    <p id="controles-salto-3d">Selecciona el recuadro o llega con Tab. Usa WASD o las flechas para moverte, mantén Espacio para saltar alto y pulsa R para reiniciar. En primera y tercera persona, W avanza y A/D te desplazan a los lados.</p>
+    <p id="controles-salto-3d">Llega a la bandera. Haz clic en la prueba o entra con Tab. Muévete con WASD o las flechas, mantén Espacio para saltar más alto y pulsa R para volver al inicio. En primera y tercera persona, W avanza y A/D te desplazan a los lados.</p>
     <canvas width="680" height="320" tabindex="0" aria-label="Prueba jugable de salto en 3D" aria-describedby="controles-salto-3d">Prueba de plataformas con profundidad y cuatro vistas.</canvas>
     <div class="ajustes-salto">
       <label>Vista <select data-vista-3d><option value="oblicua">Oblicua</option><option value="cenital">Desde arriba</option><option value="tercera">Tercera persona</option><option value="primera">Primera persona</option></select></label>

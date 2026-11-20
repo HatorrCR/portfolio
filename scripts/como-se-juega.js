@@ -1021,12 +1021,13 @@ const systemLabs = {
   },
   'cofres-de-oro': {
     modes: ['Dos compras', 'Compras repetibles'],
-    start: () => ({chests: 0, gold: 0, buys: 0}),
+    start: () => ({chests: 0, gold: 0, buys: 0, closed: false}),
     view: s => [['Cofres', s.chests + ' / 8'], ['Oro', s.gold], ['Mejoras', s.buys]],
     hint: (s, mode) => mode || s.buys < 2 ? 'La próxima mejora cuesta 30.' : 'La tienda ha vendido todas sus mejoras.',
     actions: (s, mode) => [
       ['Abrir cofre', s.chests < 8, () => { s.chests++; s.gold += 20; return 'Veinte monedas más.'; }],
-      ['Comprar mejora', s.gold >= 30 && (mode || s.buys < 2), () => { s.gold -= 30; s.buys++; return 'Mejora comprada.'; }]
+      ['Comprar mejora', s.gold >= 30 && (mode || s.buys < 2), () => { s.gold -= 30; s.buys++; return 'Mejora comprada.'; }],
+      ['Cerrar la prueba', s.chests === 8, () => { s.closed = true; return 'La tienda cierra por hoy.'; }]
     ]
   },
   'avisar-ataques': {
@@ -1387,9 +1388,49 @@ const uxLabs = {
   }
 };
 
+const labBriefs = {
+  "iniciativa-combate": ["Juega seis intercambios contra el mismo rival.", "Repite tus jugadas en la otra variante y compara puntos.", (s, mode) => s.round === 6],
+  "roles-cooperativos": ["Jugad en pareja y encontrad tres puertas.", "Pasad la pantalla al cambiar de turno. Al repetir, intercambiad papeles.", (s, mode) => s.round === 3],
+  "ritmo-en-rondas": ["Prepara el equipo y supera cuatro rondas.", "Compara cuántas acciones de preparación necesitas para evitar el daño.", (s, mode) => s.round === 4],
+  "reinicio-tras-fallar": ["Llega al encuentro final, falla y vuelve a intentarlo.", "Cuenta los pasos que repites en cada variante.", (s, mode) => s.done],
+  "descuentos-inventario": ["Guarda dos llaves y al menos dos consumibles.", "Mira si el paquete sigue compensando cuando la mochila se llena.", (s, mode) => s.keys === 2 && s.items >= 2],
+  "mejorar-o-cambiar-arma": ["Resuelve cuatro encuentros con espada o lanza.", "Compara qué puedes mejorar con y sin recuperar materiales.", (s, mode) => s.round === 4],
+  "vida-y-ventanas": ["Ataca cuando se abra la guardia.", "Compara el tiempo y el daño con más vida o con menos oportunidades.", (s, mode) => s.hits === (mode ? 4 : 6)],
+  "ayudas-dificultad": ["Responde a las tres señales en orden.", "Tras dos fallos, fíjate en qué te aporta cada forma de ayuda.", (s, mode) => s.step === 3],
+  "pociones-para-luego": ["Cruza cuatro salas con la vida que tienes.", "Compara cuántas pociones te quedan cuando llegas al final o caes.", (s, mode) => s.room === 4 || s.hp <= 0],
+  "campear-ventana": ["Aguanta seis oleadas desde la ventana o el pasillo.", "Compara cuándo te conviene moverte y cuántos puntos consigues.", (s, mode) => s.wave === 6 || s.hp <= 0],
+  "extraer-o-seguir": ["Juega tres expediciones y pon a salvo el botín que puedas.", "Cada huida o derrota cuenta como una expedición. Compara lo que lograste guardar.", (s, mode) => s.runs >= 3],
+  "botin-abre-rutas": ["Da tres vueltas y elige entre el filtro y las monedas.", "Compara lo que ahorras de tiempo con lo que renuncias a recoger.", (s, mode) => s.trip === 3],
+  "mina-compra-mina": ["Tienes doce turnos para invertir o guardar el oro.", "Repite la misma política de compras y compara el oro final.", (s, mode) => s.turn === 12],
+  "cofres-de-oro": ["Decide qué hacer con el oro de ocho cofres.", "Al abrir el último cofre aún puedes comprar. Cierra la prueba cuando hayas acabado.", (s, mode) => s.closed],
+  "avisar-ataques": ["Esquiva tres ataques cambiando de carril.", "Prueba los dos tiempos de aviso. Usa las flechas o los botones.", (s, mode) => s.round === 3],
+  "armas-situacionales": ["Escoge un arma para cada uno de los cuatro encuentros.", "Compara los disparos que gastas cuando cambia la distancia habitual.", (s, mode) => s.round === 4],
+  "hitos-orientacion": ["Encuentra la plaza y vuelve a casa.", "Muévete con las flechas o con los botones. Compara los pasos con y sin torre.", (s, mode) => s.done],
+  "atajos-rutas": ["Completa dos viajes de ida y vuelta.", "Abre el atajo desde el patio y compara el tiempo y los recursos.", (s, mode) => s.legs === 2],
+  "anticipacion-revelacion": ["Encuentra la salida de la sala.", "Usa las flechas o los botones. Fíjate en cuándo ves la meta y qué camino tomas.", (s, mode) => s.done],
+  "ensenar-puzle-espacio": ["Busca el mando y cruza la puerta que abre.", "Usa las flechas o los botones. Fíjate en qué pista te dice dónde está la puerta.", (s, mode) => s.done],
+  "cobertura-lineas-vision": ["Llega a la salida intentando pasar desapercibido.", "Muévete con las flechas o los botones. Compara pasos y casillas expuestas.", (s, mode) => s.done],
+  "combinar-obstaculos": ["Cruza cuando coincidan la plataforma y el paso abierto.", "Compara cuántos fallos tienes con y sin práctica previa.", (s, mode) => s.done],
+  "decisiones-consecuencias": ["Elige a quién o qué proteger y regresa al refugio.", "Fíjate en cuándo entiendes la consecuencia de tu decisión.", (s, mode) => s.back],
+  "dialogos-ramificados": ["Decide qué hacer con el cuaderno y habla con la guardiana.", "Repite la misma respuesta con y sin memoria de lo que hiciste.", (s, mode) => Boolean(s.result)],
+  "narrativa-ambiental": ["Examina el taller y decide qué pasó.", "Compara lo que deduces al leer la nota y al mirar los objetos.", (s, mode) => s.done],
+  "narrativa-mecanicas": ["Decide cuánta comida donar antes de viajar.", "Compara qué eliges cuando la comida sale de tu propia mochila.", (s, mode) => s.done],
+  "voz-personaje-traduccion": ["Traduce las dos réplicas de la capitana y lee la escena final.", "Vuelve a jugar con otra mezcla y comprueba cómo cambia su voz.", (s, mode) => s.round === 2],
+  "traducir-con-contexto": ["Traduce la misma frase en dos escenas.", "Compara cuántas correcciones haces con y sin contexto.", (s, mode) => s.round === 2],
+  "prioridad-hud": ["Encuentra el indicador que necesitas para cada tarea.", "Compara dónde miras primero en las dos distribuciones.", (s, mode) => s.round === 2],
+  "estado-de-accion": ["Guarda la partida y espera a que termine.", "Fíjate en si vuelves a pulsar cuando el juego no avisa de que está guardando.", (s, mode) => s.done],
+  "instrucciones-a-tiempo": ["Mueve, sella y envía una caja.", "Compara los pasos que te cuestan cuando la ayuda aparece al inicio o sobre la marcha.", (s, mode) => s.step === 3],
+  "tamano-texto-interfaz": ["Selecciona y confirma la ruta de salida.", "Estrecha la ventana y comprueba si sigues viendo el aviso y los botones.", (s, mode) => s.received]
+};
+
 function addSystemLab(config, id) {
   const lab = element('section', '', 'referencias laboratorio-sistemas');
-  lab.setAttribute('aria-label', 'Prueba interactiva');
+  lab.setAttribute('aria-label', 'Prueba jugable');
+  const [goal, tip, isFinished] = labBriefs[id] ?? ['', '', () => false];
+  const intro = element('div', '', 'lab-intro');
+  intro.append(element('h3', goal || 'Ponte a prueba'), element('p', tip));
+  const toolbar = element('div', '', 'lab-herramientas');
+  lab.append(intro, toolbar);
   lab.tabIndex = 0;
   const lanes = id === 'avisar-ataques' ? element('div', '', 'lab-carriles') : null;
   if (lanes) lanes.setAttribute('aria-hidden', 'true');
@@ -1401,39 +1442,45 @@ function addSystemLab(config, id) {
   let state = config.start();
   let mode = 0;
   let timer;
+  let recorded = false;
+  const attempts = new Map();
   const stats = element('dl', '', 'lab-estadisticas');
-  const hint = element('p', '');
+  const hint = element('p', '', 'lab-situacion');
   hint.setAttribute('role', 'status');
-  const feedback = element('p', '');
+  const feedback = element('p', '', 'lab-respuesta');
   feedback.setAttribute('role', 'status');
   const controls = element('div', '', 'lab-botones');
+  const recap = element('section', '', 'lab-resumen');
+  recap.hidden = true;
 
   const reset = () => {
     clearTimeout(timer);
     state = config.start();
+    recorded = false;
     feedback.textContent = '';
     render();
   };
 
-  if (config.modes) {
-    const label = element('label', 'Variante ');
-    const select = element('select', '');
+  const select = config.modes ? element('select', '') : null;
+  if (select) {
+    const label = element('label', 'Modo de prueba');
     for (const name of config.modes) select.append(element('option', name));
     select.addEventListener('change', () => {
       mode = select.selectedIndex;
       reset();
     });
     label.append(select);
-    lab.append(label);
+    toolbar.append(label);
   }
 
-  const resetButton = element('button', 'Reiniciar');
+  const resetButton = element('button', 'Empezar de nuevo', 'lab-reiniciar');
   resetButton.type = 'button';
   resetButton.addEventListener('click', reset);
-  lab.append(stats, hint);
+  toolbar.append(resetButton);
+  lab.append(hint, stats);
   if (lanes) lab.append(lanes);
   if (board) lab.append(board);
-  lab.append(controls, feedback);
+  lab.append(controls, feedback, recap);
   const schedule = (finish, delay) => {
     timer = setTimeout(() => {
       feedback.textContent = finish();
@@ -1450,13 +1497,14 @@ function addSystemLab(config, id) {
 
   function act(index) {
     const [, available, run] = config.actions(state, mode, schedule)[index];
-    if (!available) return;
+    if (!available || isFinished(state, mode)) return;
     const message = run();
     if (message !== undefined) feedback.textContent = message;
     render();
   }
 
   function render() {
+    const finished = isFinished(state, mode);
     if (config.largeText) lab.classList.toggle('texto-ampliado', Boolean(mode));
     if (id === 'prioridad-hud') lab.classList.toggle('hud-agrupado', Boolean(mode));
     stats.replaceChildren(...config.view(state, mode).map(([name, value]) => {
@@ -1491,8 +1539,34 @@ function addSystemLab(config, id) {
     if (hint.textContent !== nextHint) hint.textContent = nextHint;
     config.actions(state, mode, schedule).forEach(([name, available], index) => {
       if (buttons[index].textContent !== name) buttons[index].textContent = name;
-      buttons[index].setAttribute('aria-disabled', String(!available));
+      buttons[index].setAttribute('aria-disabled', String(!available || finished));
     });
+    recap.hidden = !finished;
+    if (!finished || recorded) return;
+    recorded = true;
+    attempts.set(mode, config.view(state, mode));
+    const title = element('h3', attempts.size > 1 ? 'Así te fue en cada modo' : 'Prueba terminada');
+    const summary = element('div', '', 'lab-resultados');
+    for (const [variant, values] of attempts) {
+      const group = element('div', '', 'lab-intento');
+      if (select) group.append(element('h4', config.modes[variant]));
+      const list = element('ul', '');
+      for (const [label,value] of values) list.append(element('li', label + ': ' + value));
+      group.append(list);
+      summary.append(group);
+    }
+    recap.replaceChildren(title, summary);
+    if (select && config.modes.length > 1) {
+      const compare = element('button', 'Probar otro modo');
+      compare.type = 'button';
+      compare.addEventListener('click', () => {
+        mode = (mode + 1) % config.modes.length;
+        select.selectedIndex = mode;
+        reset();
+        select.focus();
+      });
+      recap.append(compare);
+    }
   }
 
   if (Object.hasOwn(levelLabs, id) && actions[0]?.[0] === mapDirections[0]) {
@@ -1508,7 +1582,7 @@ function addSystemLab(config, id) {
     event.preventDefault();
     act(event.key === 'ArrowLeft' ? 0 : 1);
   });
-  controls.append(...buttons, resetButton);
+  controls.append(...buttons);
   reading.append(lab);
   render();
 }
@@ -1540,12 +1614,12 @@ function addDashLab(is3D) {
   }
   options.append(label);
   const controls = is3D
-    ? 'Selecciona la prueba. Flechas o WASD para moverte, Espacio para el dash y R para reiniciar. En primera y tercera persona, W avanza y A/D se desplazan a los lados. Busca un paso hasta la bandera.'
-    : 'Selecciona la prueba. Flechas o WASD para moverte, J para saltar, Espacio para el dash y R para reiniciar. Cruza el foso y llega a la bandera.';
+    ? 'Llega a la bandera. Haz clic en la prueba y usa WASD o las flechas. Pulsa Espacio para el dash y R para volver al inicio. En primera y tercera persona, W avanza y A/D te llevan a los lados.'
+    : 'Cruza el foso y llega a la bandera. Haz clic en la prueba. Usa A/D o las flechas para moverte, J para saltar, Espacio para el dash y R para volver al inicio.';
   const instructions = element('p', controls);
   instructions.id = is3D ? 'controles-dash-3d' : 'controles-dash-2d';
   canvas.setAttribute('aria-describedby', instructions.id);
-  lab.append(instructions, canvas, options, status);
+  lab.append(options, instructions, canvas, status);
   reading.append(lab);
 
   const keys = new Set();
@@ -1857,7 +1931,7 @@ function showReading(entries, archive) {
           const content = heading ? element(heading[1] === '##' ? 'h2' : 'h3', heading[2]) : element('p', paragraph);
           if (heading?.[1] === '##' && index) addToIndex(content, 'apartado-' + (index.children.length + 1) + '-' + slug(heading[2]));
           reading.append(content);
-          if (systemLab && heading?.[2] === 'Variantes de diseño') {
+          if (systemLab && heading?.[2] === 'Qué puedes cambiar') {
             const diagram = element('ol', '', 'esquema-sistemas');
             diagram.setAttribute('aria-label', 'Secuencia del sistema');
             diagram.append(...resource.esquema.map(step => element('li', step)));
@@ -1868,7 +1942,7 @@ function showReading(entries, archive) {
             addSystemLab(systemLab, id);
             reading.append(content);
           }
-          if (dashGuide && heading?.[2] === 'Variantes de diseño') {
+          if (dashGuide && heading?.[2] === 'Qué puedes cambiar') {
             const diagram = element('ol', '', 'esquema-sistemas');
             diagram.setAttribute('aria-label', 'Fases del dash');
             for (const step of ['Pulsas y eliges rumbo', 'Avanzas durante el impulso', 'Terminas o chocas', 'Recuperas el control']) {
@@ -1922,7 +1996,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=biblioteca-compacta', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=laboratorios-revisados', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const own = catalog.filter(isEditorial);
@@ -2052,7 +2126,7 @@ async function loadCatalog() {
     }));
     status.textContent = !showAll ? sources.length + ' recursos en la Biblioteca.' :
       matches.length === 1 ? '1 recurso' : matches.length ? matches.length + ' recursos' :
-      editorialView ? 'Todavía no hay textos publicados en esta sección.' : 'No hay recursos que coincidan.';
+      editorialView ? 'Todavía no hemos publicado nada aquí.' : 'No encontramos nada con esa búsqueda.';
   }
 
   search.addEventListener('input', render);
@@ -2063,5 +2137,5 @@ async function loadCatalog() {
 
 loadCatalog().catch(() => {
   status.hidden = false;
-  status.textContent = 'No se pudo cargar el catálogo. Recarga la página para volver a intentarlo.';
+  status.textContent = 'No hemos podido cargar el catálogo. Prueba a recargar la página.';
 });

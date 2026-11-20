@@ -116,6 +116,75 @@ function fillOptions(select, values) {
   }
 }
 
+function showFeatured(entries) {
+  const selection = [
+    ['salto-3d-guia', 'mecanica'],
+    ['hitos-orientacion', 'niveles'],
+    ['machinations-dormans', 'paper'],
+    ['narrativa-ambiental', 'narrativa'],
+    ['prioridad-hud', 'interfaz'],
+    ['booth-director-l4d', 'charla']
+  ].flatMap(([id, style]) => {
+    const entry = entries.find(item => item.id === id);
+    return entry ? [{entry, style}] : [];
+  });
+  if (!selection.length) return;
+  const carousel = document.querySelector('#destacado');
+  const slide = document.querySelector('#carrusel-pieza');
+  const position = document.querySelector('#carrusel-posicion');
+  const previous = document.querySelector('#carrusel-anterior');
+  const next = document.querySelector('#carrusel-siguiente');
+  let current = 0;
+
+  function render() {
+    const {entry, style} = selection[current];
+    let href;
+    let label;
+    const query = {lectura: entry.id};
+    if (isArchive(entry)) {
+      href = archiveUrl(entry.subtema);
+      label = 'Abrir ficha';
+    } else if (isEditorial(entry)) {
+      Object.assign(query, editorialSection(entry).query);
+      label = 'Leer guía';
+    } else if (entry.formato === 'Estudio') {
+      query.papers = entry.idioma === 'Español' ? 'es' : 'en';
+      label = 'Leer ficha del estudio';
+    } else {
+      query.seccion = 'conferencias';
+      label = 'Ver ficha de la charla';
+    }
+    const text = element('div', '', 'carrusel-texto');
+    const open = link(label, href ?? '?' + new URLSearchParams(query));
+    open.className = 'boton';
+    const category = isEditorial(entry) ? editorialLabel(entry) : entry.formato;
+    text.append(element('p', category + ' · ' + entry.tema, 'meta'),
+      element('h2', entry.titulo), element('p', entry.resumen), open);
+    const art = element('div', '', 'carrusel-arte carrusel-arte--' + style);
+    art.setAttribute('aria-hidden', 'true');
+    slide.replaceChildren(text, art);
+    slide.dataset.estilo = style;
+    position.textContent = (current + 1) + ' / ' + selection.length;
+  }
+
+  function change(step) {
+    current = (current + step + selection.length) % selection.length;
+    render();
+  }
+
+  previous.addEventListener('click', () => change(-1));
+  next.addEventListener('click', () => change(1));
+  carousel.addEventListener('keydown', event => {
+    if (event.target !== previous && event.target !== next) return;
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    change(event.key === 'ArrowLeft' ? -1 : 1);
+  });
+  previous.disabled = next.disabled = selection.length === 1;
+  render();
+  carousel.hidden = false;
+}
+
 function countBadge(count, singular, plural) {
   const label = count + ' ' + (count === 1 ? singular : plural);
   const badge = element('span', String(count), 'recuento-tarjeta');
@@ -1886,6 +1955,7 @@ async function loadCatalog() {
   document.querySelector('#novedades').hidden = !isHome;
   document.querySelector('.portada').hidden = !isHome;
   if (isHome) {
+    showFeatured(catalog);
     document.querySelector('#catalogo').hidden = true;
     for (const card of document.querySelectorAll('[data-recuento-area]')) {
       const key = card.dataset.recuentoArea;

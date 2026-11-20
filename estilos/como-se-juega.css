@@ -594,3 +594,26 @@ body { padding-bottom: 60px; }
   background: var(--tema-fondo); color: var(--tema-acento); font-weight: 700;
 }
 .contenido-coleccion > .abrir-coleccion:hover { border-color: var(--tema-acento); }
+
+#novedades .novedades-portada .ficha[data-area-diseno] {
+  background: var(--tema-panel);
+  border-color: var(--tema-linea);
+  border-top-color: var(--tema-acento);
+  padding: 12px;
+}
+#novedades .novedades-portada .ficha[data-area-diseno]:hover,
+#novedades .novedades-portada .ficha[data-area-diseno]:focus-within { background: var(--tema-fondo); }
+.novedades-portada .ficha .muestra-diseno { min-height: 92px; margin-bottom: .65rem; }
+.novedades-portada .ficha .meta { color: var(--tema-acento); padding-inline-end: 2rem; }
+.novedades-portada .ficha .recuento-tarjeta { top: 1rem; right: 1rem; z-index: 1; }
+.novedades-portada .muestra-diseno--sistemas { font-weight: 500; }
+.novedades-portada .ciclo-mina { gap: 12px; }
+.novedades-portada .ciclo-mina-nodo { padding: 6px 3px; }
+.novedades-portada .ciclo-mina-nodo strong { font-size: .72rem; }
+.novedades-portada .ciclo-mina-nodo:not(:last-child)::after { inset-inline-end: -12px; }
+.novedades-portada .ciclo-mina-retorno { display: none; }
+.novedades-portada .muestra-diseno--interfaz { padding-inline-end: 2rem; }
+.muestra-guardado { padding: 2px 7px; border: 1px solid var(--tema-linea); border-radius: 4px; background: var(--tema-fondo); }
+.muestra-diseno--mecanicas { position: relative; overflow: hidden; background: var(--tema-fondo); }
+.muestra-salto-arco { position: absolute; inset: 28% 21% 15%; border: 2px dashed var(--tema-acento); border-color: var(--tema-acento) transparent transparent; border-radius: 50%; }
+.muestra-salto-suelo { position: absolute; inset: auto 12% 22%; height: 7px; background: linear-gradient(90deg,var(--tema-acento) 28%,transparent 28% 72%,var(--tema-acento) 72%); }

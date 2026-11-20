@@ -2019,7 +2019,7 @@ const areaIntroductions = {
   interfaz: 'Un banco de pruebas para lo que ves y tocas al jugar.'
 };
 
-function areaSample(area) {
+function areaSample(area, interactive = true) {
   const box = element('div', '', 'muestra-diseno muestra-diseno--' + area);
   if (area === 'sistemas') {
     const steps = element('ol', '', 'ciclo-mina');
@@ -2044,6 +2044,11 @@ function areaSample(area) {
       page.append(element('small', label), element('blockquote', line));
       box.append(page);
     }
+  } else if (area === 'mecanicas') {
+    box.setAttribute('aria-hidden', 'true');
+    box.append(element('i', '', 'muestra-salto-arco'), element('i', '', 'muestra-salto-suelo'));
+  } else if (!interactive) {
+    box.append(element('p', 'Partida guardada'), element('span', '✓', 'muestra-guardado'));
   } else {
     const message = element('p', 'La partida tiene cambios');
     message.setAttribute('role', 'status');
@@ -2139,6 +2144,8 @@ async function loadCatalog() {
     for (const card of document.querySelectorAll('[data-recuento-area]')) {
       const key = card.dataset.recuentoArea;
       const count = key === 'mecanicas' ? countCategory('Mecánicas') : countArea(key);
+      card.dataset.areaDiseno = key;
+      card.prepend(areaSample(key, false));
       card.append(countBadge(count, 'entrada', 'entradas'));
     }
     return;

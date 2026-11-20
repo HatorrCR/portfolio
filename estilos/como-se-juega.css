@@ -561,3 +561,37 @@ body { padding-bottom: 60px; }
 [data-tema="oscuro"] #lectura:is(.lectura-mecanica,.lectura-guia) { --papel-editorial:var(--panel-oscuro); --tono-editorial:#ebad86; }
 [data-tema="oscuro"] .boton { color:#21170f; }
 [data-tema="oscuro"] .boton:hover { background:#ffd0ad; }
+
+[data-area-diseno="sistemas"] .portada-diseno { grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); }
+.muestra-diseno--sistemas { display: grid; justify-content: stretch; }
+.ciclo-mina {
+  display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px;
+  margin: 0; padding: 0; list-style: none;
+}
+.ciclo-mina-nodo {
+  position: relative; min-width: 0; padding: 7px; border: 1px solid var(--tema-linea);
+  border-radius: 4px; background: var(--tema-fondo); overflow-wrap: anywhere;
+}
+.muestra-diseno--sistemas .ciclo-mina-nodo span {
+  display: block; padding: 0; border: 0; background: none; font-size: .73rem;
+}
+.ciclo-mina-nodo strong { display: block; font-size: .88rem; }
+.ciclo-mina-nodo:not(:last-child)::after {
+  content: "›"; position: absolute; inset-inline-end: -9px; inset-block-start: 25%;
+}
+.ciclo-mina-pista, .ciclo-mina-estado { font-size: .83rem; font-weight: 500; }
+.ciclo-mina-acciones { display: flex; flex-wrap: wrap; gap: 6px; }
+.ciclo-mina-acciones button {
+  min-height: 40px; padding: .35rem .6rem; border: 1px solid var(--tema-linea);
+  border-radius: 4px; background: var(--tema-fondo); color: var(--tema-acento); font: inherit;
+  font-size: .79rem; cursor: pointer;
+}
+.ciclo-mina-acciones button:disabled { opacity: .62; cursor: default; }
+.ciclo-mina-acciones button:focus-visible { outline: 2px solid var(--tema-acento); outline-offset: 2px; }
+@media (max-width: 740px) {
+  [data-area-diseno="sistemas"] .portada-diseno { grid-template-columns: 1fr; }
+}
+@media (max-width: 430px) {
+  .ciclo-mina { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .ciclo-mina-nodo:nth-child(2)::after { content: none; }
+}

@@ -1996,7 +1996,7 @@ function showReading(entries, archive) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=tono-editorial', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=estanteria', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const own = catalog.filter(isEditorial);
@@ -2045,6 +2045,12 @@ async function loadCatalog() {
   }
 
   const sections = document.querySelector('#secciones');
+  const languageFilter = document.querySelector('#idioma-catalogo');
+  const clear = document.querySelector('#limpiar-catalogo');
+  const more = document.querySelector('#mas-fichas');
+  let activeCollection = null;
+  let pageSize = 5;
+  const shelfCards = new Map();
   if (sectionHub) {
     sections.hidden = false;
     for (const [name, description] of Object.entries(discipline[1])) {
@@ -2053,16 +2059,48 @@ async function loadCatalog() {
       sections.append(areaCard(name, href, countCategory(name), description));
     }
   } else if (libraryHub) {
+    document.querySelector('#catalogo').classList.add('biblioteca-estanteria');
+    document.querySelector('#biblioteca-intro').hidden = false;
+    document.querySelector('#encabezado-fichas').hidden = false;
+    document.querySelector('#filtro-idioma').hidden = false;
+    clear.hidden = false;
+    fillOptions(languageFilter, [...new Set(sources.map(entry => entry.idioma).filter(Boolean))]);
     sections.hidden = false;
+    sections.classList.add('estanteria');
+    sections.setAttribute('aria-label', 'Colecciones de la Biblioteca');
     const collections = [
-      ['Papers', '?papers=todos', papers.length],
-      ['Entrevistas', '?seccion=entrevistas', interviews.length],
-      ...Object.entries(sourceSections).map(([key,[name,formats]]) =>
-        [name, '?seccion=' + key, sources.filter(entry => formats.includes(entry.formato)).length])
+      ['Estudios', ['Estudio']],
+      ['Charlas', ['Charla', 'Conferencia']],
+      ['Entrevistas', ['Entrevista']],
+      ...Object.entries(sourceSections).filter(([key]) => key !== 'conferencias').sort(([a],[b]) => ['articulos','documentacion','codigo','demos','guias','videos'].indexOf(a) - ['articulos','documentacion','codigo','demos','guias','videos'].indexOf(b))
+        .map(([key,[name,formats]]) => [key === 'documentacion' ? 'Documentación' : key === 'codigo' ? 'Código' : name, formats])
     ];
-    for (const [name, url, count] of collections) {
-      if (count) sections.append(areaCard(name, url + '#catalogo', count));
+    for (const [name, formats] of collections) {
+      const count = sources.filter(entry => formats.includes(entry.formato)).length;
+      if (!count) continue;
+      const book = element('button', '', 'lomo-coleccion');
+      book.type = 'button';
+      book.setAttribute('aria-pressed', 'false');
+      book.append(element('strong', name), element('span', count + (count === 1 ? ' ficha' : ' fichas')));
+      book.addEventListener('click', () => {
+        activeCollection = activeCollection === formats ? null : formats;
+        for (const [card, group] of shelfCards) card.setAttribute('aria-pressed', String(group === activeCollection));
+        refresh();
+      });
+      shelfCards.set(book, formats);
+      sections.append(book);
     }
+    languageFilter.addEventListener('change', refresh);
+    clear.addEventListener('click', () => {
+      activeCollection = null;
+      search.value = topic.value = languageFilter.value = '';
+      for (const card of shelfCards.keys()) card.setAttribute('aria-pressed', 'false');
+      refresh();
+    });
+    more.addEventListener('click', () => {
+      pageSize += 5;
+      render();
+    });
   }
 
   if (papersHub) {
@@ -2106,12 +2144,15 @@ async function loadCatalog() {
 
   function render() {
     const query = normalize(search.value.trim());
-    const showAll = !libraryHub || Boolean(query || topic.value);
-    const matches = showAll ? relevant.filter(entry =>
+    const matches = relevant.filter(entry =>
       (!topic.value || entry.tema === topic.value) &&
-      normalize([entry.titulo, entry.resumen, entry.tema, entry.formato].join(' ')).includes(query)
-    ) : [];
-    results.replaceChildren(...matches.map(entry => {
+      (!libraryHub || ((!activeCollection || activeCollection.includes(entry.formato)) &&
+        (!languageFilter.value || entry.idioma === languageFilter.value))) &&
+      normalize([entry.titulo, entry.resumen, entry.tema, entry.formato, entry.id].join(' ')).includes(query)
+    );
+    more.hidden = !libraryHub || matches.length <= pageSize;
+    const visible = libraryHub ? matches.slice(0, pageSize) : matches;
+    results.replaceChildren(...visible.map(entry => {
       if (isEditorial(entry)) {
         return editorialCard(entry, '?' + new URLSearchParams({
           ...editorialSection(entry).query, lectura: entry.id
@@ -2124,13 +2165,17 @@ async function loadCatalog() {
         element('p', entry.resumen), countBadge(countSourceLinks(entry), 'enlace', 'enlaces'));
       return card;
     }));
-    status.textContent = !showAll ? sources.length + ' recursos en la Biblioteca.' :
-      matches.length === 1 ? '1 recurso' : matches.length ? matches.length + ' recursos' :
+    status.textContent = matches.length === 1 ? '1 recurso' : matches.length ? matches.length + ' recursos' :
       editorialView ? 'Todavía no hemos publicado nada aquí.' : 'No encontramos nada con esa búsqueda.';
   }
 
-  search.addEventListener('input', render);
-  topic.addEventListener('change', render);
+  function refresh() {
+    pageSize = 5;
+    render();
+  }
+
+  search.addEventListener('input', refresh);
+  topic.addEventListener('change', refresh);
   search.form.addEventListener('submit', event => { event.preventDefault(); render(); });
   render();
 }

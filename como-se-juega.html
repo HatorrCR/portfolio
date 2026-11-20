@@ -6,9 +6,9 @@
 <meta name="description" content="Guías, charlas y pruebas jugables para entender cómo se diseñan los videojuegos.">
 <title>Cómo se juega · Diseño de videojuegos en español</title>
 <link rel="stylesheet" href="estilos/comun.css">
-<link rel="stylesheet" href="estilos/como-se-juega.css?v=laboratorios-revisados">
+<link rel="stylesheet" href="estilos/como-se-juega.css?v=estanteria">
 <script defer src="scripts/navegacion.js"></script>
-<script defer src="scripts/como-se-juega.js?v=tono-editorial"></script>
+<script defer src="scripts/como-se-juega.js?v=estanteria"></script>
 </head>
 <body data-nav="none">
 <header class="cabecera">
@@ -103,6 +103,7 @@
 <section id="lectura" hidden aria-labelledby="titulo-lectura"></section>
 <section id="catalogo" aria-labelledby="titulo-catalogo">
 <h2 id="titulo-catalogo">Biblioteca</h2>
+<p id="biblioteca-intro" hidden>Estudios, charlas y materiales para entender cómo se hacen los juegos.</p>
 <p id="volver-biblioteca" hidden></p>
 <p id="volver-diseno" hidden></p>
 <nav id="archivo-mecanicas" class="areas" aria-label="Archivo de mecánicas" hidden></nav>
@@ -111,15 +112,21 @@
   <a href="como-se-juega.html?papers=es#catalogo" data-papers="es"><span class="area-titulo">Papers en español</span></a>
   <a href="como-se-juega.html?papers=en#catalogo" data-papers="en"><span class="area-titulo">Papers en inglés</span></a>
 </nav>
+<div class="panel-catalogo">
+<h3 id="encabezado-fichas" hidden>Catálogo</h3>
 <form class="filtros" role="search">
 <label>Buscar<input type="search" id="buscar" placeholder="Prueba con «saltos» o «tutoriales»"></label>
 <label id="filtro-tema">Tema<select id="tema"><option value="">Todos los temas</option></select></label>
+<label id="filtro-idioma" hidden>Idioma<select id="idioma-catalogo"><option value="">Todos los idiomas</option></select></label>
+<button type="button" id="limpiar-catalogo" hidden>Limpiar filtros</button>
 </form>
 <p id="estado" role="status">Cargando catálogo…</p>
 <div id="resultados" class="rejilla"></div>
+<button type="button" id="mas-fichas" hidden>Ver más fichas</button>
+</div>
 <noscript>Activa JavaScript para consultar el catálogo.</noscript>
 </section>
 </main>
-<footer><div class="marco pie"><strong>Cómo se juega</strong><a href="game-studies.html">Portfolio de Cristian Rodríguez Díaz</a></div></footer>
+<footer><div class="marco pie"><strong>Cómo se juega</strong><a href="index.html">Portfolio de Cristian Rodríguez Díaz</a></div></footer>
 </body>
 </html>

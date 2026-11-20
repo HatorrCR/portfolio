@@ -1995,8 +1995,104 @@ function showReading(entries, archive) {
   document.querySelector('.portada').hidden = true;
 }
 
+const themeButton = document.querySelector('#modo-pagina');
+if (themeButton) {
+  const applyTheme = dark => {
+    document.documentElement.dataset.tema = dark ? 'oscuro' : 'claro';
+    themeButton.setAttribute('aria-pressed', String(dark));
+    themeButton.children[0].textContent = dark ? '☀' : '☾';
+    themeButton.children[1].textContent = dark ? 'Claro' : 'Oscuro';
+  };
+  applyTheme(document.documentElement.dataset.tema === 'oscuro');
+  themeButton.hidden = false;
+  themeButton.addEventListener('click', () => {
+    const dark = document.documentElement.dataset.tema !== 'oscuro';
+    applyTheme(dark);
+    try { localStorage.setItem('como-se-juega-tema', dark ? 'oscuro' : 'claro'); } catch {}
+  });
+}
+
+const areaIntroductions = {
+  sistemas: 'Una mesa de prototipos para ver qué pasa cuando juntas reglas.',
+  niveles: 'Abre una zona del plano y entra en sus guías.',
+  narrativa: 'Un cuaderno para escribir escenas y trabajar la traducción.',
+  interfaz: 'Un banco de pruebas para lo que ves y tocas al jugar.'
+};
+
+function areaSample(area) {
+  const box = element('div', '', 'muestra-diseno muestra-diseno--' + area);
+  if (area === 'sistemas') {
+    for (const label of ['Mina', '→', 'Oro', '→', 'Otra mina']) {
+      box.append(element(label === '→' ? 'b' : 'span', label));
+    }
+  } else if (area === 'niveles') {
+    box.setAttribute('aria-hidden', 'true');
+    for (let i = 0; i < 28; i++) {
+      const kind = [2,25].includes(i) ? 'plano-punto' :
+        [3,4,5,12,19,18].includes(i) ? 'plano-ruta' : '';
+      box.append(element('i', '', kind));
+    }
+  } else if (area === 'narrativa') {
+    for (const [label,line] of [['Original', '“Nice parking.”'], ['Adaptación', '«Menudo aterrizaje».']]) {
+      const page = element('div', '');
+      page.append(element('small', label), element('blockquote', line));
+      box.append(page);
+    }
+  } else {
+    const message = element('p', 'La partida tiene cambios');
+    message.setAttribute('role', 'status');
+    const save = element('button', 'Guardar');
+    save.type = 'button';
+    save.addEventListener('click', () => {
+      save.disabled = true;
+      message.textContent = 'Guardando…';
+      setTimeout(() => {
+        message.textContent = 'Partida guardada';
+        save.disabled = false;
+      }, 450);
+    });
+    box.append(message, save);
+  }
+  return box;
+}
+
+function renderThemedHub(sections, own) {
+  const heading = document.querySelector('#titulo-catalogo');
+  const copy = element('div', '');
+  const intro = element('div', '', 'portada-diseno');
+  heading.before(intro);
+  copy.append(heading, element('p', areaIntroductions[areaKey]));
+  intro.append(copy, areaSample(areaKey));
+  document.querySelector('#catalogo').dataset.areaDiseno = areaKey;
+  sections.className = 'colecciones-diseno';
+  sections.hidden = false;
+  for (const [name, description] of Object.entries(discipline[1])) {
+    const entries = own.filter(entry => designTopic(entry) === name);
+    const href = name === 'Mecánicas' ? '?tema=Mec%C3%A1nicas#catalogo' :
+      '?' + libraryQuery({categoria: name}) + '#catalogo';
+    const folder = element('details', '', 'coleccion-diseno');
+    folder.open = sections.children.length === 0;
+    const summary = element('summary', '');
+    summary.append(element('span', name), element('span',
+      entries.length + (entries.length === 1 ? ' ficha' : ' fichas'), 'cuenta-coleccion'));
+    const content = element('div', '', 'contenido-coleccion');
+    content.append(element('p', description), link('Abrir colección', href));
+    for (const entry of entries) {
+      const url = isArchive(entry) ? archiveUrl(entry.subtema) : href.split('#')[0] + '&lectura=' + encodeURIComponent(entry.id);
+      const item = element('article', '', 'ficha-coleccion');
+      const title = element('h3', '');
+      title.append(link(entry.titulo, url));
+      item.append(title, element('p', entry.resumen),
+        countBadge((entry.cuerpo.match(/^## /gm) ?? []).length || 1, 'apartado', 'apartados'));
+      content.append(item);
+    }
+    folder.append(summary, content);
+    sections.append(folder);
+  }
+}
+
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=estanteria', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=temas-y-modo', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const own = catalog.filter(isEditorial);
@@ -2052,12 +2148,7 @@ async function loadCatalog() {
   let pageSize = 5;
   const shelfCards = new Map();
   if (sectionHub) {
-    sections.hidden = false;
-    for (const [name, description] of Object.entries(discipline[1])) {
-      const href = name === 'Mecánicas' ? '?tema=Mec%C3%A1nicas#catalogo' :
-        '?' + libraryQuery({categoria: name}) + '#catalogo';
-      sections.append(areaCard(name, href, countCategory(name), description));
-    }
+    renderThemedHub(sections, own);
   } else if (libraryHub) {
     document.querySelector('#catalogo').classList.add('biblioteca-estanteria');
     document.querySelector('#biblioteca-intro').hidden = false;

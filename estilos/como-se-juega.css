@@ -617,3 +617,16 @@ body { padding-bottom: 60px; }
 .muestra-diseno--mecanicas { position: relative; overflow: hidden; background: var(--tema-fondo); }
 .muestra-salto-arco { position: absolute; inset: 28% 21% 15%; border: 2px dashed var(--tema-acento); border-color: var(--tema-acento) transparent transparent; border-radius: 50%; }
 .muestra-salto-suelo { position: absolute; inset: auto 12% 22%; height: 7px; background: linear-gradient(90deg,var(--tema-acento) 28%,transparent 28% 72%,var(--tema-acento) 72%); }
+
+.lectura-biblioteca > section { margin-block: 1.35rem; padding: 1rem clamp(.85rem,3vw,1.45rem); border: 1px solid var(--linea); }
+#lectura.lectura-biblioteca > section > h2 { margin-top: 0; }
+.entrada-biblioteca { background: #f2ead8; border-inline-start: 4px solid var(--acento) !important; }
+.materiales-biblioteca { margin-top: 1rem; padding-top: .8rem; border-top: 1px solid var(--linea); }
+.figura-biblioteca { margin: .75rem 0; padding: .7rem; border: 1px solid var(--linea); background: #f9f1e2; }
+.figura-biblioteca img { display: block; max-width: 100%; height: auto; margin: 0 auto .55rem; }
+.figura-biblioteca figcaption { font-size: .85rem; color: var(--secundario); }
+.figura-biblioteca blockquote { margin: 0 0 .5rem; padding-inline-start: .7rem; border-inline-start: 2px solid var(--acento); }
+.animacion-biblioteca summary { cursor: pointer; font-weight: 700; }
+.ejemplos-biblioteca dt { font-weight: 750; color: var(--acento); }
+.ejemplos-biblioteca dd { margin: 0 0 .7rem; }
+[data-tema="oscuro"] :is(.entrada-biblioteca,.figura-biblioteca) { background: var(--panel-oscuro); }

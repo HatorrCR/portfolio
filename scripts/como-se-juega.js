@@ -1867,6 +1867,91 @@ function addDashLab(is3D) {
   reset();
 }
 
+function renderLibraryReading(resource, entries) {
+  reading.classList.add('lectura-biblioteca');
+  const intro = element('section', '', 'entrada-biblioteca');
+  intro.append(element('h2', 'De qué va'), element('p', resource.resumen));
+  reading.append(intro);
+
+  const summary = element('section', '', 'resumen-biblioteca');
+  summary.append(element('h2', 'Resumen y puntos clave'));
+  for (const paragraph of resource.cuerpo.trim().split(/\r?\n\s*\r?\n/).filter(Boolean)) {
+    if (paragraph === resource.resumen) continue;
+    const heading = paragraph.match(/^#{2,3} ([^\r\n]+)$/);
+    summary.append(heading ? element('h3', heading[1]) : element('p', paragraph));
+  }
+
+  const supplementary = resource.materiales ?? [];
+  if (supplementary.length || resource.figuras?.length || resource.esquemaBiblioteca || resource.fragmento) {
+    const materials = element('div', '', 'materiales-biblioteca');
+    materials.append(element('h3', 'Material para mirar de cerca'));
+    if (resource.esquemaBiblioteca) {
+      const {flujo, pie} = resource.esquemaBiblioteca;
+      const figure = element('figure', '', 'figura-biblioteca');
+      const diagram = element('ol', '', 'esquema-sistemas');
+      diagram.append(...flujo.map(step => element('li', step)));
+      figure.append(diagram, element('figcaption', pie));
+      materials.append(figure);
+    }
+    for (const asset of resource.figuras ?? []) {
+      const figure = element('figure', '', 'figura-biblioteca');
+      const image = element('img', '');
+      image.alt = asset.alt;
+      image.loading = 'lazy';
+      image.addEventListener('error', () => { image.hidden = true; });
+      const caption = element('figcaption', asset.pie + ' ');
+      caption.append(link('Abrir imagen original', asset.url));
+      if (asset.url.endsWith('.gif')) {
+        const animation = element('details', '', 'animacion-biblioteca');
+        animation.append(element('summary', 'Ver animación'), image);
+        animation.addEventListener('toggle', () => {
+          if (animation.open) image.src = asset.url;
+          else image.removeAttribute('src');
+        });
+        image.addEventListener('load', () => { image.hidden = false; });
+        figure.append(animation);
+      } else {
+        image.src = asset.url;
+        figure.append(image);
+      }
+      figure.append(caption);
+      materials.append(figure);
+    }
+    if (resource.fragmento) {
+      const fragment = element('figure', '', 'figura-biblioteca');
+      const quote = element('blockquote', resource.fragmento.texto);
+      quote.lang = 'en';
+      fragment.append(quote, element('figcaption', resource.fragmento.atribucion));
+      materials.append(fragment);
+    }
+    if (supplementary.length) {
+      const links = element('ul', '', 'adjuntos-biblioteca');
+      for (const material of supplementary) {
+        const row = element('li', '');
+        row.append(link(material.nombre, material.url));
+        links.append(row);
+      }
+      materials.append(links);
+    }
+    summary.append(materials);
+  }
+  reading.append(summary);
+
+  const examples = element('section', '', 'ejemplos-biblioteca');
+  examples.append(element('h2', 'Juegos donde fijarte'));
+  const games = element('dl', '');
+  for (const game of resource.juegos ?? []) {
+    games.append(element('dt', game.nombre), element('dd', game.observacion));
+  }
+  examples.append(games);
+  if (resource.subtema) {
+    const guide = entries.find(entry => isArchive(entry) && entry.tema === resource.tema && entry.subtema === resource.subtema);
+    if (guide) examples.append(link('Ver nuestra ficha de ' + guide.subtema, archiveUrl(guide.subtema)));
+  }
+  reading.append(examples);
+  showSources(resource, entries);
+}
+
 function showReading(entries, archive) {
   const id = params.get('lectura') ?? archive?.id;
   if (!id) return;
@@ -1910,7 +1995,14 @@ function showReading(entries, archive) {
     const visualJump = id === 'salto-2d-guia';
     const dashGuide = id === 'dash-2d-guia' || id === 'dash-3d-guia';
     document.title = resource.titulo + ' · Cómo se juega';
-    if (!editorial) reading.append(element('p', resource.formato + ' · ' + resource.tema, 'meta'));
+    if (!editorial) {
+      reading.append(element('p', resource.formato + ' · ' + resource.tema, 'meta'));
+      renderLibraryReading(resource, entries);
+      document.querySelector('#catalogo').hidden = true;
+      reading.hidden = false;
+      document.querySelector('.portada').hidden = true;
+      return;
+    }
     const jumpControls = visualJump ? addJumpLab() : null;
     for (const [blockIndex, block] of resource.cuerpo.split(/^\x60\x60\x60(?:csharp)?[ \t]*\r?$/m).entries()) {
       if (blockIndex % 2 === 1) {
@@ -2106,7 +2198,7 @@ function renderThemedHub(sections, own) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=temas-y-modo', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=fichas-biblioteca', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const catalog = await response.json();
   const own = catalog.filter(isEditorial);

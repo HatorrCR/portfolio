@@ -2735,5 +2735,124 @@
         "observacion": "Abre dos proyectos de muestra y observa qué piezas tienes que reutilizar y cuáles solo sirven para montar esa prueba concreta."
       }
     ]
+  },
+  {
+    "id": "unity-2d-techdemos",
+    "titulo": "Escenas pequeñas para probar las herramientas 2D de Unity",
+    "tema": "Prototipado y pruebas",
+    "formato": "Código fuente",
+    "idioma": "Inglés",
+    "resumen": "El repositorio reúne ejemplos pequeños de funciones 2D que puedes inspeccionar por separado.",
+    "cuerpo": "## En qué fijarte\n\nAbre la escena que aísla lo que necesitas y comprueba qué componentes modifican el resultado. Cuando cambies algo, conserva otra copia para poder distinguir lo que ya venía hecho de lo que acabas de añadir.",
+    "referencia": "Unity Technologies. Tech Demos for Unity 2D Features. GitHub.",
+    "fuente": "https://github.com/Unity-Technologies/2d-techdemos",
+    "juegos": [
+      {
+        "nombre": "Tech Demos for Unity 2D Features",
+        "observacion": "Elige una de las escenas y compara el resultado al desactivar un solo componente."
+      }
+    ]
+  },
+  {
+    "id": "level-design-enemy",
+    "titulo": "Diseñar enemigos a partir de lo que te obligan a hacer",
+    "tema": "Encuentros y puzles",
+    "formato": "Guía",
+    "idioma": "Inglés",
+    "resumen": "El capítulo describe funciones que puede cumplir un enemigo dentro de un encuentro.",
+    "cuerpo": "## En qué fijarte\n\nPrueba a pensar en qué decisión provoca un enemigo. Uno puede sacarte de detrás de un muro y otro cortarte una ruta. Monta ambos por separado antes de juntarlos y fíjate en si todavía puedes distinguir de dónde viene cada amenaza.",
+    "referencia": "The Level Design Book. Enemy design.",
+    "fuente": "https://book.leveldesignbook.com/process/combat/enemy",
+    "juegos": [
+      {
+        "nombre": "Gears 5",
+        "observacion": "Busca un combate donde una amenaza te haga abandonar una cobertura y apunta adónde te conviene ir."
+      }
+    ]
+  },
+  {
+    "id": "gdc-heavens-vault-detective",
+    "titulo": "Sostener una investigación que admite recorridos distintos",
+    "tema": "Diseño narrativo",
+    "formato": "Conferencia",
+    "idioma": "Inglés",
+    "resumen": "La charla presenta el reto de convertir una aventura arqueológica en una investigación que puede avanzar por caminos distintos.",
+    "cuerpo": "## En qué fijarte\n\nMonta tres pistas que puedan aparecer en distinto orden y escribe qué puede deducirse con una, con dos o con las tres. Comprueba que la historia avance aunque una se encuentre más tarde. La estructura se deja estudiar mejor al mirar qué sabe quien investiga en cada momento.",
+    "referencia": "Inkle. Heaven’s Vault: Creating a Dynamic Detective Story. GDC Vault.",
+    "fuente": "https://www.gdcvault.com/play/1025392/contactUs",
+    "juegos": [
+      {
+        "nombre": "Heaven’s Vault",
+        "observacion": "Apunta qué interpretación provisional tienes de una inscripción y qué descubrimiento posterior podría cambiarla."
+      }
+    ]
+  },
+  {
+    "id": "demo-vi-hart-poligonos",
+    "titulo": "Cómo se acumula una preferencia pequeña",
+    "tema": "Dinámicas",
+    "formato": "Demo",
+    "idioma": "Inglés",
+    "resumen": "Una simulación jugable que muestra cómo reglas locales sencillas pueden producir un patrón colectivo.",
+    "cuerpo": "## En qué fijarte\n\nPrimero observa un único movimiento. Después deja que se repita en toda la red y compara el resultado con la impresión que te dejó el primer paso. La pieza propone un modelo deliberadamente sencillo para discutir una dinámica, con supuestos que conviene leer como parte del ejemplo.",
+    "referencia": "Vi Hart y Nicky Case. Parable of the Polygons.",
+    "fuente": "https://ncase.me/polygons/",
+    "juegos": [
+      {
+        "nombre": "Parable of the Polygons",
+        "observacion": "Cambia el umbral de preferencia en la simulación y mira si el patrón cambia enseguida o tarda en deshacerse."
+      }
+    ]
+  },
+  {
+    "id": "xag-117-movimiento",
+    "titulo": "Reducir el movimiento que estorba para jugar",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La guía trata ajustes de movimiento que pueden afectar a la comodidad y la lectura.",
+    "cuerpo": "## En qué fijarte\n\nPrueba por separado un temblor de cámara, una animación de transición y un fondo móvil. Si desactivas un efecto que también servía de aviso, revisa qué otra señal puede comunicar la misma información durante la acción.",
+    "referencia": "Microsoft. Xbox Accessibility Guideline 117: Motion settings.",
+    "fuente": "https://learn.microsoft.com/en-us/gaming/accessibility/xbox-accessibility-guidelines/117",
+    "juegos": [
+      {
+        "nombre": "Celeste",
+        "observacion": "Compara una escena con cambios bruscos de cámara y otra en la que puedas seguir el movimiento con más calma."
+      }
+    ]
+  },
+  {
+    "id": "video-gmtk-diez-lecciones",
+    "titulo": "Diez ideas de diseño para llevar a una prueba pequeña",
+    "tema": "Prototipado y pruebas",
+    "formato": "Vídeo",
+    "idioma": "Inglés",
+    "resumen": "Una recopilación de lecciones de diseño ordenadas por temas y con ejemplos de distintos juegos.",
+    "cuerpo": "## En qué fijarte\n\nElige un capítulo y escribe qué conducta te gustaría ver antes de cambiar tu prototipo. Vuelve al episodio después de probar para comparar qué parte de la idea se observa en tu juego y en qué parte necesitas adaptar el principio.",
+    "referencia": "Mark Brown. 10 Game Design Lessons from 10 Years of GMTK. Game Maker’s Toolkit.",
+    "fuente": "https://www.youtube.com/watch?v=Cm2_drGLGbc",
+    "juegos": [
+      {
+        "nombre": "Portal",
+        "observacion": "Identifica una señal que te ayude a anticipar cuál será tu siguiente acción sin resolverte el puzle."
+      }
+    ]
+  },
+  {
+    "id": "faunasphere-recompensas",
+    "titulo": "Qué busca la gente al coleccionar logros",
+    "tema": "Sistemas y economías",
+    "formato": "Estudio",
+    "idioma": "Inglés",
+    "resumen": "El artículo estudia qué papel tienen los logros y las recompensas en la motivación de jugadores de Faunasphere.",
+    "cuerpo": "## En qué fijarte\n\nPuedes comparar dos premios que requieran el mismo tiempo, uno que señale progreso y otro que permita exhibir algo ante otros. Pregunta qué recuerda cada persona del logro y para qué quiso conseguirlo. El estudio ayuda a plantear esa pregunta desde un caso concreto.",
+    "referencia": "Jason Begy y Mia Consalvo (2011). Achievements, Motivations and Rewards in Faunasphere. Game Studies, 11(1).",
+    "fuente": "https://gamestudies.org/1101/articles/begy_consalvo",
+    "juegos": [
+      {
+        "nombre": "Animal Crossing: New Horizons",
+        "observacion": "Compara la motivación de completar una colección con la de enseñar una pieza en un espacio visitable."
+      }
+    ]
   }
 ]

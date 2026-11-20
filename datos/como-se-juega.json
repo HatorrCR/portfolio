@@ -1986,5 +1986,311 @@
         "pie": "Microsoft usa el menú de Grounded como ejemplo de presentación de texto. Fuente: Xbox Accessibility Guideline 101."
       }
     ]
+  },
+  {
+    "id": "sicart-defining-mechanics",
+    "titulo": "Qué cuenta como mecánica de juego",
+    "tema": "Mecánicas",
+    "formato": "Estudio",
+    "idioma": "Inglés",
+    "resumen": "Sicart propone mirar qué acciones tienen a su alcance los agentes del juego y cómo las usan para intervenir en su mundo.",
+    "cuerpo": "## En qué fijarte\n\nLa propuesta sirve para describir una acción con precisión: quién puede hacerla, sobre qué actúa y qué condiciones la habilitan. En una ficha de salto puedes distinguir pulsar un botón, adquirir velocidad vertical y aterrizar. Cada descripción responde a una pregunta distinta.\n\n## Para probarlo\n\nHaz el inventario de acciones de una escena y separa las que están disponibles para el jugador de las que ejecutan los enemigos. Luego indica qué combinaciones aparecen en partida. La definición ayuda a estudiar cómo se juega y deja espacio para analizar por separado cómo se siente.",
+    "referencia": "Miguel Sicart (2008). Defining Game Mechanics. Game Studies, 8(2).",
+    "fuente": "https://www.gamestudies.org/0802/articles/sicart/",
+    "juegos": [
+      {
+        "nombre": "Celeste",
+        "observacion": "Anota cuándo se puede saltar o hacer dash y qué cambia en las opciones disponibles al tocar una pared."
+      }
+    ]
+  },
+  {
+    "id": "juul-game-player-world",
+    "titulo": "Cómo se relacionan las reglas, el jugador y lo que está en juego",
+    "tema": "Jugabilidad y bucles",
+    "formato": "Estudio",
+    "idioma": "Inglés",
+    "resumen": "Juul plantea seis rasgos para estudiar qué entendemos por juego y dónde empiezan a verse los casos fronterizos.",
+    "cuerpo": "## En qué fijarte\n\nEl modelo mira las reglas y sus resultados, el valor que reciben esos resultados, el esfuerzo del jugador y su vínculo con lo ocurrido. También pregunta qué consecuencias se negocian fuera de la partida. Ganar una partida casual y ganar la misma partida en un torneo puede tener efectos distintos aunque las reglas sean las mismas.\n\n## Para probarlo\n\nElige un juego y escribe qué cambia entre una partida amistosa y una competición. Conserva por separado lo que marca el sistema, lo que le importa al jugador y las consecuencias externas. El artículo propone un modelo de análisis, con espacio para discutir ejemplos que encajan solo en parte.",
+    "referencia": "Jesper Juul (2003). The Game, the Player, the World: Looking for a Heart of Gameness. Level Up.",
+    "fuente": "https://jesperjuul.net/text/gameplayerworld/",
+    "juegos": [
+      {
+        "nombre": "Super Smash Bros. Ultimate",
+        "observacion": "Compara qué significa ganar un combate amistoso y ganar uno decisivo en un torneo."
+      }
+    ]
+  },
+  {
+    "id": "gdc-designing-journey",
+    "titulo": "Cómo se diseñó la experiencia de Journey",
+    "tema": "Diseño narrativo",
+    "formato": "Conferencia",
+    "idioma": "Inglés",
+    "resumen": "La charla recorre cómo thatgamecompany llegó al concepto de Journey y qué buscaba hacer sentir al jugador.",
+    "cuerpo": "## En qué fijarte\n\nLee el proceso desde la emoción que se quiere provocar. Pregúntate qué decisiones de movimiento, espacio y presencia de otra persona sostienen esa experiencia. El destino visible da dirección, y la escala del paisaje puede cambiar cómo te percibes dentro de él.\n\n## Para probarlo\n\nPrueba un tramo una vez a solas y otra pendiente de alguien que pasa cerca. Anota qué entiendes de sus intenciones con las acciones que el juego permite. Eso te da material para estudiar cómo se cuenta algo con la interacción.",
+    "referencia": "Jenova Chen (2013). Designing Journey. GDC.",
+    "fuente": "https://gdcvault.com/play/1017700/Designing",
+    "juegos": [
+      {
+        "nombre": "Journey",
+        "observacion": "Fíjate en cómo cambia tu forma de avanzar cuando encuentras a otra persona en el camino."
+      }
+    ]
+  },
+  {
+    "id": "gdc-dan-taylor-niveles",
+    "titulo": "Diez principios para revisar un nivel",
+    "tema": "Espacios y recorridos",
+    "formato": "Conferencia",
+    "idioma": "Inglés",
+    "resumen": "Una charla que reúne principios de diseño de niveles alrededor de la participación, la inmersión y la claridad.",
+    "cuerpo": "## En qué fijarte\n\nLa mejor forma de usar una lista así es llevarla a un recorrido concreto. Escoge un cruce y pregunta qué puede deducir la persona que llega, qué opciones reales tiene y qué ocurre si se equivoca. Puedes descubrir que un tramo legible da pocas decisiones, o que uno con buenas alternativas las esconde.\n\n## Para probarlo\n\nHaz dos recorridos del mismo nivel con observadores distintos. Registra dónde se paran antes de explicar tu intención. Luego elige un único ajuste y comprueba si cambia la lectura.",
+    "referencia": "Dan Taylor (2013). Ten Principles for Good Level Design. GDC.",
+    "fuente": "https://www.gdcvault.com/play/1019023/Ten-Principles-for-Good-Level",
+    "juegos": [
+      {
+        "nombre": "Half-Life 2",
+        "observacion": "Detente al entrar en una zona y señala qué te da una pista sobre la dirección antes de seguir avanzando."
+      }
+    ]
+  },
+  {
+    "id": "donut-county-agujero",
+    "titulo": "Cómo Donut County construye un juego alrededor de un agujero",
+    "tema": "Mecánicas",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Ben Esposito presenta el juego y explica su idea central: controlar un agujero que crece a medida que traga objetos.",
+    "cuerpo": "## En qué fijarte\n\nUna regla sencilla puede cambiar las decisiones sin cambiar los controles. Al empezar importa encontrar lo que cabe. Después, el tamaño que ganaste te deja probar con objetos que antes estaban fuera de alcance. También puedes usar lo que cae para preparar la siguiente interacción.\n\n## Para probarlo\n\nOrdena tres objetos de menor a mayor y observa si el espacio invita a acercarte en ese orden. Luego pon el más grande a la vista desde el principio. Comprueba si sirve como objetivo sin tener que añadir una flecha o un cartel.",
+    "referencia": "Ben Esposito (2018). Get the Hole Story in Donut County. PlayStation.Blog.",
+    "fuente": "https://blog.playstation.com/?p=203173",
+    "juegos": [
+      {
+        "nombre": "Donut County",
+        "observacion": "Elige una escena y sigue qué objeto te permite tragarte el siguiente."
+      }
+    ]
+  },
+  {
+    "id": "koster-gramatica-juegos",
+    "titulo": "Cómo descomponer un juego en acciones y resultados",
+    "tema": "Mecánicas",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Koster usa una gramática para descomponer lo que hacemos al jugar y estudiar cómo se encadenan las acciones.",
+    "cuerpo": "## En qué fijarte\n\nEmpieza por un gesto pequeño. ¿Qué información tienes antes de hacerlo? ¿Qué cambia después? Luego mira qué decisión nueva abre el resultado. Así puedes describir un ciclo sin quedarte en que el jugador pulsa un botón varias veces.\n\n## Para probarlo\n\nDibuja qué pasa al lanzar una pieza y cómo cambia el tablero. Si la colocación cambia las opciones de la siguiente pieza, has encontrado una conexión que sostiene el ciclo. Compara dos variantes cambiando solo lo que se conserva entre turnos.",
+    "referencia": "Raph Koster. Game Grammar. Texto de la presentación en el sitio del autor.",
+    "fuente": "https://www.raphkoster.com/games/presentations/game-grammar/",
+    "juegos": [
+      {
+        "nombre": "Tetris",
+        "observacion": "Fíjate en cómo colocar una pieza cambia dónde conviene poner la siguiente."
+      }
+    ]
+  },
+  {
+    "id": "unity-reasignar-controles",
+    "titulo": "Reasignar controles en Unity",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La API permite escuchar la pulsación que el jugador elige para reasignar una acción.",
+    "cuerpo": "## En qué fijarte\n\nPiensa en tres estados de interfaz: esperando una pulsación, cambio aplicado y operación cancelada. Si quieres conservar el cambio al reiniciar, guarda la asignación y vuelve a cargarla. El menú debe mostrar el control que está activo en ese momento.\n\n## Para probarlo\n\nPrueba asignar un botón que ya usa otra acción y verifica qué decisión permite el menú. Después intenta volver a los valores de fábrica usando únicamente el mando.",
+    "referencia": "Unity Technologies. Input System 1.4.3, InputActionRebindingExtensions.",
+    "fuente": "https://docs.unity3d.com/ja/Packages/com.unity.inputsystem%401.4/api/UnityEngine.InputSystem.InputActionRebindingExtensions.html",
+    "juegos": [
+      {
+        "nombre": "Celeste",
+        "observacion": "Abre la configuración y compara qué información se muestra al seleccionar una acción y al cambiar su control."
+      }
+    ]
+  },
+  {
+    "id": "unity-navmesh-destino",
+    "titulo": "Pedir un destino y esperar a que se calcule la ruta",
+    "tema": "Espacios y recorridos",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La documentación explica cómo solicitar una ruta y qué indica que el cálculo sigue pendiente.",
+    "cuerpo": "## En qué fijarte\n\nQue la solicitud se acepte y que el agente ya tenga un camino son estados diferentes. Mientras se calcula, puedes consultar pathPending. Después comprueba el resultado de la ruta antes de dar por hecho que el personaje llegará al destino.\n\n## Para probarlo\n\nHaz dos pruebas con el mismo destino, una con el acceso libre y otra con una puerta cerrada entre medias. Decide qué debe hacer el personaje si no consigue una ruta utilizable y qué ve el jugador mientras espera.",
+    "referencia": "Unity Technologies. Unity 6, NavMeshAgent.SetDestination.",
+    "fuente": "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+    "juegos": [
+      {
+        "nombre": "The Sims 4",
+        "observacion": "Como referencia de comportamiento, pon un objeto detrás de un paso cerrado y observa cómo se comunica que el personaje no puede llegar."
+      }
+    ]
+  },
+  {
+    "id": "kenney-plataformas-3d",
+    "titulo": "Un plataformas 3D para leer y modificar",
+    "tema": "Mecánicas",
+    "formato": "Código fuente",
+    "idioma": "Inglés",
+    "resumen": "Un proyecto inicial en Godot con escenas y código para probar el movimiento de un plataformas 3D.",
+    "cuerpo": "## En qué fijarte\n\nEmpieza por ejecutar la escena de muestra y anotar qué puedes hacer desde el primer momento. Luego localiza qué controla el personaje y qué define cada nivel. Esa separación te deja ensayar cambios de movimiento conservando la geometría de la prueba.\n\n## Para probarlo\n\nDuplica un tramo y cambia solo la distancia entre dos plataformas. Anota si cambia la dificultad porque el salto llega justo o porque la cámara oculta la caída. Son dos ajustes distintos aunque terminen en el mismo foso.",
+    "referencia": "Kenney. Starter Kit 3D Platformer. Repositorio oficial.",
+    "fuente": "https://github.com/KenneyNL/Starter-Kit-3D-Platformer",
+    "juegos": [
+      {
+        "nombre": "Starter Kit 3D Platformer",
+        "observacion": "Recorre la escena de muestra y modifica una característica del movimiento para comparar."
+      }
+    ]
+  },
+  {
+    "id": "unity-chop-chop",
+    "titulo": "Cómo se organiza un juego completo en Unity",
+    "tema": "Sistemas y economías",
+    "formato": "Código fuente",
+    "idioma": "Inglés",
+    "resumen": "El repositorio reúne el proyecto de una aventura hecha en abierto y conserva su código y materiales.",
+    "cuerpo": "## En qué fijarte\n\nUna manera de leer un proyecto grande es seguir una única acción. Empieza por una interacción del jugador y anota dónde nace el aviso, qué sistema actualiza el estado y qué cambia en pantalla. Así vas entendiendo las dependencias sin abrir todos los archivos a la vez.\n\n## Para probarlo\n\nConsulta el README antes de importar. El proyecto dejó de desarrollarse en diciembre de 2021. Su valor está en estudiar la organización de un ejemplo real y comprobar qué piezas funcionan con la versión que pide.",
+    "referencia": "Unity Technologies y colaboradores. Unity Open Project #1: Chop Chop. Repositorio oficial.",
+    "fuente": "https://github.com/UnityTechnologies/open-project-1",
+    "juegos": [
+      {
+        "nombre": "Chop Chop",
+        "observacion": "Elige una interacción pequeña y sigue cómo viaja desde la escena hasta el sistema que registra su efecto."
+      }
+    ]
+  },
+  {
+    "id": "demo-spelunky-kazemi",
+    "titulo": "Un generador de niveles de Spelunky paso a paso",
+    "tema": "Espacios y recorridos",
+    "formato": "Demo",
+    "idioma": "Inglés",
+    "resumen": "Una explicación interactiva que separa la generación de la ruta principal y el rellenado de las salas.",
+    "cuerpo": "## En qué fijarte\n\nPulsa para avanzar por los pasos y fíjate en qué se decide primero. Fijar una ruta entre entrada y salida permite dejar otras zonas abiertas a variación. Si mezclas ambas decisiones desde el principio, te cuesta más averiguar de dónde salió un recorrido imposible.\n\n## Para probarlo\n\nEn un prototipo, conserva visible el camino principal mientras cambias el contenido de cada sala. Comprueba luego si las rutas alternativas ofrecen una decisión o son habitaciones que el jugador nunca necesita visitar.",
+    "referencia": "Darius Kazemi. Spelunky Generator Lessons.",
+    "fuente": "https://tinysubversions.com/spelunkyGen/",
+    "juegos": [
+      {
+        "nombre": "Spelunky",
+        "observacion": "Sigue desde la entrada hasta la salida y apunta en qué cruces decides desviarte del recorrido directo."
+      }
+    ]
+  },
+  {
+    "id": "demo-nicky-ciclos",
+    "titulo": "Qué pasa cuando solo publicas lo que llama la atención",
+    "tema": "Dinámicas",
+    "formato": "Demo",
+    "idioma": "Inglés",
+    "resumen": "Una pieza interactiva corta para observar un ciclo en el que lo que eliges fotografiar altera lo que ocurre después.",
+    "cuerpo": "## En qué fijarte\n\nLa foto funciona como una selección de lo que entra en la conversación. Mira qué imágenes consigue publicar el juego y cómo reacciona la gente al verlas. El interés del ejemplo está en seguir un ciclo de respuesta: la situación cambia y el siguiente encuadre nace de esa situación nueva.\n\n## Para probarlo\n\nJuega una vez intentando retratar la calma y otra buscando el conflicto. Compara qué acciones acepta el juego. La pieza propone una lectura deliberada del ciclo de noticias que puedes discutir a partir de sus reglas.",
+    "referencia": "Nicky Case (2016). We Become What We Behold. itch.io.",
+    "fuente": "https://ncase.itch.io/wbwwb",
+    "juegos": [
+      {
+        "nombre": "We Become What We Behold",
+        "observacion": "Prueba fotografías distintas y fíjate en cuáles pueden cambiar la siguiente escena."
+      }
+    ]
+  },
+  {
+    "id": "guia-accesibilidad-basica",
+    "titulo": "Por dónde empezar con la accesibilidad de un juego",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "formato": "Guía",
+    "idioma": "Inglés",
+    "resumen": "Una selección de ajustes y decisiones de diseño que sirve para empezar a revisar barreras de acceso.",
+    "cuerpo": "## En qué fijarte\n\nEscoge un recorrido de principio a fin: abrir el juego, cambiar un ajuste, leer un aviso y completar una acción. Comprueba qué depende de distinguir un color, oír una señal o usar una combinación de botones. Cada barrera te da un caso que se puede probar por separado.\n\n## Para probarlo\n\nHaz la revisión también durante la partida. Un texto que se lee bien en la pantalla de opciones puede taparse con los efectos de combate. Apunta en qué escena y con qué combinación de ajustes aparece el problema.",
+    "referencia": "Game Accessibility Guidelines. Basic guidelines.",
+    "fuente": "https://gameaccessibilityguidelines.com/basic/",
+    "juegos": [
+      {
+        "nombre": "Grounded",
+        "observacion": "Compara los ajustes del menú con lo que puedes leer y distinguir dentro de una escena."
+      }
+    ]
+  },
+  {
+    "id": "guia-playtest-niveles",
+    "titulo": "Cómo observar una prueba de nivel sin guiar al jugador",
+    "tema": "Encuentros y puzles",
+    "formato": "Guía",
+    "idioma": "Inglés",
+    "resumen": "La guía propone probar el nivel en distintas fases y observar qué hace la gente antes de decidir cómo arreglarlo.",
+    "cuerpo": "## En qué fijarte\n\nLleva el nivel a la prueba con una pregunta concreta. Si quieres saber si se encuentra la salida, registra el primer desvío y el punto en que se vuelve atrás. Evita dar pistas en ese momento. Después pregunta qué esperaba hallar por la ruta que eligió.\n\n## Para probarlo\n\nConserva esa observación al cambiar un elemento del nivel. Comparar dos versiones te ayuda a saber si moviste la señal correcta. También separa los comentarios sobre lo que gustó de la evidencia sobre dónde se perdió el recorrido.",
+    "referencia": "The Level Design Book. Playtesting.",
+    "fuente": "https://book.leveldesignbook.com/process/blockout/playtesting",
+    "juegos": [
+      {
+        "nombre": "Portal",
+        "observacion": "Elige una cámara temprana y comprueba qué objeto miras primero al entrar. Úsala como referencia para diseñar tu propia prueba."
+      }
+    ]
+  },
+  {
+    "id": "video-celeste-gmtk",
+    "titulo": "Qué pequeños ajustes hacen más cómodo el salto en Celeste",
+    "tema": "Mecánicas",
+    "formato": "Vídeo",
+    "idioma": "Inglés",
+    "resumen": "El vídeo explica varias ayudas discretas que cambian lo que ocurre cuando una pulsación llega un poco antes o un poco después de lo previsto.",
+    "cuerpo": "## En qué fijarte\n\nSepara dos momentos: salir por el borde y llegar al suelo tras un salto. El primero te sirve para revisar cuánto margen hay al pulsar tarde. El segundo permite estudiar qué ocurre cuando la pulsación se anticipa al aterrizaje.\n\n## Para probarlo\n\nEn tu prototipo, añade ambos márgenes de uno en uno. Repite el mismo hueco y comprueba si el resultado coincide con lo que el jugador esperaba hacer. Enlaza la observación del vídeo con la explicación de Maddy Thorson si quieres ver las técnicas por separado.",
+    "referencia": "Mark Brown (2019). Why Does Celeste Feel So Good to Play? Game Maker’s Toolkit.",
+    "fuente": "https://www.youtube.com/watch?v=yorTG9at90g",
+    "juegos": [
+      {
+        "nombre": "Celeste",
+        "observacion": "Prueba a saltar justo antes de aterrizar y justo después de dejar atrás un borde."
+      }
+    ]
+  },
+  {
+    "id": "video-gmtk-tutoriales-complejos",
+    "titulo": "Cómo enseñar un juego que tiene demasiadas reglas para una sola pantalla",
+    "tema": "Tutoriales y aprendizaje",
+    "formato": "Vídeo",
+    "idioma": "Inglés",
+    "resumen": "Un ensayo sobre cómo presentar reglas de juegos complejos sin abrumar a quien acaba de empezar.",
+    "cuerpo": "## En qué fijarte\n\nHaz una lista de todo lo que el jugador podría aprender y marca qué necesita para tomar su primera decisión. Lo demás puede aparecer cuando tenga una pregunta concreta. Mantén a mano una forma de recuperar lo explicado si cambia de estrategia o vuelve al juego varios días después.\n\n## Para probarlo\n\nPrueba a retrasar una instrucción hasta la primera vez que se puede aplicar. Comprueba si se entiende mejor en ese momento y si queda claro dónde volver a consultarla.",
+    "referencia": "Mark Brown. Can we Improve Tutorials for Complex Games? Game Maker’s Toolkit.",
+    "fuente": "https://www.youtube.com/watch?v=-GV814cWiAw",
+    "juegos": [
+      {
+        "nombre": "Civilization VI",
+        "observacion": "Empieza una partida y distingue qué avisos te permiten decidir ese turno y cuáles podrás usar más adelante."
+      }
+    ]
+  },
+  {
+    "id": "entrevista-derek-yu-spelunky-2",
+    "titulo": "Qué quiso conservar Derek Yu al pasar de Spelunky a Spelunky 2",
+    "tema": "Dinámicas",
+    "formato": "Entrevista",
+    "idioma": "Inglés",
+    "resumen": "Derek Yu explica cómo pensó la secuela y qué quería añadir a un juego de sistemas que ya se combinaban de muchas maneras.",
+    "cuerpo": "## En qué fijarte\n\nLee la entrevista atendiendo a qué aporta una novedad cuando coincide con algo que el jugador ya entiende. Un efecto nuevo puede cambiar el recorrido, abrir una cadena de reacciones o alterar dónde merece la pena detenerse. La medida concreta es qué decisiones aparecen en partida.\n\n## Para probarlo\n\nCompara una sala del primer juego con otra de la secuela. Apunta qué puedes anticipar gracias al juego anterior y qué tienes que averiguar por primera vez.",
+    "referencia": "PlayStation.Blog (2018). First look at Spelunky 2 gameplay, plus new Derek Yu interview.",
+    "fuente": "https://blog.playstation.com/archive/2018/08/29/first-look-at-spelunky-2-gameplay-plus-new-derek-yu-interview/",
+    "juegos": [
+      {
+        "nombre": "Spelunky 2",
+        "observacion": "Observa qué pasa cuando un líquido cambia un camino que dabas por seguro."
+      }
+    ]
+  },
+  {
+    "id": "entrevista-tim-schafer-psychonauts-2",
+    "titulo": "Cómo una mente se convierte en nivel en Psychonauts 2",
+    "tema": "Diseño narrativo",
+    "formato": "Entrevista",
+    "idioma": "Inglés",
+    "resumen": "Tim Schafer habla de cómo el mundo mental de Psychonauts 2 permite convertir rasgos de un personaje en espacios que se pueden recorrer.",
+    "cuerpo": "## En qué fijarte\n\nEl punto de partida es qué puedes saber de una persona al entrar en su nivel. Mira qué se repite, qué cambia cuando avanzas y qué obstáculos te obligan a ver la escena desde otra perspectiva. Un tema empieza a pesar en el juego cuando influye en lo que haces allí.\n\n## Para probarlo\n\nAl diseñar una escena parecida, escribe una idea del personaje y tradúcela en una regla del espacio. Prueba la escena con personas que no conozcan esa idea y pregúntales qué parte del recorrido les hizo pensar en ella.",
+    "referencia": "Xbox Wire (2021). Getting Psyched for Psychonauts 2 with Tim Schafer.",
+    "fuente": "https://news.xbox.com/en-us/2021/08/26/getting-psyched-for-psychonauts-2-with-tim-schafer/",
+    "juegos": [
+      {
+        "nombre": "Psychonauts 2",
+        "observacion": "Fíjate en cómo el tema de un personaje cambia las reglas de una de sus escenas mentales."
+      }
+    ]
   }
 ]

@@ -138,7 +138,7 @@ try {
 <noscript>Activa JavaScript para consultar el catálogo.</noscript>
 </section>
 </main>
-<footer><div class="marco pie"><strong>Cómo se juega</strong><a href="index.html">Portfolio de Cristian Rodríguez Díaz</a></div></footer>
+<footer><div class="marco pie"><strong>Cómo se juega</strong><span id="visitas-web" hidden>Visitas <span id="total-visitas-web"></span></span><a href="index.html">Portfolio de Cristian Rodríguez Díaz</a></div></footer>
 <button id="modo-pagina" type="button" aria-label="Modo oscuro" aria-pressed="false" hidden>
   <span aria-hidden="true">☾</span> <span>Oscuro</span>
 </button>
@@ -159,5 +159,15 @@ try {
     <p><a href="https://github.com/HatorrCR/portfolio/edit/main/como-se-juega.html">Editar textos de portada y navegación</a> · <a href="https://github.com/HatorrCR/portfolio/edit/main/scripts/como-se-juega.js">Editar textos de interfaz y laboratorios</a></p>
   </form>
 </dialog>
+<script>
+fetch('https://como-se-juega.goatcounter.com/counter/TOTAL.json')
+  .then(response => response.ok ? response.json() : null)
+  .then(data => {
+    if (typeof data?.count !== 'string' || !data.count.trim()) return;
+    document.getElementById('total-visitas-web').textContent = data.count;
+    document.getElementById('visitas-web').hidden = false;
+  })
+  .catch(() => {});
+</script>
 </body>
 </html>

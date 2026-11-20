@@ -543,7 +543,8 @@
         "alt": "Captura del laboratorio Platformer Toolkit.",
         "pie": "Captura del material original en itch.io. Fuente: Game Maker’s Toolkit."
       }
-    ]
+    ],
+    "video": "https://www.youtube.com/watch?v=zWi0jgghGcI"
   },
   {
     "id": "salto-2d-unity-velocidad",
@@ -725,6 +726,13 @@
       {
         "nombre": "Uncharted 4: A Thief’s End",
         "observacion": "Busca dos agarres cercanos e inclina el mando hacia uno y hacia el otro para ver qué información devuelve Nathan."
+      }
+    ],
+    "figuras": [
+      {
+        "url": "https://blog.playstation.com/tachyon/2022/10/1b9baffbc1056ad9819c1ce01dc30d1fbf78791d-scaled.jpg?resize=1088%2C612&crop_strategy=smart",
+        "alt": "Imagen del artículo de Naughty Dog sobre la escalada en Uncharted 4.",
+        "pie": "Imagen del artículo de Naughty Dog sobre la escalada en Uncharted 4."
       }
     ]
   },
@@ -1156,7 +1164,8 @@
         "nombre": "Returnal",
         "observacion": "Prueba a esquivar mientras cambia tu posición respecto a los proyectiles. Fíjate en cuándo puedes tomar otra decisión."
       }
-    ]
+    ],
+    "video": "https://www.youtube.com/watch?v=lL2Qa0MQyuE"
   },
   {
     "id": "dash-3d-doom",
@@ -1437,6 +1446,13 @@
       {
         "nombre": "God of War Ragnarök",
         "observacion": "En una dificultad compatible, observa en qué momento te devuelve al combate la ayuda de puntos de control de minijefe."
+      }
+    ],
+    "figuras": [
+      {
+        "url": "https://gmedia.playstation.com/is/image/SIEPDC/god-of-war-ragnarok-kratos-atreus-image-block-01-en-28oct22?$100px--t$",
+        "alt": "Kratos y Atreus en la página oficial de accesibilidad de God of War Ragnarök.",
+        "pie": "Kratos y Atreus en la página oficial de accesibilidad de God of War Ragnarök."
       }
     ]
   },
@@ -2070,7 +2086,8 @@
         "nombre": "Donut County",
         "observacion": "Elige una escena y sigue qué objeto te permite tragarte el siguiente."
       }
-    ]
+    ],
+    "video": "https://www.youtube.com/watch?v=NWt1GPkfzkM"
   },
   {
     "id": "koster-gramatica-juegos",
@@ -2291,6 +2308,13 @@
         "nombre": "Psychonauts 2",
         "observacion": "Fíjate en cómo el tema de un personaje cambia las reglas de una de sus escenas mentales."
       }
+    ],
+    "figuras": [
+      {
+        "url": "https://xboxwire.thesourcemediaassets.com/sites/2/2021/08/psychonauts_2.jpg",
+        "alt": "Imagen de Psychonauts 2 publicada junto a la entrevista en Xbox Wire.",
+        "pie": "Imagen de Psychonauts 2 publicada junto a la entrevista en Xbox Wire."
+      }
     ]
   },
   {
@@ -2342,7 +2366,8 @@
         "nombre": "Into the Breach",
         "observacion": "Antes de actuar, cuenta cuántas amenazas puedes explicar con lo que ya está visible en el tablero."
       }
-    ]
+    ],
+    "video": "https://www.youtube.com/watch?v=s_I07Iq_2XM"
   },
   {
     "id": "gdc-ftl-postmortem",
@@ -2359,7 +2384,8 @@
         "nombre": "FTL: Faster Than Light",
         "observacion": "Fíjate en qué te hace mandar ayuda a un compartimento y dejar otro problema sin resolver por un momento."
       }
-    ]
+    ],
+    "video": "https://www.youtube.com/watch?v=P4Um97AUqp4"
   },
   {
     "id": "level-design-metrics",
@@ -2410,6 +2436,13 @@
         "nombre": "Celeste",
         "observacion": "Entra en los ajustes con mando y comprueba si puedes cambiar una acción y luego usarla en juego."
       }
+    ],
+    "figuras": [
+      {
+        "url": "https://learn.microsoft.com/en-us/xbox/images/gaming-accessibility/grounded-options-remap.png",
+        "alt": "Menú de reasignación de controles de Grounded en la guía de Microsoft.",
+        "pie": "Menú de reasignación de controles de Grounded en la guía de Microsoft."
+      }
     ]
   },
   {
@@ -2426,6 +2459,13 @@
       {
         "nombre": "The Last of Us Part II",
         "observacion": "Revisa sus opciones de subtítulos y fíjate en cuánto cambia identificar quién habla durante una escena con varias voces."
+      }
+    ],
+    "figuras": [
+      {
+        "url": "https://learn.microsoft.com/en-us/xbox/images/gaming-accessibility/gears-subtitles2.png",
+        "alt": "Ejemplo de subtítulos de Gears 5 en la guía de Microsoft.",
+        "pie": "Ejemplo de subtítulos de Gears 5 en la guía de Microsoft."
       }
     ]
   },
@@ -2615,6 +2655,13 @@
         "nombre": "Grounded",
         "observacion": "Compara el texto de un menú con los avisos que se dibujan directamente sobre la escena."
       }
+    ],
+    "figuras": [
+      {
+        "url": "https://learn.microsoft.com/en-us/xbox/images/gaming-accessibility/grounded-craft-menu.png",
+        "alt": "Menú de fabricación de Grounded, usado como ejemplo de contraste.",
+        "pie": "Menú de fabricación de Grounded, usado como ejemplo de contraste."
+      }
     ]
   },
   {
@@ -2631,6 +2678,13 @@
       {
         "nombre": "The Last of Us Part II",
         "observacion": "Revisa qué opciones están juntas y cuáles puedes combinar para completar una misma tarea."
+      }
+    ],
+    "figuras": [
+      {
+        "url": "https://live.staticflickr.com/65535/49985545948_cd9cce4a87_b.jpg",
+        "alt": "Menú de accesibilidad de The Last of Us Part II, publicado por Naughty Dog.",
+        "pie": "Menú de accesibilidad de The Last of Us Part II, publicado por Naughty Dog."
       }
     ]
   },
@@ -2665,6 +2719,13 @@
       {
         "nombre": "Hades",
         "observacion": "Compara el efecto del Modo Dios sobre el daño recibido con lo que todavía tienes que aprender de los ataques."
+      }
+    ],
+    "figuras": [
+      {
+        "url": "https://learn.microsoft.com/en-us/xbox/images/gaming-accessibility/ori-difficulty.png",
+        "alt": "Menú de dificultad de Ori and the Blind Forest, incluido en la guía de Microsoft.",
+        "pie": "Menú de dificultad de Ori and the Blind Forest, incluido en la guía de Microsoft."
       }
     ]
   },
@@ -2819,6 +2880,13 @@
         "nombre": "Celeste",
         "observacion": "Compara una escena con cambios bruscos de cámara y otra en la que puedas seguir el movimiento con más calma."
       }
+    ],
+    "figuras": [
+      {
+        "url": "https://learn.microsoft.com/en-us/xbox/images/gaming-accessibility/hyperdot-accessibility-settings.png",
+        "alt": "Menú de accesibilidad de HyperDot en la guía de Microsoft.",
+        "pie": "Menú de accesibilidad de HyperDot en la guía de Microsoft."
+      }
     ]
   },
   {
@@ -2852,6 +2920,914 @@
       {
         "nombre": "Animal Crossing: New Horizons",
         "observacion": "Compara la motivación de completar una colección con la de enseñar una pieza en un espacio visitable."
+      }
+    ]
+  },
+  {
+    "id": "blasphemous-ii-entrevista-diseno",
+    "titulo": "Cómo se replantearon las reglas de Blasphemous II",
+    "tema": "Mecánicas",
+    "formato": "Entrevista",
+    "idioma": "Inglés",
+    "resumen": "La entrevista recorre los cambios de diseño al pasar de la primera entrega a la secuela.",
+    "cuerpo": "## En qué fijarte\n\nAl multiplicar las armas disponibles, importa cómo se distinguen al recorrer el mapa además de en combate.",
+    "referencia": "Game Developer y The Game Kitchen. Making big, genre-specific swings in Blasphemous II.",
+    "fuente": "https://www.gamedeveloper.com/design/making-huge-genre-specific-swings-in-blasphemous-ii",
+    "juegos": [
+      {
+        "nombre": "Blasphemous II",
+        "observacion": "Compara qué puede resolver cada arma y cómo cambia lo que haces al entrar en una sala."
+      }
+    ],
+    "figuras": [
+      {
+        "url": "https://eu-images.contentstack.com/v3/assets/blt740a130ae3c5d529/blt77fd543e5de92d2a/650f01e9e29ba8275aedff93/blasphemous_2_attack_huge_skull_enemy.jpg?disable=upscale&width=1200&height=630&fit=crop",
+        "alt": "Arte o imagen editorial de Blasphemous II",
+        "pie": "Imagen publicada junto al recurso de Game Developer y The Game Kitchen."
+      }
+    ]
+  },
+  {
+    "id": "blasphemous-ii-armas-team17",
+    "titulo": "Armas y progresión en Blasphemous II",
+    "tema": "Mecánicas",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La ficha oficial reúne aclaraciones sobre las armas y la estructura del juego.",
+    "cuerpo": "## En qué fijarte\n\nIntroduce un obstáculo que permita practicar la función de un arma en un lugar con margen para equivocarse.",
+    "referencia": "Team17. Blasphemous 2: FAQs | Team17 Support.",
+    "fuente": "https://support.team17.com/en/articles/316873-blasphemous-2-faqs",
+    "juegos": [
+      {
+        "nombre": "Blasphemous II",
+        "observacion": "Observa qué puertas o recorridos se abren cuando cambia la herramienta que tienes a mano."
+      }
+    ]
+  },
+  {
+    "id": "gris-autoempatia",
+    "titulo": "Leer la vulnerabilidad en GRIS",
+    "tema": "Diseño narrativo",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Un análisis de cómo el juego deja espacio para interpretar lo que atraviesa la protagonista.",
+    "cuerpo": "## En qué fijarte\n\nLa recuperación de un color puede orientar la lectura de un capítulo aunque la causa del cambio quede abierta a interpretación.",
+    "referencia": "Game Developer. Gris: An Exercise in Self-Empathy.",
+    "fuente": "https://www.gamedeveloper.com/design/gris-an-exercise-in-self-empathy",
+    "juegos": [
+      {
+        "nombre": "GRIS",
+        "observacion": "Fíjate en cómo cambian el color y las acciones disponibles al pasar de un capítulo a otro."
+      }
+    ]
+  },
+  {
+    "id": "neva-diseno-dualsense",
+    "titulo": "Cómo se comunica la relación con Neva",
+    "tema": "Respuesta y legibilidad",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "El estudio explica decisiones de diseño y respuesta del mando en su aventura.",
+    "cuerpo": "## En qué fijarte\n\nRepite una escena sin vibración para comprobar qué parte del vínculo siguen comunicando la postura y el ritmo del movimiento.",
+    "referencia": "Nomada Studio y PlayStation.Blog. Neva: Nomada Studio shares a deep dive into the design and DualSense features of its gorgeous PS5 platformer – PlayStation.Blog.",
+    "fuente": "https://blog.playstation.com/?p=397196",
+    "juegos": [
+      {
+        "nombre": "Neva",
+        "observacion": "Mira cuándo la criatura marca el paso y cuándo tienes que esperar a que se acerque o responda."
+      }
+    ],
+    "video": "https://www.youtube.com/watch?v=mTwJe_m4Vt4"
+  },
+  {
+    "id": "gods-will-be-watching-decisiones",
+    "titulo": "Decidir con información y recursos limitados",
+    "tema": "Dificultad y equilibrio",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La ficha del editor presenta situaciones en las que la supervivencia depende de decisiones difíciles.",
+    "cuerpo": "## En qué fijarte\n\nClasifica las decisiones según pongan en riesgo a una persona, al grupo o a un recurso que tardará en recuperarse.",
+    "referencia": "Devolver Digital. Gods Will Be Watching.",
+    "fuente": "https://www.devolverdigital.com/games/gods-will-be-watching",
+    "juegos": [
+      {
+        "nombre": "Gods Will Be Watching",
+        "observacion": "Anota quién asume el coste de cada decisión cuando el grupo tiene poco tiempo o pocos recursos."
+      }
+    ],
+    "figuras": [
+      {
+        "url": "https://cms.devolverdigital.com/api/media/file/mig-6654d9a4e197ac7ebf0b0ce7-thumbnail-gods.png?prefix=media",
+        "alt": "Arte o imagen editorial de Gods Will Be Watching",
+        "pie": "Imagen publicada junto al recurso de Devolver Digital."
+      }
+    ]
+  },
+  {
+    "id": "cosmic-wheel-tarot-creacion",
+    "titulo": "Diseñar una baraja que también habla del jugador",
+    "tema": "Diseño narrativo",
+    "formato": "Entrevista",
+    "idioma": "Inglés",
+    "resumen": "La entrevista examina cómo crear cartas propias puede cambiar tu relación con el relato.",
+    "cuerpo": "## En qué fijarte\n\nLa selección durante la creación y la interpretación posterior son dos decisiones distintas. Haz que puedas reconocer ambas al jugar.",
+    "referencia": "Game Developer y Deconstructeam. How The Cosmic Wheel Sisterhood uses player-crafted tarot cards to better connect them to the story.",
+    "fuente": "https://www.gamedeveloper.com/design/how-the-cosmic-wheel-sisterhood-uses-player-crafted-tarot-cards-to-better-connect-them-to-the-story?trk=article-ssr-frontend-pulse_little-text-block",
+    "juegos": [
+      {
+        "nombre": "The Cosmic Wheel Sisterhood",
+        "observacion": "Cuando leas una carta creada por ti, observa si su significado depende del dibujo, de lo que permite decir o de ambos."
+      }
+    ]
+  },
+  {
+    "id": "red-strings-flashback",
+    "titulo": "Cambiar la conversación a través del oficio del personaje",
+    "tema": "Diseño narrativo",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "La retrospectiva vuelve sobre el juego y sus distintas formas de intervenir en la historia.",
+    "cuerpo": "## En qué fijarte\n\nEl oficio de cada personaje cambia qué información puede obtener y qué puede hacer con ella.",
+    "referencia": "Devolver Digital. Devolver Flashback: The Red Strings Club.",
+    "fuente": "https://www.devolverdigital.com/propaganda/devolver-flashback-the-red-strings-club",
+    "juegos": [
+      {
+        "nombre": "The Red Strings Club",
+        "observacion": "Compara qué le puedes sacar a una conversación preparando una bebida y qué se expresa al fabricar una prótesis."
+      }
+    ]
+  },
+  {
+    "id": "rime-primera-presentacion",
+    "titulo": "Presentar una isla para que apetezca recorrerla",
+    "tema": "Espacios y recorridos",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Una presentación temprana de la dirección y el entorno de la aventura.",
+    "cuerpo": "## En qué fijarte\n\nCompara un destino visible desde lejos con otro que solo aparece al asomarte desde un borde.",
+    "referencia": "Tequila Works y PlayStation.Blog. Your first look at stunning PS4 adventure Rime – PlayStation.Blog.",
+    "fuente": "https://blog.playstation.com/archive/2013/09/03/your-first-look-at-stunning-ps4-adventure-rime",
+    "juegos": [
+      {
+        "nombre": "RiME",
+        "observacion": "Antes de seguir un camino, señala qué silueta o diferencia de altura te invita a mirar más allá."
+      }
+    ]
+  },
+  {
+    "id": "invisible-hours-narrativa-esferica",
+    "titulo": "Seguir una escena que ocurre en varias habitaciones a la vez",
+    "tema": "Diseño narrativo",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "El estudio explica su idea de narración esférica y cómo elegir a quién observar.",
+    "cuerpo": "## En qué fijarte\n\nUn regreso al mismo momento aporta información cuando cambia el personaje al que sigues, aunque la escena conserve su curso.",
+    "referencia": "Tequila Works y PlayStation.Blog. Tequila Works Explains ‘Spherical Storytelling’ in The Invisible Hours, Out Now for PS VR – PlayStation.Blog.",
+    "fuente": "https://blog.playstation.com/?p=195358",
+    "juegos": [
+      {
+        "nombre": "The Invisible Hours",
+        "observacion": "Repite un momento siguiendo a otra persona y mira qué información te perdió en el primer recorrido."
+      }
+    ]
+  },
+  {
+    "id": "groundhog-day-bucle-vr",
+    "titulo": "Qué queda de un día cuando vuelves a empezarlo",
+    "tema": "Jugabilidad y bucles",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "La presentación del juego de realidad virtual describe una historia basada en repetir el mismo día.",
+    "cuerpo": "## En qué fijarte\n\nSepara lo que el mundo reinicia de lo que aprende quien juega. Ahí puedes medir cuánto progreso cabe en una repetición.",
+    "referencia": "Tequila Works y PlayStation.Blog. Groundhog Day: Like Father Like Son Hits PS VR Later This Year – PlayStation.Blog.",
+    "fuente": "https://blog.playstation.com/?p=207219",
+    "juegos": [
+      {
+        "nombre": "Groundhog Day: Like Father Like Son",
+        "observacion": "Separa lo que sabes de lo que conserva el mundo al reiniciar y comprueba qué te permite probar algo nuevo."
+      }
+    ]
+  },
+  {
+    "id": "narita-boy-mundo-pixel",
+    "titulo": "Dar coherencia a un mundo que parece salir de un ordenador antiguo",
+    "tema": "Diseño narrativo",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "El anuncio sitúa la aventura dentro de un mundo digital de estética retro.",
+    "cuerpo": "## En qué fijarte\n\nEscoge un motivo visual que se repita y mira cómo cambia para distinguir una zona importante.",
+    "referencia": "Team17 y Studio Koba. Team17 Presents... Narita Boy!.",
+    "fuente": "https://www.team17.com/news/team17-presents-narita-boy",
+    "juegos": [
+      {
+        "nombre": "Narita Boy",
+        "observacion": "Mira qué ayuda a distinguir un lugar dentro de ese mundo cuando muchos espacios comparten la misma estética."
+      }
+    ]
+  },
+  {
+    "id": "super-magbot-polaridad",
+    "titulo": "Cruzar un hueco sin un botón de salto",
+    "tema": "Mecánicas",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "La presentación explica la mecánica de impulsarse y atraerse con polos magnéticos.",
+    "cuerpo": "## En qué fijarte\n\nEl polo y tu posición antes de impulsarte son condiciones que puedes mostrar sin usar la misma señal.",
+    "referencia": "Team17 y Astral Pixel. Introducing Super Magbot!.",
+    "fuente": "https://www.team17.com/news/introducing-super-magbot",
+    "juegos": [
+      {
+        "nombre": "Super Magbot",
+        "observacion": "Prueba el mismo recorrido desde dos lados de un imán y observa cómo cambia tu trayectoria."
+      }
+    ]
+  },
+  {
+    "id": "aeterna-noctis-habilidades",
+    "titulo": "Dar dos usos a una habilidad: moverte y combatir",
+    "tema": "Mecánicas",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "El equipo presenta las armas y habilidades del Rey de la Oscuridad.",
+    "cuerpo": "## En qué fijarte\n\nUn reto de movimiento sencillo puede enseñar una herramienta antes de pedir sus usos más precisos en combate.",
+    "referencia": "Aeternum Game Studios y PlayStation.Blog. Aeterna Noctis — The King of Darkness’s weapons and abilities – PlayStation.Blog.",
+    "fuente": "https://blog.playstation.com/?p=358262",
+    "juegos": [
+      {
+        "nombre": "Aeterna Noctis",
+        "observacion": "Identifica qué herramienta sirve tanto para llegar a otra plataforma como para resolver un encuentro."
+      }
+    ]
+  },
+  {
+    "id": "aeterna-noctis-exploracion",
+    "titulo": "Plantear la exploración en un plataformas de largo recorrido",
+    "tema": "Espacios y recorridos",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "La presentación del juego describe una aventura de plataformas en un mundo conectado.",
+    "cuerpo": "## En qué fijarte\n\nDeja visible un punto reconocible al otro lado de una barrera. Así podrás recordar dónde te habría interesado entrar.",
+    "referencia": "Aeternum Game Studios y PlayStation.Blog. Gorgeous hand-drawn 2D explorative platformer Aeterna Noctis releases this December – PlayStation.Blog.",
+    "fuente": "https://blog.playstation.com/?p=349137",
+    "juegos": [
+      {
+        "nombre": "Aeterna Noctis",
+        "observacion": "Dibuja un trayecto que hoy termina en una barrera y anota cómo reconoces dónde volver cuando tengas una opción nueva."
+      }
+    ]
+  },
+  {
+    "id": "arise-manipular-tiempo",
+    "titulo": "Mover el tiempo para cambiar el paisaje",
+    "tema": "Mecánicas",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "El estudio explica cómo el tiempo cambia lo que puedes usar para atravesar cada recuerdo.",
+    "cuerpo": "## En qué fijarte\n\nElige un cambio del terreno que puedas adelantar y retroceder tantas veces como necesites para entenderlo.",
+    "referencia": "Piccolo Studio y PlayStation.Blog. Shift Through the Memories of a Lifetime in Arise: A Simple Story – PlayStation.Blog.",
+    "fuente": "https://blog.playstation.com/2019/11/27/shift-through-the-memories-of-a-lifetime-in-arise-a-simple-story/",
+    "juegos": [
+      {
+        "nombre": "Arise: A Simple Story",
+        "observacion": "Prueba el mismo salto en dos momentos y observa qué superficie existe en cada uno."
+      }
+    ]
+  },
+  {
+    "id": "after-us-plataformas-organicas",
+    "titulo": "Hacer que el entorno parezca natural y siga siendo jugable",
+    "tema": "Espacios y recorridos",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "El equipo explica cómo construyó un plataformas de recorridos orgánicos.",
+    "cuerpo": "## En qué fijarte\n\nCompara dos superficies igual de accesibles y comprueba si el jugador las interpreta igual desde la cámara que va a usar.",
+    "referencia": "Piccolo Studio y PlayStation.Blog. After Us: Crafting an organic platformer, out May 23 – PlayStation.Blog.",
+    "fuente": "https://blog.playstation.com/2023/03/23/after-us-crafting-an-organic-platformer/?sf265314462=1",
+    "juegos": [
+      {
+        "nombre": "After Us",
+        "observacion": "Antes de saltar, señala cómo sabes qué superficie te va a sostener aunque no tenga forma de plataforma convencional."
+      }
+    ]
+  },
+  {
+    "id": "treasure-rangers-habilidades",
+    "titulo": "Diseñar puzles con habilidades que se complementan",
+    "tema": "Encuentros y puzles",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "La presentación describe a los personajes y lo que aporta cada cual al grupo.",
+    "cuerpo": "## En qué fijarte\n\nAntes de combinar funciones, deja que cada personaje resuelva un paso donde su aportación se vea con claridad.",
+    "referencia": "Relevo y PlayStation.Blog. Meet the Cast of Treasure Rangers, Out Monday on PS4 – PlayStation.Blog.",
+    "fuente": "https://blog.playstation.com/?p=219840",
+    "juegos": [
+      {
+        "nombre": "Treasure Rangers",
+        "observacion": "Anota qué pista indica cuándo conviene cambiar de personaje y cuándo necesitas combinar dos habilidades."
+      }
+    ]
+  },
+  {
+    "id": "knight-witch-shooter-cartas",
+    "titulo": "Combinar disparos en tiempo real con un mazo de hechizos",
+    "tema": "Sistemas y economías",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "El anuncio describe la mezcla de exploración, disparos y cartas de hechizo.",
+    "cuerpo": "## En qué fijarte\n\nSi una carta te da margen para salir de un apuro, anota qué elección de preparación puso ese recurso en tu mano.",
+    "referencia": "Team17 y Super Mega Team. Team17 presents... The Knight Witch | Coming soon!.",
+    "fuente": "https://www.team17.com/news/team17-presents-the-knight-witch",
+    "juegos": [
+      {
+        "nombre": "The Knight Witch",
+        "observacion": "Mira si un hechizo elegido antes del encuentro te da una salida que no tendrías con el disparo básico."
+      }
+    ]
+  },
+  {
+    "id": "cataclismo-wiki-edificios",
+    "titulo": "Qué papel tiene cada edificio en una fortaleza",
+    "tema": "Sistemas y economías",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La página de edificios permite consultar qué estructuras sostienen producción y defensa.",
+    "cuerpo": "## En qué fijarte\n\nUn edificio puede importar por lo que desbloquea además de por lo que produce en ese turno.",
+    "referencia": "Hooded Horse, wiki de Cataclismo. Buildings - Cataclismo Official Wiki.",
+    "fuente": "https://wiki.hoodedhorse.com/Cataclismo/Buildings",
+    "juegos": [
+      {
+        "nombre": "Cataclismo",
+        "observacion": "Antes de una oleada, anota qué edificio protegerías si perderlo interrumpiera tu capacidad de reconstruir después."
+      }
+    ]
+  },
+  {
+    "id": "mageseeker-aprender-magia",
+    "titulo": "Robar magia y ponerla al servicio de otra decisión",
+    "tema": "Mecánicas",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La ficha oficial reúne información sobre el juego de acción centrado en Sylas.",
+    "cuerpo": "## En qué fijarte\n\nSi la habilidad prestada cambia el alcance o el tipo de enemigo al que puedes responder, también cambia qué rivales te interesa buscar.",
+    "referencia": "Riot Forge y Digital Sun. The Mageseeker FAQ.",
+    "fuente": "https://www.riotforgegames.com/en-gb/news/the-mageseeker-faq/",
+    "juegos": [
+      {
+        "nombre": "The Mageseeker",
+        "observacion": "Prueba un encuentro en el que tomar un poder al rival cambia a quién te interesa atacar primero."
+      }
+    ]
+  },
+  {
+    "id": "call-of-the-sea-pistas",
+    "titulo": "Leer pistas de una isla para avanzar en el misterio",
+    "tema": "Encuentros y puzles",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "La presentación sitúa la exploración y los puzles al servicio de una investigación.",
+    "cuerpo": "## En qué fijarte\n\nProcura que la pista se reconozca al volver a verla, aunque el mecanismo esté lejos de donde apareció.",
+    "referencia": "Out of the Blue y PlayStation.Blog. Escape from madness in Call of the Sea on PS4 and PS5, out tomorrow – PlayStation.Blog.",
+    "fuente": "https://blog.playstation.com/?p=348907",
+    "juegos": [
+      {
+        "nombre": "Call of the Sea",
+        "observacion": "Sigue una pista desde el lugar donde aparece hasta el mecanismo donde podrías usarla."
+      }
+    ]
+  },
+  {
+    "id": "metroid-dread-informe-zdr",
+    "titulo": "Preparar al jugador antes de que entre en ZDR",
+    "tema": "Espacios y recorridos",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "El informe reúne información para entender cómo moverse y qué esperar al entrar en la aventura.",
+    "cuerpo": "## En qué fijarte\n\nAntes de explicar un mapa entero, comprueba qué dato necesita el jugador para su siguiente paso.",
+    "referencia": "Nintendo y MercurySteam. Metroid™ Dread for the Nintendo Switch™ home gaming system | Metroid Dread Report vol. 10: To those departing for ZDR.",
+    "fuente": "https://metroid.nintendo.com/dread/news/metroid-dread-report-vol-10/",
+    "juegos": [
+      {
+        "nombre": "Metroid Dread",
+        "observacion": "Compara qué puedes deducir al ver un paso bloqueado con lo que confirmas al conseguir una nueva herramienta."
+      }
+    ]
+  },
+  {
+    "id": "castlevania-mercurysteam-entrevista",
+    "titulo": "Cómo se planteó la adaptación de Castlevania",
+    "tema": "Diseño narrativo",
+    "formato": "Entrevista",
+    "idioma": "Inglés",
+    "resumen": "La entrevista aborda decisiones de desarrollo de esta reinterpretación de la serie.",
+    "cuerpo": "## En qué fijarte\n\nUn cambio de tono de la serie también se puede observar en cómo se encuadran y encadenan los primeros encuentros.",
+    "referencia": "VideoGamer y MercurySteam. Castlevania: Lords of Shadow Interview - VideoGamer.",
+    "fuente": "https://www.videogamer.com/previews/20100602070000-castlevania-lords-of-shadow-interview/",
+    "juegos": [
+      {
+        "nombre": "Castlevania: Lords of Shadow",
+        "observacion": "Busca cómo conviven la presentación oscura del mundo y las acciones que te pide el combate en el primer tramo."
+      }
+    ]
+  },
+  {
+    "id": "samus-returns-sakamoto-entrevista",
+    "titulo": "Qué cambia al volver a diseñar Metroid II",
+    "tema": "Mecánicas",
+    "formato": "Entrevista",
+    "idioma": "Inglés",
+    "resumen": "La entrevista repasa decisiones del remake desarrollado con MercurySteam.",
+    "cuerpo": "## En qué fijarte\n\nEl contraataque pide leer un aviso y decidir si conviene aproximarse. Si ambos pasos fallan, revisa cada señal por separado.",
+    "referencia": "Nintendo UK y Yoshio Sakamoto. Metroid: Samus Returns producer Yoshio Sakamoto delves into Samus’ upcoming adventure | News | Nintendo UK.",
+    "fuente": "https://www.nintendo.com/en-gb/News/2017/August/Metroid-Samus-Returns-producer-Yoshio-Sakamoto-delves-into-Samus-upcoming-adventure-1260805.html",
+    "juegos": [
+      {
+        "nombre": "Metroid: Samus Returns",
+        "observacion": "Observa qué ocurría antes de disparar y cómo el contraataque altera tu posición y tu siguiente decisión."
+      }
+    ]
+  },
+  {
+    "id": "the-last-door-sugerencia",
+    "titulo": "Sugerir el horror con muy pocos detalles",
+    "tema": "Diseño narrativo",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La página oficial presenta una aventura episódica de terror con gráficos deliberadamente austeros.",
+    "cuerpo": "## En qué fijarte\n\nEl umbral de una puerta o un sonido que queda fuera de campo te dejan imaginar algo antes de entrar.",
+    "referencia": "The Game Kitchen. The Last Door Home – The Game Kitchen.",
+    "fuente": "https://thegamekitchen.com/thelastdoor/",
+    "juegos": [
+      {
+        "nombre": "The Last Door",
+        "observacion": "Entra en una habitación y apunta qué te hace imaginar algo fuera de plano antes de verlo."
+      }
+    ]
+  },
+  {
+    "id": "hydorah-locomalito",
+    "titulo": "Aprender una ruta cuando cada error cambia tu siguiente intento",
+    "tema": "Dificultad y equilibrio",
+    "formato": "Demo",
+    "idioma": "Inglés",
+    "resumen": "La página del autor permite consultar y jugar la versión original de este matamarcianos.",
+    "cuerpo": "## En qué fijarte\n\nCompara lo que aprendes al repetir con lo que pierdes inmediatamente al fallar. Son dos fuentes de dificultad.",
+    "referencia": "Locomalito. Hydorah — Locomalito.",
+    "fuente": "https://locomalito.com/games/hydorah",
+    "juegos": [
+      {
+        "nombre": "Hydorah",
+        "observacion": "Prueba dos rutas y anota qué patrón reconoces al repetirlas y qué muerte te sigue sorprendiendo."
+      }
+    ],
+    "figuras": [
+      {
+        "url": "https://locomalito.com/images/editions/hydorah-edition.jpg",
+        "alt": "Arte o imagen editorial de Hydorah",
+        "pie": "Imagen publicada junto al recurso de Locomalito."
+      }
+    ]
+  },
+  {
+    "id": "abbaye-des-morts-locomalito",
+    "titulo": "Usar pantallas pequeñas para esconder un recorrido",
+    "tema": "Espacios y recorridos",
+    "formato": "Demo",
+    "idioma": "Inglés",
+    "resumen": "La página oficial presenta un plataformas gratuito que se organiza con pantallas compactas.",
+    "cuerpo": "## En qué fijarte\n\nUna pantalla de paso se puede hacer memorable con una forma o un obstáculo que te sirva para situarte al regresar.",
+    "referencia": "Locomalito. l'Abbaye des Morts — Locomalito.",
+    "fuente": "https://locomalito.com/games/abbaye-des-morts",
+    "juegos": [
+      {
+        "nombre": "l’Abbaye des Morts",
+        "observacion": "Señala qué detalle te hace volver a una sala que parecía agotada."
+      }
+    ],
+    "figuras": [
+      {
+        "url": "https://locomalito.com/images/editions/abbaye-des-morts-edition.jpg",
+        "alt": "Arte o imagen editorial de l’Abbaye des Morts",
+        "pie": "Imagen publicada junto al recurso de Locomalito."
+      }
+    ]
+  },
+  {
+    "id": "maldita-castilla-locomalito",
+    "titulo": "Aprender a leer el ataque en Maldita Castilla",
+    "tema": "Dificultad y equilibrio",
+    "formato": "Demo",
+    "idioma": "Inglés",
+    "resumen": "El autor presenta la versión original de su juego de acción inspirado en los recreativos.",
+    "cuerpo": "## En qué fijarte\n\nSi un ataque obliga a retroceder, comprueba si tenías sitio para hacerlo cuando el aviso se hizo legible.",
+    "referencia": "Locomalito. Maldita Castilla — Locomalito.",
+    "fuente": "https://locomalito.com/games/maldita-castilla",
+    "juegos": [
+      {
+        "nombre": "Maldita Castilla",
+        "observacion": "Repite un mismo encuentro y fíjate en qué gesto del enemigo te avisa de que debes retroceder."
+      }
+    ],
+    "video": "https://www.youtube.com/watch?v=6Om3le8bLuo",
+    "figuras": [
+      {
+        "url": "https://locomalito.com/images/editions/maldita-castilla-edition.jpg",
+        "alt": "Arte o imagen editorial de Maldita Castilla",
+        "pie": "Imagen publicada junto al recurso de Locomalito."
+      }
+    ]
+  },
+  {
+    "id": "viriax-presion-ascenso",
+    "titulo": "Mantener la presión durante una subida",
+    "tema": "Jugabilidad y bucles",
+    "formato": "Demo",
+    "idioma": "Inglés",
+    "resumen": "El autor presenta un juego de acción centrado en ascender y sobrevivir dentro de un organismo.",
+    "cuerpo": "## En qué fijarte\n\nUna recompensa que obliga a detenerte cambia de valor cuando aumenta la presión por avanzar.",
+    "referencia": "Locomalito. Viriax — Locomalito.",
+    "fuente": "https://locomalito.com/games/viriax",
+    "juegos": [
+      {
+        "nombre": "Viriax",
+        "observacion": "Observa cuándo te conviene detenerte a recoger algo y cuándo hacerlo te pone en aprietos."
+      }
+    ]
+  },
+  {
+    "id": "verminest-formaciones",
+    "titulo": "Leer formaciones en un matamarcianos",
+    "tema": "Encuentros y puzles",
+    "formato": "Demo",
+    "idioma": "Inglés",
+    "resumen": "La página reúne la versión descargable y el contexto de este homenaje al arcade de naves.",
+    "cuerpo": "## En qué fijarte\n\nLos enemigos de una formación pueden compartir movimiento y dejar huecos distintos para cruzarla.",
+    "referencia": "Locomalito. They came from Verminest — Locomalito.",
+    "fuente": "https://locomalito.com/games/they-came-from-verminest",
+    "juegos": [
+      {
+        "nombre": "They Came From Verminest",
+        "observacion": "Sigue una formación antes de disparar y fíjate en qué parte de su movimiento te da tiempo para colocarte."
+      }
+    ]
+  },
+  {
+    "id": "gaurodon-trayectoria",
+    "titulo": "Diseñar para un monstruo que se mueve por el aire",
+    "tema": "Mecánicas",
+    "formato": "Demo",
+    "idioma": "Inglés",
+    "resumen": "La ficha del autor presenta un juego de acción protagonizado por una criatura voladora.",
+    "cuerpo": "## En qué fijarte\n\nPara una criatura aérea, el giro puede importar tanto como la velocidad al llegar a un blanco.",
+    "referencia": "Locomalito. Gaurodan — Locomalito.",
+    "fuente": "https://locomalito.com/games/gaurodan",
+    "juegos": [
+      {
+        "nombre": "Gaurodan",
+        "observacion": "Observa cuándo tienes que preparar la trayectoria antes de llegar al objetivo."
+      }
+    ]
+  },
+  {
+    "id": "8bit-killer-lectura",
+    "titulo": "Qué se puede leer con una imagen deliberadamente austera",
+    "tema": "Respuesta y legibilidad",
+    "formato": "Demo",
+    "idioma": "Inglés",
+    "resumen": "La página presenta un juego de acción en primera persona con una estética de baja resolución.",
+    "cuerpo": "## En qué fijarte\n\nPrueba una amenaza contra dos fondos del mapa. La misma silueta puede leerse bien en uno e integrarse en el otro.",
+    "referencia": "Locomalito. 8Bit Killer — Locomalito.",
+    "fuente": "https://locomalito.com/games/8bit-killer",
+    "juegos": [
+      {
+        "nombre": "8Bit Killer",
+        "observacion": "Localiza qué contraste, silueta o movimiento te permite reconocer una amenaza antes de verle los detalles."
+      }
+    ]
+  },
+  {
+    "id": "efmb-locomalito-ensayo",
+    "titulo": "Estudiar un juego corto a partir de sus primeras decisiones",
+    "tema": "Prototipado y pruebas",
+    "formato": "Demo",
+    "idioma": "Inglés",
+    "resumen": "La página del autor sirve como punto de entrada a una pieza breve de su catálogo jugable.",
+    "cuerpo": "## En qué fijarte\n\nJuega un primer intento sin consultar controles y apunta qué acción descubres por una reacción clara del juego.",
+    "referencia": "Locomalito. EFMB — Locomalito.",
+    "fuente": "https://locomalito.com/games/efmb",
+    "juegos": [
+      {
+        "nombre": "EFMB",
+        "observacion": "En la primera pantalla, apunta qué se entiende por la reacción del juego y qué habría necesitado una instrucción."
+      }
+    ],
+    "figuras": [
+      {
+        "url": "https://locomalito.com/images/editions/efmb-edition.jpg",
+        "alt": "Arte o imagen editorial de EFMB",
+        "pie": "Imagen publicada junto al recurso de Locomalito."
+      }
+    ]
+  },
+  {
+    "id": "super-hydorah-rutas",
+    "titulo": "Dar valor a elegir ruta en un matamarcianos",
+    "tema": "Espacios y recorridos",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La presentación reúne información del juego y de su estructura de recorrido.",
+    "cuerpo": "## En qué fijarte\n\nVolver por una ruta conocida permite concentrarse en el ritmo de los ataques. Una ruta nueva cambia la gestión del riesgo.",
+    "referencia": "Locomalito. Super Hydorah — Locomalito.",
+    "fuente": "https://locomalito.com/games/super-hydorah",
+    "juegos": [
+      {
+        "nombre": "Super Hydorah",
+        "observacion": "Compara una ruta conocida con una nueva y distingue qué depende de tu memoria y qué exige reaccionar en el momento."
+      }
+    ]
+  },
+  {
+    "id": "metroid-dread-emmi",
+    "titulo": "Cambiar las reglas de una sala cuando te persigue un E.M.M.I.",
+    "tema": "Encuentros y puzles",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "El informe de Nintendo describe qué detectan los E.M.M.I. y cómo se plantea el encuentro.",
+    "cuerpo": "## En qué fijarte\n\nSepara el momento en que se anuncia la presencia del perseguidor del momento en que te obliga a cambiar de plan.",
+    "referencia": "Nintendo y MercurySteam. Metroid™ Dread for the Nintendo Switch™ home gaming system | Metroid Dread Report Vol. 2: Researching the E.M.M.I.",
+    "fuente": "https://metroid.nintendo.com/dread/news/metroid-dread-report-vol-2/",
+    "juegos": [
+      {
+        "nombre": "Metroid Dread",
+        "observacion": "Localiza una salida antes de que empiece la persecución y fíjate en cuándo dejas de explorar para improvisar una huida."
+      }
+    ]
+  },
+  {
+    "id": "gris-devolver-color",
+    "titulo": "Contar cambios con el color y el movimiento",
+    "tema": "Diseño narrativo",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La ficha oficial presenta una aventura en la que las habilidades abren formas de recorrer el mundo.",
+    "cuerpo": "## En qué fijarte\n\nRegistra cuándo cambia el espacio visible y cuándo el movimiento permite hacer algo que antes no podías.",
+    "referencia": "Devolver Digital y Nomada Studio. GRIS.",
+    "fuente": "https://www.devolverdigital.com/games/gris",
+    "juegos": [
+      {
+        "nombre": "GRIS",
+        "observacion": "Compara qué acciones puedes hacer al principio y qué sensaciones cambian cuando una zona recupera el color."
+      }
+    ]
+  },
+  {
+    "id": "cosmic-wheel-devolver-cartas",
+    "titulo": "Crear cartas y luego tener que interpretarlas",
+    "tema": "Mecánicas",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La ficha oficial explica que la protagonista puede diseñar su propia baraja y usarla en la historia.",
+    "cuerpo": "## En qué fijarte\n\nUna elección hecha al diseñar la baraja puede volver mucho después, cuando ya no puedes cambiar el resultado de esa decisión.",
+    "referencia": "Devolver Digital y Deconstructeam. Cosmic Wheel Sisterhood.",
+    "fuente": "https://www.devolverdigital.com/games/cosmic-wheel-sisterhood",
+    "juegos": [
+      {
+        "nombre": "The Cosmic Wheel Sisterhood",
+        "observacion": "Separa qué eliges al construir la carta y qué tienes que decidir cuando aparece en una lectura."
+      }
+    ]
+  },
+  {
+    "id": "cataclismo-fortaleza-editor",
+    "titulo": "Que construir una defensa también sea una decisión espacial",
+    "tema": "Sistemas y economías",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "El editor presenta un juego de fortificaciones construidas pieza a pieza, con gestión de recursos y defensa.",
+    "cuerpo": "## En qué fijarte\n\nUna defensa ocupa sitio además de costar recursos. Comprueba si su posición puede entorpecer el recorrido que te da una salida.",
+    "referencia": "Hooded Horse y Digital Sun. Cataclismo | Hooded Horse.",
+    "fuente": "https://hoodedhorse.com/games/cataclismo",
+    "juegos": [
+      {
+        "nombre": "Cataclismo",
+        "observacion": "Compara una defensa alta con una ancha y apunta qué rutas protege cada una."
+      }
+    ]
+  },
+  {
+    "id": "mail-mole-movimiento",
+    "titulo": "Diseñar desplazamiento para un topo mensajero",
+    "tema": "Mecánicas",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La ficha oficial presenta un plataformas 3D con un topo capaz de moverse bajo tierra.",
+    "cuerpo": "## En qué fijarte\n\nPrueba qué señal indica dónde saldrá el topo cuando el tramo desde arriba no es visible.",
+    "referencia": "Talpa Games, Undercoders y Steam. Mail Mole + 'Xpress Deliveries on Steam.",
+    "fuente": "https://store.steampowered.com/app/1273540/Mail_Mole",
+    "juegos": [
+      {
+        "nombre": "Mail Mole",
+        "observacion": "Compara un tramo lineal con uno que pida corregir la dirección después de tomar impulso."
+      }
+    ]
+  },
+  {
+    "id": "endling-supervivencia-familia",
+    "titulo": "Decidir qué riesgo merece la pena cuando tienes crías que alimentar",
+    "tema": "Sistemas y economías",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La ficha describe una aventura de supervivencia desde el punto de vista de una madre zorro.",
+    "cuerpo": "## En qué fijarte\n\nAnota qué consume más margen, si el tiempo para explorar, la distancia hasta el refugio o la falta de alimento.",
+    "referencia": "Herobeat Studios y HandyGames. Endling - Extinction is Forever on Steam.",
+    "fuente": "https://store.steampowered.com/app/898890/Endling_Extinction_is_Forever/",
+    "juegos": [
+      {
+        "nombre": "Endling: Extinction is Forever",
+        "observacion": "Anota qué cambia en tu ruta cuando vuelve a faltar comida y tienes que regresar a un lugar seguro."
+      }
+    ]
+  },
+  {
+    "id": "souldiers-clases",
+    "titulo": "Dar una lectura distinta del mismo recorrido según la clase",
+    "tema": "Sistemas y economías",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La ficha oficial presenta clases con formas distintas de afrontar el combate y los recorridos.",
+    "cuerpo": "## En qué fijarte\n\nUsa una misma sala para observar qué herramientas ganan valor cerca del enemigo y cuáles abren opciones antes de acercarte.",
+    "referencia": "Retro Forge y Dear Villagers. Souldiers on Steam.",
+    "fuente": "https://store.steampowered.com/app/1419160",
+    "juegos": [
+      {
+        "nombre": "Souldiers",
+        "observacion": "Prueba cómo abordarías un mismo encuentro con dos clases y qué recurso protegerías en cada caso."
+      }
+    ]
+  },
+  {
+    "id": "american-arcadia-perspectivas",
+    "titulo": "Cambiar cómo juegas al cambiar de protagonista",
+    "tema": "Diseño narrativo",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La ficha describe dos personajes con perspectivas y formas de interacción diferentes.",
+    "cuerpo": "## En qué fijarte\n\nAl cambiar de protagonista, comprueba si la nueva perspectiva responde a una pregunta que seguía abierta.",
+    "referencia": "Out of the Blue y Raw Fury. American Arcadia on Steam.",
+    "fuente": "https://store.steampowered.com/app/1249040/American_Arcadia/",
+    "juegos": [
+      {
+        "nombre": "American Arcadia",
+        "observacion": "Observa qué información recibes siguiendo a Trevor y cuál solo puedes conseguir desde el otro lado."
+      }
+    ]
+  },
+  {
+    "id": "stone-of-madness-personajes",
+    "titulo": "Construir una huida con un grupo que tiene límites distintos",
+    "tema": "Encuentros y puzles",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La página presenta un juego de sigilo táctico con personajes que aportan habilidades y tienen vulnerabilidades.",
+    "cuerpo": "## En qué fijarte\n\nUna limitación resulta legible cuando se nota al planear la ruta, antes de que deje a un personaje sin salida.",
+    "referencia": "The Game Kitchen y Tripwire Presents. The Stone of Madness on Steam.",
+    "fuente": "https://store.steampowered.com/app/1309710/The_Stone_of_Madness",
+    "juegos": [
+      {
+        "nombre": "The Stone of Madness",
+        "observacion": "Antes de intentar una ruta, decide a quién llevarías y qué problema podría dejarlo fuera de juego."
+      }
+    ]
+  },
+  {
+    "id": "candle-luz-puzles",
+    "titulo": "Convertir una fuente de luz en herramienta para resolver puzles",
+    "tema": "Encuentros y puzles",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La ficha del juego presenta un recurso de luz ligado al protagonista dentro de una aventura de puzles.",
+    "cuerpo": "## En qué fijarte\n\nPrueba si el jugador puede descubrir cuándo la luz revela una pista y cuándo permite actuar sobre ella.",
+    "referencia": "Teku Studios y Daedalic Entertainment. Candle on Steam.",
+    "fuente": "https://store.steampowered.com/app/420060?l=norwegian",
+    "juegos": [
+      {
+        "nombre": "Candle",
+        "observacion": "Fíjate en cuándo iluminar un objeto confirma una pista y cuándo cambia lo que puedes hacer con él."
+      }
+    ]
+  },
+  {
+    "id": "song-of-nunu-cooperar",
+    "titulo": "Diseñar obstáculos para dos personajes que avanzan juntos",
+    "tema": "Encuentros y puzles",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La página oficial describe una aventura que gira alrededor del viaje de Nunu y Willump.",
+    "cuerpo": "## En qué fijarte\n\nSi dos personajes colaboran, procura que el paso dé una pista sobre qué puede aportar cada uno.",
+    "referencia": "Tequila Works y Riot Forge. Song of Nunu: A League of Legends Story on Steam.",
+    "fuente": "https://store.steampowered.com/app/1333200/Song_of_Nunu_Truyn_Thuyt_Lin_Minh_Huyn_Thoi/",
+    "juegos": [
+      {
+        "nombre": "Song of Nunu",
+        "observacion": "Observa qué obstáculos necesitan la acción de ambos y cómo se enseña quién puede resolver cada parte."
+      }
+    ]
+  },
+  {
+    "id": "moonlighter-tienda-mazmorra",
+    "titulo": "Hacer que explorar alimente lo que vendes en la tienda",
+    "tema": "Jugabilidad y bucles",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La ficha presenta un ciclo en el que lo que recoges en la mazmorra puede acabar a la venta en el pueblo.",
+    "cuerpo": "## En qué fijarte\n\nCompara la decisión de recoger con la decisión de poner precio. Las dos miran el mismo objeto con información distinta.",
+    "referencia": "Digital Sun y 11 bit studios. Moonlighter on Steam.",
+    "fuente": "https://store.steampowered.com/app/606150/Moonlighter/",
+    "juegos": [
+      {
+        "nombre": "Moonlighter",
+        "observacion": "Sigue un objeto desde la recogida hasta el escaparate y anota cuándo cambia el valor que le das."
+      }
+    ],
+    "figuras": [
+      {
+        "url": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/606150/ba36152c7a623d5a9029a3eca5cbedc51d2e14dd/capsule_616x353.jpg?t=1794238333",
+        "alt": "Arte o imagen editorial de Moonlighter",
+        "pie": "Imagen publicada junto al recurso de Digital Sun y 11 bit studios."
+      }
+    ]
+  },
+  {
+    "id": "moonlighter-2-botin-precio",
+    "titulo": "Decidir qué merece un hueco antes de volver a vender",
+    "tema": "Sistemas y economías",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La tienda oficial presenta la secuela y su combinación de aventura, inventario y negocio.",
+    "cuerpo": "## En qué fijarte\n\nEl hueco de inventario pesa más cuando aún tienes que salir con lo que llevas. Anota cuándo cambia esa valoración.",
+    "referencia": "Digital Sun y 11 bit studios. Moonlighter 2: The Endless Vault on Steam.",
+    "fuente": "https://store.steampowered.com/app/2350790/Moonlighter_2_The_Endless_Vault/",
+    "juegos": [
+      {
+        "nombre": "Moonlighter 2: The Endless Vault",
+        "observacion": "Compara dos piezas de botín que compitan por espacio y explica qué información necesitas para escoger."
+      }
+    ],
+    "figuras": [
+      {
+        "url": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2350790/75f2cbdc1d3626dd3bf0d1f4a5b1cafc8f0bec34/capsule_616x353.jpg?t=1794238147",
+        "alt": "Arte o imagen editorial de Moonlighter 2: The Endless Vault",
+        "pie": "Imagen publicada junto al recurso de Digital Sun y 11 bit studios."
+      }
+    ]
+  },
+  {
+    "id": "blades-of-fire-forja",
+    "titulo": "Vincular lo que fabricas con cómo golpeas",
+    "tema": "Mecánicas",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La ficha oficial presenta la forja de armas como parte de las decisiones de combate.",
+    "cuerpo": "## En qué fijarte\n\nUn atributo de forja cobra sentido cuando puedes relacionarlo con un cambio que se note al usar el arma.",
+    "referencia": "MercurySteam y 505 Games. Blades of Fire on Steam.",
+    "fuente": "https://store.steampowered.com/app/2091020/Blades_of_Fire/",
+    "juegos": [
+      {
+        "nombre": "Blades of Fire",
+        "observacion": "Antes de cambiar de arma, anota qué esperas ganar frente a un enemigo específico."
+      }
+    ]
+  },
+  {
+    "id": "temtem-combate-y-recursos",
+    "titulo": "Planear un turno cuando también importa el desgaste",
+    "tema": "Sistemas y economías",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La ficha presenta un juego de captura y combates por turnos con equipos de criaturas.",
+    "cuerpo": "## En qué fijarte\n\nCompara una acción que ahorra margen para el siguiente turno con la que resuelve mejor el problema inmediato.",
+    "referencia": "Crema y Humble Games. Temtem on Steam.",
+    "fuente": "https://store.steampowered.com/app/745920/Temtem",
+    "juegos": [
+      {
+        "nombre": "Temtem",
+        "observacion": "Fíjate en qué haces cuando la opción más fuerte ahora puede dejarte sin margen en el turno siguiente."
+      }
+    ]
+  },
+  {
+    "id": "unmetal-informacion-sigilo",
+    "titulo": "Llevar la comedia a la lectura de un espacio de sigilo",
+    "tema": "Encuentros y puzles",
+    "formato": "Documentación",
+    "idioma": "Inglés",
+    "resumen": "La presentación sitúa el juego entre el sigilo, la aventura y la comedia.",
+    "cuerpo": "## En qué fijarte\n\nUn chiste puede funcionar durante un encuentro si puedes leer la información que necesitas para esquivar al guardia antes de que termine.",
+    "referencia": "UnEpic Fran y Versus Evil. UnMetal on Steam.",
+    "fuente": "https://store.steampowered.com/app/1203710/UnMetal/",
+    "juegos": [
+      {
+        "nombre": "UnMetal",
+        "observacion": "En una sala con guardias, separa qué información usas para moverte de qué elementos construyen el chiste."
       }
     ]
   }

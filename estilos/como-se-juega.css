@@ -648,3 +648,16 @@ body { padding-bottom: 60px; }
 #campos-editor label:has(textarea) { grid-column: 1 / -1; }
 #editor-catalogo textarea { display: block; width: 100%; margin-top: 4px; padding: 8px; border: 1px solid var(--linea); background: var(--papel); color: var(--tinta); font: inherit; }
 #editor-catalogo details summary { cursor: pointer; }
+
+#biblioteca-intro { margin-bottom: .35rem; }
+#biblioteca-total { color: var(--acento); font: 700 .88rem var(--mono); margin: 0 0 1rem; }
+.ficha-biblioteca { padding-inline-end: 0; }
+.muestra-diseno--biblioteca {
+  display: flex; align-items: end; justify-content: center; gap: 5px; padding-bottom: 0;
+  background: #332a22; border-bottom: 7px solid #6d513a;
+}
+.muestra-lomo { display: block; width: min(14%, 29px); height: 55px; background: #426c59; border: 1px solid #fff4; border-left: 4px solid #1c141360; border-radius: 2px 2px 0 0; }
+.muestra-lomo:nth-child(2) { height: 49px; background: #9a583f; }
+.muestra-lomo:nth-child(3) { height: 61px; background: #606881; }
+.muestra-lomo:nth-child(4) { height: 55px; background: #926b3c; }
+.muestra-lomo:nth-child(5) { height: 51px; background: #7d5e87; }

@@ -201,11 +201,6 @@ function areaCard(name, href, count, description = '') {
   return card;
 }
 
-function countSourceLinks(entry) {
-  const links = [entry.fuente, ...(entry.materiales ?? []).map(item => item.url)];
-  return new Set(links.filter(url => /^https:\/\//i.test(url ?? ''))).size;
-}
-
 function showSources(resource, entries) {
   const sources = [...(resource.materiales ?? [])];
   if (resource.fuente) sources.unshift({nombre: 'Publicación original', url: resource.fuente});
@@ -2189,6 +2184,9 @@ function areaSample(area, interactive = true) {
       page.append(element('small', label), element('blockquote', line));
       box.append(page);
     }
+  } else if (area === 'biblioteca') {
+    box.setAttribute('aria-hidden', 'true');
+    for (let i = 0; i < 5; i++) box.append(element('i', '', 'muestra-lomo'));
   } else if (area === 'mecanicas') {
     box.setAttribute('aria-hidden', 'true');
     box.append(element('i', '', 'muestra-salto-arco'), element('i', '', 'muestra-salto-suelo'));
@@ -2371,13 +2369,14 @@ function setupCatalogEditor(published, catalog) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=editor-y-videos', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=catalogo-total', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const published = await response.json();
   const catalog = applyCatalogDrafts(published);
   setupCatalogEditor(published, catalog);
   const own = catalog.filter(isEditorial);
   const sources = catalog.filter(entry => !isEditorial(entry));
+  const publishedCount = published.filter(entry => !isEditorial(entry)).length;
   const archives = own.filter(isArchive);
   const archive = archives.find(entry => slug(entry.subtema) === collection);
   const category = discipline && Object.hasOwn(discipline[1], designCategory) ? designCategory : '';
@@ -2410,7 +2409,7 @@ async function loadCatalog() {
     document.querySelector('#catalogo').hidden = true;
     for (const card of document.querySelectorAll('[data-recuento-area]')) {
       const key = card.dataset.recuentoArea;
-      const count = key === 'mecanicas' ? countCategory('Mecánicas') : countArea(key);
+      const count = key === 'biblioteca' ? publishedCount : key === 'mecanicas' ? countCategory('Mecánicas') : countArea(key);
       card.dataset.areaDiseno = key;
       card.prepend(areaSample(key, false));
       card.append(countBadge(count, 'entrada', 'entradas'));
@@ -2435,6 +2434,9 @@ async function loadCatalog() {
   } else if (libraryHub) {
     document.querySelector('#catalogo').classList.add('biblioteca-estanteria');
     document.querySelector('#biblioteca-intro').hidden = false;
+    const total = document.querySelector('#biblioteca-total');
+    total.textContent = publishedCount + (publishedCount === 1 ? ' ficha publicada' : ' fichas publicadas');
+    total.hidden = false;
     document.querySelector('#encabezado-fichas').hidden = false;
     document.querySelector('#filtro-idioma').hidden = false;
     clear.hidden = false;
@@ -2536,7 +2538,7 @@ async function loadCatalog() {
       const title = element('h3', '');
       title.append(link(entry.titulo, '?' + libraryQuery({...(topic.value ? {tema: topic.value} : {}), lectura: entry.id})));
       card.append(element('div', entry.formato + ' · ' + entry.tema, 'meta'), title,
-        element('p', entry.resumen), countBadge(countSourceLinks(entry), 'enlace', 'enlaces'));
+        element('p', entry.resumen));
       const video = videoFor(entry);
       if (video) card.append(link('Ver vídeo', video.url));
       return card;

@@ -2019,79 +2019,18 @@ const areaIntroductions = {
   interfaz: 'Un banco de pruebas para lo que ves y tocas al jugar.'
 };
 
-function mineCycle(box) {
-  const startingState = { turn: 0, mines: 1, gold: 12, tools: false };
-  let state = {...startingState};
-  const nodes = element('ol', '', 'ciclo-mina');
-  const figures = new Map();
-  for (const name of ['Minas','Producción','Mantenimiento','Caja']) {
-    const tile = element('li', '', 'ciclo-mina-nodo');
-    const figure = element('strong', '');
-    figures.set(name, figure);
-    tile.append(element('span', name), figure);
-    nodes.append(tile);
-  }
-  const actions = element('div', '', 'ciclo-mina-acciones');
-  const status = element('p', '', 'ciclo-mina-estado');
-  status.setAttribute('role', 'status');
-  const income = () => state.mines * (state.tools ? 5 : 4);
-  const upkeep = () => state.mines * (state.mines - 1);
-  const net = () => income() - upkeep();
-  const signed = n => n > 0 ? '+' + n : String(n);
-
-  function button(label, run) {
-    const control = element('button', label);
-    control.type = 'button';
-    control.addEventListener('click', run);
-    actions.append(control);
-    return control;
-  }
-
-  button('Pasar turno', () => {
-    const balance = state.gold + net();
-    state.gold = Math.max(0, balance);
-    state.turn++;
-    render(balance < 0 ? 'Quedaron ' + (-balance) + ' de oro de mantenimiento sin cubrir.' :
-      'El turno ha dejado ' + signed(net()) + ' de oro en caja.');
-  });
-  const buy = button('Abrir mina · 12', () => {
-    if (state.gold < 12) return;
-    state.gold -= 12;
-    state.mines++;
-    render('Una mina más. Mira cuánto cambia el oro que queda tras pagar el mantenimiento.');
-  });
-  const improve = button('Mejorar equipo · 10', () => {
-    if (state.gold < 10 || state.tools) return;
-    state.gold -= 10;
-    state.tools = true;
-    render('Cada mina produce ahora una moneda más por turno.');
-  });
-  button('Reiniciar', () => {
-    state = {...startingState};
-    render();
-  });
-
-  function render(message) {
-    figures.get('Minas').textContent = state.mines;
-    figures.get('Producción').textContent = '+' + income() + ' / turno';
-    figures.get('Mantenimiento').textContent = upkeep() ? '−' + upkeep() + ' / turno' : '0 / turno';
-    figures.get('Caja').textContent = state.gold + ' de oro';
-    buy.disabled = state.gold < 12;
-    improve.disabled = state.gold < 10 || state.tools;
-    improve.textContent = state.tools ? 'Equipo mejorado' : 'Mejorar equipo · 10';
-    status.textContent = 'Turno ' + state.turn + ' · Saldo por turno: ' + signed(net()) + '. ' +
-      (message ?? 'Abre una mina o mejora el equipo y pasa un turno para comparar.');
-  }
-
-  const prompt = element('p', 'El oro vuelve a las minas si lo reinviertes. Cuantas más abres, más cuesta mantenerlas.', 'ciclo-mina-pista');
-  box.append(nodes, prompt, actions, status);
-  render();
-}
-
 function areaSample(area) {
   const box = element('div', '', 'muestra-diseno muestra-diseno--' + area);
   if (area === 'sistemas') {
-    mineCycle(box);
+    const steps = element('ol', '', 'ciclo-mina');
+    for (const [kind, label] of [['mina', 'Extraer oro'], ['oro', 'Cobrar'], ['reinvertir', 'Abrir otra mina']]) {
+      const step = element('li', '', 'ciclo-mina-nodo');
+      const icon = element('i', '', 'ciclo-icono ciclo-icono--' + kind);
+      icon.setAttribute('aria-hidden', 'true');
+      step.append(icon, element('strong', label));
+      steps.append(step);
+    }
+    box.append(steps, element('p', '↶  Más minas, más oro para reinvertir', 'ciclo-mina-retorno'));
   } else if (area === 'niveles') {
     box.setAttribute('aria-hidden', 'true');
     for (let i = 0; i < 28; i++) {
@@ -2143,16 +2082,20 @@ function renderThemedHub(sections, own) {
     summary.append(element('span', name), element('span',
       entries.length + (entries.length === 1 ? ' ficha' : ' fichas'), 'cuenta-coleccion'));
     const content = element('div', '', 'contenido-coleccion');
-    content.append(element('p', description), link('Abrir colección', href));
-    for (const entry of entries) {
+    content.append(element('p', description));
+    // El catálogo añade las nuevas fichas al final.
+    for (const entry of entries.slice(-4).reverse()) {
       const url = isArchive(entry) ? archiveUrl(entry.subtema) : href.split('#')[0] + '&lectura=' + encodeURIComponent(entry.id);
       const item = element('article', '', 'ficha-coleccion');
       const title = element('h3', '');
       title.append(link(entry.titulo, url));
-      item.append(title, element('p', entry.resumen),
-        countBadge((entry.cuerpo.match(/^## /gm) ?? []).length || 1, 'apartado', 'apartados'));
+      item.append(title, element('p', entry.resumen));
       content.append(item);
     }
+    const openCollection = link('Abrir colección', href);
+    openCollection.className = 'abrir-coleccion';
+    openCollection.setAttribute('aria-label', 'Abrir colección: ' + name);
+    content.append(openCollection);
     folder.append(summary, content);
     sections.append(folder);
   }

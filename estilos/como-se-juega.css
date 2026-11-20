@@ -562,36 +562,35 @@ body { padding-bottom: 60px; }
 [data-tema="oscuro"] .boton { color:#21170f; }
 [data-tema="oscuro"] .boton:hover { background:#ffd0ad; }
 
-[data-area-diseno="sistemas"] .portada-diseno { grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); }
+
 .muestra-diseno--sistemas { display: grid; justify-content: stretch; }
 .ciclo-mina {
-  display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px;
-  margin: 0; padding: 0; list-style: none;
+  display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px;
+  margin: 0; padding: 0; list-style: none; text-align: center;
 }
 .ciclo-mina-nodo {
-  position: relative; min-width: 0; padding: 7px; border: 1px solid var(--tema-linea);
-  border-radius: 4px; background: var(--tema-fondo); overflow-wrap: anywhere;
+  display: grid; justify-items: center; align-content: center; gap: 8px;
+  position: relative; min-width: 0; padding: 11px 4px;
+  border: 1px solid var(--tema-linea); border-radius: 4px; background: var(--tema-fondo);
 }
-.muestra-diseno--sistemas .ciclo-mina-nodo span {
-  display: block; padding: 0; border: 0; background: none; font-size: .73rem;
-}
-.ciclo-mina-nodo strong { display: block; font-size: .88rem; }
+.ciclo-mina-nodo strong { font-size: .8rem; line-height: 1.2; }
 .ciclo-mina-nodo:not(:last-child)::after {
-  content: "›"; position: absolute; inset-inline-end: -9px; inset-block-start: 25%;
+  content: "→"; position: absolute; inset-inline-end: -16px; inset-block-start: 38%;
 }
-.ciclo-mina-pista, .ciclo-mina-estado { font-size: .83rem; font-weight: 500; }
-.ciclo-mina-acciones { display: flex; flex-wrap: wrap; gap: 6px; }
-.ciclo-mina-acciones button {
-  min-height: 40px; padding: .35rem .6rem; border: 1px solid var(--tema-linea);
-  border-radius: 4px; background: var(--tema-fondo); color: var(--tema-acento); font: inherit;
-  font-size: .79rem; cursor: pointer;
+.ciclo-icono { display: block; inline-size: 32px; block-size: 28px; }
+.ciclo-icono--mina, .ciclo-icono--reinvertir {
+  background: currentColor; clip-path: polygon(0 100%, 33% 35%, 48% 57%, 70% 5%, 100% 100%);
 }
-.ciclo-mina-acciones button:disabled { opacity: .62; cursor: default; }
-.ciclo-mina-acciones button:focus-visible { outline: 2px solid var(--tema-acento); outline-offset: 2px; }
-@media (max-width: 740px) {
-  [data-area-diseno="sistemas"] .portada-diseno { grid-template-columns: 1fr; }
+.ciclo-icono--oro {
+  width: 26px; height: 26px; border-radius: 50%; border: 3px solid #b8692e;
+  background: #f3c477; box-shadow: inset 0 0 0 2px #ffdf9a;
 }
-@media (max-width: 430px) {
-  .ciclo-mina { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .ciclo-mina-nodo:nth-child(2)::after { content: none; }
+.ciclo-icono--reinvertir { clip-path: polygon(0 100%, 30% 36%, 45% 58%, 63% 34%, 78% 59%, 100% 100%); }
+.ciclo-mina-retorno { margin: 0 !important; padding-top: 5px; text-align: center; border-top: 1px dashed var(--tema-linea); font-size: .78rem; }
+.ficha-coleccion { padding-inline-end: 0; }
+.contenido-coleccion > .abrir-coleccion {
+  display: block; width: fit-content; margin: .75rem auto 1rem;
+  padding: .4rem .8rem; border: 1px solid var(--tema-linea); border-radius: 4px;
+  background: var(--tema-fondo); color: var(--tema-acento); font-weight: 700;
 }
+.contenido-coleccion > .abrir-coleccion:hover { border-color: var(--tema-acento); }

@@ -2077,7 +2077,6 @@ function renderThemedHub(sections, own) {
     const href = name === 'Mecánicas' ? '?tema=Mec%C3%A1nicas#catalogo' :
       '?' + libraryQuery({categoria: name}) + '#catalogo';
     const folder = element('details', '', 'coleccion-diseno');
-    folder.open = sections.children.length === 0;
     const summary = element('summary', '');
     summary.append(element('span', name), element('span',
       entries.length + (entries.length === 1 ? ' ficha' : ' fichas'), 'cuenta-coleccion'));

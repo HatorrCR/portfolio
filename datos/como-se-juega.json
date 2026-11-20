@@ -22,7 +22,7 @@
     "formato": "Estudio",
     "resumen": "¿Sirve el mismo tutorial para un juego sencillo y para uno más complicado? Andersen y su equipo probaron ocho diseños en tres juegos.",
     "fuente": "https://grail.cs.washington.edu/projects/game-abtesting/chi2012/",
-    "cuerpo": "En CHI 2012, Erik Andersen y sus colaboradores compararon ocho diseños de tutorial en tres juegos de distinta complejidad. El estudio reunió datos de más de 45.000 jugadores y examinó su relación con la participación y la retención.\n\nLos autores observaron que la utilidad de los tutoriales dependía de la complejidad del juego. El estudio ofrece un motivo para probar el tutorial en su contexto. Si tu objetivo es que la gente aprenda una regla y pueda aplicarla después, mide también esa transferencia: continuar jugando y entender cómo funciona la mecánica son resultados distintos.\n\nEn un prototipo, prueba primero la mecánica que más dudas provoca. Compara dos versiones cambiando una sola ayuda y observa qué hacen los jugadores cuando se enfrentan a la misma regla en una sala diferente.",
+    "cuerpo": "En CHI 2012, Erik Andersen y sus colaboradores compararon ocho diseños de tutorial en tres juegos de distinta complejidad. El estudio reunió datos de más de 45.000 jugadores y examinó su relación con la participación y la retención.\n\nLos autores observaron que la utilidad de los tutoriales dependía de la complejidad del juego. El estudio ofrece un motivo para probar el tutorial en su contexto. Si tu objetivo es que la gente aprenda una regla y pueda aplicarla después, mide también esa transferencia: continuar jugando y entender cómo funciona la mecánica son resultados distintos.\n\nEn un prototipo, prueba primero la mecánica que más dudas provoca. Compara dos versiones cambiando una sola ayuda y observa qué hacen los jugadores cuando se enfrentan a la misma regla en una sala diferente.\n\n## Qué conviene medir\n\nTerminar el tutorial y aprender la regla son dos cosas distintas. Pide que se use la misma acción unos minutos después, esta vez sin el cartel. Si la gente completa la primera tarea pero se queda a medias en la segunda, quizá ha seguido instrucciones sin entender cuándo le sirve esa acción.",
     "idioma": "Inglés",
     "referencia": "Erik Andersen y colaboradores (2012). The Impact of Tutorials on Games of Varying Complexity. CHI 2012, 59–68.",
     "juegos": [
@@ -47,7 +47,7 @@
         "url": "https://experts.illinois.edu/en/publications/the-effects-of-juiciness-in-an-action-rpg/"
       }
     ],
-    "cuerpo": "## Qué comparó\n\nKao comparó cuatro versiones de un RPG de acción con 3.018 participantes. La diferencia entre versiones era la cantidad de feedback audiovisual, desde su ausencia hasta un nivel extremo.\n\n## Qué salió de la prueba\n\nLos niveles intermedios obtuvieron mejores resultados que ambos extremos en tiempo de juego, experiencia, motivación intrínseca y rendimiento.\n\n## Qué puedes sacar de aquí\n\nEl estudio compara niveles de feedback dentro de un mismo juego. No permite asignar el resultado a un sonido o efecto concreto ni fijar una cantidad óptima para otros géneros.\n\n## Pruébalo en tu juego\n\nMantén el daño y el tiempo de ataque y cambia solo el feedback del golpe. Comprueba si quien juega distingue un acierto de un fallo y sigue leyendo lo que hace el enemigo.",
+    "cuerpo": "## Qué comparó\n\nKao comparó cuatro versiones de un RPG de acción con 3.018 participantes. La diferencia entre versiones era la cantidad de feedback audiovisual, desde su ausencia hasta un nivel extremo.\n\n## Qué salió de la prueba\n\nLos niveles intermedios obtuvieron mejores resultados que ambos extremos en tiempo de juego, experiencia, motivación intrínseca y rendimiento.\n\n## Qué puedes sacar de aquí\n\nEl estudio compara niveles de feedback dentro de un mismo juego. No permite asignar el resultado a un sonido o efecto concreto ni fijar una cantidad óptima para otros géneros.\n\n## Pruébalo en tu juego\n\nMantén el daño y el tiempo de ataque y cambia solo el feedback del golpe. Comprueba si quien juega distingue un acierto de un fallo y sigue leyendo lo que hace el enemigo.\n\n## Cómo interpretar el resultado\n\nLos grupos del experimento jugaron variantes del mismo RPG. La comparación sirve para decidir qué probar dentro de un juego parecido, pero no fija cuánto efecto deberías poner en el tuyo. Empieza por un acontecimiento, como acertar un golpe, y comprueba si el sonido o la animación hacen más fácil saber a quién has dado. Luego prueba varios golpes seguidos para ver si esas señales se pisan.",
     "juegos": [
       {
         "nombre": "Hades",
@@ -70,7 +70,7 @@
         "url": "https://revista.aipo.es/index.php/INTERACCION/issue/download/3/11"
       }
     ],
-    "cuerpo": "## Qué proponen\n\nLas autoras adaptan el diseño centrado en el jugador para considerar la visión cromática durante el desarrollo. El modelo reúne herramientas para analizar y diseñar interacciones con jugadores daltónicos en mente.\n\n## La pregunta clave\n\nAntes de elegir una paleta alternativa, pregunta qué necesita distinguir quien juega. Si dos llaves cambian solo de color, la barrera afecta a la decisión de qué puerta intentar abrir, no solo a cómo se ve el objeto.\n\n## Qué puedes sacar de aquí\n\nEs una propuesta metodológica. La utilidad de cada solución depende de la tarea, del contexto visual y de comprobarla con quienes van a usarla.\n\n## Cómo llevarlo al laberinto\n\nDa a cada llave y puerta asociada un símbolo compartido. Pide a jugadores que emparejen las piezas sin explicar la regla y observa si el icono se reconoce también durante la partida.",
+    "cuerpo": "## Qué proponen\n\nLas autoras adaptan el diseño centrado en el jugador para considerar la visión cromática durante el desarrollo. El modelo reúne herramientas para analizar y diseñar interacciones con jugadores daltónicos en mente.\n\n## La pregunta clave\n\nAntes de elegir una paleta alternativa, pregunta qué necesita distinguir quien juega. Si dos llaves cambian solo de color, la barrera afecta a la decisión de qué puerta intentar abrir, no solo a cómo se ve el objeto.\n\n## Qué puedes sacar de aquí\n\nEs una propuesta metodológica. La utilidad de cada solución depende de la tarea, del contexto visual y de comprobarla con quienes van a usarla.\n\n## Cómo llevarlo al laberinto\n\nDa a cada llave y puerta asociada un símbolo compartido. Pide a jugadores que emparejen las piezas sin explicar la regla y observa si el icono se reconoce también durante la partida.\n\n## Una prueba antes de elegir colores\n\nHaz una lista de las decisiones que dependen del color: distinguir equipos, seguir una ruta o reconocer que un objeto cambió de estado. Prueba a resolverlas con una forma, un icono o una palabra además del color. Después enséñaselas a jugadores en una situación real de partida, cuando tienen otras cosas a las que prestar atención.",
     "juegos": [
       {
         "nombre": "Into the Breach",
@@ -93,7 +93,7 @@
         "url": "https://research.hva.nl/p/en/research-outputs/simulating-mechanics-to-study-emergence-in-games"
       }
     ],
-    "cuerpo": "## Qué idea plantea\n\nMachinations representa con diagramas cómo se generan, almacenan y gastan recursos. El recurso puede ser tangible, como oro, o abstracto, como puntos de acción. El diagrama permite simular esas reglas sin implementar el juego entero.\n\n## Para qué te sirve\n\nEl comportamiento puede salir de la relación entre varias reglas. Si ganar oro permite comprar una unidad que produce más oro, una ventaja pequeña puede crecer cada turno aunque ninguna regla aislada parezca desbalanceada.\n\n## Qué puedes sacar de aquí\n\nLa simulación hace visible lo que ocurre bajo las reglas y supuestos del modelo. Para saber si una ventaja se percibe como injusta, todavía hace falta observar a jugadores.\n\n## Pruébalo en tu juego\n\nCompara dos partidas simuladas con una diferencia pequeña de oro inicial. Prueba un coste creciente para las unidades productoras y observa si la brecha se abre o se estabiliza.",
+    "cuerpo": "## Qué idea plantea\n\nMachinations representa con diagramas cómo se generan, almacenan y gastan recursos. El recurso puede ser tangible, como oro, o abstracto, como puntos de acción. El diagrama permite simular esas reglas sin implementar el juego entero.\n\n## Para qué te sirve\n\nEl comportamiento puede salir de la relación entre varias reglas. Si ganar oro permite comprar una unidad que produce más oro, una ventaja pequeña puede crecer cada turno aunque ninguna regla aislada parezca desbalanceada.\n\n## Qué puedes sacar de aquí\n\nLa simulación hace visible lo que ocurre bajo las reglas y supuestos del modelo. Para saber si una ventaja se percibe como injusta, todavía hace falta observar a jugadores.\n\n## Pruébalo en tu juego\n\nCompara dos partidas simuladas con una diferencia pequeña de oro inicial. Prueba un coste creciente para las unidades productoras y observa si la brecha se abre o se estabiliza.\n\n## Cuándo se dispara la ventaja\n\nSepara lo que ganas, lo que guardas y lo que vuelves a gastar. Si un edificio cuesta 12 y produce 4 por turno, recuperas su coste en tres turnos en un modelo sin gastos. Ahora añade mantenimiento o retrasa un turno cada construcción. Observa en qué ronda puedes comprar la segunda unidad y cuánto se separan dos partidas que empezaron casi igual. Ahí se ve qué regla está amplificando la ventaja.",
     "juegos": [
       {
         "nombre": "Age of Empires II",
@@ -124,7 +124,7 @@
         "url": "https://cdn.aaai.org/ojs/12379/12379-52-15907-1-2-20201228.pdf"
       }
     ],
-    "cuerpo": "## Qué presenta\n\nTanagra es un asistente para diseñar niveles de plataformas 2D. El diseñador modifica el nivel y el sistema responde con geometría que respeta un modelo de movimiento y restricciones entre tramos.\n\n## Cómo lo traduce a diseño\n\nUn salto sobre un hueco, una escalera o un foso se pueden expresar como patrones de geometría. Así, cambiar la capacidad de salto afecta a qué combinaciones de obstáculos tienen sentido.\n\n## Qué puedes sacar de aquí\n\nEs una demostración técnica. Que un tramo sea jugable según el modelo significa que se puede recorrer bajo sus supuestos. Queda por decidir qué tan fácil es leer el salto y qué ritmo tiene el nivel.\n\n## Pruébalo en tu juego\n\nDibuja dos huecos que el personaje pueda cruzar. Marca con claridad el despegue y la caída en uno de ellos y deja el otro más ambiguo. Observa en cuál se equivoca la gente y si falla al leer el espacio o al ejecutar el salto.",
+    "cuerpo": "## Qué presenta\n\nTanagra es un asistente para diseñar niveles de plataformas 2D. El diseñador modifica el nivel y el sistema responde con geometría que respeta un modelo de movimiento y restricciones entre tramos.\n\n## Cómo lo traduce a diseño\n\nUn salto sobre un hueco, una escalera o un foso se pueden expresar como patrones de geometría. Así, cambiar la capacidad de salto afecta a qué combinaciones de obstáculos tienen sentido.\n\n## Qué puedes sacar de aquí\n\nEs una demostración técnica. Que un tramo sea jugable según el modelo significa que se puede recorrer bajo sus supuestos. Queda por decidir qué tan fácil es leer el salto y qué ritmo tiene el nivel.\n\n## Pruébalo en tu juego\n\nDibuja dos huecos que el personaje pueda cruzar. Marca con claridad el despegue y la caída en uno de ellos y deja el otro más ambiguo. Observa en cuál se equivoca la gente y si falla al leer el espacio o al ejecutar el salto.\n\n## Qué puede comprobar el generador\n\nPara decidir si un hueco es viable, el asistente necesita una idea de cómo se mueve el personaje. Esa prueba puede detectar que dos plataformas están demasiado lejos. Saber si el salto apetece, si el borde se ve bien o si el reto encaja en ese momento exige jugar el tramo. Cambia el alcance del personaje y vuelve a mirar qué propuestas pasan el filtro.",
     "juegos": [
       {
         "nombre": "Super Mario Bros.",
@@ -155,7 +155,7 @@
         "url": "https://revistas.tec.ac.cr/index.php/tec_marcha/article/view/8737"
       }
     ],
-    "cuerpo": "## Qué presenta\n\nWave Quest es un caso de desarrollo de un videojuego orientado a niños con discapacidad visual. Usa el sonido para navegar, interactuar y percibir la respuesta del juego.\n\n## La decisión de diseño\n\nEl audio cumple varias funciones. Una señal puede indicar hacia dónde ir y otra confirmar que una acción ha funcionado. Si ambas compiten al mismo tiempo, hay que decidir cuál debe sobresalir.\n\n## Qué puedes sacar de aquí\n\nEl valor de esta lectura está en las decisiones que documenta el caso. Para trasladarlas a otro juego habría que comprobar qué señales se entienden en ese contexto y con su público.\n\n## Pruébalo en tu juego\n\nEn una sala corta, prueba una pista sonora para localizar la salida y otra para confirmar que la puerta se ha abierto. Observa si quien juega interpreta cada señal y puede continuar cuando se solapan con el resto del audio.",
+    "cuerpo": "## Qué presenta\n\nWave Quest es un caso de desarrollo de un videojuego orientado a niños con discapacidad visual. Usa el sonido para navegar, interactuar y percibir la respuesta del juego.\n\n## La decisión de diseño\n\nEl audio cumple varias funciones. Una señal puede indicar hacia dónde ir y otra confirmar que una acción ha funcionado. Si ambas compiten al mismo tiempo, hay que decidir cuál debe sobresalir.\n\n## Qué puedes sacar de aquí\n\nEl valor de esta lectura está en las decisiones que documenta el caso. Para trasladarlas a otro juego habría que comprobar qué señales se entienden en ese contexto y con su público.\n\n## Pruébalo en tu juego\n\nEn una sala corta, prueba una pista sonora para localizar la salida y otra para confirmar que la puerta se ha abierto. Observa si quien juega interpreta cada señal y puede continuar cuando se solapan con el resto del audio.\n\n## Orientar y confirmar\n\nUna señal para encontrar el camino tiene que durar lo suficiente como para seguirla. Una confirmación puede ser breve, porque solo dice que la acción se completó. Pruébalas juntas: si al recoger un objeto dejas de saber hacia dónde ibas, conviene revisar qué sonido tiene prioridad y cuándo vuelve la señal de orientación.",
     "juegos": [
       {
         "nombre": "Wave Quest",
@@ -178,7 +178,7 @@
         "url": "https://www.cs.northwestern.edu/~hunicke/pubs/MDA.pdf"
       }
     ],
-    "cuerpo": "## Qué idea plantea\n\nMDA separa tres planos. Las mecánicas son las reglas y componentes del sistema. Las dinámicas son lo que ocurre al poner esas reglas en marcha durante una partida. La estética se refiere a la experiencia que despierta el juego, como la tensión, el descubrimiento o la sensación de superar un reto.\n\n## Para qué te sirve\n\nEl equipo puede empezar por una regla y preguntarse qué dinámica generará. Quien juega suele encontrarse primero con la experiencia y deducir las reglas conforme interactúa. Mirar el juego en ambos sentidos ayuda a encontrar qué parte del sistema conviene revisar cuando la partida se siente distinta de lo previsto.\n\n## Qué puedes sacar de aquí\n\nEs un marco de análisis. Sirve para formular hipótesis sobre la experiencia. Para comprobarlas necesitas observar partidas y escuchar cómo las describen los jugadores.\n\n## Pruébalo en tu juego\n\nEn La culebrilla, invierte el extremo que controlas cada pocos segundos. La regla puede llevar a planear dónde quedará la cola y producir tensión antes del cambio. Prueba dos intervalos y observa si quien juega empieza a preparar el giro con antelación o solo reacciona al perder el control del extremo anterior.",
+    "cuerpo": "## Qué idea plantea\n\nMDA separa tres planos. Las mecánicas son las reglas y componentes del sistema. Las dinámicas son lo que ocurre al poner esas reglas en marcha durante una partida. La estética se refiere a la experiencia que despierta el juego, como la tensión, el descubrimiento o la sensación de superar un reto.\n\n## Para qué te sirve\n\nEl equipo puede empezar por una regla y preguntarse qué dinámica generará. Quien juega suele encontrarse primero con la experiencia y deducir las reglas conforme interactúa. Mirar el juego en ambos sentidos ayuda a encontrar qué parte del sistema conviene revisar cuando la partida se siente distinta de lo previsto.\n\n## Qué puedes sacar de aquí\n\nEs un marco de análisis. Sirve para formular hipótesis sobre la experiencia. Para comprobarlas necesitas observar partidas y escuchar cómo las describen los jugadores.\n\n## Pruébalo en tu juego\n\nEn La culebrilla, invierte el extremo que controlas cada pocos segundos. La regla puede llevar a planear dónde quedará la cola y producir tensión antes del cambio. Prueba dos intervalos y observa si quien juega empieza a preparar el giro con antelación o solo reacciona al perder el control del extremo anterior.\n\n## De la partida a la regla\n\nPuedes recorrer el marco al revés. Si todos esperan pegados a una pared, anota qué ganan al quedarse ahí y de qué riesgos se libran. Luego cambia una regla y repite. Si ahora se mueven, tendrás una pista sobre qué sostenía la conducta. Para saber cómo se sentía, pregunta también si esperaban por tensión, por prudencia o porque daba igual moverse.",
     "juegos": [
       {
         "nombre": "Left 4 Dead",
@@ -209,7 +209,7 @@
         "url": "https://revistaatalante.com/index.php/atalante/article/download/905/648/4061"
       }
     ],
-    "cuerpo": "## Qué plantea el diálogo\n\nMarta Martín Núñez y Víctor Navarro Remesal conversan con cuatro profesionales de la industria española. La discusión sitúa la narrativa en el diseño del juego: también se cuenta a través de las acciones disponibles, los puzles, los recorridos y la forma en que el juego orienta la atención.\n\n## Dos decisiones de diseño\n\nLa primera es qué podrá hacer el jugador cuando cambie la situación del personaje. En uno de los ejemplos comentados, un cambio de estado de ánimo se expresa también modificando acciones disponibles, ritmo y aspecto del entorno. La segunda es cómo guiar hacia una pista necesaria sin que toda la exploración se sienta dirigida. Ahí intervienen decisiones de niveles, arte, mecánicas y escritura.\n\n## Qué puedes sacar de aquí\n\nEs un diálogo profesional y académico publicado en una revista. Sus ejemplos sirven para comparar decisiones de producción y diseño. El texto recoge perspectivas concretas de sus participantes.\n\n## Pruébalo en tu juego\n\nElige una escena en la que el personaje pierda la confianza. Haz dos versiones con la misma información narrativa. En una, conserva las acciones habituales. En la otra, altera una acción que la gente ya haya aprendido a usar. Después de jugar, pregunta qué cambió para el personaje y en qué momento lo notaron.",
+    "cuerpo": "## Qué plantea el diálogo\n\nMarta Martín Núñez y Víctor Navarro Remesal conversan con cuatro profesionales de la industria española. La discusión sitúa la narrativa en el diseño del juego: también se cuenta a través de las acciones disponibles, los puzles, los recorridos y la forma en que el juego orienta la atención.\n\n## Dos decisiones de diseño\n\nLa primera es qué podrá hacer el jugador cuando cambie la situación del personaje. En uno de los ejemplos comentados, un cambio de estado de ánimo se expresa también modificando acciones disponibles, ritmo y aspecto del entorno. La segunda es cómo guiar hacia una pista necesaria sin que toda la exploración se sienta dirigida. Ahí intervienen decisiones de niveles, arte, mecánicas y escritura.\n\n## Qué puedes sacar de aquí\n\nEs un diálogo profesional y académico publicado en una revista. Sus ejemplos sirven para comparar decisiones de producción y diseño. El texto recoge perspectivas concretas de sus participantes.\n\n## Pruébalo en tu juego\n\nElige una escena en la que el personaje pierda la confianza. Haz dos versiones con la misma información narrativa. En una, conserva las acciones habituales. En la otra, altera una acción que la gente ya haya aprendido a usar. Después de jugar, pregunta qué cambió para el personaje y en qué momento lo notaron.\n\n## Mira qué puede hacer el personaje\n\nDos escenas pueden contar que alguien está atrapado. Una se lo dice en voz alta al jugador. La otra le permite recorrer el sitio y comprobar qué salidas fallan. Fíjate en cuándo te enteras y cuánto cambia lo que haces a partir de ahí. Es una forma de leer la conversación entre los profesionales desde una decisión de diseño concreta.",
     "juegos": [
       {
         "nombre": "Return of the Obra Dinn",
@@ -232,7 +232,7 @@
         "url": "https://revistas.uma.es/index.php/trans/article/download/2966/5094"
       }
     ],
-    "cuerpo": "## Qué estudia\n\nMejías Climent compara el doblaje original en inglés y su localización al español peninsular. Parte de tres criterios del audiovisual: la sincronía con los labios, con los gestos y con la duración de la intervención.\n\n## Idea clave\n\nLa situación de juego cambia lo que exige el ajuste. Una conversación en primer plano permite apreciar la boca y los gestos. Una frase que suena mientras el jugador se mueve requiere considerar cuándo se activa y cuánto espacio tiene antes de que otra acción la interrumpa.\n\n## Qué puedes sacar de aquí\n\nEs un análisis exploratorio de un solo título. Sirve para identificar exigencias distintas entre situaciones de juego. La prioridad de cada tipo de ajuste depende de la cámara, la animación y el sistema de diálogos.\n\n## Cómo llevarlo a la práctica\n\nCompara una cinemática con una conversación durante la exploración. En ambas versiones apunta qué ves, cuándo empieza y acaba la voz y qué puede hacer el jugador mientras suena.",
+    "cuerpo": "## Qué estudia\n\nMejías Climent compara el doblaje original en inglés y su localización al español peninsular. Parte de tres criterios del audiovisual: la sincronía con los labios, con los gestos y con la duración de la intervención.\n\n## Idea clave\n\nLa situación de juego cambia lo que exige el ajuste. Una conversación en primer plano permite apreciar la boca y los gestos. Una frase que suena mientras el jugador se mueve requiere considerar cuándo se activa y cuánto espacio tiene antes de que otra acción la interrumpa.\n\n## Qué puedes sacar de aquí\n\nEs un análisis exploratorio de un solo título. Sirve para identificar exigencias distintas entre situaciones de juego. La prioridad de cada tipo de ajuste depende de la cámara, la animación y el sistema de diálogos.\n\n## Cómo llevarlo a la práctica\n\nCompara una cinemática con una conversación durante la exploración. En ambas versiones apunta qué ves, cuándo empieza y acaba la voz y qué puede hacer el jugador mientras suena.\n\n## Qué sincronía importa en cada toma\n\nSepara lo que se ve de lo que se oye. En un primer plano merece la pena mirar los cierres de boca y el gesto que acompaña la frase. Si el jugador puede girar la cámara y alejarse, escucha si la réplica termina antes de la respuesta y si el ritmo conserva el sentido del intercambio. La revisión cambia según cómo se presenta la escena.",
     "juegos": [
       {
         "nombre": "Assassin’s Creed Syndicate",
@@ -255,7 +255,7 @@
         "url": "https://e-revistas.uc3m.es/index.php/REVHISTO/es/article/view/5834"
       }
     ],
-    "cuerpo": "## Qué estudia\n\nVenegas propone estudiar el videojuego histórico como una forma de memoria. Combina observación de juegos con teoría sobre la memoria y compara Call of Duty WWII, 1979 Revolution: Black Friday y Path Out.\n\n## Idea clave\n\nLa distinción ayuda a preguntar quién mira el pasado, qué imágenes y episodios se privilegian y qué acciones están al alcance del jugador. En estos casos, una campaña bélica, una revolución y una huida ofrecen puntos de vista muy distintos sobre la historia.\n\n## Qué puedes sacar de aquí\n\nEl análisis interpreta representaciones. Para conocer qué recuerda el público tras jugar, haría falta estudiar su recepción.\n\n## Cómo llevarlo a la práctica\n\nToma una misma secuencia de dos juegos históricos y registra el punto de vista, la acción que se repite y el detalle histórico que queda fuera. Esa comparación dice más que una lista de aciertos y errores de ambientación.",
+    "cuerpo": "## Qué estudia\n\nVenegas propone estudiar el videojuego histórico como una forma de memoria. Combina observación de juegos con teoría sobre la memoria y compara Call of Duty WWII, 1979 Revolution: Black Friday y Path Out.\n\n## Idea clave\n\nLa distinción ayuda a preguntar quién mira el pasado, qué imágenes y episodios se privilegian y qué acciones están al alcance del jugador. En estos casos, una campaña bélica, una revolución y una huida ofrecen puntos de vista muy distintos sobre la historia.\n\n## Qué puedes sacar de aquí\n\nEl análisis interpreta representaciones. Para conocer qué recuerda el público tras jugar, haría falta estudiar su recepción.\n\n## Cómo llevarlo a la práctica\n\nToma una misma secuencia de dos juegos históricos y registra el punto de vista, la acción que se repite y el detalle histórico que queda fuera. Esa comparación dice más que una lista de aciertos y errores de ambientación.\n\n## Compara lo que cada juego deja ver\n\nApunta quién protagoniza el relato, qué lugares puedes visitar y qué acciones se repiten. Dos juegos pueden aludir a un mismo conflicto y dejar recuerdos muy distintos. En uno quizá recuerdes una batalla; en otro, a quien tuvo que huir. La comparación funciona mejor si dejas claro de qué escena sacas cada lectura.",
     "juegos": [
       {
         "nombre": "Call of Duty: WWII",
@@ -286,7 +286,7 @@
         "url": "https://anuariomusical.revistas.csic.es/index.php/anuariomusical/article/download/365/394/403"
       }
     ],
-    "cuerpo": "## Qué estudia\n\nEl artículo recorre líneas de investigación sobre la música de los videojuegos y su cultura. Trata la interacción, la inmersión, la interpretación musical y la relación del sonido con el mundo del juego.\n\n## Idea clave\n\nLa música que oye una persona depende de lo que hace. Puede activar una transición, pasar más tiempo en un estado o salir antes de que una pieza termine. Para analizar esa relación conviene observar la partida junto a la música.\n\n## Qué puedes sacar de aquí\n\nEs una revisión del campo. Sus conceptos ayudan a describir decisiones musicales y a formular preguntas sobre sus efectos.\n\n## Cómo llevarlo a la práctica\n\nGraba dos recorridos por la misma zona, uno que llegue directo al objetivo y otro que se detenga a explorar. Anota qué música suena en cada momento y qué acción coincide con cada cambio.",
+    "cuerpo": "## Qué estudia\n\nEl artículo recorre líneas de investigación sobre la música de los videojuegos y su cultura. Trata la interacción, la inmersión, la interpretación musical y la relación del sonido con el mundo del juego.\n\n## Idea clave\n\nLa música que oye una persona depende de lo que hace. Puede activar una transición, pasar más tiempo en un estado o salir antes de que una pieza termine. Para analizar esa relación conviene observar la partida junto a la música.\n\n## Qué puedes sacar de aquí\n\nEs una revisión del campo. Sus conceptos ayudan a describir decisiones musicales y a formular preguntas sobre sus efectos.\n\n## Cómo llevarlo a la práctica\n\nGraba dos recorridos por la misma zona, uno que llegue directo al objetivo y otro que se detenga a explorar. Anota qué música suena en cada momento y qué acción coincide con cada cambio.\n\n## Dos partidas, dos escuchas\n\nRepite un tramo y cambia cuándo entras en combate o cuánto tardas en salir de una zona. Anota qué parte de la música responde a ese cambio y qué parte sigue su curso. Si analizas solo la banda sonora fuera del juego, esa relación entre lo que haces y lo que oyes puede pasar desapercibida.",
     "juegos": [
       {
         "nombre": "The Legend of Zelda: Breath of the Wild",
@@ -309,7 +309,7 @@
         "url": "https://www.revistaeic.eu/index.php/raeic/article/view/721"
       }
     ],
-    "cuerpo": "## Qué estudia\n\nEl estudio se basa en 14 entrevistas en profundidad a jugadores de alto nivel del circuito nacional de Super Smash Bros. Ultimate. Examina cómo construyen su identidad competitiva y consiguen reconocimiento.\n\n## Idea clave\n\nLos autores vinculan la identidad competitiva a una afición previa. El main, el personaje con el que compite habitualmente cada persona, también se convierte en una forma de expresar su estilo ante la comunidad.\n\n## Qué puedes sacar de aquí\n\nLa muestra describe la perspectiva de jugadores de alto nivel en un circuito concreto. Para saber cómo vive la pertenencia quien acaba de llegar, habría que incorporar su punto de vista.\n\n## Cómo llevarlo a la práctica\n\nAl analizar un torneo, compara lo que dicen las clasificaciones con lo que los jugadores cuentan sobre su personaje, su forma de competir y lo que valoran en otras personas.",
+    "cuerpo": "## Qué estudia\n\nEl estudio se basa en 14 entrevistas en profundidad a jugadores de alto nivel del circuito nacional de Super Smash Bros. Ultimate. Examina cómo construyen su identidad competitiva y consiguen reconocimiento.\n\n## Idea clave\n\nLos autores vinculan la identidad competitiva a una afición previa. El main, el personaje con el que compite habitualmente cada persona, también se convierte en una forma de expresar su estilo ante la comunidad.\n\n## Qué puedes sacar de aquí\n\nLa muestra describe la perspectiva de jugadores de alto nivel en un circuito concreto. Para saber cómo vive la pertenencia quien acaba de llegar, habría que incorporar su punto de vista.\n\n## Cómo llevarlo a la práctica\n\nAl analizar un torneo, compara lo que dicen las clasificaciones con lo que los jugadores cuentan sobre su personaje, su forma de competir y lo que valoran en otras personas.\n\n## Qué te cuentan las entrevistas\n\nUna clasificación te dice quién quedó por delante. Una entrevista puede contarte qué consideran un logro los jugadores y cuándo empiezan a sentirse parte de la escena. Lee estos testimonios como una mirada al circuito descrito en el estudio, con atención a qué experiencias se repiten y cuáles dependen de cada trayectoria.",
     "juegos": [
       {
         "nombre": "Super Smash Bros. Ultimate",
@@ -332,7 +332,7 @@
         "url": "https://revistas.ucm.es/index.php/CLAC/article/download/72000/4564456555893/4564456607763"
       }
     ],
-    "cuerpo": "## Qué estudia\n\nEl estudio combina observaciones, análisis de la comunicación en partidas, entrevistas y evaluación de destrezas. Analiza cómo usan una lengua extranjera jugadores vinculados a los esports.\n\n## Idea clave\n\nLa necesidad de coordinarse da un propósito inmediato a la comunicación. El artículo relaciona ese uso con el aprendizaje mediante la interacción y con conocimientos que los participantes ya traían del aula.\n\n## Qué puedes sacar de aquí\n\nEs un estudio de caso con jugadores que ya percibían una relación entre jugar y aprender otra lengua. Sus resultados permiten entender el proceso en esos casos.\n\n## Cómo llevarlo a la práctica\n\nDiseña una tarea cooperativa donde cada persona tenga información que la otra necesite. Observa si aparecen peticiones de aclaración, reformulaciones y correcciones cuando cambia el objetivo de la partida.",
+    "cuerpo": "## Qué estudia\n\nEl estudio combina observaciones, análisis de la comunicación en partidas, entrevistas y evaluación de destrezas. Analiza cómo usan una lengua extranjera jugadores vinculados a los esports.\n\n## Idea clave\n\nLa necesidad de coordinarse da un propósito inmediato a la comunicación. El artículo relaciona ese uso con el aprendizaje mediante la interacción y con conocimientos que los participantes ya traían del aula.\n\n## Qué puedes sacar de aquí\n\nEs un estudio de caso con jugadores que ya percibían una relación entre jugar y aprender otra lengua. Sus resultados permiten entender el proceso en esos casos.\n\n## Cómo llevarlo a la práctica\n\nDiseña una tarea cooperativa donde cada persona tenga información que la otra necesite. Observa si aparecen peticiones de aclaración, reformulaciones y correcciones cuando cambia el objetivo de la partida.\n\n## Coordinarse no es lo mismo que memorizar\n\nUna llamada breve sirve para pedir ayuda en el momento. Para ver si hay aprendizaje, comprueba si esa misma persona entiende la llamada en otra partida, puede hacerla sin imitar a su equipo y sabe adaptarla cuando cambia la situación. Así separas lo que consigue decir de lo que ya puede usar en un contexto nuevo.",
     "juegos": [
       {
         "nombre": "Rocket League",
@@ -355,7 +355,7 @@
         "url": "https://ojs.revistacontribuciones.com/ojs/index.php/clcs/article/view/20674"
       }
     ],
-    "cuerpo": "## Qué estudia\n\nEl artículo estudia la evolución del desarrollo de videojuegos en España entre 2016 y 2024. Revisa indicadores del sector y organiza su diagnóstico mediante un análisis de debilidades, amenazas, fortalezas y oportunidades.\n\n## Idea clave\n\nContar estudios, puestos de trabajo y euros facturados responde a preguntas diferentes. También importa dónde se concentra esa actividad y qué capacidades tienen los equipos para innovar o vender fuera.\n\n## Qué puedes sacar de aquí\n\nEl trabajo describe tendencias y propone un diagnóstico. Cada serie debe leerse con la definición y el período de su fuente. La evolución agregada tampoco describe por sí sola la situación de un estudio pequeño.\n\n## Cómo llevarlo a la práctica\n\nAl preparar una pieza sobre la industria, separa las cifras de producción de las ventas del mercado español. Junto a cada cifra añade el año, quién la publica y qué cuenta exactamente.",
+    "cuerpo": "## Qué estudia\n\nEl artículo estudia la evolución del desarrollo de videojuegos en España entre 2016 y 2024. Revisa indicadores del sector y organiza su diagnóstico mediante un análisis de debilidades, amenazas, fortalezas y oportunidades.\n\n## Idea clave\n\nContar estudios, puestos de trabajo y euros facturados responde a preguntas diferentes. También importa dónde se concentra esa actividad y qué capacidades tienen los equipos para innovar o vender fuera.\n\n## Qué puedes sacar de aquí\n\nEl trabajo describe tendencias y propone un diagnóstico. Cada serie debe leerse con la definición y el período de su fuente. La evolución agregada tampoco describe por sí sola la situación de un estudio pequeño.\n\n## Cómo llevarlo a la práctica\n\nAl preparar una pieza sobre la industria, separa las cifras de producción de las ventas del mercado español. Junto a cada cifra añade el año, quién la publica y qué cuenta exactamente.\n\n## Lee cada cifra con su pregunta\n\nMás estudios registrados y más euros facturados apuntan a cosas distintas. Antes de comparar dos años, mira si se contó el mismo tipo de empresa y si las cifras cubren el mismo periodo. Para una lectura local comprueba además si el reparto por territorio se mueve igual que el total.",
     "juegos": [
       {
         "nombre": "Blasphemous",
@@ -378,7 +378,7 @@
         "url": "https://www.adicciones.es/index.php/adicciones/article/view/1636"
       }
     ],
-    "cuerpo": "## Qué estudia\n\nLos autores preguntaron a 266 adolescentes y 209 adultos por su consumo de cajas botín y por experiencias como la culpabilidad, el malestar y la pérdida de control. Usaron un cuestionario diseñado para el estudio.\n\n## Idea clave\n\nEn la muestra, no obtener el objeto deseado se asoció con más culpabilidad y malestar. Obtenerlo se relacionó con pérdida de control posterior. El estudio también observó mayor gasto entre los adolescentes de la muestra.\n\n## Qué puedes sacar de aquí\n\nEl cuestionario recoge experiencias declaradas y el análisis identifica asociaciones. Con ese diseño no se puede atribuir causalidad ni extrapolar los porcentajes al conjunto de jugadores.\n\n## Cómo llevarlo a la práctica\n\nPara revisar un sistema de recompensas, dibuja la compra desde el punto de vista del jugador. Señala cuándo se conoce el coste total, qué puede recibir y qué ocurre si sale un duplicado. Así se ve qué información tiene antes de pagar.",
+    "cuerpo": "## Qué estudia\n\nLos autores preguntaron a 266 adolescentes y 209 adultos por su consumo de cajas botín y por experiencias como la culpabilidad, el malestar y la pérdida de control. Usaron un cuestionario diseñado para el estudio.\n\n## Idea clave\n\nEn la muestra, no obtener el objeto deseado se asoció con más culpabilidad y malestar. Obtenerlo se relacionó con pérdida de control posterior. El estudio también observó mayor gasto entre los adolescentes de la muestra.\n\n## Qué puedes sacar de aquí\n\nEl cuestionario recoge experiencias declaradas y el análisis identifica asociaciones. Con ese diseño no se puede atribuir causalidad ni extrapolar los porcentajes al conjunto de jugadores.\n\n## Cómo llevarlo a la práctica\n\nPara revisar un sistema de recompensas, dibuja la compra desde el punto de vista del jugador. Señala cuándo se conoce el coste total, qué puede recibir y qué ocurre si sale un duplicado. Así se ve qué información tiene antes de pagar.\n\n## Qué puedes concluir\n\nEl cuestionario permite relacionar lo que cuentan los participantes sobre las cajas con las emociones y conductas que declaran. Por sí solo no permite saber si abrirlas produjo ese malestar. Al leer los resultados, separa la frecuencia de compra, el resultado de la apertura y lo que la persona cuenta que sintió.",
     "juegos": [
       {
         "nombre": "Overwatch 2",
@@ -401,7 +401,7 @@
         "url": "https://dehesa.unex.es/bitstream/10662/16900/1/1695-288X_22_1_155.pdf"
       }
     ],
-    "cuerpo": "## Qué estudia\n\nLos autores describen la creación de un videojuego educativo en un aula multinivel de un colegio rural de Málaga. Estudian las experiencias del alumnado y las posibilidades y dificultades del proyecto.\n\n## Idea clave\n\nEl interés está en el proceso de creación. Diseñar y programar permite observar cómo el grupo convierte una idea en reglas, reparte tareas y revisa decisiones cuando el juego empieza a funcionar.\n\n## Qué puedes sacar de aquí\n\nLa investigación describe una experiencia escolar situada. Sirve para entender lo que ocurrió en el aula y formular preguntas para otros proyectos. Su diseño no permite cuantificar un efecto general sobre el rendimiento escolar.\n\n## Cómo llevarlo a la práctica\n\nEn un taller, pide a cada equipo que anote una regla que cambió después de probar el juego y por qué. Esa decisión cuenta algo del aprendizaje que una demo final puede dejar oculto.",
+    "cuerpo": "## Qué estudia\n\nLos autores describen la creación de un videojuego educativo en un aula multinivel de un colegio rural de Málaga. Estudian las experiencias del alumnado y las posibilidades y dificultades del proyecto.\n\n## Idea clave\n\nEl interés está en el proceso de creación. Diseñar y programar permite observar cómo el grupo convierte una idea en reglas, reparte tareas y revisa decisiones cuando el juego empieza a funcionar.\n\n## Qué puedes sacar de aquí\n\nLa investigación describe una experiencia escolar situada. Sirve para entender lo que ocurrió en el aula y formular preguntas para otros proyectos. Su diseño no permite cuantificar un efecto general sobre el rendimiento escolar.\n\n## Cómo llevarlo a la práctica\n\nEn un taller, pide a cada equipo que anote una regla que cambió después de probar el juego y por qué. Esa decisión cuenta algo del aprendizaje que una demo final puede dejar oculto.\n\n## Mira qué aprende el grupo mientras lo hace\n\nPide que un alumno explique una regla y que otro la implemente. Si terminan discutiendo cuándo cuenta como victoria, ya tienes una muestra del aprendizaje que el producto final por sí solo no muestra. Recoge esas decisiones, además de comprobar que el juego funciona.",
     "juegos": [
       {
         "nombre": "Game Builder Garage",
@@ -459,7 +459,7 @@
     "idioma": "Inglés",
     "formato": "Conferencia",
     "resumen": "Parte de tres preguntas: cuánto subes, cuánto tardas y hasta dónde llegas.",
-    "cuerpo": "## Qué aporta\n\nLa charla parte de objetivos que el diseñador puede medir y deriva los valores que gobiernan la trayectoria. Extiende el modelo a saltos de altura variable y a ascensos y caídas con ritmos distintos.\n\n## Cómo llevarlo a la práctica\n\nElige un hueco objetivo y calcula el alcance dos veces, primero con gravedad simétrica y luego con una caída más rápida. Comprueba cuánto margen queda al aterrizar.",
+    "cuerpo": "## Qué aporta\n\nLa charla parte de objetivos que el diseñador puede medir y deriva los valores que gobiernan la trayectoria. Extiende el modelo a saltos de altura variable y a ascensos y caídas con ritmos distintos.\n\n## Cómo llevarlo a la práctica\n\nElige un hueco objetivo y calcula el alcance dos veces, primero con gravedad simétrica y luego con una caída más rápida. Comprueba cuánto margen queda al aterrizar.\n\n## Diseña para el hueco que quieres\n\nEmpieza por la altura que necesitas y el tiempo que quieres dar para llegar arriba. Con gravedad constante, esos dos objetivos te permiten calcular la velocidad inicial y la aceleración. Después comprueba cuánto recorres en horizontal a la velocidad real del personaje. Si diseñas para el alcance máximo, prueba también un despegue sin carrera: verás cuánto margen tiene alguien que no llega al borde a toda velocidad.",
     "referencia": "Kyle Pittman. Building a Better Jump. GDC 2016.",
     "fuente": "https://www.gdcvault.com/play/1023559/Math-for-Game-Programmers-Building%3A",
     "juegos": [
@@ -477,7 +477,7 @@
     "idioma": "Inglés",
     "formato": "Artículo",
     "resumen": "Un vistazo a los pequeños márgenes que te ayudan al despegar y al caer.",
-    "cuerpo": "## Qué aporta\n\nThorson muestra tres ajustes que afectan al salto: permitirlo brevemente tras perder el suelo, guardar una pulsación anticipada y reducir la gravedad cerca del ápice mientras se mantiene el botón. También ilustra correcciones al rozar esquinas.\n\n## Cómo llevarlo a la práctica\n\nHaz dos pasadas idénticas por un borde, con y sin margen de coyote. Registra el instante de la pulsación respecto al último contacto con el suelo.",
+    "cuerpo": "## Qué aporta\n\nThorson muestra tres ajustes que afectan al salto: permitirlo brevemente tras perder el suelo, guardar una pulsación anticipada y reducir la gravedad cerca del ápice mientras se mantiene el botón. También ilustra correcciones al rozar esquinas.\n\n## Cómo llevarlo a la práctica\n\nHaz dos pasadas idénticas por un borde, con y sin margen de coyote. Registra el instante de la pulsación respecto al último contacto con el suelo.\n\n## Los dos lados del aterrizaje\n\nEl tiempo de coyote te deja saltar un instante después de salir del borde. El búfer guarda una pulsación que llegó antes de aterrizar y la usa cuando vuelves a tocar el suelo. Para distinguir qué ayuda estás probando, falla a propósito hacia cada lado: pulsa tarde al salir y pronto al llegar. Ajusta cada margen por separado y revisa si en algún caso el juego acaba haciendo un salto que ya no querías.",
     "referencia": "Maddy Thorson. Celeste & Forgiveness.",
     "fuente": "https://www.mattmakesgames.com/articles/celeste_and_forgiveness/index.html",
     "juegos": [
@@ -506,7 +506,7 @@
     "idioma": "Inglés",
     "formato": "Código fuente",
     "resumen": "Lectura guiada del controlador",
-    "cuerpo": "## Qué aporta\n\nBusca JumpGraceTime, VarJumpTime, HalfGravThreshold y el método Jump. Sigue dónde se arma y consume la tolerancia y dónde se mantiene el ascenso durante la ventana variable. El código emplea su propia convención vertical y depende de los estados del personaje.\n\n## Cómo llevarlo a la práctica\n\nAnota para cada temporizador quién lo inicia, quién lo consume y qué lo cancela. Conserva esa separación en tu controlador aunque cambien los valores.",
+    "cuerpo": "## Qué aporta\n\nBusca JumpGraceTime, VarJumpTime, HalfGravThreshold y el método Jump. Sigue dónde se arma y consume la tolerancia y dónde se mantiene el ascenso durante la ventana variable. El código emplea su propia convención vertical y depende de los estados del personaje.\n\n## Cómo llevarlo a la práctica\n\nAnota para cada temporizador quién lo inicia, quién lo consume y qué lo cancela. Conserva esa separación en tu controlador aunque cambien los valores.\n\n## Sigue el temporizador entero\n\nBusca dónde recibe un valor, dónde va bajando y qué acción lo consume. Si solo lees el método de salto, te pierdes qué otros estados lo preparan o lo cancelan. Al llevar la idea a Unity, anota cuándo consideras que se pierde el suelo y en qué momento lees la pulsación. Ese orden puede decidir si el último paso antes del borde cuenta.",
     "referencia": "Noel Berry y equipo de Celeste. Player.cs, código publicado.",
     "fuente": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs",
     "juegos": [
@@ -528,7 +528,7 @@
     "idioma": "Inglés",
     "formato": "Demo",
     "resumen": "Prueba la misma pantalla con varios saltos y fíjate en qué cambia al jugarlos.",
-    "cuerpo": "## Qué aporta\n\nEl ensayo interactivo permite ajustar más de treinta variables, entre ellas la altura, la velocidad máxima y el margen de coyote. El mismo recorrido permite comparar cambios sin rediseñar los obstáculos entre pruebas.\n\n## Cómo llevarlo a la práctica\n\nHaz una repetición de referencia y modifica una sola variable. Describe el efecto observado con algo medible: el hueco que cruzas, las correcciones que haces o los saltos que pierdes al borde.",
+    "cuerpo": "## Qué aporta\n\nEl ensayo interactivo permite ajustar más de treinta variables, entre ellas la altura, la velocidad máxima y el margen de coyote. El mismo recorrido permite comparar cambios sin rediseñar los obstáculos entre pruebas.\n\n## Cómo llevarlo a la práctica\n\nHaz una repetición de referencia y modifica una sola variable. Describe el efecto observado con algo medible: el hueco que cruzas, las correcciones que haces o los saltos que pierdes al borde.\n\n## Haz una comparación limpia\n\nQuédate en el mismo obstáculo y alterna entre la configuración de partida y una con un único cambio. Para estudiar la altura, por ejemplo, evita tocar también la velocidad horizontal. Anota qué aterrizajes se vuelven posibles y cuáles simplemente se vuelven más cómodos. En una prueba posterior puedes cambiar el nivel, cuando ya sepas qué parte aportó el ajuste.",
     "referencia": "Mark Brown. Platformer Toolkit.",
     "fuente": "https://gmtk.itch.io/platformer-toolkit",
     "juegos": [
@@ -553,7 +553,7 @@
     "idioma": "Inglés",
     "formato": "Documentación",
     "resumen": "Da impulso hacia arriba sin borrar la carrera que ya llevaba el personaje.",
-    "cuerpo": "## Qué aporta\n\nlinearVelocity representa la velocidad del cuerpo en unidades por segundo. Puedes leer el vector y sustituir solo su componente vertical al saltar. La gravedad, la amortiguación y las colisiones también pueden modificarlo.\n\n## Cómo llevarlo a la práctica\n\nAplica el despegue durante el paso de física y compara un salto quieto con uno en carrera. Verifica que ambos salen con la misma velocidad vertical.",
+    "cuerpo": "## Qué aporta\n\nlinearVelocity representa la velocidad del cuerpo en unidades por segundo. Puedes leer el vector y sustituir solo su componente vertical al saltar. La gravedad, la amortiguación y las colisiones también pueden modificarlo.\n\n## Cómo llevarlo a la práctica\n\nAplica el despegue durante el paso de física y compara un salto quieto con uno en carrera. Verifica que ambos salen con la misma velocidad vertical.\n\n## Qué conservar al despegar\n\nSi tu controlador ya lleva una velocidad horizontal, conserva esa componente al dar el impulso vertical. Prueba también qué ocurre cuando otra rutina escribe la velocidad después del salto en el mismo paso de física. Si el personaje se queda clavado o pierde el impulso, registra ambos valores antes y después de cada escritura.",
     "referencia": "Unity. Scripting API, Rigidbody2D.linearVelocity.",
     "fuente": "https://docs.unity.com/en-us/engine/6000.7/script-reference/unityengine/rigidbody2d/linearvelocity",
     "juegos": [
@@ -571,7 +571,7 @@
     "idioma": "Inglés",
     "formato": "Documentación",
     "resumen": "Configura cuánto tira la gravedad al subir y cuánto al caer.",
-    "cuerpo": "## Qué aporta\n\ngravityScale multiplica la gravedad global para ese cuerpo. Con gravedad global vertical, puedes fijar una escala durante el ascenso y otra cuando la velocidad vertical pasa a ser descendente.\n\n## Cómo llevarlo a la práctica\n\nSi integras tu propia gravedad, pon gravityScale a cero. Si delegas la integración a Unity, calcula la escala a partir de la gravedad global y mide el resultado.",
+    "cuerpo": "## Qué aporta\n\ngravityScale multiplica la gravedad global para ese cuerpo. Con gravedad global vertical, puedes fijar una escala durante el ascenso y otra cuando la velocidad vertical pasa a ser descendente.\n\n## Cómo llevarlo a la práctica\n\nSi integras tu propia gravedad, pon gravityScale a cero. Si delegas la integración a Unity, calcula la escala a partir de la gravedad global y mide el resultado.\n\n## Subir y caer a ritmos distintos\n\nUna escala mayor al caer puede recortar el tiempo de vuelta al suelo sin cambiar cuánto tarda el personaje en llegar arriba. Compara el tiempo de subida y el de caída por separado. Si al soltar el botón también recortas el impulso, pruébalo aparte para saber cuánto aporta cada ajuste.",
     "referencia": "Unity. Scripting API, Rigidbody2D.gravityScale.",
     "fuente": "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Rigidbody2D-gravityScale.html",
     "juegos": [
@@ -676,7 +676,7 @@
     "idioma": "Inglés",
     "formato": "Estudio",
     "resumen": "Una revisión sobre cómo se sienten los controles y cómo el juego responde a cada acción.",
-    "cuerpo": "## Qué aporta\n\nPichlmair y Johansen revisan trabajos académicos y publicaciones de profesionales sobre el tacto del juego. Distinguen entre ajustar las propiedades físicas, amplificar la respuesta audiovisual y facilitar la ejecución para aproximarla a la intención del jugador.\n\n## Cómo llevarlo al salto\n\nPrueba a cambiar solo la respuesta del aterrizaje. En la demo, el polvo, el sonido y la compresión del personaje subrayan el contacto sin alterar el movimiento. Si quieres saber qué señal ayuda más, compáralas por separado. La revisión ofrece vocabulario para plantear la prueba, y el resultado dependerá del juego y de quién lo pruebe.",
+    "cuerpo": "## Qué aporta\n\nPichlmair y Johansen revisan trabajos académicos y publicaciones de profesionales sobre el tacto del juego. Distinguen entre ajustar las propiedades físicas, amplificar la respuesta audiovisual y facilitar la ejecución para aproximarla a la intención del jugador.\n\n## Cómo llevarlo al salto\n\nPrueba a cambiar solo la respuesta del aterrizaje. En la demo, el polvo, el sonido y la compresión del personaje subrayan el contacto sin alterar el movimiento. Si quieres saber qué señal ayuda más, compáralas por separado. La revisión ofrece vocabulario para plantear la prueba, y el resultado dependerá del juego y de quién lo pruebe.\n\n## Tres maneras de tocar el mismo salto\n\nPuedes cambiar la trayectoria, añadir una confirmación audiovisual al caer o ampliar el margen para captar una pulsación. Las tres intervenciones pueden hacer que el salto se sienta mejor por motivos distintos. Prueba una cada vez y pregunta si el jugador nota que controla mejor el movimiento, entiende mejor lo que pasó o se equivoca menos.",
     "referencia": "Martin Pichlmair y Mads Johansen (2022). Designing Game Feel: A Survey. IEEE Transactions on Games, 14(2), 138–152.",
     "fuente": "https://doi.org/10.1109/TG.2021.3072241",
     "materiales": [
@@ -700,7 +700,7 @@
     "idioma": "Inglés",
     "formato": "Artículo",
     "resumen": "El manual documenta saltos con entradas y condiciones distintas, además de los controles de cámara.",
-    "cuerpo": "## Qué aporta\n\nEl manual documenta saltos con entradas y condiciones distintas, además de los controles de cámara. El triple encadena despegues y el largo parte de la carrera. Compáralos por cuándo se habilitan y por el espacio que te piden antes de saltar.",
+    "cuerpo": "## Qué aporta\n\nEl manual documenta saltos con entradas y condiciones distintas, además de los controles de cámara. El triple encadena despegues y el largo parte de la carrera. Compáralos por cuándo se habilitan y por el espacio que te piden antes de saltar.\n\n## El orden de los gestos\n\nPara comparar el salto largo con el triple, anota qué hace Mario antes de despegar y qué puedes corregir luego en el aire. Repite el mismo recorrido con otra cámara. Si la ejecución te cuesta más, comprueba si te falló la secuencia de botones o si calculaste mal dónde ibas a caer.",
     "referencia": "Nintendo. Super Mario 64, manual de Nintendo 64.",
     "fuente": "https://www.nintendo.com/eu/media/downloads/games_8/emanuals/nintendo_8/Manual_Nintendo64_SuperMario64_EN.pdf",
     "juegos": [
@@ -718,7 +718,7 @@
     "idioma": "Inglés",
     "formato": "Artículo",
     "resumen": "El equipo cuenta cómo buscaron que el personaje alcanzara agarres en posiciones distintas.",
-    "cuerpo": "## Qué aporta\n\nEl equipo describe un sistema de alcance analógico y animaciones para distintas posiciones de agarre. Úsalo para estudiar el salto hacia un destino contextual: la dirección del jugador ayuda a elegir un agarre, y el movimiento debe llevarlo a una posición coherente.",
+    "cuerpo": "## Qué aporta\n\nEl equipo describe un sistema de alcance analógico y animaciones para distintas posiciones de agarre. Úsalo para estudiar el salto hacia un destino contextual: la dirección del jugador ayuda a elegir un agarre, y el movimiento debe llevarlo a una posición coherente.\n\n## Del mando al agarre\n\nPiensa en un tramo con dos agarres posibles. Antes de saltar, el juego puede enseñar cuál ha entendido mediante la postura del personaje. Prueba a apuntar entre los dos y observa cuándo cambia la indicación. Esa zona intermedia ayuda a encontrar casos donde una selección técnicamente válida puede sorprender a quien juega.",
     "referencia": "Naughty Dog, entrevista técnica sobre la escalada de Uncharted 4. PlayStation.Blog (2022).",
     "fuente": "https://blog.playstation.com/2022/10/18/naughty-dog-breaks-down-uncharted-4s-climbing-evolution-as-uncharted-legacy-of-thieves-collection-launches-on-pc-this-week/",
     "juegos": [
@@ -736,7 +736,7 @@
     "idioma": "Inglés",
     "formato": "Documentación",
     "resumen": "Dile a Move cuánto quieres mover el personaje en ese paso. La gravedad la tienes que aplicar tú.",
-    "cuerpo": "## Qué aporta\n\nMove recibe un desplazamiento, no una velocidad, y no aplica gravedad automáticamente. El resultado incluye indicadores de colisión por arriba, abajo o de lado. Úsalos para impedir que el personaje siga subiendo cuando se ha pegado con un techo.",
+    "cuerpo": "## Qué aporta\n\nMove recibe un desplazamiento, no una velocidad, y no aplica gravedad automáticamente. El resultado incluye indicadores de colisión por arriba, abajo o de lado. Úsalos para impedir que el personaje siga subiendo cuando se ha pegado con un techo.\n\n## Velocidad, desplazamiento y gravedad\n\nSi llevas una velocidad en metros por segundo, multiplícala por la duración del paso antes de pasarla a Move. Mantén por separado la velocidad vertical que actualizas con tu propia gravedad. Prueba primero un segundo de movimiento en llano y luego un salto con otra tasa de cuadros para comprobar que no has aplicado el tiempo dos veces.",
     "referencia": "Unity 6. Scripting API, CharacterController.Move.",
     "fuente": "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/CharacterController.Move.html",
     "juegos": [
@@ -952,7 +952,7 @@
     "referencia": "Michael Booth (2009). The AI Systems of Left 4 Dead. AIIDE.",
     "fuente": "https://cdn.cloudflare.steamstatic.com/apps/valve/2009/ai_systems_of_l4d_mike_booth.pdf",
     "resumen": "Valve explica cómo alterna el juego los apuros y los ratos para respirar.",
-    "cuerpo": "La presentación de Valve explica cómo el director ajusta el ritmo de la partida. Alterna fases de tensión y descanso a partir de una estimación de la intensidad. Sirve para pensar cuándo conviene presionar al jugador y cuándo dejarle recuperar el aliento.",
+    "cuerpo": "La presentación de Valve explica cómo el director ajusta el ritmo de la partida. Alterna fases de tensión y descanso a partir de una estimación de la intensidad. Sirve para pensar cuándo conviene presionar al jugador y cuándo dejarle recuperar el aliento.\n\n## Cuándo dejar respirar\n\nLa presentación describe cómo el director observa la intensidad de los supervivientes para ajustar el ritmo de las amenazas. Si quieres ensayar la idea, registra en una partida cuándo el grupo empieza a recibir presión, cuándo alcanza el pico y qué ocurre en la pausa. En el prototipo, compara retirar amenazas nuevas durante el descanso con limitarte a bajar su daño. Mira cuál deja tiempo real para curarse o reagruparse.",
     "juegos": [
       {
         "nombre": "Left 4 Dead",
@@ -977,7 +977,7 @@
     "referencia": "Crytek. Hunt: Showdown Player Guides.",
     "fuente": "https://www.huntshowdown.com/player-guide/en_US",
     "resumen": "Llevar el botín encima es solo la mitad del trabajo. Crytek explica cómo asegurarlo al salir.",
-    "cuerpo": "Crytek describe la diferencia entre portar una recompensa y convertirla en dinero y experiencia. La extracción tiene sus propias condiciones, incluido un temporizador que un rival puede bloquear. Úsalo para identificar dónde acaba el bucle de riesgo.",
+    "cuerpo": "Crytek describe la diferencia entre portar una recompensa y convertirla en dinero y experiencia. La extracción tiene sus propias condiciones, incluido un temporizador que un rival puede bloquear. Úsalo para identificar dónde acaba el bucle de riesgo.\n\n## Cuándo has ganado de verdad\n\nConviene distinguir entre encontrar una recompensa, llevarla encima y haber salido con ella. Mientras solo la llevas, avanzar un poco más puede poner en juego todo lo que ya conseguiste. Dibuja ese recorrido y marca el punto en que debe guardarse el progreso. Si una prueba acaba al recoger el botín, te estás perdiendo la decisión de si conviene salir ya.",
     "juegos": [
       {
         "nombre": "Hunt: Showdown",
@@ -994,7 +994,7 @@
     "referencia": "Nintendo (2021). Metroid Dread Report Vol. 5: The powers of Samus Aran.",
     "fuente": "https://www.nintendo.com/en-gb/News/2021/August/Metroid-Dread-Report-Vol-5-The-powers-of-Samus-Aran-2026540.html",
     "resumen": "Consigues una habilidad y ese conducto que antes no llevaba a nada se convierte en camino.",
-    "cuerpo": "Nintendo describe cómo cambian los recorridos al conseguir habilidades. El deslizamiento y la Morfosfera resuelven pasos estrechos. Es un caso para estudiar cómo un obstáculo visto antes adquiere un significado nuevo.",
+    "cuerpo": "Nintendo describe cómo cambian los recorridos al conseguir habilidades. El deslizamiento y la Morfosfera resuelven pasos estrechos. Es un caso para estudiar cómo un obstáculo visto antes adquiere un significado nuevo.\n\n## Volver con otra posibilidad\n\nUn conducto que se ve antes de poder cruzarse funciona como una pista para más adelante. Cuando consigues la habilidad, necesitas reconocer qué sitios abre. Prueba a mostrar uno cerca de donde se entrega la mejora y otro en una zona anterior. El primero enseña qué hacer y el segundo comprueba si la persona recuerda dónde más podía usarlo.",
     "juegos": [
       {
         "nombre": "Metroid Dread",
@@ -1011,7 +1011,7 @@
     "referencia": "Blizzard Entertainment. Diablo IV Patch Notes (1.3–1.5).",
     "fuente": "https://news.blizzard.com/en-gb/article/24140806/diablo-iv-patch-notes-1-3-1-5",
     "resumen": "Consulta qué ha cambiado con las actualizaciones al gastar o convertir materiales de mejora.",
-    "cuerpo": "Este historial de versiones registra ajustes a la economía de mejoras, incluida la transmutación directa de materiales de Masterworking. Úsalo para identificar qué recurso entra, cuál sale y para qué versión se describe cada regla.",
+    "cuerpo": "Este historial de versiones registra ajustes a la economía de mejoras, incluida la transmutación directa de materiales de Masterworking. Úsalo para identificar qué recurso entra, cuál sale y para qué versión se describe cada regla.\n\n## Qué cambia cuando mueves el precio\n\nUn coste de oro y otro de materiales pueden frenar a jugadores distintos. Antes de comparar dos versiones, anota qué pide cada paso y de dónde sale cada recurso. Si al cambiar el coste la gente mejora más objetos pero deja de hacer otra actividad para conseguir el material, también has cambiado el recorrido del jugador.",
     "juegos": [
       {
         "nombre": "Diablo IV",
@@ -1028,7 +1028,7 @@
     "referencia": "Subset Games. Into the Breach, ficha oficial.",
     "fuente": "https://www.subsetgames.com/itb.html",
     "resumen": "El juego te enseña los ataques enemigos antes de que ocurran. Con esa información tú decides qué salvar.",
-    "cuerpo": "Subset Games explica que los enemigos anuncian sus ataques antes de ejecutarlos. El jugador puede usar esa información para proteger objetivos y resolver varias amenazas simultáneas. El ejemplo ayuda a separar la legibilidad de la exigencia táctica.",
+    "cuerpo": "Subset Games explica que los enemigos anuncian sus ataques antes de ejecutarlos. El jugador puede usar esa información para proteger objetivos y resolver varias amenazas simultáneas. El ejemplo ayuda a separar la legibilidad de la exigencia táctica.\n\n## Saber qué ocurrirá cambia el turno\n\nEnseñar la amenaza te permite dedicar el turno a resolverla. Mira si puedes apartar al objetivo, mover a quien ataca o proteger una casilla. Para trasladarlo a tu prototipo, enseña destino y orden de los ataques por separado. Así puedes distinguir si un error viene de una mala decisión o de haber leído mal la previsión.",
     "juegos": [
       {
         "nombre": "Into the Breach",
@@ -1045,7 +1045,7 @@
     "referencia": "Unity Technologies. Scripting API: MonoBehaviour, Unity 6.",
     "fuente": "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.html",
     "resumen": "La documentación recoge la clase base para comportamientos que se añaden a objetos de una escena.",
-    "cuerpo": "La documentación recoge la clase base para comportamientos que se añaden a objetos de una escena. Los prototipos de sistemas usan estos componentes para guardar el estado y exponer acciones a la interfaz.",
+    "cuerpo": "La documentación recoge la clase base para comportamientos que se añaden a objetos de una escena. Los prototipos de sistemas usan estos componentes para guardar el estado y exponer acciones a la interfaz.\n\n## Define quién cambia el estado\n\nPrueba con un coleccionable. Un componente puede detectar el contacto y otro registrar la recompensa. Decide cuál de los dos marca que el objeto ya se recogió y qué pasa si recibe dos avisos en el mismo momento. Te será más fácil comprobar el flujo si hay un único sitio donde se da por hecha la recogida.",
     "juegos": [
       {
         "nombre": "Celeste",
@@ -1062,7 +1062,7 @@
     "referencia": "Bungie (2022). This Week at Bungie, 1 de diciembre.",
     "fuente": "https://www.bungie.net/7/en/News/article/51999",
     "resumen": "Bungie cuenta a qué distancia una escopeta podía acabar con alguien de un disparo y por qué revisó ese alcance.",
-    "cuerpo": "El equipo explica por qué revisó la consistencia y el alcance de las bajas de un disparo con escopetas. El caso permite estudiar la distancia a la que un arma puede cumplir su función en una versión concreta.",
+    "cuerpo": "El equipo explica por qué revisó la consistencia y el alcance de las bajas de un disparo con escopetas. El caso permite estudiar la distancia a la que un arma puede cumplir su función en una versión concreta.\n\n## Compara por bandas de distancia\n\nFija arma, objetivo y condiciones de la prueba. Tira varias veces desde cerca, desde el borde de su alcance y un paso más allá. Apunta cuántas veces obtienes el mismo resultado en cada zona. Así puedes distinguir un cambio en la distancia a la que llega un disparo de uno en la regularidad con la que lo hace.",
     "juegos": [
       {
         "nombre": "Destiny 2",
@@ -1079,7 +1079,7 @@
     "referencia": "Age of Empires. Expanding Your Empire, guía oficial de Age of Empires II: Definitive Edition.",
     "fuente": "https://www.ageofempires.com/learn-to-play/expanding-your-empire-aoe2/",
     "resumen": "La guía relaciona el entrenamiento de aldeanos en el centro urbano con la recolección de recursos.",
-    "cuerpo": "La guía relaciona el entrenamiento de aldeanos en el centro urbano con la recolección de recursos. Es un ejemplo de inversión en capacidad productiva, limitada por comida, tiempo, población e infraestructura.",
+    "cuerpo": "La guía relaciona el entrenamiento de aldeanos en el centro urbano con la recolección de recursos. Es un ejemplo de inversión en capacidad productiva, limitada por comida, tiempo, población e infraestructura.\n\n## Qué se paga al crecer\n\nEntrenar un aldeano cuesta comida y ocupa tiempo que podrías dedicar a otra cosa. A cambio, aumenta tu capacidad de recoger recursos cuando empieza a trabajar. Compara dos aperturas con la misma cantidad inicial y anota cuándo recuperas el gasto. La diferencia entre poder pagar un trabajador y que convenga pagarlo aparece al mirar qué otra compra se retrasa.",
     "juegos": [
       {
         "nombre": "Age of Empires II",
@@ -1096,7 +1096,7 @@
     "referencia": "Dark Souls Wikidot. Estus Flask. Wiki comunitaria.",
     "fuente": "https://darksouls.wikidot.com/estus-flask",
     "resumen": "Mira dónde recuperas el Estus y por qué importa cuánto gastas antes de la siguiente hoguera.",
-    "cuerpo": "La ficha explica la curación con Estus y su reposición en hogueras. El ejemplo ayuda a comparar un consumible que se repone al descansar con una reserva que se gasta durante toda la excursión.",
+    "cuerpo": "La ficha explica la curación con Estus y su reposición en hogueras. El ejemplo ayuda a comparar un consumible que se repone al descansar con una reserva que se gasta durante toda la excursión.\n\n## Qué cambia al saber dónde repones\n\nAnota cuántas cargas tienes al empezar un tramo y cuándo eliges gastar la primera. Repite con el siguiente punto de reposición visible desde el principio. Si ahora curas antes, puede que el cambio venga de saber cuánto te queda por recorrer y no de haber dado más curación.",
     "juegos": [
       {
         "nombre": "Dark Souls",
@@ -1114,7 +1114,7 @@
     "fuente": "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Rigidbody2D.Cast.html",
     "idioma": "Inglés",
     "resumen": "Comprueba si el cuerpo tiene espacio para avanzar antes de lanzarlo hacia una pared.",
-    "cuerpo": "Lanza las formas de un Rigidbody2D a lo largo de una dirección. El ejemplo usa el contacto bloqueante más cercano para acortar la distancia del paso sin atravesar la pared. Los disparadores pueden excluirse con ContactFilter2D.",
+    "cuerpo": "Lanza las formas de un Rigidbody2D a lo largo de una dirección. El ejemplo usa el contacto bloqueante más cercano para acortar la distancia del paso sin atravesar la pared. Los disparadores pueden excluirse con ContactFilter2D.\n\n## Comprueba todo el trayecto\n\nMirar solo la posición de llegada puede pasar por alto una pared estrecha entre el origen y el destino. El barrido comprueba el espacio que ocuparía la forma del cuerpo durante el avance. Prueba un dash frontal, otro que roce una esquina y otro que empiece pegado a un obstáculo. Cada caso te ayuda a decidir cuándo recortar, detener o continuar el movimiento.",
     "juegos": [
       {
         "nombre": "Celeste",
@@ -1132,7 +1132,7 @@
     "fuente": "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Rigidbody2D-linearVelocity.html",
     "idioma": "Inglés",
     "resumen": "La velocidad se expresa en unidades de mundo por segundo.",
-    "cuerpo": "La velocidad se expresa en unidades de mundo por segundo. El prototipo la fija en el paso de física mientras el dash controla el cuerpo y restaura la gravedad al terminar.",
+    "cuerpo": "La velocidad se expresa en unidades de mundo por segundo. El prototipo la fija en el paso de física mientras el dash controla el cuerpo y restaura la gravedad al terminar.\n\n## Decide qué queda al salir del dash\n\nRegistra la velocidad justo antes, durante y después del impulso. Si el personaje sigue deslizándose cuando ya volviste a controlar la marcha, anota quién escribe la velocidad en ese momento. Compara recuperar el movimiento normal de golpe y devolverlo de forma progresiva con el mismo impulso inicial.",
     "juegos": [
       {
         "nombre": "Celeste",
@@ -1150,7 +1150,7 @@
     "fuente": "https://blog.playstation.com/?p=348532",
     "idioma": "Inglés",
     "resumen": "Consejos para leer el entorno, moverte y esquivar en los combates de Returnal.",
-    "cuerpo": "La guía combina consejos de movimiento, lectura del entorno y esquiva. Nos interesa la relación entre un impulso corto y amenazas que envuelven al personaje desde varios ángulos.",
+    "cuerpo": "La guía combina consejos de movimiento, lectura del entorno y esquiva. Nos interesa la relación entre un impulso corto y amenazas que envuelven al personaje desde varios ángulos.\n\n## Mira dónde terminas\n\nEsquivar a tiempo puede salvarte del primer ataque y dejarte en medio del siguiente. Prueba el mismo patrón avanzando y saliendo en diagonal. Anota desde dónde puedes volver a leer la arena y cuánto tardas en recuperar el control. Eso te dice qué aporta el desplazamiento aparte de evitar el golpe inmediato.",
     "juegos": [
       {
         "nombre": "Returnal",
@@ -1168,7 +1168,7 @@
     "fuente": "https://slayersclub.bethesda.net/en-US/news/doom-eternal-demon-slaying-101",
     "idioma": "Inglés",
     "resumen": "El mismo dash te sirve para moverte en el suelo y para cruzar huecos en el aire.",
-    "cuerpo": "La guía oficial explica el dash como herramienta de desplazamiento terrestre y aéreo. El mismo verbo sirve para atravesar huecos y moverse entre proyectiles.",
+    "cuerpo": "La guía oficial explica el dash como herramienta de desplazamiento terrestre y aéreo. El mismo verbo sirve para atravesar huecos y moverse entre proyectiles.\n\n## Prueba el impulso en suelo y aire\n\nSobre el suelo puede servirte para ganar posición. En el aire puede ser la única forma de cruzar un hueco. Ensaya los dos casos por separado y anota dónde puede volver a usarse. Si el jugador termina un salto sin saber si le queda otro impulso, revisa cómo avisas de que ya lo recuperó.",
     "juegos": [
       {
         "nombre": "DOOM Eternal",
@@ -1186,7 +1186,7 @@
     "fuente": "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/CollisionFlags.html",
     "idioma": "Inglés",
     "resumen": "CharacterController.Move devuelve una máscara con choques laterales, superiores o inferiores.",
-    "cuerpo": "CharacterController.Move devuelve una máscara con choques laterales, superiores o inferiores. Separarlos permite cancelar un dash contra un obstáculo y conservar el movimiento al tocar el suelo.",
+    "cuerpo": "CharacterController.Move devuelve una máscara con choques laterales, superiores o inferiores. Separarlos permite cancelar un dash contra un obstáculo y conservar el movimiento al tocar el suelo.\n\n## Distingue suelo, techo y pared\n\nUna colisión lateral durante un dash puede cortar el impulso. Tocar suelo durante la misma actualización quizá solo deba cambiar el estado de caída. Registra ambas cosas por separado y prueba el dash cerca de una rampa o cuando aterrizas junto a una pared, donde pueden coincidir.",
     "juegos": [
       {
         "nombre": "DOOM Eternal",
@@ -1395,7 +1395,7 @@
     "tema": "Dificultad y equilibrio",
     "referencia": "FromSoftware. Sekiro: Shadows Die Twice Web Manual, Mechanics.",
     "fuente": "https://www.fromsoftware.jp/manual/sekiroshadowsdietwice/stadia/mechanics.html",
-    "cuerpo": "El manual explica cómo los ataques y los desvíos presionan la postura. También relaciona la vitalidad con la velocidad a la que se recupera. La combinación permite estudiar la iniciativa y el progreso de un duelo.",
+    "cuerpo": "El manual explica cómo los ataques y los desvíos presionan la postura. También relaciona la vitalidad con la velocidad a la que se recupera. La combinación permite estudiar la iniciativa y el progreso de un duelo.\n\n## Presionar sin esperar a vaciar la vida\n\nMira la barra de postura después de atacar, desviar y dejar descansar al rival. Si en una prueba la presión se desvanece demasiado deprisa, cambiar el ritmo de recuperación puede alterar la iniciativa aunque ningún golpe haga más daño. Para comparar, mantén los ataques fijos y mide cuánto tiempo puedes retirarte sin perder lo que habías ganado.",
     "resumen": "El manual explica qué le ocurre a la postura cuando atacas y desvías golpes.",
     "idioma": "Inglés",
     "formato": "Documentación",
@@ -1412,7 +1412,7 @@
     "tema": "Dinámicas",
     "referencia": "Electronic Arts y Hazelight. It Takes Two Features.",
     "fuente": "https://www.ea.com/games/it-takes-two/it-takes-two/features",
-    "cuerpo": "La presentación oficial describe desafíos que se resuelven en pareja y habilidades que cambian con los niveles. Sirve de referencia para estudiar qué decisiones puede repartir un puzle cooperativo.",
+    "cuerpo": "La presentación oficial describe desafíos que se resuelven en pareja y habilidades que cambian con los niveles. Sirve de referencia para estudiar qué decisiones puede repartir un puzle cooperativo.\n\n## Qué necesita saber cada persona\n\nDa a cada jugador una acción distinta y observa en qué momento necesitan hablar. Si los dos botones se resuelven sin mirar al otro, quizá haya poca cooperación en esa parte. Prueba a que uno vea cuándo actuar y el otro tenga la herramienta para hacerlo, y compara qué tipo de coordinación aparece.",
     "resumen": "La presentación oficial describe desafíos que se resuelven en pareja y habilidades que cambian con los niveles.",
     "idioma": "Inglés",
     "formato": "Documentación",
@@ -1429,7 +1429,7 @@
     "tema": "Jugabilidad y bucles",
     "referencia": "PlayStation y Santa Monica Studio. God of War Ragnarök Accessibility.",
     "fuente": "https://www.playstation.com/en-us/games/god-of-war-ragnarok/accessibility/",
-    "cuerpo": "La guía recoge los puntos de control de minijefes como ayuda en dificultades compatibles. Conservan parte del progreso del combate después de una derrota.",
+    "cuerpo": "La guía recoge los puntos de control de minijefes como ayuda en dificultades compatibles. Conservan parte del progreso del combate después de una derrota.\n\n## Qué conservas al volver\n\nSepara el lugar donde reapareces del progreso que recuperas. Volver a la misma arena puede tener costes muy distintos si el minijefe empieza de cero o si retomas una fase. Prueba cuánto tarda el segundo intento en llegar al momento en que fallaste. Así puedes ajustar lo que se repite sin tocar el combate.",
     "resumen": "La guía recoge los puntos de control de minijefes como ayuda en dificultades compatibles.",
     "idioma": "Inglés",
     "formato": "Documentación",
@@ -1446,7 +1446,7 @@
     "tema": "Sistemas y economías",
     "referencia": "Capcom. Monster Hunter Rise: Sunbreak Official Web Manual, Weapons & Armor.",
     "fuente": "https://game.capcom.com/manual/Multi-Platform/en/xone/page/9/1",
-    "cuerpo": "Capcom explica cómo identificar las mejoras que admiten volver atrás. El juego devuelve materiales y, en algunos casos, parte vuelve en forma de restos.",
+    "cuerpo": "Capcom explica cómo identificar las mejoras que admiten volver atrás. El juego devuelve materiales y, en algunos casos, parte vuelve en forma de restos.\n\n## Haz visible lo que se recupera\n\nSi una persona quiere probar otra arma, le interesa saber qué materiales vuelven y qué pasos tendrá que repetir. Pon esa información en la confirmación, antes de gastar nada. Compara cuántas veces se prueba otra opción con devolución parcial y con devolución completa para ver cuánto pesa el coste de cambiar.",
     "resumen": "Capcom explica qué mejoras puedes deshacer y qué materiales recuperas al hacerlo.",
     "idioma": "Inglés",
     "formato": "Documentación",
@@ -1463,7 +1463,7 @@
     "tema": "Dificultad y equilibrio",
     "referencia": "Supergiant Games. Hades FAQ.",
     "fuente": "https://www.supergiantgames.com/blog/hades-faq/",
-    "cuerpo": "La FAQ presenta el modo dios como una opción que aumenta la resistencia al daño y agrega protección después de las derrotas. Permite discutir cuándo se ofrece un ajuste y cómo se aplica.",
+    "cuerpo": "La FAQ presenta el modo dios como una opción que aumenta la resistencia al daño y agrega protección después de las derrotas. Permite discutir cuándo se ofrece un ajuste y cómo se aplica.\n\n## Qué ayuda cambia entre intentos\n\nMira la resistencia al daño antes y después de una derrota con el modo activado. Después intenta la misma sala. Registra cuánto puedes aguantar y si esa ayuda te da tiempo para aprender a leer los ataques. Esas dos preguntas te dejan distinguir progreso en el combate de margen para practicar.",
     "resumen": "La FAQ presenta el modo dios como una opción que aumenta la resistencia al daño y agrega protección después de las derrotas.",
     "idioma": "Inglés",
     "formato": "Documentación",
@@ -1606,7 +1606,7 @@
     "resumen": "Una pista puede decirte por dónde seguir. Un hito también te ayuda a saber dónde estás.",
     "fuente": "https://book.leveldesignbook.com/process/blockout/wayfinding",
     "referencia": "The Level Design Book. Wayfinding.",
-    "cuerpo": "Un hito te ayuda a situarte aunque todavía no sepas qué camino tomar. La iluminación o la forma de una puerta, en cambio, pueden indicarte cuál es la salida desde el punto en que estás. Prueba cada ayuda por separado para descubrir si la gente se pierde al elegir ruta o al volver al mapa que ya conoce.",
+    "cuerpo": "Un hito te ayuda a situarte aunque todavía no sepas qué camino tomar. La iluminación o la forma de una puerta, en cambio, pueden indicarte cuál es la salida desde el punto en que estás. Prueba cada ayuda por separado para descubrir si la gente se pierde al elegir ruta o al volver al mapa que ya conoce.\n\n## Orientarte y elegir son tareas distintas\n\nPrueba el mismo recorrido de ida y vuelta. Un punto de referencia alto puede bastar para saber en qué parte del mapa estás, pero decir poco sobre cuál de dos puertas lleva a la plaza. Desde cada cruce, separa qué te ubica y qué te ayuda a elegir. Así sabrás si conviene mover el hito o añadir una pista cerca del desvío.",
     "juegos": [
       {
         "nombre": "Half-Life 2",
@@ -1623,7 +1623,7 @@
     "resumen": "Qué puedes ver desde un sitio y cómo dirigir la mirada hacia otro.",
     "fuente": "https://book.leveldesignbook.com/process/blockout/massing/composition",
     "referencia": "The Level Design Book. Composition.",
-    "cuerpo": "Una línea de visión te permite enseñar adónde vas antes de que sepas cómo llegar. Prueba a encuadrar el destino desde un cruce y comprueba qué parte del camino puede deducir quien juega. Si todo se ve a la vez, puedes perder la ocasión de revelar algo al doblar la esquina.",
+    "cuerpo": "Una línea de visión te permite enseñar adónde vas antes de que sepas cómo llegar. Prueba a encuadrar el destino desde un cruce y comprueba qué parte del camino puede deducir quien juega. Si todo se ve a la vez, puedes perder la ocasión de revelar algo al doblar la esquina.\n\n## Enséñalo desde la cámara de juego\n\nUn destino puede parecer evidente en el plano y quedar tapado desde la altura del personaje. En cada cruce, captura lo primero que entra en pantalla al llegar. Si el destino no se lee, prueba a cambiar el encuadre o un obstáculo antes de añadir una marca.",
     "juegos": [
       {
         "nombre": "Journey",
@@ -1640,7 +1640,7 @@
     "resumen": "Dónde te tapa un muro y qué pasa si también esconde a quien te amenaza.",
     "fuente": "https://book.leveldesignbook.com/process/combat/cover",
     "referencia": "The Level Design Book. Cover.",
-    "cuerpo": "Un muro puede protegerte de un enemigo y dejarte a la vista de otro. Dibuja una línea desde cada amenaza hasta tu posición y mira qué tapa de verdad el muro. Cuenta también cuánto te obliga a asomarte para responder.",
+    "cuerpo": "Un muro puede protegerte de un enemigo y dejarte a la vista de otro. Dibuja una línea desde cada amenaza hasta tu posición y mira qué tapa de verdad el muro. Cuenta también cuánto te obliga a asomarte para responder.\n\n## Prueba otro ángulo\n\nUsa el mismo muro con un enemigo delante y otro en diagonal. Dibuja qué ve cada uno. Luego haz que el jugador tenga que salir de detrás del muro para responder a una amenaza. Esa segunda prueba descubre si la cobertura ayuda a decidir cuándo exponerte o si solo permite esperar indefinidamente.",
     "juegos": [
       {
         "nombre": "Gears 5",
@@ -1657,7 +1657,7 @@
     "resumen": "Cómo enseñar una regla, ponerla a prueba y darle una vuelta, con ejemplos de Portal.",
     "fuente": "https://book.leveldesignbook.com/process/preproduction/pacing",
     "referencia": "The Level Design Book. Pacing.",
-    "cuerpo": "Presenta una regla con margen para probarla. Después pide que se use sin repetir la explicación y, cuando esté clara, cámbiale el contexto o combínala con otra. Si la gente falla al juntar dos reglas, revisa cuál de las dos oportunidades de práctica faltó.",
+    "cuerpo": "Presenta una regla con margen para probarla. Después pide que se use sin repetir la explicación y, cuando esté clara, cámbiale el contexto o combínala con otra. Si la gente falla al juntar dos reglas, revisa cuál de las dos oportunidades de práctica faltó.\n\n## Comprueba dónde se aprendió la regla\n\nMonta una primera situación en la que equivocarse cueste poco. En una segunda, deja que el jugador decida cuándo usar la regla. Más adelante, combínala con otra que ya conozca. Si el tercer paso se atasca, vuelve a las dos prácticas por separado en vez de dar por hecho que la combinación es demasiado difícil.",
     "juegos": [
       {
         "nombre": "Portal",
@@ -1793,7 +1793,7 @@
     "formato": "Documentación",
     "referencia": "inkle. Writing with ink.",
     "fuente": "https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md",
-    "cuerpo": "Ink puede recordar algo que pasó antes y usarlo para decidir qué opciones enseñar o qué réplica mostrar. El detalle interesante es que una elección puede cambiar una frase más adelante sin obligarte a escribir dos rutas completas. Mira cómo volver a reunir las ramas manteniendo ese pequeño efecto.",
+    "cuerpo": "Ink puede recordar algo que pasó antes y usarlo para decidir qué opciones enseñar o qué réplica mostrar. El detalle interesante es que una elección puede cambiar una frase más adelante sin obligarte a escribir dos rutas completas. Mira cómo volver a reunir las ramas manteniendo ese pequeño efecto.\n\n## Recuerda algo pequeño\n\nGuarda si se devolvió un objeto y úsalo más tarde para cambiar una sola respuesta. Puedes dejar que ambas versiones lleguen al mismo punto de la historia. Para probarlo, visita la conversación en los dos estados y comprueba qué frase cambia antes de añadir otro recuerdo que pueda cruzarse con el primero.",
     "idioma": "Inglés",
     "resumen": "Haz que una conversación cambie según lo que eliges y lo que ya hiciste.",
     "juegos": [
@@ -1810,7 +1810,7 @@
     "formato": "Artículo",
     "referencia": "Henry Jenkins. Game Design as Narrative Architecture.",
     "fuente": "https://mycours.es/zip/Game%20Design%20as%20Narrative%20Architecture%20-%20Henry%20Jenkins.pdf",
-    "cuerpo": "En un relato integrado en el espacio, una pista puede estar donde se usó un objeto y otra donde terminó. La gente recompone los hechos al relacionarlas. Coloca alguna pista que permita comprobar la primera impresión, para que la conclusión salga de lo que se puede observar.",
+    "cuerpo": "En un relato integrado en el espacio, una pista puede estar donde se usó un objeto y otra donde terminó. La gente recompone los hechos al relacionarlas. Coloca alguna pista que permita comprobar la primera impresión, para que la conclusión salga de lo que se puede observar.\n\n## Que el espacio deje comprobar una hipótesis\n\nUna silla caída podría sugerir prisa o una pelea. Si en la salida hay un reguero de barro, la interpretación cambia. Pon las pistas en lugares donde tengan sentido dentro de la escena y ofrece al jugador algo que le permita descartar una primera lectura. Observa si puede contar lo ocurrido señalando qué vio y dónde.",
     "idioma": "Inglés",
     "resumen": "Jenkins explica cómo puedes ir armando una historia con las pistas que encuentras por el escenario.",
     "juegos": [
@@ -1827,7 +1827,7 @@
     "formato": "Documentación",
     "referencia": "IGDA Localization SIG. Best Practices for Game Localization, v2.2.",
     "fuente": "https://igda-website.s3.us-east-2.amazonaws.com/wp-content/uploads/2021/04/09142137/Best-Practices-for-Game-Localization-v22.pdf",
-    "cuerpo": "Al preparar un texto para traducir, acompaña las líneas de diálogo con el hablante y lo que está pasando en la escena. Si la frase aparece en un botón, indica cuánto espacio hay. En la revisión, abre el juego y comprueba si la línea sigue sonando natural y cabe donde se muestra.",
+    "cuerpo": "Al preparar un texto para traducir, acompaña las líneas de diálogo con el hablante y lo que está pasando en la escena. Si la frase aparece en un botón, indica cuánto espacio hay. En la revisión, abre el juego y comprueba si la línea sigue sonando natural y cabe donde se muestra.\n\n## Prepara lo que rodea a la frase\n\nDos botones pueden decir «Salir» y llevar a sitios distintos. Envía junto al texto la pantalla, la acción y el límite de espacio. En diálogo añade quién habla, a quién responde y si aparece a mitad de una escena. Luego revisa en el juego los saltos de línea y el tono. Son detalles que una hoja de frases sueltas puede ocultar.",
     "idioma": "Inglés",
     "resumen": "Qué conviene mandar junto al texto del juego para que se pueda traducir y revisar con contexto.",
     "juegos": [
@@ -1925,7 +1925,7 @@
     "referencia": "Jakob Nielsen. 10 Usability Heuristics for User Interface Design.",
     "fuente": "https://www.nngroup.com/articles/ten-usability-heuristics/",
     "resumen": "Ideas para que la interfaz te avise de lo que pasa y deje a mano lo que hace falta.",
-    "cuerpo": "Si una acción tarda, enseñar que se recibió ayuda a que la gente no vuelva a pulsar por si acaso. La confirmación del resultado llega cuando la acción acaba. Prueba esas dos señales por separado y observa cuál evita que repitan la acción o salgan antes de tiempo.",
+    "cuerpo": "Si una acción tarda, enseñar que se recibió ayuda a que la gente no vuelva a pulsar por si acaso. La confirmación del resultado llega cuando la acción acaba. Prueba esas dos señales por separado y observa cuál evita que repitan la acción o salgan antes de tiempo.\n\n## Prueba qué cree que ocurrió\n\nPon una espera breve al guardar y pregunta si se recibió la orden, si ya terminó y si se puede cerrar el juego. Una interfaz puede responder bien a la primera y dejar dudas en las otras dos. Mide también si vuelven a pulsar. Ese gesto ayuda a localizar en qué tramo se pierde la confianza en el sistema.",
     "idioma": "Inglés",
     "juegos": [
       {
@@ -1950,7 +1950,7 @@
     "referencia": "Erik Andersen y colaboradores (2012). The Impact of Tutorials on Games of Varying Complexity. CHI.",
     "fuente": "https://grail.cs.washington.edu/wp-content/uploads/2015/08/andersen2012tio.pdf",
     "resumen": "Compara variantes de tutoriales en juegos de distinta complejidad. Sirve para diseñar pruebas que separen el momento, la presentación y el tipo de instrucción.",
-    "cuerpo": "La comparación importa porque una instrucción puede ser bienvenida cuando una regla cuesta entenderse, e interrumpir cuando la acción se aprende al probarla. Para tu juego, compara una versión con la ayuda que tienes y otra en la que aparezca al llegar a la tarea. Mide por separado si la gente completa la prueba y si recuerda qué hacer después.",
+    "cuerpo": "La comparación importa porque una instrucción puede ser bienvenida cuando una regla cuesta entenderse, e interrumpir cuando la acción se aprende al probarla. Para tu juego, compara una versión con la ayuda que tienes y otra en la que aparezca al llegar a la tarea. Mide por separado si la gente completa la prueba y si recuerda qué hacer después.\n\n## Repite después de quitar la ayuda\n\nMide cuánto tarda el primer intento y vuelve a pedir la acción más adelante sin aviso. Si el primer grupo acaba más deprisa pero necesita que le recuerdes la instrucción, quizá el tutorial resolvió la tarea inmediata. Cambia la colocación o el orden del segundo reto para comprobar que aprendieron la regla y no la secuencia.",
     "idioma": "Inglés",
     "juegos": [
       {
@@ -1967,7 +1967,7 @@
     "referencia": "Microsoft. Xbox Accessibility Guideline 101: Text display.",
     "fuente": "https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/101",
     "resumen": "Qué revisar para que los mensajes del juego se sigan leyendo bien al aumentar el tamaño de la letra.",
-    "cuerpo": "Aumentar el tamaño puede facilitar la lectura y alargar cada bloque de texto. Prueba el aviso más largo con el tamaño más grande y comprueba si siguen a mano los botones que cierran o confirman. Revisa además el contraste en escenas donde el texto se coloca sobre el fondo del juego.",
+    "cuerpo": "Aumentar el tamaño puede facilitar la lectura y alargar cada bloque de texto. Prueba el aviso más largo con el tamaño más grande y comprueba si siguen a mano los botones que cierran o confirman. Revisa además el contraste en escenas donde el texto se coloca sobre el fondo del juego.\n\n## Comprueba la escena más difícil de leer\n\nSube el tamaño del texto y prueba un aviso largo, con movimiento detrás o con varios elementos en pantalla. Mira si el texto se sigue leyendo entero y si los botones quedan a mano. En subtítulos, prueba un fondo claro y otro oscuro. La muestra de un menú quieto te dice poco sobre lo que sucede en mitad de una partida.",
     "idioma": "Inglés",
     "juegos": [
       {

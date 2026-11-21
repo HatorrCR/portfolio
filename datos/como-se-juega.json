@@ -3830,5 +3830,175 @@
         "observacion": "En una sala con guardias, separa qué información usas para moverte de qué elementos construyen el chiste."
       }
     ]
+  },
+  {
+    "id": "godot-demo-dynamic-tilemap-layers",
+    "titulo": "Capas de mapa que cambian durante la partida",
+    "tema": "Espacios y recorridos",
+    "formato": "Demo",
+    "idioma": "en",
+    "resumen": "Mira las capas del mapa como piezas con funciones distintas.",
+    "cuerpo": "## Qué observar\n\nMira las capas del mapa como piezas con funciones distintas. En un prototipo de puzles con puentes, separa el suelo del puente y prueba si su cambio se entiende desde los dos lados del obstáculo.\n\n## Una prueba para tu juego\n\nRepite la misma situación cambiando solo el ajuste que quieres evaluar. Anota qué esperaba que ocurriera quien juega y en qué momento apareció la primera duda.",
+    "referencia": "Godot Engine. Proyecto oficial de demostración, versión web.",
+    "fuente": "https://godotengine.github.io/godot-demo-projects/2d/dynamic_tilemap_layers/",
+    "materiales": [
+      {
+        "nombre": "Abrir demo oficial",
+        "url": "https://godotengine.github.io/godot-demo-projects/2d/dynamic_tilemap_layers/"
+      }
+    ]
+  },
+  {
+    "id": "godot-demo-finite-state-machine",
+    "titulo": "Estados con subestados para el personaje",
+    "tema": "Mecánicas",
+    "formato": "Demo",
+    "idioma": "en",
+    "resumen": "Piensa en qué reglas comparten todos los estados aéreos y cuáles solo aplican al salto.",
+    "cuerpo": "## Qué observar\n\nPiensa en qué reglas comparten todos los estados aéreos y cuáles solo aplican al salto. En un prototipo de plataformas, comprueba qué ocurre si recibes daño justo al pasar de subir a caer.\n\n## Una prueba para tu juego\n\nRepite la misma situación cambiando solo el ajuste que quieres evaluar. Anota qué esperaba que ocurriera quien juega y en qué momento apareció la primera duda.",
+    "referencia": "Godot Engine. Proyecto oficial de demostración, versión web.",
+    "fuente": "https://godotengine.github.io/godot-demo-projects/2d/finite_state_machine/",
+    "materiales": [
+      {
+        "nombre": "Abrir demo oficial",
+        "url": "https://godotengine.github.io/godot-demo-projects/2d/finite_state_machine/"
+      }
+    ]
+  },
+  {
+    "id": "godot-demo-isometric",
+    "titulo": "Cómo se lee un escenario isométrico",
+    "tema": "Espacios y recorridos",
+    "formato": "Demo",
+    "idioma": "en",
+    "resumen": "Sigue un camino corto y fíjate en dónde dos objetos parecen tocarse aunque estén a distinta profundidad.",
+    "cuerpo": "## Qué observar\n\nSigue un camino corto y fíjate en dónde dos objetos parecen tocarse aunque estén a distinta profundidad. En un prototipo de exploración, prueba si marcar las bases de los objetos aclara por dónde se puede pasar.\n\n## Una prueba para tu juego\n\nRepite la misma situación cambiando solo el ajuste que quieres evaluar. Anota qué esperaba que ocurriera quien juega y en qué momento apareció la primera duda.",
+    "referencia": "Godot Engine. Proyecto oficial de demostración, versión web.",
+    "fuente": "https://godotengine.github.io/godot-demo-projects/2d/isometric/",
+    "materiales": [
+      {
+        "nombre": "Abrir demo oficial",
+        "url": "https://godotengine.github.io/godot-demo-projects/2d/isometric/"
+      }
+    ]
+  },
+  {
+    "id": "godot-demo-navigation-astar",
+    "titulo": "Rutas sobre una cuadrícula",
+    "tema": "Encuentros y puzles",
+    "formato": "Demo",
+    "idioma": "en",
+    "resumen": "Observa cómo cambia el recorrido al interponer un obstáculo.",
+    "cuerpo": "## Qué observar\n\nObserva cómo cambia el recorrido al interponer un obstáculo. En un prototipo de tácticas, compara el camino que la interfaz anticipa con el que recorre la unidad y revisa especialmente las esquinas.\n\n## Una prueba para tu juego\n\nRepite la misma situación cambiando solo el ajuste que quieres evaluar. Anota qué esperaba que ocurriera quien juega y en qué momento apareció la primera duda.",
+    "referencia": "Godot Engine. Proyecto oficial de demostración, versión web.",
+    "fuente": "https://godotengine.github.io/godot-demo-projects/2d/navigation_astar/",
+    "materiales": [
+      {
+        "nombre": "Abrir demo oficial",
+        "url": "https://godotengine.github.io/godot-demo-projects/2d/navigation_astar/"
+      }
+    ]
+  },
+  {
+    "id": "godot-demo-physics-platformer",
+    "titulo": "Un plataformas con desplazamiento basado en física",
+    "tema": "Mecánicas",
+    "formato": "Demo",
+    "idioma": "en",
+    "resumen": "Repite la misma aproximación desde parado y con carrera.",
+    "cuerpo": "## Qué observar\n\nRepite la misma aproximación desde parado y con carrera. En un prototipo de plataformas, fíjate en cuánto cambia el punto donde puedes frenar y si el jugador puede anticipar la distancia antes de saltar.\n\n## Una prueba para tu juego\n\nRepite la misma situación cambiando solo el ajuste que quieres evaluar. Anota qué esperaba que ocurriera quien juega y en qué momento apareció la primera duda.",
+    "referencia": "Godot Engine. Proyecto oficial de demostración, versión web.",
+    "fuente": "https://godotengine.github.io/godot-demo-projects/2d/physics_platformer/",
+    "materiales": [
+      {
+        "nombre": "Abrir demo oficial",
+        "url": "https://godotengine.github.io/godot-demo-projects/2d/physics_platformer/"
+      }
+    ]
+  },
+  {
+    "id": "godot-demo-rhythm-game",
+    "titulo": "El pulso como referencia en un juego musical",
+    "tema": "Mecánicas",
+    "formato": "Demo",
+    "idioma": "en",
+    "resumen": "Observa la relación entre lo que oyes y lo que ves antes de pulsar.",
+    "cuerpo": "## Qué observar\n\nObserva la relación entre lo que oyes y lo que ves antes de pulsar. En un prototipo musical, compara una señal visual que anticipa el golpe con otra que aparece justo al sonar.\n\n## Una prueba para tu juego\n\nRepite la misma situación cambiando solo el ajuste que quieres evaluar. Anota qué esperaba que ocurriera quien juega y en qué momento apareció la primera duda.",
+    "referencia": "Godot Engine. Proyecto oficial de demostración, versión web.",
+    "fuente": "https://godotengine.github.io/godot-demo-projects/audio/rhythm_game/",
+    "materiales": [
+      {
+        "nombre": "Abrir demo oficial",
+        "url": "https://godotengine.github.io/godot-demo-projects/audio/rhythm_game/"
+      }
+    ]
+  },
+  {
+    "id": "godot-demo-input-mapping",
+    "titulo": "Cambiar los controles desde el menú",
+    "tema": "Accesibilidad",
+    "formato": "Demo",
+    "idioma": "en",
+    "resumen": "Prueba a pensar en acciones como saltar o esquivar en vez de en botones fijos.",
+    "cuerpo": "## Qué observar\n\nPrueba a pensar en acciones como saltar o esquivar en vez de en botones fijos. En un prototipo de acción, cambia el botón de salto y revisa si las instrucciones dentro del juego también reflejan el cambio.\n\n## Una prueba para tu juego\n\nRepite la misma situación cambiando solo el ajuste que quieres evaluar. Anota qué esperaba que ocurriera quien juega y en qué momento apareció la primera duda.",
+    "referencia": "Godot Engine. Proyecto oficial de demostración, versión web.",
+    "fuente": "https://godotengine.github.io/godot-demo-projects/gui/input_mapping/",
+    "materiales": [
+      {
+        "nombre": "Abrir demo oficial",
+        "url": "https://godotengine.github.io/godot-demo-projects/gui/input_mapping/"
+      }
+    ]
+  },
+  {
+    "id": "godot-demo-pseudolocalization",
+    "titulo": "Detectar textos que rompen el menú al traducirlos",
+    "tema": "Accesibilidad",
+    "formato": "Demo",
+    "idioma": "en",
+    "resumen": "La pseudolocalización ayuda a anticipar qué pasa cuando cambia la longitud del texto.",
+    "cuerpo": "## Qué observar\n\nLa pseudolocalización ayuda a anticipar qué pasa cuando cambia la longitud del texto. En un prototipo con inventario, comprueba si una descripción alargada tapa el precio o deja fuera la acción de compra.\n\n## Una prueba para tu juego\n\nRepite la misma situación cambiando solo el ajuste que quieres evaluar. Anota qué esperaba que ocurriera quien juega y en qué momento apareció la primera duda.",
+    "referencia": "Godot Engine. Proyecto oficial de demostración, versión web.",
+    "fuente": "https://godotengine.github.io/godot-demo-projects/gui/pseudolocalization/",
+    "materiales": [
+      {
+        "nombre": "Abrir demo oficial",
+        "url": "https://godotengine.github.io/godot-demo-projects/gui/pseudolocalization/"
+      }
+    ]
+  },
+  {
+    "id": "godot-demo-ui-mirroring",
+    "titulo": "Qué elementos invertir al cambiar el sentido de lectura",
+    "tema": "Accesibilidad",
+    "formato": "Demo",
+    "idioma": "en",
+    "resumen": "Compara cómo se reorganizan los elementos de interfaz al invertir el sentido de lectura.",
+    "cuerpo": "## Qué observar\n\nCompara cómo se reorganizan los elementos de interfaz al invertir el sentido de lectura. En un prototipo con menú lateral, verifica por separado el orden de las opciones y el sentido de las flechas que representan movimiento.\n\n## Una prueba para tu juego\n\nRepite la misma situación cambiando solo el ajuste que quieres evaluar. Anota qué esperaba que ocurriera quien juega y en qué momento apareció la primera duda.",
+    "referencia": "Godot Engine. Proyecto oficial de demostración, versión web.",
+    "fuente": "https://godotengine.github.io/godot-demo-projects/gui/ui_mirroring/",
+    "materiales": [
+      {
+        "nombre": "Abrir demo oficial",
+        "url": "https://godotengine.github.io/godot-demo-projects/gui/ui_mirroring/"
+      }
+    ]
+  },
+  {
+    "id": "godot-demo-dynamic-split-screen",
+    "titulo": "Cuándo dividir la pantalla en un cooperativo local",
+    "tema": "Jugabilidad y bucles",
+    "formato": "Demo",
+    "idioma": "en",
+    "resumen": "Fíjate en qué información pierde cada jugador cuando las cámaras se separan.",
+    "cuerpo": "## Qué observar\n\nFíjate en qué información pierde cada jugador cuando las cámaras se separan. En un prototipo cooperativo, prueba una entrada estrecha para ver si al separarse y juntarse deprisa cuesta seguir al personaje.\n\n## Una prueba para tu juego\n\nRepite la misma situación cambiando solo el ajuste que quieres evaluar. Anota qué esperaba que ocurriera quien juega y en qué momento apareció la primera duda.",
+    "referencia": "Godot Engine. Proyecto oficial de demostración, versión web.",
+    "fuente": "https://godotengine.github.io/godot-demo-projects/viewport/dynamic_split_screen/",
+    "materiales": [
+      {
+        "nombre": "Abrir demo oficial",
+        "url": "https://godotengine.github.io/godot-demo-projects/viewport/dynamic_split_screen/"
+      }
+    ]
   }
 ]

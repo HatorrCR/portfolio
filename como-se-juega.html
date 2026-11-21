@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="estilos/comun.css">
 <link rel="stylesheet" href="estilos/como-se-juega.css?v=catalogo-total">
 <script defer src="scripts/navegacion.js"></script>
-<script defer src="scripts/como-se-juega.js?v=salto-integrado"></script>
+<script defer src="scripts/como-se-juega.js?v=salto-laboratorio"></script>
 <script>
 try {
   const mode = localStorage.getItem('como-se-juega-tema');
@@ -37,10 +37,6 @@ try {
     <h1>Diseño de videojuegos en español</h1>
     <p>¿Por qué un salto se siente bien o un menú te hace dar más vueltas de la cuenta? Aquí lo probamos con guías, laboratorios y fuentes que puedes consultar.</p>
   </div>
-  <article class="ficha" style="margin-block:1rem">
-    <h2><a href="?lectura=salto-2d-guia#ruta-salto-2d">Empieza aquí: mejora tu salto 2D</a></h2>
-    <p>Compara dos versiones del mismo salto y llévate la que prefieras a Unity.</p>
-  </article>
   <section id="destacado" class="carrusel-portada" aria-label="Selección destacada" aria-roledescription="carrusel" hidden>
     <article id="carrusel-pieza" class="carrusel-pieza" aria-live="polite"></article>
     <div class="carrusel-controles">
@@ -61,24 +57,6 @@ try {
     <article class="ficha" data-recuento-area="biblioteca"><div class="meta">Fuentes y materiales</div><h3><a href="?seccion=biblioteca#catalogo">Biblioteca</a></h3><p>Encuentra estudios, charlas, vídeos y demos para seguir tirando del hilo.</p></article>
   </div>
 </section>
-<template id="plantilla-ruta-salto">
-  <section class="laboratorio-salto" id="ruta-salto-2d" aria-labelledby="titulo-ruta-salto">
-    <h2 id="titulo-ruta-salto">Empieza aquí: mejora tu salto 2D</h2>
-    <ol>
-      <li><strong>Entiende el salto.</strong> Lee esta guía y prueba el gráfico de trayectoria. Cambia la altura y fíjate en cuánto espacio necesitas para aterrizar.</li>
-      <li><strong>Juega A y B.</strong> Usa el foso ancho y corre hacia el borde. Intenta pulsar Espacio justo después de salir de la plataforma, varias veces con cada versión.</li>
-      <li><strong>Llévalo a Unity.</strong> En tu controlador 2D, guarda en cada paso de física el instante del último contacto con el suelo. Reinicia la prueba entre variantes y conserva el mismo nivel, velocidad y fuerza de salto. Comprueba también que al despegar consumes el margen para evitar un segundo salto en el aire.</li>
-    </ol>
-    <div class="ajustes-salto" role="group" aria-label="Versiones de la prueba">
-      <button type="button" data-version-salto="a" aria-pressed="true">Jugar A</button>
-      <button type="button" data-version-salto="b" aria-pressed="false">Jugar B</button>
-    </div>
-    <details>
-      <summary>Ya he probado las dos. ¿Qué cambiaba?</summary>
-      <p>Solo el <em>coyote time</em>. En A, el salto se permite mientras tienes apoyo. En B, tienes además 100 ms desde que sales del borde. Si B te parece más cómodo, prueba ese margen en Unity y compara cinco intentos por versión. Fíjate en cuántas veces el salto responde cuando jurarías que aún estabas en la plataforma.</p>
-    </details>
-  </section>
-</template>
 <template id="plantilla-laboratorio-salto">
   <section class="laboratorio-salto" aria-labelledby="titulo-laboratorio-salto">
     <h2 id="titulo-laboratorio-salto">La trayectoria bajo la lupa</h2>

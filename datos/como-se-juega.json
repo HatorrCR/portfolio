@@ -4110,5 +4110,49 @@
     "cuerpo": "## Una prueba para tu juego\n\nBaja la dificultad tras perder un encuentro y comprueba cuándo se aplica el cambio y qué conserva la partida.",
     "referencia": "Game Accessibility Guidelines. Recomendación de accesibilidad para videojuegos.",
     "fuente": "https://gameaccessibilityguidelines.com/allow-difficulty-level-to-be-altered-during-gameplay-either-through-settings-or-adaptive-difficulty/"
+  },
+  {
+    "id": "unity-6-manual-animator",
+    "titulo": "Separa los estados visuales del personaje",
+    "tema": "Mecánicas",
+    "formato": "Documentación",
+    "idioma": "en",
+    "resumen": "Separa los estados visuales del personaje con Unity 6.",
+    "cuerpo": "## Qué puedes probar\n\nEn un plataformas, prueba a pasar de caída a aterrizaje y de ahí a salto otra vez. Comprueba si las transiciones representan el estado real del personaje cuando pulsas deprisa.",
+    "referencia": "Unity Technologies. Manual de Unity 6.0, Animator.",
+    "fuente": "https://docs.unity3d.com/6000.0/Documentation/Manual/class-Animator.html"
+  },
+  {
+    "id": "unity-6-manual-audiomixer",
+    "titulo": "Agrupa sonidos por función",
+    "tema": "Accesibilidad",
+    "formato": "Documentación",
+    "idioma": "en",
+    "resumen": "Agrupa sonidos por función con Unity 6.",
+    "cuerpo": "## Qué puedes probar\n\nEn una escena de combate, separa voces, música y efectos en grupos. Baja los efectos y comprueba si aún oyes las señales que necesitas para esquivar.",
+    "referencia": "Unity Technologies. Manual de Unity 6.0, AudioMixer.",
+    "fuente": "https://docs.unity3d.com/6000.0/Documentation/Manual/class-AudioMixer.html"
+  },
+  {
+    "id": "unity-6-manual-tilemap",
+    "titulo": "Organiza un nivel 2D por capas",
+    "tema": "Espacios y recorridos",
+    "formato": "Documentación",
+    "idioma": "en",
+    "resumen": "Organiza un nivel 2D por capas con Unity 6.",
+    "cuerpo": "## Qué puedes probar\n\nEn un prototipo de exploración, separa decoración y suelo transitable. Cambia el aspecto de una sala y revisa que sus colisiones y recorridos sigan intactos.",
+    "referencia": "Unity Technologies. Manual de Unity 6.0, Tilemap.",
+    "fuente": "https://docs.unity3d.com/6000.0/Documentation/Manual/class-Tilemap.html"
+  },
+  {
+    "id": "unity-6-manual-lodgroup",
+    "titulo": "Conserva las siluetas importantes al cambiar de detalle",
+    "tema": "Espacios y recorridos",
+    "formato": "Documentación",
+    "idioma": "en",
+    "resumen": "Conserva las siluetas importantes al cambiar de detalle con Unity 6.",
+    "cuerpo": "## Qué puedes probar\n\nEn un nivel 3D, recorre una ruta desde la que se ve la salida a distancia. Comprueba si el cambio de modelo mantiene reconocible la silueta de esa referencia.",
+    "referencia": "Unity Technologies. Manual de Unity 6.0, LODGroup.",
+    "fuente": "https://docs.unity3d.com/6000.0/Documentation/Manual/class-LODGroup.html"
   }
 ]

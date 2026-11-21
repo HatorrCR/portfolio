@@ -4000,5 +4000,115 @@
         "url": "https://godotengine.github.io/godot-demo-projects/viewport/dynamic_split_screen/"
       }
     ]
+  },
+  {
+    "id": "accesibilidad-include-an-option-to-adjust-the-game-speed",
+    "titulo": "Ajustar la velocidad de juego",
+    "tema": "Accesibilidad",
+    "formato": "Guía",
+    "idioma": "en",
+    "resumen": "Ajustar la velocidad de juego desde el diseño de accesibilidad.",
+    "cuerpo": "## Una prueba para tu juego\n\nCompara el mismo combate a dos velocidades y mira si los avisos siguen dejando tiempo para reaccionar.",
+    "referencia": "Game Accessibility Guidelines. Recomendación de accesibilidad para videojuegos.",
+    "fuente": "https://gameaccessibilityguidelines.com/include-an-option-to-adjust-the-game-speed/"
+  },
+  {
+    "id": "accesibilidad-allow-controls-to-be-remapped-reconfigured",
+    "titulo": "Reasignar los controles",
+    "tema": "Accesibilidad",
+    "formato": "Guía",
+    "idioma": "en",
+    "resumen": "Reasignar los controles desde el diseño de accesibilidad.",
+    "cuerpo": "## Una prueba para tu juego\n\nCambia el botón de esquiva y revisa si los iconos del tutorial reflejan la nueva asignación.",
+    "referencia": "Game Accessibility Guidelines. Recomendación de accesibilidad para videojuegos.",
+    "fuente": "https://gameaccessibilityguidelines.com/allow-controls-to-be-remapped-reconfigured/"
+  },
+  {
+    "id": "accesibilidad-provide-gameplay-thumbnails-with-game-saves",
+    "titulo": "Miniaturas en las partidas guardadas",
+    "tema": "Accesibilidad",
+    "formato": "Guía",
+    "idioma": "en",
+    "resumen": "Miniaturas en las partidas guardadas desde el diseño de accesibilidad.",
+    "cuerpo": "## Una prueba para tu juego\n\nCompara una lista de fechas con otra que incluya capturas. Mira si ayudan a reconocer el lugar al que querías volver.",
+    "referencia": "Game Accessibility Guidelines. Recomendación de accesibilidad para videojuegos.",
+    "fuente": "https://gameaccessibilityguidelines.com/provide-gameplay-thumbnails-with-game-saves/"
+  },
+  {
+    "id": "accesibilidad-provide-separate-volume-controls-or-mutes-for-effects-speech-and-background-music",
+    "titulo": "Separar voces, música y efectos",
+    "tema": "Accesibilidad",
+    "formato": "Guía",
+    "idioma": "en",
+    "resumen": "Separar voces, música y efectos desde el diseño de accesibilidad.",
+    "cuerpo": "## Una prueba para tu juego\n\nEn una escena con combate, baja los efectos y comprueba si entiendes el diálogo y conservas las pistas esenciales.",
+    "referencia": "Game Accessibility Guidelines. Recomendación de accesibilidad para videojuegos.",
+    "fuente": "https://gameaccessibilityguidelines.com/provide-separate-volume-controls-or-mutes-for-effects-speech-and-background-music/"
+  },
+  {
+    "id": "accesibilidad-provide-high-contrast-between-text-ui-and-background",
+    "titulo": "Contraste sobre fondos cambiantes",
+    "tema": "Accesibilidad",
+    "formato": "Guía",
+    "idioma": "en",
+    "resumen": "Contraste sobre fondos cambiantes desde el diseño de accesibilidad.",
+    "cuerpo": "## Una prueba para tu juego\n\nPrueba el mismo texto sobre nieve y sobre un bosque oscuro. Comprueba si se lee mientras la cámara se mueve.",
+    "referencia": "Game Accessibility Guidelines. Recomendación de accesibilidad para videojuegos.",
+    "fuente": "https://gameaccessibilityguidelines.com/provide-high-contrast-between-text-ui-and-background/"
+  },
+  {
+    "id": "accesibilidad-ensure-no-essential-information-is-conveyed-by-a-fixed-colour-alone",
+    "titulo": "Señales que se entienden sin el color",
+    "tema": "Accesibilidad",
+    "formato": "Guía",
+    "idioma": "en",
+    "resumen": "Señales que se entienden sin el color desde el diseño de accesibilidad.",
+    "cuerpo": "## Una prueba para tu juego\n\nDistingue aliados y enemigos con siluetas además del color. Quita la saturación y comprueba a quién puedes atacar.",
+    "referencia": "Game Accessibility Guidelines. Recomendación de accesibilidad para videojuegos.",
+    "fuente": "https://gameaccessibilityguidelines.com/ensure-no-essential-information-is-conveyed-by-a-fixed-colour-alone/"
+  },
+  {
+    "id": "accesibilidad-provide-subtitles-for-all-important-speech",
+    "titulo": "Subtitular el diálogo importante",
+    "tema": "Accesibilidad",
+    "formato": "Guía",
+    "idioma": "en",
+    "resumen": "Subtitular el diálogo importante desde el diseño de accesibilidad.",
+    "cuerpo": "## Una prueba para tu juego\n\nHaz una misión sin sonido y apunta qué órdenes habladas durante el combate te faltan para completarla.",
+    "referencia": "Game Accessibility Guidelines. Recomendación de accesibilidad para videojuegos.",
+    "fuente": "https://gameaccessibilityguidelines.com/provide-subtitles-for-all-important-speech/"
+  },
+  {
+    "id": "accesibilidad-allow-subtitle-caption-presentation-to-be-customised",
+    "titulo": "Subtítulos ajustables",
+    "tema": "Accesibilidad",
+    "formato": "Guía",
+    "idioma": "en",
+    "resumen": "Subtítulos ajustables desde el diseño de accesibilidad.",
+    "cuerpo": "## Una prueba para tu juego\n\nAumenta el tamaño del texto y la opacidad de su fondo. Revisa que el subtítulo entero quepa sin tapar la acción.",
+    "referencia": "Game Accessibility Guidelines. Recomendación de accesibilidad para videojuegos.",
+    "fuente": "https://gameaccessibilityguidelines.com/allow-subtitle-caption-presentation-to-be-customised/"
+  },
+  {
+    "id": "accesibilidad-provide-a-manual-save-feature",
+    "titulo": "Guardado manual",
+    "tema": "Accesibilidad",
+    "formato": "Guía",
+    "idioma": "en",
+    "resumen": "Guardado manual desde el diseño de accesibilidad.",
+    "cuerpo": "## Una prueba para tu juego\n\nGuarda antes de una bifurcación y carga después. Revisa qué decisiones e inventario recuperas al volver.",
+    "referencia": "Game Accessibility Guidelines. Recomendación de accesibilidad para videojuegos.",
+    "fuente": "https://gameaccessibilityguidelines.com/provide-a-manual-save-feature/"
+  },
+  {
+    "id": "accesibilidad-allow-difficulty-level-to-be-altered-during-gameplay-either-through-settings-or-adaptive-difficulty",
+    "titulo": "Cambiar la dificultad durante la partida",
+    "tema": "Accesibilidad",
+    "formato": "Guía",
+    "idioma": "en",
+    "resumen": "Cambiar la dificultad durante la partida desde el diseño de accesibilidad.",
+    "cuerpo": "## Una prueba para tu juego\n\nBaja la dificultad tras perder un encuentro y comprueba cuándo se aplica el cambio y qué conserva la partida.",
+    "referencia": "Game Accessibility Guidelines. Recomendación de accesibilidad para videojuegos.",
+    "fuente": "https://gameaccessibilityguidelines.com/allow-difficulty-level-to-be-altered-during-gameplay-either-through-settings-or-adaptive-difficulty/"
   }
 ]

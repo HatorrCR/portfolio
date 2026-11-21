@@ -2095,36 +2095,8 @@ function showReading(entries, archive) {
           if (jumpControls && heading?.[2] === 'Ponte al mando') {
             const game = document.querySelector('#plantilla-juego-salto').content.firstElementChild.cloneNode(true);
             reading.append(game);
-            const route = document.querySelector('#plantilla-ruta-salto')?.content.firstElementChild.cloneNode(true);
-            if (route) {
-              const canvas = game.querySelector('[data-juego-salto]');
-              const scenario = game.querySelector('[data-escenario-salto]');
-              const controls = route.querySelector('[role="group"]');
-              const variants = controls.querySelectorAll('[data-version-salto]');
-              const explanation = route.querySelector('details');
-              game.id = route.id;
-              canvas.before(
-                element('p', '¿El salto responde justo al salir del borde? Elige A o B y prueba a pulsar Espacio un pelín tarde en el mismo foso.'),
-                controls
-              );
-              canvas.after(explanation);
-              explanation.append(element('p', 'En Unity, guarda el instante del último contacto con el suelo. Compara cinco intentos con 0 y 100 ms de margen, manteniendo la misma escena, velocidad y fuerza de salto. Consume el margen al despegar y comprueba que no se pueda saltar dos veces.'));
-              for (const button of variants) {
-                button.setAttribute('aria-pressed', 'false');
-                button.addEventListener('click', () => {
-                  for (const variant of variants) variant.setAttribute('aria-pressed', String(variant === button));
-                  for (const control of Object.values(jumpControls)) control.value = control.defaultValue;
-                  jumpControls.altura.dispatchEvent(new Event('input'));
-                  scenario.value = 'normal';
-                  game.querySelector('[data-control-aereo]').value = 'inmediato';
-                  game.querySelector('[data-ayuda="buffer"]').checked = false;
-                  game.querySelector('[data-ayuda="coyote"]').checked = button.dataset.versionSalto === 'b';
-                  scenario.dispatchEvent(new Event('change'));
-                  canvas.focus();
-                });
-              }
-              if (location.hash === '#ruta-salto-2d') requestAnimationFrame(() => game.scrollIntoView());
-            }
+            game.id = 'ruta-salto-2d';
+            if (location.hash === '#ruta-salto-2d') requestAnimationFrame(() => game.scrollIntoView());
             addPlayableJump(game, jumpControls);
           }
           if (visualJump && heading?.[2] === '¿Pulsé demasiado pronto o demasiado tarde?') {

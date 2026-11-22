@@ -4154,5 +4154,240 @@
     "cuerpo": "## Qué puedes probar\n\nEn un nivel 3D, recorre una ruta desde la que se ve la salida a distancia. Comprueba si el cambio de modelo mantiene reconocible la silueta de esa referencia.",
     "referencia": "Unity Technologies. Manual de Unity 6.0, LODGroup.",
     "fuente": "https://docs.unity3d.com/6000.0/Documentation/Manual/class-LODGroup.html"
+  },
+  {
+    "id": "blasphemous-doblaje-stir-of-dawn",
+    "titulo": "Dos repartos para las mismas voces de Cvstodia",
+    "tema": "Localización",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "The Stir of Dawn añadió voces en castellano para los personajes con diálogo y actualizó el reparto inglés. El idioma de las voces se puede cambiar en los ajustes.",
+    "cuerpo": "The Stir of Dawn añadió voces en castellano para los personajes con diálogo y actualizó el reparto inglés. El idioma de las voces se puede cambiar en los ajustes.\n\n## Puntos clave\n\nUn mismo personaje debe conservar su intención y su posición respecto al protagonista aunque cambien la dicción o el ritmo. La presentación de Team17 permite escuchar el reparto español en escenas del juego.\n\n## Ejemplo de análisis\n\nRepite un encuentro con el mismo personaje en ambas pistas. Anota dónde hace una pausa y qué palabra enfatiza. Comprueba si las dos lecturas te hacen interpretar igual su actitud.",
+    "referencia": "Team17 (2020). The Stir of Dawn: Introducing the Spanish Cast.",
+    "fuente": "https://www.team17.com/news/blasphemous-the-stir-of-dawn-introducing-the-spanish-cast",
+    "juegos": [
+      {
+        "nombre": "Blasphemous",
+        "observacion": "Repite un encuentro con el mismo personaje en ambas pistas. Anota dónde hace una pausa y qué palabra enfatiza. Comprueba si las dos lecturas te hacen interpretar igual su actitud."
+      }
+    ],
+    "video": "https://www.youtube.com/watch?v=vKfree2PJ_A",
+    "materiales": [
+      {
+        "nombre": "Vídeo oficial del reparto",
+        "url": "https://www.youtube.com/watch?v=vKfree2PJ_A"
+      }
+    ]
+  },
+  {
+    "id": "monkeys-camaras-interfaz",
+    "titulo": "Un escritorio que reparte tu atención entre cámaras",
+    "tema": "Interfaz e interacción",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Fictiorama presenta la partida como un puesto de vigilancia desde el que observas a desconocidos mediante cámaras. El escritorio es el lugar desde el que decides dónde mirar.",
+    "cuerpo": "Fictiorama presenta la partida como un puesto de vigilancia desde el que observas a desconocidos mediante cámaras. El escritorio es el lugar desde el que decides dónde mirar.\n\n## Puntos clave\n\nLa vista de conjunto sirve para elegir una cámara. El detalle de cada escena sirve para interpretar lo que ocurre. Cada escala responde a una pregunta distinta.\n\n## Ejemplo de análisis\n\nAlterna entre dos cámaras durante una sesión y cuenta cuántas veces vuelves a la primera para recuperar el hilo. En un prototipo, compara ese recuento con y sin un indicador de la última cámara consultada.",
+    "referencia": "Fictiorama Studios y Alawar (2018). Ficha oficial.",
+    "fuente": "https://store.steampowered.com/app/658850/Do_Not_Feed_the_Monkeys__Monkeys/",
+    "juegos": [
+      {
+        "nombre": "Do Not Feed the Monkeys",
+        "observacion": "Alterna entre dos cámaras durante una sesión y cuenta cuántas veces vuelves a la primera para recuperar el hilo. En un prototipo, compara ese recuento con y sin un indicador de la última cámara consultada."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la página oficial del juego",
+        "url": "https://store.steampowered.com/app/658850/Do_Not_Feed_the_Monkeys__Monkeys/"
+      }
+    ]
+  },
+  {
+    "id": "mr-coo-animacion-legibilidad",
+    "titulo": "Cómo leer un puzle en un dibujo animado",
+    "tema": "Respuesta y legibilidad",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Mr. Coo combina puzles de apuntar y pulsar con animación dibujada a mano en un mundo donde aparecen situaciones deliberadamente absurdas.",
+    "cuerpo": "Mr. Coo combina puzles de apuntar y pulsar con animación dibujada a mano en un mundo donde aparecen situaciones deliberadamente absurdas.\n\n## Puntos clave\n\nEl movimiento puede atraer la mirada hacia un objeto aunque ese objeto sea decorativo. Para estudiar la legibilidad conviene distinguir qué anima la escena y qué ayuda a elegir la próxima acción.\n\n## Ejemplo de análisis\n\nEn el tráiler de la ficha, pausa una escena y señala qué probarías primero. Al reanudar, comprueba si el encuadre o la animación te habían orientado hacia un elemento relevante.",
+    "referencia": "Gammera Nest, Nacho Rodríguez y Meridiem Games (2023). Ficha oficial.",
+    "fuente": "https://store.steampowered.com/app/1602560",
+    "juegos": [
+      {
+        "nombre": "The Many Pieces of Mr. Coo",
+        "observacion": "En el tráiler de la ficha, pausa una escena y señala qué probarías primero. Al reanudar, comprueba si el encuadre o la animación te habían orientado hacia un elemento relevante."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Presentación de Meridiem Games",
+        "url": "https://meridiem-games.com/en/new/meridiem-games-to-publish-innovative-point-y-click-adventure-game-the-many-pieces-of-mr-coo-in-digital-format-for-consoles-and-pc-in-2023"
+      },
+      {
+        "nombre": "Ver el tráiler en la ficha oficial de Steam",
+        "url": "https://store.steampowered.com/app/1602560"
+      }
+    ]
+  },
+  {
+    "id": "worldless-tiempos-aprendizaje",
+    "titulo": "Enseñar a actuar a tiempo dentro de un turno",
+    "tema": "Tutoriales y aprendizaje",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Worldless combina una estructura por turnos con acciones que exigen responder en tiempo real. Saber cuándo te toca actuar es solo una parte del aprendizaje.",
+    "cuerpo": "Worldless combina una estructura por turnos con acciones que exigen responder en tiempo real. Saber cuándo te toca actuar es solo una parte del aprendizaje.\n\n## Puntos clave\n\nConviene comprobar por separado si se entiende la alternancia de turnos y si se reconoce la señal que indica cuándo actuar. Ambos problemas pueden parecer el mismo fallo durante una prueba.\n\n## Ejemplo de análisis\n\nUsa un combate temprano como referencia. Pide al jugador que anuncie su acción antes de ejecutarla y observa si falla al identificar el turno o al ajustar el momento de pulsar.",
+    "referencia": "Noname Studios y Thunderful. Web oficial de Worldless.",
+    "fuente": "https://playworldless.com/",
+    "juegos": [
+      {
+        "nombre": "Worldless",
+        "observacion": "Usa un combate temprano como referencia. Pide al jugador que anuncie su acción antes de ejecutarla y observa si falla al identificar el turno o al ajustar el momento de pulsar."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ver el tráiler en la web oficial",
+        "url": "https://playworldless.com/"
+      }
+    ]
+  },
+  {
+    "id": "longest-road-letras-narrativa",
+    "titulo": "Cuando la letra de una canción cambia lo que ves",
+    "tema": "Diseño narrativo",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "The Longest Road on Earth sigue a cuatro personajes en historias breves sin diálogos ni texto narrativo. Más de veinte canciones originales acompañan las escenas.",
+    "cuerpo": "The Longest Road on Earth sigue a cuatro personajes en historias breves sin diálogos ni texto narrativo. Más de veinte canciones originales acompañan las escenas.\n\n## Puntos clave\n\nLas letras aportan palabras a momentos en los que los personajes no hablan. La escena ofrece acciones observables y la música puede influir en la interpretación de esas acciones.\n\n## Ejemplo de análisis\n\nEscoge un tramo breve de una de las historias y descríbelo primero con el audio silenciado. Repite con la canción y separa los hechos que viste de lo que la letra te llevó a inferir.",
+    "referencia": "Brainwash Gang, TLR Games y Raw Fury (2021). Ficha oficial.",
+    "fuente": "https://store.steampowered.com/app/1295790/",
+    "juegos": [
+      {
+        "nombre": "The Longest Road on Earth",
+        "observacion": "Escoge un tramo breve de una de las historias y descríbelo primero con el audio silenciado. Repite con la canción y separa los hechos que viste de lo que la letra te llevó a inferir."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la página oficial del juego",
+        "url": "https://store.steampowered.com/app/1295790/"
+      }
+    ]
+  },
+  {
+    "id": "minabo-ritmo-social",
+    "titulo": "Poner el reloj de una vida en cada paso",
+    "tema": "Dinámicas",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "En Minabo el tiempo avanza con cada paso y puedes marcar el ritmo. Las relaciones que cultivas influyen en cómo se forma la personalidad del personaje.",
+    "cuerpo": "En Minabo el tiempo avanza con cada paso y puedes marcar el ritmo. Las relaciones que cultivas influyen en cómo se forma la personalidad del personaje.\n\n## Puntos clave\n\nEl avance de la vida y el trato con otros personajes comparten el mismo recorrido. Eso permite que dos jugadores partan de la misma regla temporal y dediquen su atención a vínculos diferentes.\n\n## Ejemplo de análisis\n\nCompara dos vidas. En una dedica atención a los vínculos que encuentres pronto. En la otra explora nuevos contactos. Registra qué decisiones sociales se repiten y cuáles dependen de tu ritmo.",
+    "referencia": "DevilishGames (2023). Página oficial de Minabo.",
+    "fuente": "https://www.devilishgames.com/en/games/minabo-a-walk-through-life/",
+    "juegos": [
+      {
+        "nombre": "Minabo – A walk through life",
+        "observacion": "Compara dos vidas. En una dedica atención a los vínculos que encuentres pronto. En la otra explora nuevos contactos. Registra qué decisiones sociales se repiten y cuáles dependen de tu ritmo."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la página oficial del juego",
+        "url": "https://www.devilishgames.com/en/games/minabo-a-walk-through-life/"
+      }
+    ]
+  },
+  {
+    "id": "fear-machine-leyendas-recursos",
+    "titulo": "Cultivar una leyenda para extender tu influencia",
+    "tema": "Sistemas y economías",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "The Fabulous Fear Machine te pide extender tu influencia propagando leyendas. La estrategia también exige reunir recursos, intervenir en acontecimientos y espiar a rivales.",
+    "cuerpo": "The Fabulous Fear Machine te pide extender tu influencia propagando leyendas. La estrategia también exige reunir recursos, intervenir en acontecimientos y espiar a rivales.\n\n## Puntos clave\n\nLa difusión del miedo es un medio para alcanzar objetivos. Estudiar qué exige poner en circulación una leyenda y qué oportunidades abre ayuda a entender por qué desplegarla en un lugar concreto.\n\n## Ejemplo de análisis\n\nEn una misión, sigue una sola leyenda desde su elección hasta el efecto que consigas. Registra qué recursos y acciones hicieron posible ese resultado y en qué momento te habría convenido invertir en otro frente.",
+    "referencia": "Fictiorama Studios y AMC Games (2023). Página oficial.",
+    "fuente": "https://games.amc.com/game/fearmachine/",
+    "juegos": [
+      {
+        "nombre": "The Fabulous Fear Machine",
+        "observacion": "En una misión, sigue una sola leyenda desde su elección hasta el efecto que consigas. Registra qué recursos y acciones hicieron posible ese resultado y en qué momento te habría convenido invertir en otro frente."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la página oficial del juego",
+        "url": "https://games.amc.com/game/fearmachine/"
+      }
+    ]
+  },
+  {
+    "id": "ragebound-dificultad-duelo-ryu",
+    "titulo": "Un duelo temprano como puerta al modo difícil",
+    "tema": "Dificultad y equilibrio",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "La actualización D1 añadió una vía temprana al modo difícil: vencer a Ryu en el nivel 1-1. Completar el juego sigue siendo otra forma de desbloquearlo.",
+    "cuerpo": "La actualización D1 añadió una vía temprana al modo difícil: vencer a Ryu en el nivel 1-1. Completar el juego sigue siendo otra forma de desbloquearlo.\n\n## Puntos clave\n\nUn duelo mide una actuación concreta y deja que un jugador hábil llegue antes al reto. Acabar la campaña acredita una experiencia más amplia con el juego.\n\n## Ejemplo de análisis\n\nCompara qué habilidades te exige el duelo con las que usas a lo largo de un nivel completo. Para diseñar una puerta similar, anota qué destrezas del modo difícil quedarían sin evaluar.",
+    "referencia": "The Game Kitchen y Dotemu (2025). Notas de la actualización D1.",
+    "fuente": "https://steamcommunity.com/games/2542120/announcements/detail/607542212129980596",
+    "juegos": [
+      {
+        "nombre": "NINJA GAIDEN: Ragebound",
+        "observacion": "Compara qué habilidades te exige el duelo con las que usas a lo largo de un nivel completo. Para diseñar una puerta similar, anota qué destrezas del modo difícil quedarían sin evaluar."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Página oficial y tráiler",
+        "url": "https://www.dotemu.com/games/ninja-gaiden-ragebound/"
+      }
+    ]
+  },
+  {
+    "id": "forza-horizon-5-lengua-signos",
+    "titulo": "Elegir una lengua de signos para las cinemáticas",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Forza Horizon 5 ofrece interpretación en lengua de signos estadounidense y británica para las cinemáticas. Son dos lenguas distintas y la elección forma parte de los ajustes de accesibilidad.",
+    "cuerpo": "Forza Horizon 5 ofrece interpretación en lengua de signos estadounidense y británica para las cinemáticas. Son dos lenguas distintas y la elección forma parte de los ajustes de accesibilidad.\n\n## Puntos clave\n\nUna ventana de interpretación comparte espacio con la imagen y, si están activos, con los subtítulos. Su legibilidad depende también de lo que ocurra alrededor.\n\n## Ejemplo de análisis\n\nActiva la interpretación en una cinemática y revisa qué parte de la escena coincide con la ventana. Si diseñas una interfaz similar, prueba el encuadre con usuarios de cada lengua.",
+    "referencia": "Forza Support. Forza Horizon 5 Accessibility Support.",
+    "fuente": "https://support.forza.net/hc/en-us/articles/4409280058259-Forza-Horizon-5-Accessibility-Support",
+    "juegos": [
+      {
+        "nombre": "Forza Horizon 5",
+        "observacion": "Activa la interpretación en una cinemática y revisa qué parte de la escena coincide con la ventana. Si diseñas una interfaz similar, prueba el encuadre con usuarios de cada lengua."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Presentación de accesibilidad en Xbox Wire",
+        "url": "https://news.xbox.com/en-us/2021/11/04/gaming-for-everyone-the-accessibility-features-of-forza-horizon-5/amp/"
+      }
+    ]
+  },
+  {
+    "id": "laika-recargar-voltereta",
+    "titulo": "Recargar cambia la trayectoria de la moto",
+    "tema": "Jugabilidad y bucles",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "En Laika: Aged Through Blood, la recarga se consigue dando una voltereta hacia atrás con la moto. En el mismo salto puedes tener que apuntar o preparar el aterrizaje.",
+    "cuerpo": "En Laika: Aged Through Blood, la recarga se consigue dando una voltereta hacia atrás con la moto. En el mismo salto puedes tener que apuntar o preparar el aterrizaje.\n\n## Puntos clave\n\nEl disparo crea una necesidad que se resuelve con una maniobra de movimiento. De ahí sale un ciclo en el que la decisión de disparar también cambia cómo planeas el próximo salto.\n\n## Ejemplo de análisis\n\nEn un tramo con enemigos, marca dónde disparas y en qué salto recuperas munición. Repite adelantando la recarga y observa cómo cambia el punto del recorrido desde el que puedes volver a disparar.",
+    "referencia": "Brainwash Gang y Thunderful (2023). Página oficial.",
+    "fuente": "https://thunderfulgames.com/games/laika-aged-through-blood/",
+    "juegos": [
+      {
+        "nombre": "Laika: Aged Through Blood",
+        "observacion": "En un tramo con enemigos, marca dónde disparas y en qué salto recuperas munición. Repite adelantando la recarga y observa cómo cambia el punto del recorrido desde el que puedes volver a disparar."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la página oficial del juego",
+        "url": "https://thunderfulgames.com/games/laika-aged-through-blood/"
+      }
+    ]
   }
 ]

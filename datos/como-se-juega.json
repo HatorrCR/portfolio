@@ -4389,5 +4389,212 @@
         "url": "https://thunderfulgames.com/games/laika-aged-through-blood/"
       }
     ]
+  },
+  {
+    "id": "gylt-senuelos-encuentros",
+    "titulo": "Un señuelo cambia el recorrido de un encuentro",
+    "tema": "Encuentros y puzles",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "GYLT combina puzles, sigilo y acción. Su ficha describe distracciones sonoras y visuales que permiten desviar a las criaturas antes de atravesar una zona.",
+    "cuerpo": "GYLT combina puzles, sigilo y acción. Su ficha describe distracciones sonoras y visuales que permiten desviar a las criaturas antes de atravesar una zona.\n\n## Puntos clave\n\nUn señuelo es también una pregunta sobre el espacio: ¿desde dónde puedo mover a la criatura y qué salida queda libre mientras investiga? Un encuentro permite planear esa maniobra cuando se pueden leer el obstáculo y la ruta alternativa.\n\n## Ejemplo de análisis\n\nElige un encuentro con un monstruo que vigile el paso. Prueba esquivarlo primero y luego atraerlo hacia otra zona. Dibuja el trayecto de Sally y el de la criatura en ambas pruebas para ver qué tramo cambia.",
+    "referencia": "Parallel Circles. Ficha oficial de GYLT en Steam.",
+    "fuente": "https://store.steampowered.com/app/2206210/GYLT/",
+    "juegos": [
+      {
+        "nombre": "GYLT",
+        "observacion": "Un señuelo es también una pregunta sobre el espacio: ¿desde dónde puedo mover a la criatura y qué salida queda libre mientras investiga? Un encuentro permite planear esa maniobra cuando se pueden leer el obstáculo y la ruta alternativa."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial con tráiler y capturas",
+        "url": "https://store.steampowered.com/app/2206210/GYLT/"
+      }
+    ]
+  },
+  {
+    "id": "aragami-estilos-sombra",
+    "titulo": "Las mismas sombras dejan jugar al fantasma o al asesino",
+    "tema": "Dinámicas",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Aragami permite teletransportarse entre sombras y combinar poderes para atravesar un escenario sin ser visto o eliminar a los guardias. Lince Works presenta ambos estilos como posibilidades de las mismas reglas.",
+    "cuerpo": "Aragami permite teletransportarse entre sombras y combinar poderes para atravesar un escenario sin ser visto o eliminar a los guardias. Lince Works presenta ambos estilos como posibilidades de las mismas reglas.\n\n## Puntos clave\n\nLa sombra sirve como refugio y como punto de desplazamiento. Si las posiciones que ofrecen ambas ventajas coinciden, un jugador puede usar el mismo trayecto para esquivar una patrulla o para acercarse a ella.\n\n## Ejemplo de análisis\n\nRepite un escenario con dos objetivos: primero evita a los guardias y después busca oportunidades para intervenir. Marca qué sombras usas en ambas rutas y cuáles solo te interesan al cambiar de objetivo.",
+    "referencia": "Lince Works. Página oficial de Aragami.",
+    "fuente": "https://linceworks.com/games/aragami/",
+    "juegos": [
+      {
+        "nombre": "Aragami",
+        "observacion": "La sombra sirve como refugio y como punto de desplazamiento. Si las posiciones que ofrecen ambas ventajas coinciden, un jugador puede usar el mismo trayecto para esquivar una patrulla o para acercarse a ella."
+      }
+    ]
+  },
+  {
+    "id": "koa-reto-ritmo",
+    "titulo": "Un tramo de plataformas se puede leer como paseo o como carrera",
+    "tema": "Dificultad y equilibrio",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Chibig presenta Koa como un plataformas para quien se inicia y para quien busca terminar un nivel a toda velocidad. Cada nivel reúne trampas y obstáculos que se deben atravesar.",
+    "cuerpo": "Chibig presenta Koa como un plataformas para quien se inicia y para quien busca terminar un nivel a toda velocidad. Cada nivel reúne trampas y obstáculos que se deben atravesar.\n\n## Puntos clave\n\nCompletar un tramo y optimizar el tiempo plantean exigencias diferentes. El primer objetivo permite esperar a que se abra un hueco seguro. El segundo hace que perder tiempo también cuente, incluso cuando el salto sale bien.\n\n## Ejemplo de análisis\n\nEn un mismo tramo, registra dónde te detienes la primera vez y qué paradas puedes ahorrar al repetir. Si una maniobra rápida exige ajustar el salto con más precisión, ya tienes un punto concreto donde medir la diferencia entre ambos objetivos.",
+    "referencia": "Chibig. Página oficial de Koa and the Five Pirates of Mara.",
+    "fuente": "https://chibig.com/project/koa-pirates-mara/",
+    "juegos": [
+      {
+        "nombre": "Koa and the Five Pirates of Mara",
+        "observacion": "Completar un tramo y optimizar el tiempo plantean exigencias diferentes. El primer objetivo permite esperar a que se abra un hueco seguro. El segundo hace que perder tiempo también cuente, incluso cuando el salto sale bien."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ver el tráiler en la página de Chibig",
+        "url": "https://chibig.com/project/koa-pirates-mara/"
+      }
+    ],
+    "video": "https://www.youtube.com/watch?v=6KvtCCkwWxI"
+  },
+  {
+    "id": "place-unwilling-agenda",
+    "titulo": "Veintiún días para decidir a quién escuchar",
+    "tema": "Diseño narrativo",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "A Place for the Unwilling da al jugador veintiún días antes de que muera la ciudad. Dentro de ese plazo hay que elegir a quién conocer y qué explorar.",
+    "cuerpo": "A Place for the Unwilling da al jugador veintiún días antes de que muera la ciudad. Dentro de ese plazo hay que elegir a quién conocer y qué explorar.\n\n## Puntos clave\n\nUn reloj narrativo da un coste a visitar un lugar: mientras estás allí dejas pasar otros encuentros. El efecto se aprecia cuando puedes recordar la alternativa que descartaste y tienes motivos para preguntarte qué habría ocurrido.\n\n## Ejemplo de análisis\n\nCompara dos partidas en las que dediques un mismo día a personas distintas. Anota qué información conoces al final de cada día y cómo cambia lo que te interesa investigar después.",
+    "referencia": "ALPixel Games (2019). Ficha oficial en Steam.",
+    "fuente": "https://store.steampowered.com/app/1064310/A_Place_for_the_Unwilling",
+    "juegos": [
+      {
+        "nombre": "A Place for the Unwilling",
+        "observacion": "Un reloj narrativo da un coste a visitar un lugar: mientras estás allí dejas pasar otros encuentros. El efecto se aprecia cuando puedes recordar la alternativa que descartaste y tienes motivos para preguntarte qué habría ocurrido."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial con tráiler y capturas",
+        "url": "https://store.steampowered.com/app/1064310/A_Place_for_the_Unwilling"
+      }
+    ]
+  },
+  {
+    "id": "intruders-audio-subtitulos-localizacion",
+    "titulo": "Publicar el alcance del doblaje por idioma",
+    "tema": "Localización",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "La ficha de Intruders: Hide and Seek distingue qué idiomas tienen interfaz, voces y subtítulos. El castellano figura con las tres capas y el francés con interfaz y subtítulos.",
+    "cuerpo": "La ficha de Intruders: Hide and Seek distingue qué idiomas tienen interfaz, voces y subtítulos. El castellano figura con las tres capas y el francés con interfaz y subtítulos.\n\n## Puntos clave\n\nLa tabla comunica qué parte del juego puede usar cada público en su idioma. Es especialmente relevante en un juego en primera persona, donde la mirada puede estar ocupada mientras alguien habla.\n\n## Ejemplo de análisis\n\nAbre una escena con diálogo en castellano y en francés. Registra qué cambia en la voz, los subtítulos y la interfaz. Como prueba de publicación, verifica que la tabla comercial refleje lo que has observado en cada capa.",
+    "referencia": "Tessera Studios (2019). Tabla de idiomas de la ficha oficial de Steam.",
+    "fuente": "https://store.steampowered.com/app/1045840/",
+    "juegos": [
+      {
+        "nombre": "Intruders: Hide and Seek",
+        "observacion": "La tabla comunica qué parte del juego puede usar cada público en su idioma. Es especialmente relevante en un juego en primera persona, donde la mirada puede estar ocupada mientras alguien habla."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial con tráiler y capturas",
+        "url": "https://store.steampowered.com/app/1045840/"
+      }
+    ]
+  },
+  {
+    "id": "alba-camara-interfaz",
+    "titulo": "Encuadrar fauna con una cámara dentro del juego",
+    "tema": "Interfaz e interacción",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "En Alba, la exploración de fauna en una isla mediterránea incluye el uso de una cámara. Cuando el jugador se dispone a fotografiar un animal, tiene que pasar de orientarse por el entorno a componer una imagen.",
+    "cuerpo": "En Alba, la exploración de fauna en una isla mediterránea incluye el uso de una cámara. Cuando el jugador se dispone a fotografiar un animal, tiene que pasar de orientarse por el entorno a componer una imagen.\n\n## Puntos clave\n\nLa interfaz de cámara debe ayudar a comprobar qué animal está en el encuadre mientras sigue dejando ver suficiente espacio para ajustar la toma. El mismo control puede resultar cómodo con un animal quieto y difícil de leer con uno en movimiento.\n\n## Ejemplo de análisis\n\nCompara una foto con el animal centrado y otra con el animal cerca del borde. Observa qué indicios te permiten anticipar si la segunda toma servirá y cuánto tienes que apartar la mirada del animal.",
+    "referencia": "ustwo games. Web oficial de Alba: A Wildlife Adventure.",
+    "fuente": "https://www.albawildlife.com/",
+    "juegos": [
+      {
+        "nombre": "Alba: A Wildlife Adventure",
+        "observacion": "La interfaz de cámara debe ayudar a comprobar qué animal está en el encuadre mientras sigue dejando ver suficiente espacio para ajustar la toma. El mismo control puede resultar cómodo con un animal quieto y difícil de leer con uno en movimiento."
+      }
+    ]
+  },
+  {
+    "id": "one-military-camp-formacion",
+    "titulo": "Formar especialistas para cubrir lo que pide una misión",
+    "tema": "Sistemas y economías",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "En One Military Camp, la gestión del campamento sostiene el reclutamiento y la formación de especialistas a los que después envías de misión.",
+    "cuerpo": "En One Military Camp, la gestión del campamento sostiene el reclutamiento y la formación de especialistas a los que después envías de misión.\n\n## Puntos clave\n\nReclutar añade capacidad potencial. Formar convierte ese margen en un perfil listo para una tarea concreta. Las misiones sirven para observar cuándo interesa repetir una especialización y cuándo compensa ampliar las capacidades del grupo.\n\n## Ejemplo de análisis\n\nEscoge una misión y apunta qué perfiles preparas para cubrirla. Si luego te falta gente para otra tarea, retrocede hasta la decisión de formación que concentró el personal en la primera.",
+    "referencia": "Abylight Barcelona (2023). Ficha oficial en Steam.",
+    "fuente": "https://store.steampowered.com/app/1743830/One_Military_Camp/",
+    "juegos": [
+      {
+        "nombre": "One Military Camp",
+        "observacion": "Reclutar añade capacidad potencial. Formar convierte ese margen en un perfil listo para una tarea concreta. Las misiones sirven para observar cuándo interesa repetir una especialización y cuándo compensa ampliar las capacidades del grupo."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial con tráiler y capturas",
+        "url": "https://store.steampowered.com/app/1743830/One_Military_Camp/"
+      }
+    ]
+  },
+  {
+    "id": "rhythm-doctor-pulso-legibilidad",
+    "titulo": "Sostener el pulso con una sola entrada",
+    "tema": "Respuesta y legibilidad",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Rhythm Doctor pide resolver con un solo botón un reto de ritmo. Que la entrada sea sencilla deja espacio para que la dificultad esté en seguir la música y elegir el instante de pulsar.",
+    "cuerpo": "Rhythm Doctor pide resolver con un solo botón un reto de ritmo. Que la entrada sea sencilla deja espacio para que la dificultad esté en seguir la música y elegir el instante de pulsar.\n\n## Puntos clave\n\nLa señal que permite anticipar el pulso cumple otra función que la respuesta que confirma si acertaste. Separar ambas en una prueba ayuda a saber si alguien necesita una pista previa o una corrección más clara después.\n\n## Ejemplo de análisis\n\nEn una secuencia corta, anota qué señal usas para decidir cuándo pulsar. Tras fallar, fíjate en qué te permite saber si te adelantaste o te retrasaste. Repite y comprueba si ajustas el siguiente intento.",
+    "referencia": "7th Beat Games. Web oficial de Rhythm Doctor.",
+    "fuente": "https://www.rhythmdr.com/",
+    "juegos": [
+      {
+        "nombre": "Rhythm Doctor",
+        "observacion": "La señal que permite anticipar el pulso cumple otra función que la respuesta que confirma si acertaste. Separar ambas en una prueba ayuda a saber si alguien necesita una pista previa o una corrección más clara después."
+      }
+    ]
+  },
+  {
+    "id": "melatonin-practica-pulso",
+    "titulo": "Practicar el ritmo en el mismo nivel que vas a jugar",
+    "tema": "Tutoriales y aprendizaje",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Melatonin utiliza animaciones y sonido para marcar el ritmo, y ofrece un modo de práctica que guía al jugador por cada nivel.",
+    "cuerpo": "Melatonin utiliza animaciones y sonido para marcar el ritmo, y ofrece un modo de práctica que guía al jugador por cada nivel.\n\n## Puntos clave\n\nPracticar en el escenario real permite asociar la señal con la acción en el contexto donde se volverá a usar. La prueba de aprendizaje llega cuando se juega de nuevo sin la guía.\n\n## Ejemplo de análisis\n\nJuega un nivel en práctica y apunta qué animación utilizas para anticipar una pulsación. Después juega el mismo nivel de forma normal y registra el primer patrón que tienes que volver a deducir.",
+    "referencia": "Half Asleep. Ficha oficial de Melatonin en Steam.",
+    "fuente": "https://store.steampowered.com/app/1585220/Melatonin",
+    "juegos": [
+      {
+        "nombre": "Melatonin",
+        "observacion": "Practicar en el escenario real permite asociar la señal con la acción en el contexto donde se volverá a usar. La prueba de aprendizaje llega cuando se juega de nuevo sin la guía."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial con tráiler y capturas",
+        "url": "https://store.steampowered.com/app/1585220/Melatonin"
+      }
+    ]
+  },
+  {
+    "id": "aeterna-noctis-modo-aeterna",
+    "titulo": "Cambiar los saltos para dar más espacio a la exploración",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "La actualización de diciembre de 2021 introdujo el modo Aeterna, que rediseña plataformas y puzles para dar más peso a la acción y la exploración. El modo Noctis conserva el diseño original.",
+    "cuerpo": "La actualización de diciembre de 2021 introdujo el modo Aeterna, que rediseña plataformas y puzles para dar más peso a la acción y la exploración. El modo Noctis conserva el diseño original.\n\n## Puntos clave\n\nModificar el recorrido permite ajustar la ejecución que se exige en un punto concreto. Para valorar el efecto sobre la experiencia, observa qué decisiones de ruta siguen presentes después de modificar la secuencia física.\n\n## Ejemplo de análisis\n\nCompara un mismo tramo en los dos modos y dibuja ambos recorridos. Anota dónde cambia la colocación de las plataformas, qué maniobras dejan de ser imprescindibles y qué decisiones de exploración siguen en pie.",
+    "referencia": "Aeternum Game Studios (2021). Notas oficiales de la actualización v1.0.005.",
+    "fuente": "https://store.steampowered.com/news/posts/?enddate=1640890896&feed=steam_community_announcements",
+    "juegos": [
+      {
+        "nombre": "Aeterna Noctis",
+        "observacion": "Modificar el recorrido permite ajustar la ejecución que se exige en un punto concreto. Para valorar el efecto sobre la experiencia, observa qué decisiones de ruta siguen presentes después de modificar la secuencia física."
+      }
+    ]
   }
 ]

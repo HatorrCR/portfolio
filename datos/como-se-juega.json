@@ -4596,5 +4596,236 @@
         "observacion": "Modificar el recorrido permite ajustar la ejecución que se exige en un punto concreto. Para valorar el efecto sobre la experiencia, observa qué decisiones de ruta siguen presentes después de modificar la secuencia física."
       }
     ]
+  },
+  {
+    "id": "blacksad-cobertura-doblaje",
+    "titulo": "Qué cambia al separar voces, interfaz y subtítulos",
+    "tema": "Localización",
+    "formato": "Artículo",
+    "idioma": "Español",
+    "resumen": "La ficha de Blacksad en Steam indica que el castellano y el francés cubren interfaz, voces y subtítulos. Para el italiano, indica interfaz y subtítulos.",
+    "cuerpo": "La ficha de Blacksad en Steam indica que el castellano y el francés cubren interfaz, voces y subtítulos. Para el italiano, indica interfaz y subtítulos.\n\n## Puntos clave\n\nLa tabla permite anticipar qué partes de una escena se podrán seguir en cada idioma. Una etiqueta general de idioma ocultaría esa diferencia justo donde el audio y el texto se combinan.\n\n## Ejemplo de análisis\n\nAbre la misma conversación con la interfaz en castellano y en italiano. Registra por separado qué idioma ves en las opciones, cuál lees durante el diálogo y cuál oyes.",
+    "referencia": "Pendulo Studios y YS Interactive. Ficha oficial en Steam",
+    "fuente": "https://store.steampowered.com/app/1003890/Blacksad_Under_the_Skin/?l=spanish",
+    "juegos": [
+      {
+        "nombre": "Blacksad: Under the Skin",
+        "observacion": "La tabla permite anticipar qué partes de una escena se podrán seguir en cada idioma. Una etiqueta general de idioma ocultaría esa diferencia justo donde el audio y el texto se combinan."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial y vídeos en Steam",
+        "url": "https://store.steampowered.com/app/1003890/Blacksad_Under_the_Skin/?l=spanish"
+      }
+    ]
+  },
+  {
+    "id": "death-or-treat-estilos-armas",
+    "titulo": "Qué cambia cuando pasas de un arma pesada a una a distancia",
+    "tema": "Dificultad y equilibrio",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Death or Treat ofrece armas rápidas, pesadas y a distancia para combatir grupos de enemigos en salas que varían entre intentos.",
+    "cuerpo": "Death or Treat ofrece armas rápidas, pesadas y a distancia para combatir grupos de enemigos en salas que varían entre intentos.\n\n## Puntos clave\n\nCambiar el alcance modifica cuándo puedes empezar a atacar. Para evaluar el reto de cada estilo, interesa observar cuánto tiempo pasas expuesto y cuánto espacio necesitas para recolocarte.\n\n## Ejemplo de análisis\n\nBusca dos salas con grupos parecidos. Con un arma pesada y otra a distancia, cuenta cuántas veces debes interrumpir el ataque para cambiar de posición. Registra la composición del grupo porque las salas pueden variar.",
+    "referencia": "Saona Studios. Ficha oficial en Steam",
+    "fuente": "https://store.steampowered.com/app/2096620/Death_or_Treat/",
+    "juegos": [
+      {
+        "nombre": "Death or Treat",
+        "observacion": "Cambiar el alcance modifica cuándo puedes empezar a atacar. Para evaluar el reto de cada estilo, interesa observar cuánto tiempo pasas expuesto y cuánto espacio necesitas para recolocarte."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial y vídeos en Steam",
+        "url": "https://store.steampowered.com/app/2096620/Death_or_Treat/"
+      }
+    ]
+  },
+  {
+    "id": "superepic-conflicto-microtransacciones",
+    "titulo": "Cuando la empresa que vende juegos también es el antagonista",
+    "tema": "Diseño narrativo",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "SuperEpic sitúa el conflicto en RegnantCorp, una empresa que controla a la población mediante microtransacciones abusivas. Los protagonistas son un mapache y una llama que se enfrentan a la corporación.",
+    "cuerpo": "SuperEpic sitúa el conflicto en RegnantCorp, una empresa que controla a la población mediante microtransacciones abusivas. Los protagonistas son un mapache y una llama que se enfrentan a la corporación.\n\n## Puntos clave\n\nLa premisa convierte un modelo de negocio reconocible en parte de la ficción. Para analizar cómo funciona la sátira, conviene identificar qué detalles del mundo ayudan a entender quién se beneficia y a costa de quién.\n\n## Ejemplo de análisis\n\nLee la presentación oficial y mira el tráiler. Anota cuándo reconoces el papel de RegnantCorp y qué parte de esa lectura procede de las imágenes, del texto o de lo que hacen los protagonistas.",
+    "referencia": "Undercoders. Ficha oficial en Steam",
+    "fuente": "https://store.steampowered.com/app/1163560/SuperEpic_The_Entertainment_War/",
+    "juegos": [
+      {
+        "nombre": "SuperEpic: The Entertainment War",
+        "observacion": "La premisa convierte un modelo de negocio reconocible en parte de la ficción. Para analizar cómo funciona la sátira, conviene identificar qué detalles del mundo ayudan a entender quién se beneficia y a costa de quién."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial y vídeos en Steam",
+        "url": "https://store.steampowered.com/app/1163560/SuperEpic_The_Entertainment_War/"
+      }
+    ]
+  },
+  {
+    "id": "conga-master-crecimiento-cadena",
+    "titulo": "Una conga larga recluta a más gente",
+    "tema": "Dinámicas",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "En Conga Master incorporas bailarines al pasar a su alrededor. La descripción oficial indica que una fila más larga permite reclutar más rápido.",
+    "cuerpo": "En Conga Master incorporas bailarines al pasar a su alrededor. La descripción oficial indica que una fila más larga permite reclutar más rápido.\n\n## Puntos clave\n\nLa longitud de la conga es a la vez resultado de lo que has hecho y una ventaja para el siguiente reclutamiento. Esa relación puede hacer que los primeros segundos pesen mucho en el resto de la ronda.\n\n## Ejemplo de análisis\n\nEn el modo para una persona, graba un reclutamiento con una fila corta y otro con una larga. Cuenta cuánto tiempo pasas cerca del bailarín antes de que se incorpore y apunta si cambia tu manera de recorrer la pista.",
+    "referencia": "Undercoders. Ficha oficial en Steam",
+    "fuente": "https://store.steampowered.com/app/489720/",
+    "juegos": [
+      {
+        "nombre": "Conga Master",
+        "observacion": "La longitud de la conga es a la vez resultado de lo que has hecho y una ventaja para el siguiente reclutamiento. Esa relación puede hacer que los primeros segundos pesen mucho en el resto de la ronda."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial y vídeos en Steam",
+        "url": "https://store.steampowered.com/app/489720/"
+      }
+    ]
+  },
+  {
+    "id": "tale-of-paper-formas-puzles",
+    "titulo": "Resolver el obstáculo eligiendo qué forma tomar",
+    "tema": "Encuentros y puzles",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Line, un personaje de papel, resuelve obstáculos de un juego de plataformas mediante transformaciones de origami como la rana, el cohete y el pájaro.",
+    "cuerpo": "Line, un personaje de papel, resuelve obstáculos de un juego de plataformas mediante transformaciones de origami como la rana, el cohete y el pájaro.\n\n## Puntos clave\n\nUn puzle de transformación exige interpretar el obstáculo y relacionarlo con la capacidad de una forma. Si el entorno da una pista sobre el movimiento necesario, el jugador puede anticipar la solución antes de ensayar todas las opciones.\n\n## Ejemplo de análisis\n\nEscoge un obstáculo del tráiler o del juego que Line atraviese tras transformarse. Pausa antes del cambio, apunta qué movimiento te parece necesario y contrasta tu hipótesis con la trayectoria que muestra la solución.",
+    "referencia": "Open House Games. Ficha oficial en Steam",
+    "fuente": "https://store.steampowered.com/app/1454640/A_Tale_of_Paper_Refolded/",
+    "juegos": [
+      {
+        "nombre": "A Tale of Paper: Refolded",
+        "observacion": "Un puzle de transformación exige interpretar el obstáculo y relacionarlo con la capacidad de una forma. Si el entorno da una pista sobre el movimiento necesario, el jugador puede anticipar la solución antes de ensayar todas las opciones."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial y vídeos en Steam",
+        "url": "https://store.steampowered.com/app/1454640/A_Tale_of_Paper_Refolded/"
+      }
+    ]
+  },
+  {
+    "id": "all-on-board-tutorial-componentes",
+    "titulo": "Enseñar a manejar las piezas antes de enseñar las reglas",
+    "tema": "Tutoriales y aprendizaje",
+    "formato": "Vídeo",
+    "idioma": "Inglés",
+    "resumen": "El tutorial oficial de All On Board! dedica capítulos distintos a manipular componentes, manejar cartas y abrir los tutoriales propios de cada juego de mesa.",
+    "cuerpo": "El tutorial oficial de All On Board! dedica capítulos distintos a manipular componentes, manejar cartas y abrir los tutoriales propios de cada juego de mesa.\n\n## Puntos clave\n\nAprender a coger una carta en VR y entender cuándo se puede jugar son tareas distintas. Si alguien falla en la primera, cuesta saber si ha entendido las reglas de la partida.\n\n## Ejemplo de análisis\n\nCompara el capítulo de manejo de cartas (05:53) con el acceso a los tutoriales específicos (07:30). En una prueba, pide primero coger y colocar una carta y, después, elegir una jugada legal. Registra por separado dónde surge la duda.",
+    "referencia": "All On Board! / The Game Kitchen. Tutorial oficial Mastering All On Board! in 9 minutes!",
+    "fuente": "https://www.youtube.com/watch?v=mfJe5h7qpoc",
+    "juegos": [
+      {
+        "nombre": "All On Board!",
+        "observacion": "Aprender a coger una carta en VR y entender cuándo se puede jugar son tareas distintas. Si alguien falla en la primera, cuesta saber si ha entendido las reglas de la partida."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ver el tutorial oficial",
+        "url": "https://www.youtube.com/watch?v=mfJe5h7qpoc"
+      }
+    ],
+    "video": "https://www.youtube.com/watch?v=mfJe5h7qpoc"
+  },
+  {
+    "id": "curse-sea-rats-mejoras-personaje",
+    "titulo": "Elegir entre reforzar al personaje y abrirle opciones",
+    "tema": "Sistemas y economías",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Los personajes de Curse of the Sea Rats tienen fortalezas y debilidades propias. Petoons describe una progresión con mejoras ofensivas o defensivas, habilidades especiales y magia.",
+    "cuerpo": "Los personajes de Curse of the Sea Rats tienen fortalezas y debilidades propias. Petoons describe una progresión con mejoras ofensivas o defensivas, habilidades especiales y magia.\n\n## Puntos clave\n\nUna mejora de ataque puede volver más eficaz una respuesta que ya usabas. Una habilidad nueva puede darte otra respuesta. Distinguir esos efectos aclara qué gana realmente quien elige cada recompensa.\n\n## Ejemplo de análisis\n\nCon el mismo personaje, registra qué haces ante un tipo de enemigo antes y después de una mejora ofensiva y, en otro momento, tras desbloquear una habilidad. Compara si haces lo mismo con menos esfuerzo o eliges otra maniobra.",
+    "referencia": "Petoons Studio. Ficha oficial en Steam",
+    "fuente": "https://store.steampowered.com/app/1453900/Curse_of_the_Sea_Rats/",
+    "juegos": [
+      {
+        "nombre": "Curse of the Sea Rats",
+        "observacion": "Una mejora de ataque puede volver más eficaz una respuesta que ya usabas. Una habilidad nueva puede darte otra respuesta. Distinguir esos efectos aclara qué gana realmente quien elige cada recompensa."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial y vídeos en Steam",
+        "url": "https://store.steampowered.com/app/1453900/Curse_of_the_Sea_Rats/"
+      }
+    ]
+  },
+  {
+    "id": "onirike-sigilo-exploracion-bucle",
+    "titulo": "Explorar, pasar inadvertido y buscar el siguiente hallazgo",
+    "tema": "Jugabilidad y bucles",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "En Onirike, DevilishGames combina la exploración de un mundo abierto con el sigilo. Prieto puede hacerse invisible para esquivar a los devoradores de sueños.",
+    "cuerpo": "En Onirike, DevilishGames combina la exploración de un mundo abierto con el sigilo. Prieto puede hacerse invisible para esquivar a los devoradores de sueños.\n\n## Puntos clave\n\nEl sigilo tiene una función dentro del recorrido si permite retomar la exploración donde una amenaza la interrumpe. El interés está en qué decides investigar al recuperar el margen para moverte.\n\n## Ejemplo de análisis\n\nRecorre una zona con devoradores y anota qué querías investigar antes de verlos, dónde recurres a la invisibilidad y adónde vas después. Repite en otra zona para ver si acabas retomando el plan o buscando otro objetivo.",
+    "referencia": "DevilishGames. Página oficial del juego",
+    "fuente": "https://www.devilishgames.com/en/games/onirike/",
+    "juegos": [
+      {
+        "nombre": "Onirike",
+        "observacion": "El sigilo tiene una función dentro del recorrido si permite retomar la exploración donde una amenaza la interrumpe. El interés está en qué decides investigar al recuperar el margen para moverte."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Página oficial del estudio",
+        "url": "https://www.devilishgames.com/en/games/onirike/"
+      }
+    ]
+  },
+  {
+    "id": "antro-pulso-persecucion",
+    "titulo": "Oír el ritmo de una persecución",
+    "tema": "Respuesta y legibilidad",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "En las persecuciones de Antro, el movimiento del personaje y del escenario se sincroniza con la música, según explica Gatera Studio en Steam.",
+    "cuerpo": "En las persecuciones de Antro, el movimiento del personaje y del escenario se sincroniza con la música, según explica Gatera Studio en Steam.\n\n## Puntos clave\n\nCuando un elemento del escenario coincide con un pulso audible, conviene comprobar si esa coincidencia ayuda a anticipar su movimiento. Que imagen y sonido estén sincronizados por sí solo no prueba que el jugador use ambas señales.\n\n## Ejemplo de análisis\n\nElige un fragmento de persecución. Velo con sonido y después silenciado, y detén el vídeo justo antes de un cambio visible. En cada pase, anota cuándo esperas que ocurra el cambio y qué señal te orienta.",
+    "referencia": "Gatera Studio. Ficha oficial en Steam",
+    "fuente": "https://store.steampowered.com/app/1861250/",
+    "juegos": [
+      {
+        "nombre": "Antro",
+        "observacion": "Cuando un elemento del escenario coincide con un pulso audible, conviene comprobar si esa coincidencia ayuda a anticipar su movimiento. Que imagen y sonido estén sincronizados por sí solo no prueba que el jugador use ambas señales."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial y vídeos en Steam",
+        "url": "https://store.steampowered.com/app/1861250/"
+      }
+    ]
+  },
+  {
+    "id": "petoons-party-controles-al-cambiar",
+    "titulo": "Volver a los controles al cambiar de minijuego",
+    "tema": "Interfaz e interacción",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Petoons Party reúne 28 minijuegos y admite hasta cuatro participantes simultáneos. El estudio presenta los controles como fáciles de manejar para distintas edades.",
+    "cuerpo": "Petoons Party reúne 28 minijuegos y admite hasta cuatro participantes simultáneos. El estudio presenta los controles como fáciles de manejar para distintas edades.\n\n## Puntos clave\n\nLa interacción empieza antes de la prueba, cuando cada persona tiene que identificar su personaje y averiguar qué acción se le pide. Esa transición merece una revisión propia en una sesión donde las pruebas cambian con frecuencia.\n\n## Ejemplo de análisis\n\nJuega tres minijuegos con alguien nuevo y apunta qué hace durante los primeros segundos de cada uno. Si pregunta qué botón pulsar, anota qué información estaba en pantalla y qué parte pudo consultar antes de empezar.",
+    "referencia": "Petoons Studio. Página oficial del juego",
+    "fuente": "https://www.petoons.com/petoons-party/",
+    "juegos": [
+      {
+        "nombre": "Petoons Party",
+        "observacion": "La interacción empieza antes de la prueba, cuando cada persona tiene que identificar su personaje y averiguar qué acción se le pide. Esa transición merece una revisión propia en una sesión donde las pruebas cambian con frecuencia."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Página oficial del estudio",
+        "url": "https://www.petoons.com/petoons-party/"
+      }
+    ]
   }
 ]

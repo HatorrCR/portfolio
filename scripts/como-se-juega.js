@@ -2008,7 +2008,8 @@ function showGames(entries) {
       'No encontramos juegos con ese título.';
   }
 
-  reading.append(label, count, list);
+  const intro = element('p', 'Reunimos en una página por juego las fichas, guías y artículos que lo analizan o lo usan como ejemplo.');
+  reading.append(intro, label, count, list);
   input.addEventListener('input', filterGames);
   filterGames();
 }

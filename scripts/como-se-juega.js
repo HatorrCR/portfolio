@@ -1910,6 +1910,109 @@ function videoBlock(entry, video) {
   return block;
 }
 
+
+const gamesIndexUrl = '?seccion=juegos';
+const gamePageUrl = id => gamesIndexUrl + '&' + new URLSearchParams({juego: id});
+
+// These guides discuss named examples in prose, outside the structured juegos field.
+const guideGames = {
+  'tutoriales-laberinto': ['El laberinto'],
+  'salto-2d-guia': ['Super Mario Bros.', 'Celeste', 'Platformer Toolkit', 'Metroid Dread', 'Portal 2'],
+  'salto-3d-guia': ['Super Mario 64'],
+  'pociones-para-luego': ['Dark Souls'],
+  'campear-ventana': ['Left 4 Dead'],
+  'extraer-o-seguir': ['Hunt: Showdown'],
+  'botin-abre-rutas': ['Metroid Dread'],
+  'mina-compra-mina': ['Age of Empires II'],
+  'cofres-de-oro': ['Diablo IV'],
+  'avisar-ataques': ['Into the Breach'],
+  'armas-situacionales': ['Destiny 2'],
+  'dash-2d-guia': ['Celeste'],
+  'dash-3d-guia': ['Returnal', 'DOOM Eternal'],
+  'roles-cooperativos': ['It Takes Two'],
+  'ritmo-en-rondas': ['Left 4 Dead'],
+  'reinicio-tras-fallar': ['God of War Ragnarök'],
+  'mejorar-o-cambiar-arma': ['Monster Hunter Rise: Sunbreak'],
+  'ayudas-dificultad': ['Hades'],
+  'atajos-rutas': ['Metroid Dread']
+};
+
+function gameReferences(entry) {
+  return [
+    ...(entry.juegos ?? []),
+    ...(guideGames[entry.id] ?? []).map(nombre => ({nombre}))
+  ];
+}
+
+function buildGameIndex(entries) {
+  const games = new Map();
+  for (const entry of entries) {
+    for (const {nombre, observacion} of gameReferences(entry)) {
+      const id = slug(nombre);
+      if (!id) continue;
+      if (!games.has(id)) games.set(id, {nombre, entries: new Map()});
+      const references = games.get(id).entries;
+      if (!references.has(entry.id)) references.set(entry.id, {entry, observacion});
+    }
+  }
+  return games;
+}
+
+function showGames(entries) {
+  const games = buildGameIndex(entries);
+  const selectedGame = params.get('juego');
+  const game = games.get(selectedGame);
+  const title = game?.nombre ?? (selectedGame ? 'Juego no encontrado' : 'Explorar por juego');
+  const heading = element('h1', title);
+  heading.id = 'titulo-lectura';
+  document.title = title + ' · Cómo se juega';
+  document.querySelector('.portada').hidden = true;
+  document.querySelector('#catalogo').hidden = true;
+  reading.append(link(selectedGame ? 'Todos los juegos' : 'Volver a la Biblioteca',
+    selectedGame ? gamesIndexUrl : '?seccion=biblioteca#catalogo'), heading);
+  reading.hidden = false;
+
+  if (game) {
+    const resources = element('div', '', 'rejilla');
+    for (const {entry, observacion} of game.entries.values()) {
+      const card = element('article', '', 'ficha');
+      const title = element('h2', '');
+      title.append(link(entry.titulo, '?lectura=' + encodeURIComponent(entry.id)));
+      card.append(element('p', entry.formato + ' · ' + designTopic(entry), 'meta'),
+        title, element('p', observacion || entry.resumen));
+      resources.append(card);
+    }
+    reading.append(resources);
+    return;
+  }
+
+  const label = element('label', 'Buscar por título ');
+  const input = element('input', '');
+  input.type = 'search';
+  label.append(input);
+  const count = element('p', '', 'meta');
+  count.setAttribute('role', 'status');
+  const list = element('ul', '', 'rejilla');
+  const sorted = [...games].sort(([, a], [, b]) => a.nombre.localeCompare(b.nombre, 'es'));
+
+  function filterGames() {
+    const query = slug(input.value);
+    const matches = sorted.filter(([id]) => id.includes(query));
+    list.replaceChildren(...matches.map(([id, item]) => {
+      const row = element('li', '', 'ficha');
+      row.append(link(item.nombre, gamePageUrl(id)),
+        element('p', item.entries.size + (item.entries.size === 1 ? ' ficha' : ' fichas'), 'meta'));
+      return row;
+    }));
+    count.textContent = matches.length ? matches.length + (matches.length === 1 ? ' resultado' : ' resultados') :
+      'No encontramos juegos con ese título.';
+  }
+
+  reading.append(label, count, list);
+  input.addEventListener('input', filterGames);
+  filterGames();
+}
+
 function renderLibraryReading(resource, entries) {
   reading.classList.add('lectura-biblioteca');
   const intro = element('section', '', 'entrada-biblioteca');
@@ -1988,7 +2091,9 @@ function renderLibraryReading(resource, entries) {
   examples.append(element('h2', 'Juegos donde fijarte'));
   const games = element('dl', '');
   for (const game of resource.juegos ?? []) {
-    games.append(element('dt', game.nombre), element('dd', game.observacion));
+    const name = element('dt', '');
+    name.append(link(game.nombre, gamePageUrl(slug(game.nombre))));
+    games.append(name, element('dd', game.observacion));
   }
   examples.append(games);
   if (resource.subtema) {
@@ -2050,6 +2155,18 @@ function showReading(entries, archive) {
       reading.hidden = false;
       document.querySelector('.portada').hidden = true;
       return;
+    }
+    const games = gameReferences(resource);
+    if (games.length) {
+      const related = element('section', '', 'referencias');
+      const links = element('ul', '');
+      for (const {nombre} of games) {
+        const item = element('li', '');
+        item.append(link(nombre, gamePageUrl(slug(nombre))));
+        links.append(item);
+      }
+      related.append(element('h2', 'Juegos relacionados'), links);
+      reading.append(related);
     }
     const jumpControls = visualJump ? addJumpLab() : null;
     for (const [blockIndex, block] of resource.cuerpo.split(/^\x60\x60\x60(?:csharp)?[ \t]*\r?$/m).entries()) {
@@ -2376,6 +2493,10 @@ async function loadCatalog() {
   const published = await response.json();
   const catalog = applyCatalogDrafts(published);
   setupCatalogEditor(published, catalog);
+  if (sectionKey === 'juegos' && !params.has('lectura')) {
+    showGames(catalog);
+    return;
+  }
   const own = catalog.filter(isEditorial);
   const sources = catalog.filter(entry => !isEditorial(entry));
   const publishedCount = published.filter(entry => !isEditorial(entry)).length;
@@ -2435,7 +2556,9 @@ async function loadCatalog() {
     renderThemedHub(sections, own);
   } else if (libraryHub) {
     document.querySelector('#catalogo').classList.add('biblioteca-estanteria');
-    document.querySelector('#biblioteca-intro').hidden = false;
+    const intro = document.querySelector('#biblioteca-intro');
+    intro.hidden = false;
+    intro.after(link('Explorar por juego', gamesIndexUrl));
     const total = document.querySelector('#biblioteca-total');
     total.textContent = publishedCount + (publishedCount === 1 ? ' ficha publicada' : ' fichas publicadas');
     total.hidden = false;

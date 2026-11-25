@@ -2140,11 +2140,12 @@ function showReading(entries, archive) {
     item.append(link(heading.textContent, '#' + id));
     index.append(item);
   };
-  const section = isDiagnosis && resource.diagnostico === true
+  const section = sectionKey === 'empieza' ? {name: 'Empieza aquí', query: {seccion: 'empieza'}}
+    : isDiagnosis && resource?.diagnostico === true
     ? {name: diagnosisTitle, query: {seccion: 'diagnostico'}}
     : editorial ? editorialSection(resource) : null;
   reading.append(link(section ? 'Volver a ' + section.name : 'Volver a la Biblioteca',
-    section ? '?' + new URLSearchParams(section.query) + '#catalogo' : libraryUrl));
+    section ? '?' + new URLSearchParams(section.query) + (sectionKey === 'empieza' ? '' : '#catalogo') : libraryUrl));
   if (editorial) {
     reading.classList.add(archiveReading ? 'lectura-mecanica' : 'lectura-guia');
     const header = element('header', '', 'cabecera-editorial');
@@ -2499,12 +2500,64 @@ function setupCatalogEditor(published, catalog) {
   });
 }
 
+const startingRoutes = [
+  ['sistemas', '¿Por qué repito la misma jugada?', [
+    ['pociones-para-luego', 'Prueba qué cambia cuando gastar una poción ahora compite con guardarla para después.'],
+    ['armas-situacionales', 'Cambia de situación y fíjate en cuándo deja de convenirte el arma que elegiste.']
+  ], 'En un juego que conozcas, apunta qué opción repites y qué tendría que cambiar para que eligieras otra.'],
+  ['niveles', '¿Cómo sabe el jugador adónde ir?', [
+    ['hitos-orientacion', 'Recorre el mapa del laboratorio e identifica la referencia que usarías para volver.'],
+    ['diagnostico-jugadores-se-pierden', 'Distingue entre perder el rumbo y seguir una pista que parecía correcta.']
+  ], 'Observa a alguien recorrer un nivel por primera vez y anota el cruce donde empieza a dudar.'],
+  ['narrativa', '¿Qué cuenta el juego mientras juegas?', [
+    ['narrativa-ambiental', 'Fíjate en qué puedes deducir de una escena a partir de los objetos y su colocación.'],
+    ['decisiones-consecuencias', 'Prueba qué cambia después de una elección y cuándo te enteras de ello.']
+  ], 'Diseña una habitación que sugiera quién estuvo allí. Pide a alguien que te cuente qué cree que pasó y en qué se fijó.'],
+  ['interfaz', '¿Se entiende qué está pasando?', [
+    ['prioridad-hud', 'Identifica el dato que necesitas para tomar la siguiente decisión en el laboratorio.'],
+    ['estado-de-accion', 'Comprueba cómo sabes si una acción sigue en curso, ha terminado o ha fallado.']
+  ], 'Elige una acción de tu prototipo y pídele a alguien que la ejecute. Pregúntale cómo supo que había terminado.']
+];
+
+function showStartingRoutes(entries) {
+  const heading = element('h1', 'Empieza aquí');
+  heading.id = 'titulo-lectura';
+  const grid = element('div', '', 'rutas-inicio');
+  const catalog = new Map(entries.map(entry => [entry.id, entry]));
+  for (const [area, question, steps, exercise] of startingRoutes) {
+    const card = element('article', '', 'ruta-inicio');
+    card.dataset.areaDiseno = area;
+    const list = element('ol', '');
+    for (const [id, instruction] of steps) {
+      const entry = catalog.get(id);
+      if (!entry) continue;
+      const step = element('li', '');
+      step.append(link(entry.titulo, '?seccion=empieza&lectura=' + encodeURIComponent(id)),
+        element('p', instruction));
+      list.append(step);
+    }
+    card.append(element('p', disciplines[area][0], 'ruta-inicio-area'),
+      element('h2', question), list, element('h3', 'Pruébalo por tu cuenta'), element('p', exercise));
+    grid.append(card);
+  }
+  document.title = 'Empieza aquí · Cómo se juega';
+  document.querySelector('.portada').hidden = true;
+  document.querySelector('#catalogo').hidden = true;
+  document.querySelector('.barra a[href="?seccion=empieza"]').setAttribute('aria-current', 'page');
+  reading.append(heading, element('p', 'Elige la pregunta que te pique la curiosidad. Cada ruta tiene dos paradas y un ejercicio para aplicar lo que has visto.', 'descripcion-seccion'), grid);
+  reading.hidden = false;
+}
+
 async function loadCatalog() {
   const response = await fetch('datos/como-se-juega.json?v=catalogo-total', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const published = await response.json();
   const catalog = applyCatalogDrafts(published);
   setupCatalogEditor(published, catalog);
+  if (sectionKey === 'empieza' && !params.has('lectura')) {
+    showStartingRoutes(catalog);
+    return;
+  }
   if (sectionKey === 'juegos' && !params.has('lectura')) {
     showGames(catalog);
     return;

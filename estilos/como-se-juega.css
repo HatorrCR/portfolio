@@ -741,3 +741,31 @@ body { padding-bottom: 60px; }
 .archivo-guias > .tarjeta-editorial--guia.tarjeta-editorial--diagnostico:is(:hover, :focus-visible) {
   background: var(--tema-panel);
 }
+
+.rutas-inicio {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  gap: 1rem;
+  margin-block: 1.5rem 2rem;
+}
+
+.ruta-inicio[data-area-diseno] {
+  padding: clamp(1rem, 3vw, 1.6rem);
+  border: 1px solid var(--tema-linea);
+  border-block-start: 5px solid var(--tema-acento);
+  background: var(--tema-fondo);
+  color: var(--tinta);
+}
+
+.ruta-inicio :is(h2, a, .ruta-inicio-area) { color: var(--tema-acento); }
+.ruta-inicio .ruta-inicio-area { margin: 0; font: 700 .85rem/1.5 var(--mono); }
+.ruta-inicio h2 { margin: .4rem 0 .8rem; }
+.ruta-inicio ol { padding-inline-start: 1.45rem; }
+.ruta-inicio li + li { margin-block-start: .8rem; }
+.ruta-inicio li p { margin: .25rem 0; }
+.ruta-inicio h3 {
+  margin: 1.25rem 0 .4rem;
+  padding-block-start: .75rem;
+  border-block-start: 1px solid var(--tema-linea);
+}
+.ruta-inicio > p:last-child { margin-block-end: 0; }

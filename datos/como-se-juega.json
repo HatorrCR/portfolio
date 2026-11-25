@@ -5341,5 +5341,81 @@
         "url": "https://80.lv/articles/learn-how-this-unity-powered-rts-displays-thousands-of-entities-on-screen-at-the-same-time"
       }
     ]
+  },
+  {
+    "id": "zack-zero-rehacer-recorrido",
+    "titulo": "Cambiar el personaje obligó a rehacer los niveles",
+    "tema": "Espacios y recorridos",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Carlos Abril repasa cómo Crocodile Entertainment pasó de un juego de disparos lineal a un plataformas con transformaciones, y el coste de rehacer lo que ya tenía.",
+    "cuerpo": "## Qué decidió el equipo\n\nAl orientar el proyecto a PlayStation 3, el estudio sustituyó las mejoras de armas por formas de fuego, hielo y piedra. Rehízo partes del recorrido para que esas formas tuvieran un papel en los puzles y en el avance.\n\n## Qué salió mal\n\nLa revisión afectó a sistemas y mapas que ya estaban en marcha. Carlos Abril calcula que el cambio retrasó el proyecto dos años. También señala que quedaron detalles del diseño sin cerrar y el equipo siguió añadiendo pequeñas funciones.\n\n## Pruébalo en tu juego\n\nHaz un mapa de dependencias de una habilidad nueva. Antes de convertirla en requisito de toda la campaña, pruébala en una sola sala y enumera qué habría que rehacer en las demás si la idea funciona.",
+    "referencia": "Carlos Abril (3 de julio de 2012). Postmortem: Crocodile Entertainment’s Zack Zero. Game Developer.",
+    "fuente": "https://www.gamedeveloper.com/design/postmortem-crocodile-entertainment-s-i-zack-zero-i-",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Zack Zero",
+        "observacion": "Al orientar el proyecto a PlayStation 3, el estudio sustituyó las mejoras de armas por formas de fuego, hielo y piedra. Rehízo partes del recorrido para que esas formas tuvieran un papel en los puzles y en el avance."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Leer el testimonio del equipo",
+        "url": "https://www.gamedeveloper.com/design/postmortem-crocodile-entertainment-s-i-zack-zero-i-"
+      }
+    ]
+  },
+  {
+    "id": "gods-will-mercy-separar-azar",
+    "titulo": "Quitar el azar sin rebajar todo el reto",
+    "tema": "Dificultad y equilibrio",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Deconstructeam añadió opciones para separar el azar, la dificultad de los puzles y la posibilidad de seguir la historia con menos obstáculos.",
+    "cuerpo": "## Qué decidió el equipo\n\nLa actualización Mercy añadió un modo puzle sin azar que mantenía el reto del original, otro sin azar con puzles más fáciles y un modo narrativo con un reto menor.\n\n## Qué salió mal\n\nEl modo original combinaba el reto del puzle con resultados aleatorios. La actualización documenta cómo el equipo separó ambas variables. También corrigió un fallo concreto del primer capítulo: reiniciar tras el lanzamiento de la granada podía romper el puzle.\n\n## Pruébalo en tu juego\n\nEn el primer capítulo, anota tus decisiones en el modo original y repítelas en el modo puzle. Si un intento falla, separa lo que podrías corregir con otra decisión de lo que depende de un resultado aleatorio.",
+    "referencia": "Deconstructeam (7 de agosto de 2014). The Mercy Update. Anuncio oficial en Steam.",
+    "fuente": "https://store.steampowered.com/news/posts/?enddate=1407448355&feed=steam_community_announcements",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Gods Will Be Watching",
+        "observacion": "La actualización Mercy añadió un modo puzle sin azar que mantenía el reto del original, otro sin azar con puzles más fáciles y un modo narrativo con un reto menor."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Leer el testimonio del equipo",
+        "url": "https://store.steampowered.com/news/posts/?enddate=1407448355&feed=steam_community_announcements"
+      }
+    ]
+  },
+  {
+    "id": "moonlighter-2-recuperar-precio",
+    "titulo": "Volver a dejar que el tendero ponga el precio",
+    "tema": "Sistemas y economías",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Digital Sun y 11 bit studios explican por qué recuperaron la libertad de poner precios tras la demo de Moonlighter 2.",
+    "cuerpo": "## Qué decidió el equipo\n\nEl equipo devolvió al jugador la decisión sobre el precio de venta. En la mochila, sustituyó el precio fijo visible por una calidad que multiplica el valor de la reliquia en la tienda.\n\n## Qué salió mal\n\nTras revisar las impresiones de la demo, el equipo identificó una tensión entre mostrar una recompensa numérica al ordenar la mochila y conservar el descubrimiento del precio en la tienda. También redujo los sucesos caóticos para recuperar un ritmo más tranquilo entre salidas.\n\n## Pruébalo en tu juego\n\nPrepara dos inventarios idénticos. En uno muestra monedas y en el otro calidad. Después pide a cada persona que ponga precio a una reliquia nueva. Compara qué información usa, qué prueba con el primer cliente y qué cambia tras ver su reacción.",
+    "referencia": "Digital Sun y 11 bit studios (10 de octubre de 2025). Moonlighter’s 2 Playtests Launch Today! Anuncio oficial en Steam.",
+    "fuente": "https://store.steampowered.com/oldnews/?appgroupname=Moonlighter&appids=606150&feed=steam_community_announcements&l=english",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Moonlighter 2: The Endless Vault",
+        "observacion": "El equipo devolvió al jugador la decisión sobre el precio de venta. En la mochila, sustituyó el precio fijo visible por una calidad que multiplica el valor de la reliquia en la tienda."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Leer el testimonio del equipo",
+        "url": "https://store.steampowered.com/oldnews/?appgroupname=Moonlighter&appids=606150&feed=steam_community_announcements&l=english"
+      },
+      {
+        "nombre": "Ver el tráiler oficial de la versión final",
+        "url": "https://www.youtube.com/watch?v=ry3sXfJNVAg"
+      }
+    ]
   }
 ]

@@ -24,6 +24,17 @@ a { color: var(--acento); text-underline-offset: .2em; }
 .barra { display: flex; gap: 30px; border-top: 1px solid var(--linea); padding-block: 10px; }
 .barra a { color: var(--tinta); font: 700 .875rem/1.45 var(--mono); text-decoration: none; }
 .barra a:hover { text-decoration: underline; }
+.barra-diseno { position: relative; }
+.barra-diseno > summary { cursor: pointer; color: var(--tinta); font: 700 .875rem/1.45 var(--mono); }
+.barra-diseno > summary:hover { text-decoration: underline; }
+.barra-diseno-enlaces {
+  position: absolute; inset-inline-start: 0; top: 100%; z-index: 5;
+  display: grid; gap: .55rem; width: max-content; padding: .75rem 1rem;
+  background: var(--papel); border: 1px solid var(--linea); border-radius: 4px;
+}
+@media (max-width: 420px) {
+  .barra-diseno-enlaces { position: static; margin-top: .35rem; }
+}
 .presentacion { padding-block: 24px; }
 h1, h2, h3 { font-family: var(--titulares); line-height: 1.08; letter-spacing: -.045em; margin: 0; }
 .presentacion h1 { font-size: clamp(1.45rem, 3vw, 2rem); }

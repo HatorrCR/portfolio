@@ -5084,5 +5084,261 @@
         "url": "https://www.youtube.com/channel/UCPOk5_-Xaa_SXD2m4Ap_w4w"
       }
     ]
+  },
+  {
+    "id": "neva-reducir-combate",
+    "titulo": "Qué cambió cuando Neva recortó el combate",
+    "tema": "Espacios y recorridos",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Cuevas cuenta que, antes de terminar la producción, el equipo revisó los niveles porque el combate ocupaba demasiado espacio. Quería que el recorrido fluyera mejor y equilibró las peleas con puzles y plataformas.",
+    "cuerpo": "Cuevas cuenta que, antes de terminar la producción, el equipo revisó los niveles porque el combate ocupaba demasiado espacio. Quería que el recorrido fluyera mejor y equilibró las peleas con puzles y plataformas.\n\n## Puntos clave\n\nUna pelea añade otra interrupción a un recorrido. Si varias seguidas piden la misma respuesta, conviene comprobar qué aporta cada una a la secuencia.\n\n## Ejemplo de análisis\n\nDibuja el orden de actividades de un tramo. En un prototipo propio, sustituye una pelea intermedia por un salto y mide cuánto tarda la gente en llegar a la siguiente decisión y si recuerda dónde cambió el ritmo.",
+    "referencia": "Adrián Cuevas, Nomada Studio. Entrevista en MobileSyrup.",
+    "fuente": "https://mobilesyrup.com/2024/12/20/neva-nomada-studio-adrian-cuevas-interview/",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Neva",
+        "observacion": "Una pelea añade otra interrupción a un recorrido. Si varias seguidas piden la misma respuesta, conviene comprobar qué aporta cada una a la secuencia."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar el testimonio del equipo",
+        "url": "https://mobilesyrup.com/2024/12/20/neva-nomada-studio-adrian-cuevas-interview/"
+      }
+    ]
+  },
+  {
+    "id": "worldless-volver-al-combate",
+    "titulo": "Perder una pelea y volver a intentarlo desde allí",
+    "tema": "Dificultad y equilibrio",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Roset explica que una derrota expulsa al jugador del encuentro y permite reentrar enseguida. El equipo quería que los intentos sirvieran para aprender un combate que exige reconocer patrones.",
+    "cuerpo": "Roset explica que una derrota expulsa al jugador del encuentro y permite reentrar enseguida. El equipo quería que los intentos sirvieran para aprender un combate que exige reconocer patrones.\n\n## Puntos clave\n\nEl coste de repetir y la dificultad del encuentro son variables distintas. Worldless reduce la espera entre intentos mientras conserva la exigencia de los encuentros opcionales.\n\n## Ejemplo de análisis\n\nCronometra el tiempo desde que pierdes hasta que vuelves a ver el ataque que te derrotó. En un prototipo, compara ese intervalo con y sin un recorrido previo al combate.",
+    "referencia": "Joel Roset, Noname Studios. Artículo en Xbox Wire.",
+    "fuente": "https://news.xbox.com/en-us/2023/11/22/worldless-design-death/",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Worldless",
+        "observacion": "El coste de repetir y la dificultad del encuentro son variables distintas. Worldless reduce la espera entre intentos mientras conserva la exigencia de los encuentros opcionales."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar el testimonio del equipo",
+        "url": "https://news.xbox.com/en-us/2023/11/22/worldless-design-death/"
+      }
+    ]
+  },
+  {
+    "id": "endling-guarida-centro",
+    "titulo": "Volver a la guarida para ver cómo cambia el hogar",
+    "tema": "Espacios y recorridos",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Ramello explica que el planteamiento inicial de desplazamiento lateral no transmitía la pérdida del hogar como querían. El estudio pasó a un diseño no lineal con la guarida en el centro de un espacio abierto.",
+    "cuerpo": "Ramello explica que el planteamiento inicial de desplazamiento lateral no transmitía la pérdida del hogar como querían. El estudio pasó a un diseño no lineal con la guarida en el centro de un espacio abierto.\n\n## Puntos clave\n\nVolver a un lugar conocido da un punto de comparación. Un deterioro resulta más fácil de reconocer si el jugador recuerda qué podía hacer allí la última vez.\n\n## Ejemplo de análisis\n\nElige una ruta que salga de la guarida y recórrela en dos momentos distintos. Señala qué reconoces al volver, qué ha cambiado y cómo esa diferencia afecta a tu siguiente decisión.",
+    "referencia": "Javier Ramello, Herobeat Studios. Entrevista en 80 Level.",
+    "fuente": "https://80.lv/articles/the-development-process-behind-endling-extinction-is-forever",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Endling: Extinction is Forever",
+        "observacion": "Volver a un lugar conocido da un punto de comparación. Un deterioro resulta más fácil de reconocer si el jugador recuerda qué podía hacer allí la última vez."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar el testimonio del equipo",
+        "url": "https://80.lv/articles/the-development-process-behind-endling-extinction-is-forever"
+      }
+    ]
+  },
+  {
+    "id": "red-strings-unir-prototipos",
+    "titulo": "De tres prototipos sueltos a The Red Strings Club",
+    "tema": "Diseño narrativo",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Después de cancelar varios proyectos, Deconstructeam consideró combinar prototipos de barra, alfarería y llamadas telefónicas. La pregunta de cómo unir esas actividades acabó dando forma a The Red Strings Club.",
+    "cuerpo": "Después de cancelar varios proyectos, Deconstructeam consideró combinar prototipos de barra, alfarería y llamadas telefónicas. La pregunta de cómo unir esas actividades acabó dando forma a The Red Strings Club.\n\n## Puntos clave\n\nCombinar prototipos plantea un problema de estructura: cada actividad necesita un motivo para aparecer y una consecuencia que importe fuera de su propia escena.\n\n## Ejemplo de análisis\n\nEscoge un paso entre dos de las actividades y anota qué dato o propósito pasa de una a otra. En un prototipo, quita ese vínculo y pregunta para qué cree la gente que sirve la segunda actividad.",
+    "referencia": "Deconstructeam. Entrevista en GameMaker.",
+    "fuente": "https://gamemaker.io/en/blog/the-red-strings-club-interview",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "The Red Strings Club",
+        "observacion": "Combinar prototipos plantea un problema de estructura: cada actividad necesita un motivo para aparecer y una consecuencia que importe fuera de su propia escena."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar el testimonio del equipo",
+        "url": "https://gamemaker.io/en/blog/the-red-strings-club-interview"
+      }
+    ]
+  },
+  {
+    "id": "king-lucas-castillo-salas",
+    "titulo": "Diseñar las salas a mano y variar el castillo",
+    "tema": "Espacios y recorridos",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Ferriz explica que el equipo diseñó las salas de King Lucas a mano y las combinó en castillos distintos. Quería decidir dónde iba cada salto, peligro y pasadizo de una sala.",
+    "cuerpo": "Ferriz explica que el equipo diseñó las salas de King Lucas a mano y las combinó en castillos distintos. Quería decidir dónde iba cada salto, peligro y pasadizo de una sala.\n\n## Puntos clave\n\nDiseñar la sala y ordenar las salas permite controlar dos escalas. Un salto puede estar bien colocado dentro de la habitación y aun así sorprender demasiado si la ruta te trae desde otra dirección.\n\n## Ejemplo de análisis\n\nLocaliza una habitación reconocible en dos castillos o monta una propia con dos accesos. Compara qué peligro ves primero según por dónde entras y qué pista sigue sirviendo en ambas configuraciones.",
+    "referencia": "David Ferriz, DevilishGames. Diario de desarrollo en Game Developer.",
+    "fuente": "https://www.gamedeveloper.com/business/designing-a-game-like-those-from-the-good-old-times",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "King Lucas",
+        "observacion": "Diseñar la sala y ordenar las salas permite controlar dos escalas. Un salto puede estar bien colocado dentro de la habitación y aun así sorprender demasiado si la ruta te trae desde otra dirección."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar el testimonio del equipo",
+        "url": "https://www.gamedeveloper.com/business/designing-a-game-like-those-from-the-good-old-times"
+      }
+    ]
+  },
+  {
+    "id": "rime-curiosidad-sin-combate",
+    "titulo": "Dar ganas de subir a la torre sin combatir",
+    "tema": "Diseño narrativo",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Rubio cuenta que Tequila Works quiso que el jugador mirase la isla con curiosidad infantil. La torre ofrece una razón para explorar y el relato se transmite mediante imágenes y música. En Gamereactor explicó que el juego prescindía del combate.",
+    "cuerpo": "Rubio cuenta que Tequila Works quiso que el jugador mirase la isla con curiosidad infantil. La torre ofrece una razón para explorar y el relato se transmite mediante imágenes y música. En Gamereactor explicó que el juego prescindía del combate.\n\n## Puntos clave\n\nUn objetivo visible puede mover al jugador aunque aún desconozca qué encontrará al llegar. La incógnita que deja el escenario es parte de la motivación.\n\n## Ejemplo de análisis\n\nTras ver la torre por primera vez, escribe qué hipótesis te haces sobre ella. Repítelo después de encontrar una pista ambiental y señala qué detalle te hizo revisar lo que pensabas.",
+    "referencia": "Raúl Rubio, Tequila Works. Artículo en PlayStation.Blog y entrevista en Gamereactor.",
+    "fuente": "https://blog.playstation.com/?p=189269",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "RiME",
+        "observacion": "Un objetivo visible puede mover al jugador aunque aún desconozca qué encontrará al llegar. La incógnita que deja el escenario es parte de la motivación."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar el testimonio del equipo",
+        "url": "https://blog.playstation.com/?p=189269"
+      },
+      {
+        "nombre": "Entrevista en español con Raúl Rubio",
+        "url": "https://www.gamereactor.es/en-rime-no-matas-monstruos-nos-alejamos-de-hollywood/"
+      }
+    ]
+  },
+  {
+    "id": "american-arcadia-punto-vista-ayuda",
+    "titulo": "Cambiar de cámara para cambiar quién puede ayudar",
+    "tema": "Diseño narrativo",
+    "formato": "Artículo",
+    "idioma": "Español",
+    "resumen": "Delgado comenta la combinación de 2D y 3D en American Arcadia. El estudio explica que Trevor intenta escapar en tramos de plataformas 2.5D y que Ángela interviene desde fuera del programa en primera persona.",
+    "cuerpo": "Delgado comenta la combinación de 2D y 3D en American Arcadia. El estudio explica que Trevor intenta escapar en tramos de plataformas 2.5D y que Ángela interviene desde fuera del programa en primera persona.\n\n## Puntos clave\n\nCambiar de personaje también cambia el conjunto de problemas que puedes resolver. La relación entre ambos tramos se entiende cuando la acción de uno altera las opciones del otro.\n\n## Ejemplo de análisis\n\nEscoge una secuencia de ayuda a Trevor. Anota el obstáculo que él ve, qué puede hacer Ángela desde su posición y qué cambia cuando vuelves a controlar a Trevor.",
+    "referencia": "Tatiana Delgado, Out of the Blue Games. Entrevista en Gamereactor y página oficial.",
+    "fuente": "https://www.gamereactor.no/video/669753/American%2BArcadia%2B-%2BIntervju%2Bmed%2BTatiana%2BDelgado%2Bfra%2BBIG%2BConference%2B2023/",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "American Arcadia",
+        "observacion": "Cambiar de personaje también cambia el conjunto de problemas que puedes resolver. La relación entre ambos tramos se entiende cuando la acción de uno altera las opciones del otro."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ver la entrevista con Tatiana Delgado",
+        "url": "https://www.gamereactor.no/video/669753/American%2BArcadia%2B-%2BIntervju%2Bmed%2BTatiana%2BDelgado%2Bfra%2BBIG%2BConference%2B2023/"
+      },
+      {
+        "nombre": "Consultar las dos perspectivas en la web del estudio",
+        "url": "https://www.outbluegames.com/americanarcadia"
+      }
+    ]
+  },
+  {
+    "id": "gods-will-jam-una-pantalla",
+    "titulo": "Concentrar la supervivencia en una sola pantalla",
+    "tema": "Sistemas y economías",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "En la versión para Ludum Dare 26, Deconstructeam llevó el tema del minimalismo a las reglas. El prototipo concentra en un escenario y unas pocas acciones el objetivo de sobrevivir cuarenta días.",
+    "cuerpo": "En la versión para Ludum Dare 26, Deconstructeam llevó el tema del minimalismo a las reglas. El prototipo concentra en un escenario y unas pocas acciones el objetivo de sobrevivir cuarenta días.\n\n## Puntos clave\n\nCon pocas acciones, cada turno obliga a revisar prioridades. La profundidad depende de cómo cambia el valor de una acción cuando pasa el tiempo o el grupo ya arrastra un problema.\n\n## Ejemplo de análisis\n\nAbre el prototipo y registra la acción que priorizas durante los primeros turnos. En otro intento, aplázala y apunta cuándo se vuelve urgente y qué otra tarea tienes que dejar para atenderla.",
+    "referencia": "Deconstructeam. Nota de diseño y prototipo de Ludum Dare 26.",
+    "fuente": "https://deconstructeam.com/games/gods-will-be-watching/",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Gods Will Be Watching",
+        "observacion": "Con pocas acciones, cada turno obliga a revisar prioridades. La profundidad depende de cómo cambia el valor de una acción cuando pasa el tiempo o el grupo ya arrastra un problema."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar y abrir el prototipo original",
+        "url": "https://deconstructeam.com/games/gods-will-be-watching/"
+      }
+    ]
+  },
+  {
+    "id": "mageseeker-traducir-habilidades",
+    "titulo": "Llevar las habilidades de un MOBA a un RPG de acción",
+    "tema": "Mecánicas",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Giménez señala que uno de los retos fue trasladar lo que hacen campeones como Sylas al RPG de acción. En The Mageseeker, Sylas puede apropiarse de la magia de sus enemigos y devolvérsela.",
+    "cuerpo": "Giménez señala que uno de los retos fue trasladar lo que hacen campeones como Sylas al RPG de acción. En The Mageseeker, Sylas puede apropiarse de la magia de sus enemigos y devolvérsela.\n\n## Puntos clave\n\nEl parecido de una habilidad entre géneros se puede estudiar a través de la decisión que provoca. Robar magia convierte al rival en una fuente de opciones durante el encuentro.\n\n## Ejemplo de análisis\n\nCompara qué preguntas te haces al escoger un objetivo para robar magia en el RPG y al escoger una definitiva para copiar con Sylas en el MOBA. Registra qué información necesitas de cada rival antes de decidir.",
+    "referencia": "Javi Giménez, Digital Sun, y Rowan Parker, Riot Forge. Entrevista en Xbox Wire.",
+    "fuente": "https://news.xbox.com/en-us/2023/04/18/the-mageseeker-a-league-of-legends-story-launch/amp/",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "The Mageseeker",
+        "observacion": "El parecido de una habilidad entre géneros se puede estudiar a través de la decisión que provoca. Robar magia convierte al rival en una fuente de opciones durante el encuentro."
+      },
+      {
+        "nombre": "League of Legends",
+        "observacion": "Compara la definitiva de Sylas con la adaptación de su capacidad de robo de magia al RPG."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar el testimonio del equipo",
+        "url": "https://news.xbox.com/en-us/2023/04/18/the-mageseeker-a-league-of-legends-story-launch/amp/"
+      },
+      {
+        "nombre": "Consultar la habilidad de Sylas en League of Legends",
+        "url": "https://www.leagueoflegends.com/es-es/champions/sylas/"
+      }
+    ]
+  },
+  {
+    "id": "cataclismo-bloques-asalto",
+    "titulo": "Construir pieza a pieza para aguantar una oleada",
+    "tema": "Sistemas y economías",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "García cuenta que el equipo quería trasladar la libertad de construir con bloques a un juego de defensa por oleadas. Ese planteamiento también trajo un problema técnico: calcular lo que hacen las tropas en fortalezas con muchas piezas y distintas alturas.",
+    "cuerpo": "García cuenta que el equipo quería trasladar la libertad de construir con bloques a un juego de defensa por oleadas. Ese planteamiento también trajo un problema técnico: calcular lo que hacen las tropas en fortalezas con muchas piezas y distintas alturas.\n\n## Puntos clave\n\nLa libertad de construir se pone a prueba cuando llega la oleada. Una estructura elegida por su forma tiene consecuencias sobre cómo se defiende y cómo se mueve quien la ataca.\n\n## Ejemplo de análisis\n\nCon el mismo presupuesto y tropas, cambia una altura o una entrada de la fortaleza y vuelve a probar la misma oleada. Registra dónde se atasca la defensa y cuándo necesitas intervenir.",
+    "referencia": "Jorge García Vega, Digital Sun. Entrevista en 80 Level.",
+    "fuente": "https://80.lv/articles/learn-how-this-unity-powered-rts-displays-thousands-of-entities-on-screen-at-the-same-time",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Cataclismo",
+        "observacion": "La libertad de construir se pone a prueba cuando llega la oleada. Una estructura elegida por su forma tiene consecuencias sobre cómo se defiende y cómo se mueve quien la ataca."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar el testimonio del equipo",
+        "url": "https://80.lv/articles/learn-how-this-unity-powered-rts-displays-thousands-of-entities-on-screen-at-the-same-time"
+      }
+    ]
   }
 ]

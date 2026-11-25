@@ -2521,7 +2521,7 @@ async function loadCatalog() {
     ? own.filter(entry => !isArchive(entry) && (category ? designTopic(entry) === category : entry.tema === topTopic))
     : isPapers ? papers.filter(entry => !language || entry.idioma === languages[language])
     : isInterviews ? interviews
-    : isDevelopment ? sources.filter(entry => developmentIds.has(entry.id))
+    : isDevelopment ? sources.filter(entry => entry.decisionDesarrollo === true || developmentIds.has(entry.id))
     : sourceSection ? sources.filter(entry => sourceSection[1].includes(entry.formato))
     : sources;
 

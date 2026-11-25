@@ -93,6 +93,11 @@ function editorialCard(entry, href) {
   const kind = isArchive(entry) ? 'mecanica' : 'guia';
   const card = link('', href);
   card.className = 'tarjeta-editorial tarjeta-editorial--' + kind;
+  if (entry.diagnostico === true) {
+    const { query } = editorialSection(entry);
+    card.dataset.areaDiseno = query.diseno ?? 'sistemas';
+    card.classList.add('tarjeta-editorial--diagnostico');
+  }
   card.append(element('span', editorialLabel(entry), 'etiqueta-editorial'),
     element('h3', entry.titulo), element('p', entry.resumen),
     countBadge((entry.cuerpo.match(/^## /gm) ?? []).length || 1, 'apartado', 'apartados'));

@@ -730,3 +730,14 @@ body { padding-bottom: 60px; }
 [data-tema="oscuro"] .ejemplos-decisiones-rejilla > .ejemplo-decision:nth-child(2) { --tarjeta-fondo: #28475d; --tarjeta-velo: #1d3446; --tarjeta-tinta: #e5f6ff; --tarjeta-acento: #a1cfe9; }
 [data-tema="oscuro"] .ejemplos-decisiones-rejilla > .ejemplo-decision:nth-child(3) { --tarjeta-fondo: #3d5032; --tarjeta-velo: #2b3c25; --tarjeta-tinta: #eff9e5; --tarjeta-acento: #bddb9e; }
 [data-tema="oscuro"] .ejemplos-decisiones-rejilla > .ejemplo-decision:nth-child(4) { --tarjeta-fondo: #5d3733; --tarjeta-velo: #452c29; --tarjeta-tinta: #ffece8; --tarjeta-acento: #f0ae9f; }
+
+.archivo-guias > .tarjeta-editorial--guia.tarjeta-editorial--diagnostico {
+  --tono-editorial: var(--tema-acento);
+  border-color: var(--tema-linea);
+  border-inline-start-color: var(--tono-editorial);
+  background: var(--tema-fondo);
+}
+
+.archivo-guias > .tarjeta-editorial--guia.tarjeta-editorial--diagnostico:is(:hover, :focus-visible) {
+  background: var(--tema-panel);
+}

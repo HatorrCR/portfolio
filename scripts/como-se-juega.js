@@ -1600,6 +1600,7 @@ function addSystemLab(config, id) {
   controls.append(...buttons);
   reading.append(lab);
   render();
+  return lab;
 }
 
 function addDashLab(is3D, target = reading, comparison = null) {
@@ -2125,24 +2126,59 @@ function renderLibraryReading(resource, entries) {
   showSources(resource, entries);
 }
 
+const diagnosisLabs = {
+  'diagnostico-jugadores-se-pierden': ['hitos-orientacion', 'Recorre el mapa con la torre como referencia. Luego prueba sin ella y fíjate en qué cruce empiezas a dudar.'],
+  'diagnostico-habilidad-sin-uso': ['armas-situacionales', 'Cambia de situación y comprueba cuándo merece la pena cambiar de arma.'],
+  'diagnostico-hud-ignorado': ['prioridad-hud', 'Compara las versiones y localiza el dato que necesitas antes de tomar la siguiente decisión.'],
+  'diagnostico-tutorial-no-transfiere': ['instrucciones-a-tiempo', 'Compara cuándo recibes la instrucción y comprueba si puedes aplicar la regla cuando toca usarla.'],
+  'diagnostico-ataque-injusto': ['avisar-ataques', 'Prueba distintas ventanas de aviso y fíjate en si te da tiempo a reaccionar.'],
+  'diagnostico-puzle-ensayo-error': ['ensenar-puzle-espacio', 'Antes de probar una solución, señala qué pista del espacio te hizo elegirla.'],
+  'diagnostico-monedas-no-se-gastan': ['mina-compra-mina', 'Compara guardar el oro con reinvertirlo y fíjate en qué momento se nota la ventaja de gastar.'],
+  'diagnostico-eleccion-sin-consecuencia': ['decisiones-consecuencias', 'Haz dos elecciones distintas y busca la primera señal de que el juego ha recogido tu decisión.'],
+  'diagnostico-cooperativo-espectador': ['roles-cooperativos', 'Fíjate en qué información tiene cada persona y qué puede hacer cada una para resolver el reto.'],
+  'diagnostico-reinicio-desanima': ['reinicio-tras-fallar', 'Falla en el mismo punto de las dos versiones y compara cuánto tienes que repetir.']
+};
+
+function resourceUrl(entry) {
+  if (isArchive(entry)) return archiveUrl(entry.subtema);
+  const route = entry.diagnostico ? {seccion: 'diagnostico'} :
+    isEditorial(entry) ? editorialSection(entry).query : {seccion: 'biblioteca'};
+  return '?' + new URLSearchParams({...route, lectura: entry.id});
+}
+
+function addDiagnosisLabLink(resource, entries, addToIndex) {
+  const [labId, prompt] = diagnosisLabs[resource.id] ?? [];
+  const lab = entries.find(entry => entry.id === labId && entry.laboratorio === labId);
+  if (!lab) return;
+  const section = element('section', '', 'referencias');
+  const heading = element('h2', 'Pruébalo en el laboratorio');
+  addToIndex(heading, 'laboratorio-relacionado');
+  section.append(heading, element('p', prompt), link(lab.titulo, resourceUrl(lab) + '#laboratorio-jugable'));
+  reading.append(section);
+}
+
 const mechanicReviews = {
   'salto-2d-guia': {
     prompt: 'Cruza el mismo foso en A y B. Intenta pulsar Espacio justo después de salir del borde. Usa una pulsación larga para comparar el mismo salto.',
+    question: '¿En cuál pudiste saltar justo después de salir del borde?',
     variants: ['A · Sin tiempo de coyote', 'B · Con 0,10 s de tiempo de coyote'],
     takeaway: 'El tiempo de coyote amplía el margen para iniciar el salto tras salir del borde. La altura y la trayectoria se mantienen.'
   },
   'salto-3d-guia': {
     prompt: 'Salta hacia la plataforma desplazada en A y B. Fíjate en cuándo puedes saber si estás encima del suelo de llegada antes de tocarlo.',
+    question: '¿En qué versión te resultó más fácil saber si estabas sobre la plataforma antes de caer?',
     variants: ['A · Sombra visible', 'B · Sombra oculta'],
     takeaway: 'La sombra da una referencia de dónde caerás cuando estás sobre una plataforma. El salto y el control aéreo funcionan igual en ambas versiones.'
   },
   'dash-2d-guia': {
     prompt: 'Salta hacia el foso y activa el dash manteniendo arriba y derecha. Repite el gesto en A y B y compara cómo llegas al otro lado.',
+    question: '¿Qué pasó con tu altura y tu avance horizontal al usar el dash en diagonal?',
     variants: ['A · Dash horizontal', 'B · Dash en ocho direcciones'],
     takeaway: 'Limitar la dirección cambia qué trayectorias puedes dibujar con el dash. Con impulso diagonal puedes ganar altura, pero avanzas menos en horizontal durante el impulso.'
   },
   'dash-3d-guia': {
     prompt: 'Acércate al muro. Inicia el dash manteniendo derecha y añade arriba durante el impulso. Repite en A y B y mira si puedes corregir el rumbo antes de chocar.',
+    question: '¿En cuál pudiste corregir el rumbo con el dash ya en marcha?',
     variants: ['A · Rumbo fijo al salir', 'B · Rumbo modificable durante el dash'],
     takeaway: 'Fijar el rumbo compromete la dirección desde el primer instante. Permitir un giro devuelve parte del control durante el impulso.'
   }
@@ -2197,7 +2233,7 @@ function addMechanicReview(id, addToIndex) {
 
   const recap = element('details', '', 'prueba-final-resumen');
   recap.append(element('summary', 'Qué cambia entre A y B'), element('p', review.takeaway));
-  panel.append(recap);
+  panel.append(element('p', review.question, 'prueba-final-pregunta'), recap);
 }
 
 function showReading(entries, archive) {
@@ -2295,7 +2331,14 @@ function showReading(entries, archive) {
           }
           if (systemLab && heading?.[1] === '##' && heading[2] === 'Implementación en Unity') {
             reading.removeChild(content);
-            addSystemLab(systemLab, id);
+            const lab = addSystemLab(systemLab, id);
+            lab.id = 'laboratorio-jugable';
+            const diagnoses = entries.filter(entry => entry.diagnostico && diagnosisLabs[entry.id]?.[0] === id);
+            for (const diagnosis of diagnoses) {
+              const back = element('p', '', 'lab-diagnostico');
+              back.append(link('Volver al diagnóstico «' + diagnosis.titulo + '»', resourceUrl(diagnosis) + '#laboratorio-relacionado'));
+              lab.append(back);
+            }
             reading.append(content);
           }
           if (dashGuide && heading?.[2] === 'Qué puedes cambiar') {
@@ -2322,6 +2365,7 @@ function showReading(entries, archive) {
       }
     }
     if (archiveReading && Object.hasOwn(mechanicReviews, id)) addMechanicReview(id, addToIndex);
+    if (resource.diagnostico) addDiagnosisLabLink(resource, entries, addToIndex);
     const references = showSources(resource, entries);
     if (references && index) addToIndex(references.heading, 'referencias');
     if (resource.subtema) {
@@ -2352,7 +2396,9 @@ function showReading(entries, archive) {
   }
   reading.hidden = false;
   document.querySelector('.portada').hidden = true;
-  if (location.hash === '#prueba-final') requestAnimationFrame(() => document.querySelector('#prueba-final')?.scrollIntoView());
+  if (['#prueba-final', '#laboratorio-jugable', '#laboratorio-relacionado'].includes(location.hash)) {
+    requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView());
+  }
 }
 
 const themeButton = document.querySelector('#modo-pagina');
@@ -2636,12 +2682,94 @@ function showStartingRoutes(entries) {
   reading.hidden = false;
 }
 
+function showPortalSearch(entries) {
+  const heading = element('h1', 'Buscar en Cómo se juega');
+  heading.id = 'titulo-lectura';
+  const form = element('form', '', 'busqueda-portal');
+  form.method = 'get';
+  form.setAttribute('role', 'search');
+  const section = element('input', '');
+  section.type = 'hidden';
+  section.name = 'seccion';
+  section.value = 'buscar';
+  const label = element('label', 'Tema, ficha o juego');
+  const input = element('input', '');
+  input.type = 'search';
+  input.name = 'q';
+  input.value = params.get('q') ?? '';
+  input.required = true;
+  label.append(input);
+  const submit = element('button', 'Buscar', 'boton');
+  submit.type = 'submit';
+  form.append(section, label, submit);
+  reading.append(heading, form);
+  document.title = 'Buscar · Cómo se juega';
+  document.querySelector('.portada').hidden = true;
+  document.querySelector('#catalogo').hidden = true;
+  document.querySelector('.barra a[href="?seccion=buscar"]').setAttribute('aria-current', 'page');
+  reading.hidden = false;
+
+  const terms = slug(input.value).split('-').filter(Boolean);
+  if (!terms.length) return;
+  const games = buildGameIndex(entries);
+  const results = [
+    ...entries.map(entry => ({
+      title: entry.titulo, url: resourceUrl(entry), summary: entry.resumen,
+      type: entry.diagnostico ? 'Diagnóstico' : isEditorial(entry) ? editorialLabel(entry) :
+        entry.decisionDesarrollo || developmentIds.has(entry.id) ? 'Decisión de desarrollo' : entry.formato,
+      context: [entry.tema, entry.subtema, ...gameReferences(entry).map(game => game.nombre)].join(' ')
+    })),
+    ...Array.from(games, ([id, game]) => ({
+      title: game.nombre, url: gamePageUrl(id), type: 'Juego',
+      context: Array.from(game.entries.values(), ({entry}) => [entry.titulo, entry.tema, entry.subtema].join(' ')).join(' ')
+    }))
+  ].flatMap(result => {
+    const title = slug(result.title);
+    const context = slug(result.context);
+    const summary = slug(result.summary ?? '');
+    const text = [title, context, summary, slug(result.type)].join(' ');
+    if (!terms.every(term => text.includes(term))) return [];
+    const rank = terms.reduce((score, term) => score + (title.includes(term) ? 6 : context.includes(term) ? 3 : 1), 0);
+    return [{...result, rank}];
+  }).sort((a, b) => b.rank - a.rank || a.title.localeCompare(b.title, 'es'));
+
+  const count = element('p', results.length === 1 ? '1 resultado' :
+    results.length ? results.length + ' resultados' : 'No encontramos resultados. Prueba con otro tema o título.', 'meta');
+  const grid = element('div', '', 'rejilla resultados-portal');
+  const more = element('button', 'Mostrar más resultados', 'boton');
+  more.type = 'button';
+  let shown = 0;
+  function showMore() {
+    for (const result of results.slice(shown, shown + 20)) {
+      const card = element('article', '', 'ficha');
+      const title = element('h2', '');
+      title.append(link(result.title, result.url));
+      card.append(element('p', result.type, 'meta'), title);
+      if (result.summary) card.append(element('p', result.summary));
+      grid.append(card);
+    }
+    shown = grid.children.length;
+    more.hidden = shown >= results.length;
+  }
+  more.addEventListener('click', () => {
+    const firstNew = shown;
+    showMore();
+    grid.children[firstNew]?.querySelector('a').focus();
+  });
+  reading.append(count, grid, more);
+  showMore();
+}
+
 async function loadCatalog() {
   const response = await fetch('datos/como-se-juega.json?v=catalogo-total', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const published = await response.json();
   const catalog = applyCatalogDrafts(published);
   setupCatalogEditor(published, catalog);
+  if (sectionKey === 'buscar') {
+    showPortalSearch(catalog);
+    return;
+  }
   if (sectionKey === 'empieza' && !params.has('lectura')) {
     showStartingRoutes(catalog);
     return;

@@ -784,3 +784,15 @@ body { padding-bottom: 60px; }
 .prueba-final .ayudas-salto[hidden] { display: none; }
 .prueba-final-resumen summary { cursor: pointer; font-weight: 700; }
 .prueba-final-resumen p { margin-block: .5rem 0; }
+
+.busqueda-portal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: .75rem;
+  margin-block: 1rem 1.5rem;
+}
+.busqueda-portal label { display: grid; flex: 1 1 16rem; gap: .3rem; }
+.busqueda-portal input { width: 100%; font: inherit; padding: .45rem .65rem; }
+.resultados-portal + button { margin-block: 1rem; }
+.prueba-final-pregunta { font-weight: 700; }

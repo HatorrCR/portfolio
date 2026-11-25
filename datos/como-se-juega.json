@@ -5900,6 +5900,7 @@
   },
   {
     "id": "diagnostico-jugadores-se-pierden",
+    "diagnostico": true,
     "titulo": "Mis jugadores se pierden",
     "tema": "Espacios y recorridos",
     "formato": "Guía",

@@ -23,6 +23,8 @@ const sourceSections = {
   videos: ['Vídeos', ['Vídeo']]
 };
 const sectionKey = params.get('seccion');
+const isDiagnosis = !isPapers && sectionKey === 'diagnostico';
+const diagnosisTitle = 'Fichas de diagnóstico';
 const isDevelopment = !isPapers && sectionKey === 'decisiones';
 const developmentIds = new Set(['nihilumbra-postmortem-modo-vacio', 'blasphemous-ii-entrevista-diseno']);
 const sourceSection = !isPapers && Object.hasOwn(sourceSections, sectionKey) ? sourceSections[sectionKey] : null;
@@ -67,12 +69,12 @@ const libraryQuery = values => new URLSearchParams({
   ...(isPapers ? {papers: selected} : {}),
   ...(isInterviews ? {seccion: 'entrevistas'} : {}),
   ...(collection ? {coleccion: collection} : {}),
-  ...(sourceSection || isDevelopment || sectionKey === 'biblioteca' ? {seccion: sectionKey} : {}),
+  ...(sourceSection || isDevelopment || isDiagnosis || sectionKey === 'biblioteca' ? {seccion: sectionKey} : {}),
   ...(discipline ? {diseno: areaKey, ...(designCategory ? {categoria: designCategory} : {})} : {}),
   ...(currentTopic ? {tema: currentTopic} : {}),
   ...values
 });
-const libraryUrl = 'como-se-juega.html?' + libraryQuery({...(discipline || currentTopic || isPapers || sourceSection || isInterviews || isDevelopment ? {} : {seccion: 'biblioteca'})}) + '#catalogo';
+const libraryUrl = 'como-se-juega.html?' + libraryQuery({...(discipline || currentTopic || isPapers || sourceSection || isInterviews || isDevelopment || isDiagnosis ? {} : {seccion: 'biblioteca'})}) + '#catalogo';
 const normalize = value => value.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
 
 const slug = value => normalize(value).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -2133,7 +2135,9 @@ function showReading(entries, archive) {
     item.append(link(heading.textContent, '#' + id));
     index.append(item);
   };
-  const section = editorial ? editorialSection(resource) : null;
+  const section = isDiagnosis && resource.diagnostico === true
+    ? {name: diagnosisTitle, query: {seccion: 'diagnostico'}}
+    : editorial ? editorialSection(resource) : null;
   reading.append(link(section ? 'Volver a ' + section.name : 'Volver a la Biblioteca',
     section ? '?' + new URLSearchParams(section.query) + '#catalogo' : libraryUrl));
   if (editorial) {
@@ -2506,12 +2510,12 @@ async function loadCatalog() {
   const archives = own.filter(isArchive);
   const archive = archives.find(entry => slug(entry.subtema) === collection);
   const category = discipline && Object.hasOwn(discipline[1], designCategory) ? designCategory : '';
-  const topTopic = !isPapers && !isInterviews && !isDevelopment && !sourceSection && sectionKey !== 'biblioteca' &&
+  const topTopic = !isPapers && !isInterviews && !isDevelopment && !isDiagnosis && !sourceSection && sectionKey !== 'biblioteca' &&
     own.some(entry => entry.tema === currentTopic) ? currentTopic : '';
   const editorialView = Boolean(discipline || topTopic);
   const sectionHub = Boolean(discipline && !category);
   const papersHub = isPapers && !language;
-  const libraryHub = !editorialView && !isPapers && !isInterviews && !isDevelopment && !sourceSection && !isHome;
+  const libraryHub = !editorialView && !isPapers && !isInterviews && !isDevelopment && !isDiagnosis && !sourceSection && !isHome;
   const mechanicsView = category === 'Mecánicas' || topTopic === 'Mecánicas';
   const countCategory = name => own.filter(entry => designTopic(entry) === name).length;
   const countArea = key => Object.keys(disciplines[key][1]).reduce((n, name) => n + countCategory(name), 0);
@@ -2521,12 +2525,13 @@ async function loadCatalog() {
     ? own.filter(entry => !isArchive(entry) && (category ? designTopic(entry) === category : entry.tema === topTopic))
     : isPapers ? papers.filter(entry => !language || entry.idioma === languages[language])
     : isInterviews ? interviews
+    : isDiagnosis ? own.filter(entry => entry.diagnostico === true)
     : isDevelopment ? sources.filter(entry => entry.decisionDesarrollo === true || developmentIds.has(entry.id))
     : sourceSection ? sources.filter(entry => sourceSection[1].includes(entry.formato))
     : sources;
 
   const heading = language ? 'Papers en ' + languages[language].toLowerCase() :
-    isPapers ? 'Papers' : isInterviews ? 'Entrevistas' : isDevelopment ? 'Decisiones de desarrollo' :
+    isPapers ? 'Papers' : isInterviews ? 'Entrevistas' : isDevelopment ? 'Decisiones de desarrollo' : isDiagnosis ? diagnosisTitle :
     sourceSection?.[0] ?? (discipline ? category || discipline[0] : topTopic || 'Biblioteca');
   document.querySelector('#titulo-catalogo').textContent = heading;
   document.querySelector('#novedades').hidden = !isHome;
@@ -2580,6 +2585,8 @@ async function loadCatalog() {
     }
     examples.append(examplesTitle, cards);
     document.querySelector('#titulo-catalogo').after(description, examples);
+  } else if (isDiagnosis) {
+    document.querySelector('#titulo-catalogo').after(element('p', 'Empieza por un problema que hayas visto al probar tu juego. Cada ficha te ayuda a elegir qué observar, qué cambiar y cómo medir si la prueba funciona.', 'descripcion-seccion'));
   } else if (category) {
     document.querySelector('#titulo-catalogo').after(element('p', discipline[1][category], 'descripcion-seccion'));
   }
@@ -2687,7 +2694,7 @@ async function loadCatalog() {
     results.replaceChildren(...visible.map(entry => {
       if (isEditorial(entry)) {
         return editorialCard(entry, '?' + new URLSearchParams({
-          ...editorialSection(entry).query, lectura: entry.id
+          ...(isDiagnosis ? {seccion: 'diagnostico'} : editorialSection(entry).query), lectura: entry.id
         }));
       }
       const card = element('article', '', 'ficha ficha-biblioteca');

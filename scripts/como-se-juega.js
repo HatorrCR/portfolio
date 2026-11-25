@@ -2564,18 +2564,18 @@ async function loadCatalog() {
     examples.setAttribute('aria-labelledby', examplesTitle.id);
     const cards = element('div', '', 'rejilla ejemplos-decisiones-rejilla');
     const featured = [
-      ['nihilumbra-postmortem-modo-vacio', 'Nihilumbra', 'BeautiFun dejó los puzles más duros tras los créditos. Parte del público cerró el juego sin descubrirlos.'],
-      ['neva-reducir-combate', 'Neva', 'Nomada Studio rehízo tramos donde las peleas interrumpían demasiado el recorrido.'],
-      ['endling-guarida-centro', 'Endling: Extinction is Forever', 'Herobeat puso la guarida en el centro para que volver a casa mostrara el deterioro del entorno.'],
-      ['red-strings-unir-prototipos', 'The Red Strings Club', 'Deconstructeam unió tres prototipos sobre servir copas, modelar piezas y hacer llamadas.']
+      ['nihilumbra-postmortem-modo-vacio', 'Nihilumbra'],
+      ['neva-reducir-combate', 'Neva'],
+      ['endling-guarida-centro', 'Endling: Extinction is Forever'],
+      ['red-strings-unir-prototipos', 'The Red Strings Club']
     ];
-    for (const [id, game, description] of featured) {
+    for (const [id, game] of featured) {
       const entry = relevant.find(resource => resource.id === id);
       if (!entry) continue;
       const card = element('article', '', 'ficha ejemplo-decision');
       const title = element('h4', '');
       title.append(link(entry.titulo, '?' + libraryQuery({lectura: id})));
-      card.append(element('p', game, 'meta'), title, element('p', description));
+      card.append(element('p', game, 'meta'), title, element('p', entry.resumen));
       cards.append(card);
     }
     examples.append(examplesTitle, cards);

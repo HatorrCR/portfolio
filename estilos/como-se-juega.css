@@ -672,3 +672,21 @@ body { padding-bottom: 60px; }
 .muestra-lomo:nth-child(3) { height: 61px; background: #606881; }
 .muestra-lomo:nth-child(4) { height: 55px; background: #926b3c; }
 .muestra-lomo:nth-child(5) { height: 51px; background: #7d5e87; }
+
+.descripcion-seccion {
+  padding: .8rem 1rem;
+  border: 1px solid var(--linea);
+  border-inline-start: 4px solid var(--acento);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--papel) 94%, var(--acento));
+}
+.ejemplos-decisiones { margin-block: 1.5rem 2rem; }
+.ejemplos-decisiones-rejilla { margin-top: .75rem; gap: .8rem; }
+.ejemplo-decision h4 { margin: .25rem 0; font-size: 1rem; line-height: 1.3; }
+.ejemplo-decision p { margin-block: 0 .25rem; }
+@media (min-width: 1000px) {
+  .ejemplos-decisiones-rejilla { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .ejemplos-decisiones-rejilla { grid-template-columns: minmax(0, 1fr); }
+}

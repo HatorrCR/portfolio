@@ -2337,7 +2337,7 @@ function renderThemedHub(sections, own) {
   const copy = element('div', '');
   const intro = element('div', '', 'portada-diseno');
   heading.before(intro);
-  copy.append(heading, element('p', areaIntroductions[areaKey]));
+  copy.append(heading, element('p', areaIntroductions[areaKey], 'descripcion-seccion'));
   intro.append(copy, areaSample(areaKey));
   document.querySelector('#catalogo').dataset.areaDiseno = areaKey;
   sections.className = 'colecciones-diseno';
@@ -2351,7 +2351,7 @@ function renderThemedHub(sections, own) {
     summary.append(element('span', name), element('span',
       entries.length + (entries.length === 1 ? ' ficha' : ' fichas'), 'cuenta-coleccion'));
     const content = element('div', '', 'contenido-coleccion');
-    content.append(element('p', description));
+    content.append(element('p', description, 'descripcion-seccion'));
     // El catálogo añade las nuevas fichas al final.
     for (const entry of entries.slice(-4).reverse()) {
       const url = isArchive(entry) ? archiveUrl(entry.subtema) : href.split('#')[0] + '&lectura=' + encodeURIComponent(entry.id);
@@ -2557,7 +2557,31 @@ async function loadCatalog() {
   let pageSize = 5;
   const shelfCards = new Map();
   if (isDevelopment) {
-    document.querySelector('#titulo-catalogo').after(element('p', 'Postmortems y entrevistas donde los equipos cuentan qué probaron, qué cambiaron y por qué.'));
+    const description = element('p', 'Postmortems y entrevistas donde los equipos cuentan qué probaron, qué cambiaron y por qué.', 'descripcion-seccion');
+    const examples = element('section', '', 'ejemplos-decisiones');
+    const examplesTitle = element('h3', 'Cuatro casos para empezar');
+    examplesTitle.id = 'titulo-ejemplos-decisiones';
+    examples.setAttribute('aria-labelledby', examplesTitle.id);
+    const cards = element('div', '', 'rejilla ejemplos-decisiones-rejilla');
+    const featured = [
+      ['nihilumbra-postmortem-modo-vacio', 'Nihilumbra', 'BeautiFun dejó los puzles más duros tras los créditos. Parte del público cerró el juego sin descubrirlos.'],
+      ['neva-reducir-combate', 'Neva', 'Nomada Studio rehízo tramos donde las peleas interrumpían demasiado el recorrido.'],
+      ['endling-guarida-centro', 'Endling: Extinction is Forever', 'Herobeat puso la guarida en el centro para que volver a casa mostrara el deterioro del entorno.'],
+      ['red-strings-unir-prototipos', 'The Red Strings Club', 'Deconstructeam unió tres prototipos sobre servir copas, modelar piezas y hacer llamadas.']
+    ];
+    for (const [id, game, description] of featured) {
+      const entry = relevant.find(resource => resource.id === id);
+      if (!entry) continue;
+      const card = element('article', '', 'ficha ejemplo-decision');
+      const title = element('h4', '');
+      title.append(link(entry.titulo, '?' + libraryQuery({lectura: id})));
+      card.append(element('p', game, 'meta'), title, element('p', description));
+      cards.append(card);
+    }
+    examples.append(examplesTitle, cards);
+    document.querySelector('#titulo-catalogo').after(description, examples);
+  } else if (category) {
+    document.querySelector('#titulo-catalogo').after(element('p', discipline[1][category], 'descripcion-seccion'));
   }
   if (sectionHub) {
     renderThemedHub(sections, own);

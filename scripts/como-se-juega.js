@@ -609,9 +609,19 @@ function addJumpLab() {
   return controls;
 }
 
-function addJump3D() {
+function addJump3D(target = reading) {
   const panel = document.querySelector('#plantilla-salto-3d').content.firstElementChild.cloneNode(true);
-  reading.append(panel);
+  if (target !== reading) {
+    const heading = panel.querySelector('h3');
+    const instructions = panel.querySelector('p');
+    heading.id += '-final';
+    instructions.id += '-final';
+    heading.hidden = true;
+    panel.removeAttribute('aria-labelledby');
+    panel.querySelector('canvas').setAttribute('aria-describedby', instructions.id);
+    panel.querySelector('.ajustes-salto').hidden = true;
+  }
+  target.append(panel);
   const canvas = panel.querySelector('canvas');
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
@@ -757,6 +767,7 @@ function addJump3D() {
   });
   panel.addEventListener('change', draw);
   reset('Empieza alineándote con la plataforma de llegada.');
+  return panel;
 }
 
 const systemLabs = {
@@ -1591,7 +1602,7 @@ function addSystemLab(config, id) {
   render();
 }
 
-function addDashLab(is3D) {
+function addDashLab(is3D, target = reading, comparison = null) {
   const lab = element('section', '', 'laboratorio-salto laboratorio-mecanica');
   const canvas = element('canvas', 'Prueba de desplazamiento rápido.');
   canvas.width = 680;
@@ -1603,15 +1614,15 @@ function addDashLab(is3D) {
   const options = element('div', '', 'ajustes-salto');
   const status = element('p', '', 'estado-laboratorio');
   status.setAttribute('role', 'status');
-  const label = element('label', 'Variante');
+  const label = element('label', comparison ? 'Versión' : 'Variante');
   const select = element('select', '');
   const variants = is3D ? ['Dirección fija', 'Con giro', 'Protección contra daño'] :
     ['Horizontal', 'En ocho direcciones', 'Con recarga en el aire'];
-  variants.forEach(name => select.append(element('option', name)));
+  (comparison ?? variants).forEach(name => select.append(element('option', name)));
   label.append(select);
   const view = is3D ? document.querySelector('#plantilla-salto-3d').content
     .querySelector('[data-vista-3d]').cloneNode(true) : null;
-  if (view) {
+  if (view && !comparison) {
     const viewLabel = element('label', 'Vista');
     viewLabel.append(view);
     options.append(viewLabel);
@@ -1621,10 +1632,10 @@ function addDashLab(is3D) {
     ? 'Llega a la bandera. Haz clic en la prueba y usa WASD o las flechas. Pulsa Espacio para el dash y R para volver al inicio. En primera y tercera persona, W avanza y A/D te llevan a los lados.'
     : 'Cruza el foso y llega a la bandera. Haz clic en la prueba. Usa A/D o las flechas para moverte, J para saltar, Espacio para el dash y R para volver al inicio.';
   const instructions = element('p', controls);
-  instructions.id = is3D ? 'controles-dash-3d' : 'controles-dash-2d';
+  instructions.id = (is3D ? 'controles-dash-3d' : 'controles-dash-2d') + (comparison ? '-final' : '');
   canvas.setAttribute('aria-describedby', instructions.id);
   lab.append(options, instructions, canvas, status);
-  reading.append(lab);
+  target.append(lab);
 
   const keys = new Set();
   const duration = .16;
@@ -2114,6 +2125,81 @@ function renderLibraryReading(resource, entries) {
   showSources(resource, entries);
 }
 
+const mechanicReviews = {
+  'salto-2d-guia': {
+    prompt: 'Cruza el mismo foso en A y B. Intenta pulsar Espacio justo después de salir del borde. Usa una pulsación larga para comparar el mismo salto.',
+    variants: ['A · Sin tiempo de coyote', 'B · Con 0,10 s de tiempo de coyote'],
+    takeaway: 'El tiempo de coyote amplía el margen para iniciar el salto tras salir del borde. La altura y la trayectoria se mantienen.'
+  },
+  'salto-3d-guia': {
+    prompt: 'Salta hacia la plataforma desplazada en A y B. Fíjate en cuándo puedes saber si estás encima del suelo de llegada antes de tocarlo.',
+    variants: ['A · Sombra visible', 'B · Sombra oculta'],
+    takeaway: 'La sombra da una referencia de dónde caerás cuando estás sobre una plataforma. El salto y el control aéreo funcionan igual en ambas versiones.'
+  },
+  'dash-2d-guia': {
+    prompt: 'Salta hacia el foso y activa el dash manteniendo arriba y derecha. Repite el gesto en A y B y compara cómo llegas al otro lado.',
+    variants: ['A · Dash horizontal', 'B · Dash en ocho direcciones'],
+    takeaway: 'Limitar la dirección cambia qué trayectorias puedes dibujar con el dash. Con impulso diagonal puedes ganar altura, pero avanzas menos en horizontal durante el impulso.'
+  },
+  'dash-3d-guia': {
+    prompt: 'Acércate al muro. Inicia el dash manteniendo derecha y añade arriba durante el impulso. Repite en A y B y mira si puedes corregir el rumbo antes de chocar.',
+    variants: ['A · Rumbo fijo al salir', 'B · Rumbo modificable durante el dash'],
+    takeaway: 'Fijar el rumbo compromete la dirección desde el primer instante. Permitir un giro devuelve parte del control durante el impulso.'
+  }
+};
+
+function addMechanicReview(id, addToIndex) {
+  const review = mechanicReviews[id];
+  const panel = element('section', '', 'prueba-final');
+  const heading = element('h2', 'Prueba final A/B');
+  addToIndex(heading, 'prueba-final');
+  panel.setAttribute('aria-labelledby', heading.id);
+  panel.append(heading, element('p', review.prompt));
+  reading.append(panel);
+
+  if (id.startsWith('dash')) {
+    addDashLab(id === 'dash-3d-guia', panel, review.variants);
+  } else {
+    const select = element('select', '');
+    const label = element('label', 'Versión');
+    for (const variant of review.variants) select.append(element('option', variant));
+    label.append(select);
+    const toolbar = element('div', '', 'ajustes-salto');
+    toolbar.append(label);
+    panel.append(toolbar);
+
+    if (id === 'salto-2d-guia') {
+      const game = document.querySelector('#plantilla-juego-salto').content.firstElementChild.cloneNode(true);
+      const instructions = game.querySelector('#controles-juego-salto');
+      instructions.id += '-final';
+      game.querySelector('canvas').setAttribute('aria-describedby', instructions.id);
+      game.querySelector('.ajustes-salto').hidden = true;
+      game.querySelector('.ayudas-salto').hidden = true;
+      const coyote = game.querySelector('[data-ayuda="coyote"]');
+      const scenario = game.querySelector('[data-escenario-salto]');
+      coyote.checked = false;
+      panel.append(game);
+      addPlayableJump(game, {altura: {value: 2}, subida: {value: .35}, caida: {value: 1}});
+      select.addEventListener('change', () => {
+        coyote.checked = select.selectedIndex === 1;
+        scenario.dispatchEvent(new Event('change'));
+      });
+    } else {
+      const game = addJump3D(panel);
+      const shadow = game.querySelector('[data-sombra-3d]');
+      const scenario = game.querySelector('[data-escenario-3d]');
+      select.addEventListener('change', () => {
+        shadow.checked = select.selectedIndex === 0;
+        scenario.dispatchEvent(new Event('change'));
+      });
+    }
+  }
+
+  const recap = element('details', '', 'prueba-final-resumen');
+  recap.append(element('summary', 'Qué cambia entre A y B'), element('p', review.takeaway));
+  panel.append(recap);
+}
+
 function showReading(entries, archive) {
   const id = params.get('lectura') ?? archive?.id;
   if (!id) return;
@@ -2261,10 +2347,12 @@ function showReading(entries, archive) {
         }
       }
     }
+    if (archiveReading && Object.hasOwn(mechanicReviews, id)) addMechanicReview(id, addToIndex);
     document.querySelector('#catalogo').hidden = true;
   }
   reading.hidden = false;
   document.querySelector('.portada').hidden = true;
+  if (location.hash === '#prueba-final') requestAnimationFrame(() => document.querySelector('#prueba-final')?.scrollIntoView());
 }
 
 const themeButton = document.querySelector('#modo-pagina');

@@ -769,3 +769,18 @@ body { padding-bottom: 60px; }
   border-block-start: 1px solid var(--tema-linea);
 }
 .ruta-inicio > p:last-child { margin-block-end: 0; }
+
+.prueba-final {
+  margin-block: 2rem;
+  padding: clamp(1rem, 3vw, 1.75rem);
+  border: 1px solid var(--linea);
+  border-block-start: 4px solid var(--tono-editorial);
+  background: color-mix(in srgb, var(--papel) 93%, var(--tono-editorial));
+}
+
+.prueba-final h2 { margin-top: 0; }
+.prueba-final .laboratorio-mecanica { margin-block: 1rem; }
+.prueba-final .ajustes-salto[hidden],
+.prueba-final .ayudas-salto[hidden] { display: none; }
+.prueba-final-resumen summary { cursor: pointer; font-weight: 700; }
+.prueba-final-resumen p { margin-block: .5rem 0; }

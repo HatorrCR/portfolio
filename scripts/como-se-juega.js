@@ -2321,6 +2321,7 @@ function showReading(entries, archive) {
         }
       }
     }
+    if (archiveReading && Object.hasOwn(mechanicReviews, id)) addMechanicReview(id, addToIndex);
     const references = showSources(resource, entries);
     if (references && index) addToIndex(references.heading, 'referencias');
     if (resource.subtema) {
@@ -2347,7 +2348,6 @@ function showReading(entries, archive) {
         }
       }
     }
-    if (archiveReading && Object.hasOwn(mechanicReviews, id)) addMechanicReview(id, addToIndex);
     document.querySelector('#catalogo').hidden = true;
   }
   reading.hidden = false;

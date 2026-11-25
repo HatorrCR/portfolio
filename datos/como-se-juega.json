@@ -5917,5 +5917,158 @@
         "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?diseno=niveles&lectura=hitos-orientacion"
       }
     ]
+  },
+  {
+    "id": "diagnostico-habilidad-sin-uso",
+    "titulo": "Nadie usa esta habilidad",
+    "tema": "Dificultad y equilibrio",
+    "formato": "Guía",
+    "editorial": true,
+    "diagnostico": true,
+    "idioma": "Español",
+    "resumen": "Distingue si la habilidad pasa desapercibida, cuesta activarla o aporta poco cuando hace falta.",
+    "cuerpo": "## Qué observar\n\nAnota cuántas veces aparece una situación donde la habilidad serviría. Al acabar, pregunta qué opciones vio el jugador y por qué eligió otra.\n\n## Qué hipótesis probar\n\nSi la conoce pero nunca la activa a tiempo, amplía únicamente su ventana de activación. Si ni siquiera la considera, prueba primero una pista que la relacione con esa situación.\n\n## Cómo medir si mejora\n\nUsa el mismo encuentro para ambos grupos. Divide los usos oportunos entre las oportunidades y registra también los intentos fallidos. Un aumento de pulsaciones accidentales cuenta aparte.",
+    "materiales": [
+      {
+        "nombre": "Comparar opciones situacionales",
+        "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=armas-situacionales"
+      }
+    ]
+  },
+  {
+    "id": "diagnostico-hud-ignorado",
+    "titulo": "Nadie mira el dato importante del HUD",
+    "tema": "Interfaz e interacción",
+    "formato": "Guía",
+    "editorial": true,
+    "diagnostico": true,
+    "idioma": "Español",
+    "resumen": "Comprueba si el indicador llega tarde, compite con otros datos o cuesta interpretarlo en movimiento.",
+    "cuerpo": "## Qué observar\n\nDespués de una acción que dependa del indicador, pregunta qué valor esperaba ver. Registra respuestas y decisiones tardías sin asumir dónde estaba mirando.\n\n## Qué hipótesis probar\n\nMueve solo el indicador cerca del punto donde se toma la decisión. Conserva su tamaño y su contraste para comprobar qué aporta la posición.\n\n## Cómo medir si mejora\n\nCompara cuántas personas reaccionan correctamente al cambio de estado y cuánto tardan desde que aparece. Pregunta después qué señal usaron para distinguir el HUD de otras pistas.",
+    "materiales": [
+      {
+        "nombre": "Revisar la prioridad del HUD",
+        "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=prioridad-hud"
+      }
+    ]
+  },
+  {
+    "id": "diagnostico-tutorial-no-transfiere",
+    "titulo": "Pasan el tutorial y luego olvidan la regla",
+    "tema": "Tutoriales y aprendizaje",
+    "formato": "Guía",
+    "editorial": true,
+    "diagnostico": true,
+    "idioma": "Español",
+    "resumen": "Comprueba si aprendieron cuándo usar la acción o si pudieron avanzar siguiendo el cartel.",
+    "cuerpo": "## Qué observar\n\nPresenta la misma regla más adelante con otro aspecto y sin aviso. Antes de ayudar, anota el primer intento y pregunta qué esperaba que ocurriera.\n\n## Qué hipótesis probar\n\nEn una versión del tutorial, pide aplicar la regla por segunda vez sin mostrar el botón. Conserva el texto inicial y la dificultad del desafío posterior.\n\n## Cómo medir si mejora\n\nMide qué proporción elige la acción por su cuenta en la situación nueva. Registra también si la segunda práctica provoca abandonos en el tutorial.",
+    "materiales": [
+      {
+        "nombre": "Revisar cuándo dar la instrucción",
+        "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=instrucciones-a-tiempo"
+      }
+    ]
+  },
+  {
+    "id": "diagnostico-ataque-injusto",
+    "titulo": "El ataque parece injusto aunque tenga aviso",
+    "tema": "Respuesta y legibilidad",
+    "formato": "Guía",
+    "editorial": true,
+    "diagnostico": true,
+    "idioma": "Español",
+    "resumen": "Separa un aviso que no se distingue de un aviso que se entiende demasiado tarde.",
+    "cuerpo": "## Qué observar\n\nRevisa una grabación de la pelea con quien jugó. Pídele que marque cuándo reconoció el ataque y hacia dónde pensó que debía moverse.\n\n## Qué hipótesis probar\n\nSi reconoce la señal pero reacciona tarde, adelanta solo el inicio del aviso. Si la confunde con otra animación, prueba un cambio de silueta manteniendo los tiempos.\n\n## Cómo medir si mejora\n\nPor cada ataque, anota detección y respuesta correcta por separado. Si mejora la detección y siguen los golpes, comprueba el margen real para esquivar.",
+    "materiales": [
+      {
+        "nombre": "Probar avisos de ataque",
+        "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=avisar-ataques"
+      }
+    ]
+  },
+  {
+    "id": "diagnostico-puzle-ensayo-error",
+    "titulo": "Resuelven el puzle a base de probarlo todo",
+    "tema": "Encuentros y puzles",
+    "formato": "Guía",
+    "editorial": true,
+    "diagnostico": true,
+    "idioma": "Español",
+    "resumen": "Averigua si entienden la relación entre las piezas antes de tocar la siguiente.",
+    "cuerpo": "## Qué observar\n\nPide que predigan qué cambiará al activar una pieza. Separa los intentos que prueban una idea de los que recorren opciones sin explicar por qué.\n\n## Qué hipótesis probar\n\nHaz visible desde la palanca una sola parte de lo que modifica. Mantén intacta la solución y evita añadir texto en esa ronda.\n\n## Cómo medir si mejora\n\nCompara cuántas predicciones aciertan y cuántas acciones repiten sin cambiar de idea. Comprueba si pueden explicar la solución después de encontrarla.",
+    "materiales": [
+      {
+        "nombre": "Revisar cómo el espacio enseña un puzle",
+        "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=ensenar-puzle-espacio"
+      }
+    ]
+  },
+  {
+    "id": "diagnostico-monedas-no-se-gastan",
+    "titulo": "Todo el mundo guarda las monedas",
+    "tema": "Sistemas y economías",
+    "formato": "Guía",
+    "editorial": true,
+    "diagnostico": true,
+    "idioma": "Español",
+    "resumen": "Distingue una compra poco atractiva del miedo a quedarse sin dinero para después.",
+    "cuerpo": "## Qué observar\n\nAl salir de la tienda, pregunta qué compraría la persona con el doble de monedas y para qué está ahorrando. Anota su saldo y las ofertas que consideró.\n\n## Qué hipótesis probar\n\nSi hay una compra que le interesa pero teme necesitar el dinero más adelante, muestra solo cuánto falta para la próxima oportunidad de ganar monedas. Conserva precios y recompensas.\n\n## Cómo medir si mejora\n\nCompara la proporción que compra antes de salir y el saldo restante. Revisa si aumentan las compras que luego lamentan o si solo gastan antes con más seguridad.",
+    "materiales": [
+      {
+        "nombre": "Revisar el valor del oro según el contexto",
+        "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=cofres-de-oro"
+      }
+    ]
+  },
+  {
+    "id": "diagnostico-eleccion-sin-consecuencia",
+    "titulo": "Las decisiones de diálogo parecen dar igual",
+    "tema": "Diseño narrativo",
+    "formato": "Guía",
+    "editorial": true,
+    "diagnostico": true,
+    "idioma": "Español",
+    "resumen": "Comprueba si la elección cambia algo que el jugador puede reconocer y atribuir a lo que hizo.",
+    "cuerpo": "## Qué observar\n\nTras una consecuencia, pregunta qué elección cree que la produjo y qué esperaba cuando la tomó. Registra si la confunde con un acontecimiento fijo.\n\n## Qué hipótesis probar\n\nConserva el desenlace y añade una referencia a la elección anterior en la reacción del personaje. Así puedes probar si el problema está en reconocer el efecto.\n\n## Cómo medir si mejora\n\nCompara cuántas personas vinculan el resultado con la decisión correcta. Pregunta también si creen que otra opción habría cambiado algo concreto.",
+    "materiales": [
+      {
+        "nombre": "Revisar cómo se muestran las consecuencias",
+        "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=decisiones-consecuencias"
+      }
+    ]
+  },
+  {
+    "id": "diagnostico-cooperativo-espectador",
+    "titulo": "En cooperativo, una persona hace todo",
+    "tema": "Dinámicas",
+    "formato": "Guía",
+    "editorial": true,
+    "diagnostico": true,
+    "idioma": "Español",
+    "resumen": "Localiza los momentos en los que un jugador toma las decisiones y el otro solo espera.",
+    "cuerpo": "## Qué observar\n\nCuenta quién inicia cada acción que hace avanzar al grupo. Distingue entre esperar por coordinación y esperar porque no hay ningún papel relevante.\n\n## Qué hipótesis probar\n\nReparte una pista entre ambos jugadores para que cada uno tenga información útil. Mantén el objetivo y el número de acciones necesarias.\n\n## Cómo medir si mejora\n\nCompara cuántas decisiones inicia cada persona y cuánto dura el tramo más largo sin participar. Revisa si la conversación nueva ayuda a resolver el reto o se limita a dictar instrucciones.",
+    "materiales": [
+      {
+        "nombre": "Explorar el reparto de funciones",
+        "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=roles-cooperativos"
+      }
+    ]
+  },
+  {
+    "id": "diagnostico-reinicio-desanima",
+    "titulo": "Tras fallar, la gente deja de intentarlo",
+    "tema": "Jugabilidad y bucles",
+    "formato": "Guía",
+    "editorial": true,
+    "diagnostico": true,
+    "idioma": "Español",
+    "resumen": "Mide cuánto tarda en volver al obstáculo que quería aprender a superar.",
+    "cuerpo": "## Qué observar\n\nCronometra desde el fallo hasta el siguiente intento útil. Separa carga, menús y recorrido repetido. Pregunta a quien abandona qué esperaba que ocurriera al reiniciar.\n\n## Qué hipótesis probar\n\nMueve solo el punto de reinicio al inicio del obstáculo. Mantén sus exigencias, la vida y las reglas del intento.\n\n## Cómo medir si mejora\n\nCompara la proporción que vuelve a intentarlo y el tiempo hasta el siguiente fallo o éxito. Registra si al saltarse el tramo previo pierden una pista necesaria.",
+    "materiales": [
+      {
+        "nombre": "Revisar el coste de volver a intentarlo",
+        "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=reinicio-tras-fallar"
+      }
+    ]
   }
 ]

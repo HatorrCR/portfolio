@@ -4827,5 +4827,235 @@
         "url": "https://www.petoons.com/petoons-party/"
       }
     ]
+  },
+  {
+    "id": "knight-witch-apuntado-opcional",
+    "titulo": "Esquivar proyectiles con la ayuda de apuntado activada",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Team17 presenta el apuntado automático de The Knight Witch como una opción que se puede activar y desactivar. También distingue la ayuda de navegación de la historia principal y otros modificadores.",
+    "cuerpo": "Team17 presenta el apuntado automático de The Knight Witch como una opción que se puede activar y desactivar. También distingue la ayuda de navegación de la historia principal y otros modificadores.\n\n## Puntos clave\n\nUna ayuda de apuntado puede liberar atención para seguir los proyectiles y buscar una salida. Su efecto depende de qué aspecto del combate le cuesta a cada persona.\n\n## Ejemplo de análisis\n\nRepite una sala con varios enemigos usando el mismo equipo. Registra los golpes recibidos mientras intentas apuntar y las veces que quieres priorizar otro objetivo. Compara ambos registros con la ayuda activada y desactivada.",
+    "referencia": "Team17 y Super Mega Team. Página oficial, apartado Play your way.",
+    "fuente": "https://www.team17.com/games/the-knight-witch",
+    "juegos": [
+      {
+        "nombre": "The Knight Witch",
+        "observacion": "Una ayuda de apuntado puede liberar atención para seguir los proyectiles y buscar una salida. Su efecto depende de qué aspecto del combate le cuesta a cada persona."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar las ayudas descritas por Team17",
+        "url": "https://www.team17.com/games/the-knight-witch"
+      }
+    ]
+  },
+  {
+    "id": "megamagic-catalan-menu-contexto",
+    "titulo": "Incluir el catalán en el grimorio y en los subtítulos",
+    "tema": "Localización",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "La ficha de Megamagic enumera el catalán y el castellano entre los idiomas de interfaz y subtítulos. El juego organiza los hechizos y criaturas convocables en un grimorio que va creciendo.",
+    "cuerpo": "La ficha de Megamagic enumera el catalán y el castellano entre los idiomas de interfaz y subtítulos. El juego organiza los hechizos y criaturas convocables en un grimorio que va creciendo.\n\n## Puntos clave\n\nCuando una interfaz y sus subtítulos comparten vocabulario, el jugador puede relacionar una explicación con la opción que debe consultar. Conviene revisar esa correspondencia cada vez que se localiza un nombre recurrente.\n\n## Ejemplo de análisis\n\nSelecciona catalán y escoge una escuela de magia. Apunta cómo aparece nombrada en el grimorio y busca el mismo término en un diálogo o explicación del juego. Haz la misma comprobación en castellano y compara si ambas versiones permiten identificar la opción.",
+    "referencia": "BeautiFun Games. Ficha oficial en Steam.",
+    "fuente": "https://store.steampowered.com/app/422650/Megamagic_Wizards_of_the_Neon_Age/",
+    "juegos": [
+      {
+        "nombre": "Megamagic: Wizards of the Neon Age",
+        "observacion": "Cuando una interfaz y sus subtítulos comparten vocabulario, el jugador puede relacionar una explicación con la opción que debe consultar. Conviene revisar esa correspondencia cada vez que se localiza un nombre recurrente."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial con tráiler y capturas",
+        "url": "https://store.steampowered.com/app/422650/Megamagic_Wizards_of_the_Neon_Age/"
+      }
+    ]
+  },
+  {
+    "id": "tape-camara-memoria",
+    "titulo": "Una cámara familiar permite intervenir en el recuerdo",
+    "tema": "Diseño narrativo",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Iria recibe una cinta de su padre y usa la antigua cámara de este para avanzar, retroceder o detener objetos dentro de sus recuerdos. BlackChiliGoat vincula la historia con la Galicia de los noventa y el cine de terror.",
+    "cuerpo": "Iria recibe una cinta de su padre y usa la antigua cámara de este para avanzar, retroceder o detener objetos dentro de sus recuerdos. BlackChiliGoat vincula la historia con la Galicia de los noventa y el cine de terror.\n\n## Puntos clave\n\nLa cámara tiene un vínculo previo con la persona a la que buscas. Usarla para intervenir en un recuerdo permite que un mismo objeto conecte la acción del jugador con la pregunta narrativa sobre el padre.\n\n## Ejemplo de análisis\n\nEscoge una escena en la que la cámara te dé acceso a otra parte del espacio. Apunta qué esperabas descubrir antes de manipular el objeto y qué entiendes después sobre Iria o su padre. Si solo cambia el paso disponible, registra ese efecto por separado.",
+    "referencia": "BlackChiliGoat Studio y Meridiem Games. Ficha oficial en Steam.",
+    "fuente": "https://store.steampowered.com/app/1910320/TAPE_Unveil_the_Memories/",
+    "juegos": [
+      {
+        "nombre": "TAPE: Unveil the Memories",
+        "observacion": "La cámara tiene un vínculo previo con la persona a la que buscas. Usarla para intervenir en un recuerdo permite que un mismo objeto conecte la acción del jugador con la pregunta narrativa sobre el padre."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial con tráiler y capturas",
+        "url": "https://store.steampowered.com/app/1910320/TAPE_Unveil_the_Memories/"
+      }
+    ]
+  },
+  {
+    "id": "mika-entregas-escobas-bucle",
+    "titulo": "Repartir encargos para cambiar cómo vuelas",
+    "tema": "Jugabilidad y bucles",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Mika entrega paquetes y cobra por el servicio. Los ingresos permiten comprar escobas con distintas capacidades de vuelo mientras avanza hacia la cima de Mont Gaun.",
+    "cuerpo": "Mika entrega paquetes y cobra por el servicio. Los ingresos permiten comprar escobas con distintas capacidades de vuelo mientras avanza hacia la cima de Mont Gaun.\n\n## Puntos clave\n\nEl reparto genera una recompensa que interviene en el siguiente reparto. Una escoba nueva puede cambiar qué ruta resulta atractiva y dónde compensa desviarse.\n\n## Ejemplo de análisis\n\nAntes de comprar una escoba, dibuja el trayecto de un encargo desde la recogida hasta la entrega. Con la nueva, traza el mismo recorrido aunque el paquete ya esté entregado y marca qué obstáculo te exige una maniobra diferente.",
+    "referencia": "Chibig y Nukefist. Ficha oficial en Steam.",
+    "fuente": "https://store.steampowered.com/app/1819460/",
+    "juegos": [
+      {
+        "nombre": "Mika and The Witch's Mountain",
+        "observacion": "El reparto genera una recompensa que interviene en el siguiente reparto. Una escoba nueva puede cambiar qué ruta resulta atractiva y dónde compensa desviarse."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial con tráiler y capturas",
+        "url": "https://store.steampowered.com/app/1819460/"
+      }
+    ]
+  },
+  {
+    "id": "clid-jefes-armas-posicion",
+    "titulo": "Elegir arma según dónde deja colocarte un jefe",
+    "tema": "Dificultad y equilibrio",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Weird Beluga describe jefes al final de las misiones de Clid The Snail y recomienda estudiar su comportamiento y escoger el armamento en función del encuentro.",
+    "cuerpo": "Weird Beluga describe jefes al final de las misiones de Clid The Snail y recomienda estudiar su comportamiento y escoger el armamento en función del encuentro.\n\n## Puntos clave\n\nLa dificultad de un arma se aprecia durante las ventanas de ataque. Dos armas pueden causar un daño similar y exigir posiciones muy distintas justo antes de que el jefe vuelva a moverse.\n\n## Ejemplo de análisis\n\nDurante dos intentos contra un mismo jefe, usa dos armas y registra dónde estabas al comenzar cada ataque. Anota en qué ventanas disparaste con seguridad y cuáles dejaste pasar para poder esquivar.",
+    "referencia": "Weird Beluga Studio y PLAION. Ficha oficial en Steam.",
+    "fuente": "https://store.steampowered.com/app/1597580/",
+    "juegos": [
+      {
+        "nombre": "Clid The Snail",
+        "observacion": "La dificultad de un arma se aprecia durante las ventanas de ataque. Dos armas pueden causar un daño similar y exigir posiciones muy distintas justo antes de que el jefe vuelva a moverse."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial con tráiler y capturas",
+        "url": "https://store.steampowered.com/app/1597580/"
+      }
+    ]
+  },
+  {
+    "id": "friends-vs-friends-mazo-habilidad",
+    "titulo": "Armar un mazo alrededor de una habilidad pasiva",
+    "tema": "Dinámicas",
+    "formato": "Artículo",
+    "idioma": "Español",
+    "resumen": "Friends vs Friends mezcla disparos y construcción de mazos. Sus personajes tienen habilidades pasivas y las cartas incluyen armas, trampas y penalizaciones.",
+    "cuerpo": "Friends vs Friends mezcla disparos y construcción de mazos. Sus personajes tienen habilidades pasivas y las cartas incluyen armas, trampas y penalizaciones.\n\n## Puntos clave\n\nUna sinergia se aprecia cuando cambia el momento en que quieres usar una carta o el encuentro en el que decides guardarla. Eso permite distinguir el efecto sobre tu manera de jugar de una simple mejora en resultados.\n\n## Ejemplo de análisis\n\nJuega contra bots con el mismo mazo y dos personajes distintos. Elige una carta que esperes aprovechar con la pasiva de uno de ellos y anota si la reservas para otra situación o si repites la misma pauta.",
+    "referencia": "Brainwash Gang y Raw Fury. Ficha oficial en Steam.",
+    "fuente": "https://store.steampowered.com/app/1785150/Friends_vs_Friends/?l=spanish",
+    "juegos": [
+      {
+        "nombre": "Friends vs Friends",
+        "observacion": "Una sinergia se aprecia cuando cambia el momento en que quieres usar una carta o el encuentro en el que decides guardarla. Eso permite distinguir el efecto sobre tu manera de jugar de una simple mejora en resultados."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial con tráiler y capturas",
+        "url": "https://store.steampowered.com/app/1785150/Friends_vs_Friends/?l=spanish"
+      }
+    ]
+  },
+  {
+    "id": "professor-lupo-aprender-alien",
+    "titulo": "Predecir cómo reaccionará el alien antes de atraerlo",
+    "tema": "Tutoriales y aprendizaje",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "BeautiFun presenta la conducta de los alienígenas como algo que el jugador puede aprender y usar a su favor. Algunos pasan de parecer inofensivos a ser letales cuando detectan a un humano cerca.",
+    "cuerpo": "BeautiFun presenta la conducta de los alienígenas como algo que el jugador puede aprender y usar a su favor. Algunos pasan de parecer inofensivos a ser letales cuando detectan a un humano cerca.\n\n## Puntos clave\n\nLa comprensión se puede comprobar antes de ejecutar el plan. Si alguien anticipa la reacción de una criatura a partir de un encuentro previo, ya puede llevar esa regla a otra sala.\n\n## Ejemplo de análisis\n\nUsa la demo y localiza dos momentos en los que se repita una conducta. Antes del segundo, pide a otra persona que señale dónde espera que vaya la criatura al acercarse. Anota si puede explicar cómo usaría ese movimiento para escapar.",
+    "referencia": "BeautiFun Games. Ficha oficial en Steam.",
+    "fuente": "https://store.steampowered.com/app/741520/Professor_Lupo_and_his_Horrible_Pets/",
+    "juegos": [
+      {
+        "nombre": "Professor Lupo and his Horrible Pets",
+        "observacion": "La comprensión se puede comprobar antes de ejecutar el plan. Si alguien anticipa la reacción de una criatura a partir de un encuentro previo, ya puede llevar esa regla a otra sala."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial, tráiler y demo",
+        "url": "https://store.steampowered.com/app/741520/Professor_Lupo_and_his_Horrible_Pets/"
+      }
+    ]
+  },
+  {
+    "id": "ugly-intercambio-reflejo",
+    "titulo": "Preparar el lugar al que te llevará el reflejo",
+    "tema": "Encuentros y puzles",
+    "formato": "Artículo",
+    "idioma": "Español",
+    "resumen": "Ugly permite generar un reflejo e intercambiar la posición del protagonista con él. La ficha oficial describe salas que admiten varias soluciones.",
+    "cuerpo": "Ugly permite generar un reflejo e intercambiar la posición del protagonista con él. La ficha oficial describe salas que admiten varias soluciones.\n\n## Puntos clave\n\nUna vez entendido el intercambio, el problema pasa a ser preparar un destino. El jugador tiene que leer la geometría desde dos posiciones y decidir en cuál quiere acabar antes de pulsar.\n\n## Ejemplo de análisis\n\nEn una sala con un obstáculo, pausa antes de intercambiarte. Señala la casilla o superficie a la que esperas llegar y explica qué posición del reflejo lo permite. Después prueba otro punto de partida y compara qué cambia.",
+    "referencia": "Team Ugly y Graffiti Games. Ficha oficial en Steam.",
+    "fuente": "https://store.steampowered.com/app/1983220/Ugly/?l=spanish",
+    "juegos": [
+      {
+        "nombre": "Ugly",
+        "observacion": "Una vez entendido el intercambio, el problema pasa a ser preparar un destino. El jugador tiene que leer la geometría desde dos posiciones y decidir en cuál quiere acabar antes de pulsar."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial con tráiler y capturas",
+        "url": "https://store.steampowered.com/app/1983220/Ugly/?l=spanish"
+      }
+    ]
+  },
+  {
+    "id": "kemono-heroes-lectura-cooperativa",
+    "titulo": "Seguir a tu personaje cuando todos atacan",
+    "tema": "Respuesta y legibilidad",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Kemono Heroes combina ataques, desplazamientos rápidos y cooperativo local. Esa combinación permite estudiar qué señales ayudan a seguir a cada personaje durante la acción.",
+    "cuerpo": "Kemono Heroes combina ataques, desplazamientos rápidos y cooperativo local. Esa combinación permite estudiar qué señales ayudan a seguir a cada personaje durante la acción.\n\n## Puntos clave\n\nUna animación puede ser clara cuando el personaje está solo y perderse al coincidir con otros movimientos. Lo que interesa es saber quién se desplazó y dónde terminó para poder decidir qué hacer después.\n\n## Ejemplo de análisis\n\nCompara un tramo en solitario y en pareja. Pausa en momentos con ataques simultáneos y pide a quien observa que identifique a cada personaje y su dirección. Anota si se guía por la silueta, la posición previa o el movimiento.",
+    "referencia": "Mad Gear Games y JanduSoft. Ficha oficial en Steam.",
+    "fuente": "https://store.steampowered.com/app/2787700/Kemono_Heroes/",
+    "juegos": [
+      {
+        "nombre": "Kemono Heroes",
+        "observacion": "Una animación puede ser clara cuando el personaje está solo y perderse al coincidir con otros movimientos. Lo que interesa es saber quién se desplazó y dónde terminó para poder decidir qué hacer después."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial con tráiler y capturas",
+        "url": "https://store.steampowered.com/app/2787700/Kemono_Heroes/"
+      }
+    ]
+  },
+  {
+    "id": "aurora-minijuegos-equipo",
+    "titulo": "Convertir el dinero de un minijuego en equipo para la aventura",
+    "tema": "Sistemas y economías",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "La aventura de Aurora permite ganar dinero mediante minijuegos y gastarlo en mejorar el equipo para los tramos de acción.",
+    "cuerpo": "La aventura de Aurora permite ganar dinero mediante minijuegos y gastarlo en mejorar el equipo para los tramos de acción.\n\n## Puntos clave\n\nEsta conexión da consecuencias fuera del minijuego a una actividad con sus propias reglas. El diseño puede evaluarse atendiendo a cuándo apetece volver a jugar y qué mejora justifica ese tiempo.\n\n## Ejemplo de análisis\n\nEscoge una mejora concreta y apunta su precio, cuánto dinero tenías y cuántas partidas de un minijuego necesitas para pagarla. Tras comprarla, registra en qué momento de un tramo de acción te resulta útil.",
+    "referencia": "Ficha oficial de Aurora's Journey and the Pitiful Lackey en Steam.",
+    "fuente": "https://store.steampowered.com/app/1808570/",
+    "juegos": [
+      {
+        "nombre": "Aurora's Journey and the Pitiful Lackey",
+        "observacion": "Esta conexión da consecuencias fuera del minijuego a una actividad con sus propias reglas. El diseño puede evaluarse atendiendo a cuándo apetece volver a jugar y qué mejora justifica ese tiempo."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Ficha oficial con tráiler y capturas",
+        "url": "https://store.steampowered.com/app/1808570/"
+      }
+    ]
   }
 ]

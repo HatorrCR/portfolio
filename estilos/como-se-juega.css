@@ -690,3 +690,43 @@ body { padding-bottom: 60px; }
 @media (max-width: 600px) {
   .ejemplos-decisiones-rejilla { grid-template-columns: minmax(0, 1fr); }
 }
+
+.ejemplos-decisiones-rejilla > .ejemplo-decision {
+  --tarjeta-fondo: #e8def7;
+  --tarjeta-velo: #f8f3fd;
+  --tarjeta-tinta: #2f1d48;
+  --tarjeta-acento: #644586;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .55rem;
+  min-block-size: 12rem;
+  padding: 1rem;
+  border: 1px solid color-mix(in srgb, var(--tarjeta-acento) 35%, var(--tarjeta-fondo));
+  border-block-start: 4px solid var(--tarjeta-acento);
+  border-radius: 12px;
+  background: radial-gradient(circle at 105% -15%, var(--tarjeta-fondo) 0 30%, transparent 30.5%), var(--tarjeta-velo);
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--tarjeta-acento) 24%, var(--papel));
+}
+.ejemplos-decisiones-rejilla > .ejemplo-decision:nth-child(2) { --tarjeta-fondo: #cfe4f1; --tarjeta-velo: #eff7fb; --tarjeta-tinta: #142f42; --tarjeta-acento: #306587; }
+.ejemplos-decisiones-rejilla > .ejemplo-decision:nth-child(3) { --tarjeta-fondo: #d9e7ca; --tarjeta-velo: #f1f7e9; --tarjeta-tinta: #26391c; --tarjeta-acento: #4d6a35; }
+.ejemplos-decisiones-rejilla > .ejemplo-decision:nth-child(4) { --tarjeta-fondo: #f3d5cd; --tarjeta-velo: #fff2ee; --tarjeta-tinta: #4b241f; --tarjeta-acento: #903e37; }
+
+.ejemplo-decision h4 { margin: 0; font: 700 1.2rem/1.2 var(--titulares); }
+.ejemplo-decision :is(p, a) { color: var(--tarjeta-tinta); }
+.ejemplo-decision .meta {
+  padding: .2rem .55rem;
+  border-radius: .6rem;
+  background: var(--tarjeta-fondo);
+  font-size: .72rem;
+}
+.ejemplo-decision h4 a::after { position: absolute; inset: 0; border-radius: 12px; content: ''; }
+.ejemplo-decision:hover h4 a { text-decoration-thickness: 2px; }
+.ejemplo-decision:focus-within { outline: 2px solid var(--tarjeta-acento); outline-offset: 3px; }
+
+[data-tema="oscuro"] .ejemplos-decisiones-rejilla > .ejemplo-decision:nth-child(1) { --tarjeta-fondo: #443359; --tarjeta-velo: #30233f; --tarjeta-tinta: #f6eaff; --tarjeta-acento: #cba9ef; }
+[data-tema="oscuro"] .ejemplos-decisiones-rejilla > .ejemplo-decision:nth-child(2) { --tarjeta-fondo: #28475d; --tarjeta-velo: #1d3446; --tarjeta-tinta: #e5f6ff; --tarjeta-acento: #a1cfe9; }
+[data-tema="oscuro"] .ejemplos-decisiones-rejilla > .ejemplo-decision:nth-child(3) { --tarjeta-fondo: #3d5032; --tarjeta-velo: #2b3c25; --tarjeta-tinta: #eff9e5; --tarjeta-acento: #bddb9e; }
+[data-tema="oscuro"] .ejemplos-decisiones-rejilla > .ejemplo-decision:nth-child(4) { --tarjeta-fondo: #5d3733; --tarjeta-velo: #452c29; --tarjeta-tinta: #ffece8; --tarjeta-acento: #f0ae9f; }

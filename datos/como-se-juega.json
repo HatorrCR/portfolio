@@ -5897,5 +5897,24 @@
         "url": "https://www.gamedeveloper.com/design/-indie-dev-story-postmortem"
       }
     ]
+  },
+  {
+    "id": "diagnostico-jugadores-se-pierden",
+    "titulo": "Mis jugadores se pierden",
+    "tema": "Espacios y recorridos",
+    "formato": "Guía",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Si alguien vuelve tres veces al mismo cruce, averigua si ha olvidado el objetivo, si no reconoce el lugar o si interpreta mal la salida.",
+    "cuerpo": "## Qué observar\n\nDa un objetivo concreto y observa sin señalar el camino. Anota el primer cruce en el que duda, la salida que toma y dónde decide volver atrás. Después pregúntale adónde quería ir y qué esperaba encontrar por esa salida. Una vuelta voluntaria para explorar cuenta aparte.\n\n## Qué hipótesis probar\n\nSi recuerda el objetivo pero confunde dos cruces, prueba un hito que distinga uno de ellos. Si reconoce el cruce pero va sistemáticamente hacia otra puerta, comprueba qué sugiere esa puerta. Puede parecer la salida principal por su tamaño o su luz. Si ha olvidado el objetivo, prueba un recordatorio en el momento en que tiene que elegir.\n\n## Cómo medir si mejora\n\nHaz dos versiones del primer cruce problemático. Cambia solo una pista, por ejemplo, la visibilidad de la torre desde el cruce. Da la misma tarea a ambos grupos y asigna una sola versión a cada persona para evitar que recuerde la ruta. Cuenta cuántas toman la salida que buscaban al primer intento y cuántas regresan al cruce sin haber encontrado el destino. Pregunta qué señal les hizo elegir.\n\n## Ejemplo\n\nSi la torre ayuda a llegar a la plaza pero la gente sigue confundiendo el último cruce al volver a casa, ya tienes dos problemas distintos. Conserva la torre y prueba en otra ronda un hito local cerca del giro de vuelta. Puedes ensayar la diferencia en el laboratorio de Hitos y orientación.",
+    "fuentes": [
+      "nivel-wayfinding"
+    ],
+    "materiales": [
+      {
+        "nombre": "Probar Hitos y orientación",
+        "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?diseno=niveles&lectura=hitos-orientacion"
+      }
+    ]
   }
 ]

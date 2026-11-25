@@ -5417,5 +5417,485 @@
         "url": "https://www.youtube.com/watch?v=ry3sXfJNVAg"
       }
     ]
+  },
+  {
+    "id": "factorio-tuberias-predecibles",
+    "titulo": "Cuando el orden de construcción cambia el caudal",
+    "tema": "Sistemas y economías",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Wube Software rehízo los fluidos para que una red de tuberías se pudiera entender sin consultar una tabla externa.",
+    "cuerpo": "## Qué decidió el equipo\n\nEl nuevo modelo agrupa las tuberías conectadas en segmentos y hace que el fluido esté disponible en todo el segmento, con extracción ligada a su nivel de llenado.\n\n## Qué salió mal\n\nEn el modelo anterior, la longitud reducía el caudal de forma difícil de predecir y dos ramales podían recibir cantidades distintas según el orden en que se construyeran.\n\n## Pruébalo en tu juego\n\nConstruye dos redes simétricas en orden inverso. Mide el reparto en ambas y pide a alguien que prediga qué máquina se quedará sin suministro.",
+    "referencia": "Wube Software. Friday Facts #416 – Fluids 2.0. factorio.com.",
+    "fuente": "https://www.factorio.com/blog/post/fff-416",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Factorio",
+        "observacion": "El nuevo modelo agrupa las tuberías conectadas en segmentos y hace que el fluido esté disponible en todo el segmento, con extracción ligada a su nivel de llenado."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://www.factorio.com/blog/post/fff-416"
+      }
+    ]
+  },
+  {
+    "id": "factorio-petroleo-primera-refineria",
+    "titulo": "Dejar los subproductos para la refinería avanzada",
+    "tema": "Tutoriales y aprendizaje",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Wube Software revisó la primera receta de petróleo y las tecnologías que dependen de ella.",
+    "cuerpo": "## Qué decidió el equipo\n\nLa receta básica pasó a producir solo gas de petróleo. La gestión de varias salidas quedó en el refinado avanzado y la receta de ciencia química pasó a usar azufre.\n\n## Qué salió mal\n\nEl salto tecnológico pedía gestionar productos para los que todavía había pocos usos. Un excedente podía bloquear el proceso antes de que el jugador aprendiera a aprovecharlo.\n\n## Pruébalo en tu juego\n\nDiseña dos recetas iniciales, una con salida única y otra con un residuo obligatorio. Observa si un principiante identifica por su cuenta por qué deja de producir la segunda.",
+    "referencia": "Wube Software. Friday Facts #305 – The Oil Changes. direct.factorio.com.",
+    "fuente": "https://direct.factorio.com/blog/post/fff-305",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Factorio",
+        "observacion": "La receta básica pasó a producir solo gas de petróleo. La gestión de varias salidas quedó en el refinado avanzado y la receta de ciencia química pasó a usar azufre."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://direct.factorio.com/blog/post/fff-305"
+      }
+    ]
+  },
+  {
+    "id": "stellaris-comercio-sin-rutas",
+    "titulo": "Convertir una ruta difícil de leer en un recurso",
+    "tema": "Sistemas y economías",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Paradox Development Studio retiró las rutas comerciales de Stellaris 4.0 y convirtió el comercio en un recurso que se puede acumular.",
+    "cuerpo": "## Qué decidió el equipo\n\nEl cambio sustituye el trazado de rutas por una cantidad disponible para gastar o almacenar.\n\n## Qué salió mal\n\nEl estudio describe el sistema anterior como difícil de usar y como un coste para el rendimiento. El rediseño cambia las decisiones sobre trayectos por decisiones sobre gasto y reservas.\n\n## Pruébalo en tu juego\n\nCompara dos prototipos de comercio. En uno conecta nodos y en el otro asigna un saldo. Pregunta por qué faltan recursos y mide cuánto tarda cada persona en identificar la causa.",
+    "referencia": "Paradox Development Studio. Stellaris Update 4.0. paradoxinteractive.com.",
+    "fuente": "https://www.paradoxinteractive.com/games/stellaris/news/stellaris-update-4-0",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Stellaris",
+        "observacion": "El cambio sustituye el trazado de rutas por una cantidad disponible para gastar o almacenar."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://www.paradoxinteractive.com/games/stellaris/news/stellaris-update-4-0"
+      }
+    ]
+  },
+  {
+    "id": "humankind-capitulacion-legible",
+    "titulo": "Dar aviso antes de que una guerra se cierre",
+    "tema": "Respuesta y legibilidad",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Amplitude Studios revisó en la beta Achilles cómo el apoyo bélico y la rendición marcan el final de una guerra.",
+    "cuerpo": "## Qué decidió el equipo\n\nLa beta buscó relacionar demandas, territorio ocupado y condiciones de rendición de forma más clara. Una revisión posterior limitó la pérdida gradual de apoyo causada por un rival que ya había llegado a cero.\n\n## Qué salió mal\n\nEl cierre podía sorprender al jugador. La revisión de la beta también documentó que la penalización inicial escalaba con tanta fuerza que un rival en mala posición podía usarla en su favor.\n\n## Pruébalo en tu juego\n\nPide a dos personas que predigan el final de una guerra mirando solo su interfaz. Registra cuándo entienden que se acerca la rendición y qué condiciones creen que podrán exigir.",
+    "referencia": "Amplitude Studios. Beta – Achilles Update. community.amplitude-studios.com.",
+    "fuente": "https://community.amplitude-studios.com/amplitude-studios/humankind/blogs/960-beta-achilles-update",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Humankind",
+        "observacion": "La beta buscó relacionar demandas, territorio ocupado y condiciones de rendición de forma más clara. Una revisión posterior limitó la pérdida gradual de apoyo causada por un rival que ya había llegado a cero."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://community.amplitude-studios.com/amplitude-studios/humankind/blogs/960-beta-achilles-update"
+      }
+    ]
+  },
+  {
+    "id": "ftl-descartar-multijugador",
+    "titulo": "Descartar el multijugador cuando se pierde el foco",
+    "tema": "Prototipado y pruebas",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Matthew Davis y Justin Ma explicaron cómo usaron la sensación de dirigir una nave para decidir qué conservar de su prototipo.",
+    "cuerpo": "## Qué decidió el equipo\n\nSubset Games evaluó las ideas según lo que aportaban a esa experiencia. Entre las que abandonó estaban las funciones multijugador que no encajaban con el planteamiento.\n\n## Qué salió mal\n\nEl proyecto empezó sin género, ritmo ni alcance fijados y con una previsión de tres meses. Cuando creció, algunas ideas que interesaban al equipo dejaron de encajar con lo que estaba construyendo.\n\n## Pruébalo en tu juego\n\nDescribe qué quieres que alguien decida durante treinta segundos de juego. Prueba una función nueva y comprueba si aparecen más decisiones de ese tipo o si la atención se desplaza.",
+    "referencia": "Matthew Davis y Justin Ma. Designing without a pitch – An FTL postmortem. gamedeveloper.com.",
+    "fuente": "https://www.gamedeveloper.com/design/designing-without-a-pitch---an-em-ftl-em-postmortem",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "FTL: Faster Than Light",
+        "observacion": "Subset Games evaluó las ideas según lo que aportaban a esa experiencia. Entre las que abandonó estaban las funciones multijugador que no encajaban con el planteamiento."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://www.gamedeveloper.com/design/designing-without-a-pitch---an-em-ftl-em-postmortem"
+      }
+    ]
+  },
+  {
+    "id": "catlateral-repetir-habitaciones",
+    "titulo": "Generar habitaciones antes de cerrar el objetivo",
+    "tema": "Jugabilidad y bucles",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Chris Chung cambió las habitaciones diseñadas a mano por generación procedural cuando vio que volver a jugar podía perder interés.",
+    "cuerpo": "## Qué decidió el equipo\n\nEl cambio permitió recombinar habitaciones y objetos. Durante el desarrollo también abrió la puerta a probar una estructura con objetivos y mejoras aleatorias.\n\n## Qué salió mal\n\nEl postmortem reconoce que decisiones centrales sobre el bucle y la progresión se tomaron tarde. El cambio de estructura dejó piezas que no siempre encajaban entre sí.\n\n## Pruébalo en tu juego\n\nPrueba una habitación fija y otra que varíe al reiniciar. Tras dos partidas, pregunta qué intentaría hacer distinto la tercera vez y separa respuestas sobre el espacio de las que hablan del objetivo.",
+    "referencia": "Chris Chung. Postmortem: Chris Chung’s Catlateral Damage. gamedeveloper.com.",
+    "fuente": "https://www.gamedeveloper.com/audio/postmortem-chris-chung-s-catlateral-damage",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Catlateral Damage",
+        "observacion": "El cambio permitió recombinar habitaciones y objetos. Durante el desarrollo también abrió la puerta a probar una estructura con objetivos y mejoras aleatorias."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://www.gamedeveloper.com/audio/postmortem-chris-chung-s-catlateral-damage"
+      }
+    ]
+  },
+  {
+    "id": "psychonauts-guion-niveles",
+    "titulo": "Cuando colocar disparadores se convierte en programar escenas",
+    "tema": "Prototipado y pruebas",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Caroline Esmurdoc cuenta cómo Double Fine reorganizó el trabajo de programación de escenas en el primer Psychonauts.",
+    "cuerpo": "## Qué decidió el equipo\n\nEl estudio incorporó programadores de jugabilidad para reescribir los scripts Lua y montó pruebas internas para detectar regresiones al integrar cambios.\n\n## Qué salió mal\n\nEl plan inicial trataba los eventos como una tarea de colocar disparadores. Las escenas acabaron necesitando lógica mucho más compleja y el código inicial resultó difícil de estabilizar.\n\n## Pruébalo en tu juego\n\nPrototipa una escena con un evento, una interrupción y un reinicio. Anota cuántos estados necesita y quién los puede cambiar antes de decidir cómo repartir el trabajo.",
+    "referencia": "Caroline Esmurdoc. Classic Postmortem: Double Fine’s Psychonauts. gamedeveloper.com.",
+    "fuente": "https://www.gamedeveloper.com/audio/classic-postmortem-double-fine-s-i-psychonauts-i-",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Psychonauts",
+        "observacion": "El estudio incorporó programadores de jugabilidad para reescribir los scripts Lua y montó pruebas internas para detectar regresiones al integrar cambios."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://www.gamedeveloper.com/audio/classic-postmortem-double-fine-s-i-psychonauts-i-"
+      }
+    ]
+  },
+  {
+    "id": "siege-temblores-acumulados",
+    "titulo": "Bajar la sacudida cuando coinciden varias explosiones",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Ubisoft redujo la sacudida de cámara de las explosiones y la retiró de algunos dispositivos.",
+    "cuerpo": "## Qué decidió el equipo\n\nLa revisión ajustó la respuesta visual según el origen del efecto. Parte de las acciones conservaron una sacudida más suave y otras dejaron de producirla.\n\n## Qué salió mal\n\nUbisoft reconoció que el efecto podía resultar incómodo y que la intensidad aumentaba especialmente cuando coincidían varias fuentes.\n\n## Pruébalo en tu juego\n\nCompara una explosión aislada con varias simultáneas. Repite limitando la sacudida acumulada y comprueba si la dirección del peligro se sigue identificando.",
+    "referencia": "Ubisoft. Top Issues and Community Concerns. ubisoft.com.",
+    "fuente": "https://www.ubisoft.com/en-au/game/rainbow-six/siege/news-updates/1YPQ5yw9TaRhQwghjStqn2/top-issues-and-community-concerns",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Tom Clancy’s Rainbow Six Siege",
+        "observacion": "La revisión ajustó la respuesta visual según el origen del efecto. Parte de las acciones conservaron una sacudida más suave y otras dejaron de producirla."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://www.ubisoft.com/en-au/game/rainbow-six/siege/news-updates/1YPQ5yw9TaRhQwghjStqn2/top-issues-and-community-concerns"
+      }
+    ]
+  },
+  {
+    "id": "lol-miticos-opciones",
+    "titulo": "Retirar la compra que fijaba el resto de la partida",
+    "tema": "Sistemas y economías",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "El responsable de diseño de jugabilidad de League of Legends explica por qué Riot Games decidió retirar la categoría de objetos míticos.",
+    "cuerpo": "## Qué decidió el equipo\n\nRiot anunció la retirada para la temporada 2024. Una de las metas era que el sistema de objetos pudiera responder a perfiles de campeón diferentes con menos rigidez.\n\n## Qué salió mal\n\nEl sistema funcionaba para algunas clases, pero costaba satisfacer a otras con necesidades más dispares. Añadir míticos para cada subclase también aumentaba la complejidad de toda la tienda.\n\n## Pruébalo en tu juego\n\nDa a tres personajes necesidades distintas y prueba una tienda con una compra principal obligatoria y otra sin ella. Anota en qué momento sus rutas de compra se vuelven iguales.",
+    "referencia": "El responsable de diseño de jugabilidad de League of Legends. Quick Gameplay Thoughts: Addressing Mythics. leagueoflegends.com.",
+    "fuente": "https://www.leagueoflegends.com/en-ph/news/dev/quick-gameplay-thoughts-addressing-mythics/",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "League of Legends",
+        "observacion": "Riot anunció la retirada para la temporada 2024. Una de las metas era que el sistema de objetos pudiera responder a perfiles de campeón diferentes con menos rigidez."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://www.leagueoflegends.com/en-ph/news/dev/quick-gameplay-thoughts-addressing-mythics/"
+      }
+    ]
+  },
+  {
+    "id": "overwatch-tamano-colas",
+    "titulo": "Cambiar el tamaño del equipo para mover la cola",
+    "tema": "Dinámicas",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Aaron Keller explica cómo los tiempos de espera influyeron en el paso de seis a cinco jugadores por equipo y por qué el estudio volvió a probar el 6 contra 6.",
+    "cuerpo": "## Qué decidió el equipo\n\nOverwatch pasó a equipos de cinco. Más tarde, el estudio abrió una temporada competitiva limitada para volver a observar equipos de seis con cola por rol.\n\n## Qué salió mal\n\nEl tamaño del equipo condiciona cuántas personas hacen falta de cada rol para iniciar partida. Keller identifica las esperas como uno de los motivos principales del cambio original.\n\n## Pruébalo en tu juego\n\nSimula una cola con la misma proporción de roles y dos composiciones de equipo. Registra qué rol limita la salida de partidas y quién acumula más espera.",
+    "referencia": "Aaron Keller. Director’s Take: 5v5 and 6v6, Better Together. overwatch.blizzard.com.",
+    "fuente": "https://overwatch.blizzard.com/en-us/news/24316733/message-du-directeur-du-jeu-5c5-et-6c6-complementaires-plutot-que-concurrents/",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Overwatch 2",
+        "observacion": "Overwatch pasó a equipos de cinco. Más tarde, el estudio abrió una temporada competitiva limitada para volver a observar equipos de seis con cola por rol."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://overwatch.blizzard.com/en-us/news/24316733/message-du-directeur-du-jeu-5c5-et-6c6-complementaires-plutot-que-concurrents/"
+      }
+    ]
+  },
+  {
+    "id": "diablo-iv-mejora-fallo",
+    "titulo": "Quitar el fallo de la mejora de equipo",
+    "tema": "Sistemas y economías",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Blizzard Entertainment quitó la posibilidad de fallar al mejorar equipo tras la prueba pública de Loot Reborn.",
+    "cuerpo": "## Qué decidió el equipo\n\nEl ajuste garantizó que el Masterworking avanzara. El equipo también retiró la animación de los rangos que no eran hitos.\n\n## Qué salió mal\n\nEn la prueba, la mejora podía fallar y cada rango tenía su animación. Las notas del parche recogen ambas fricciones entre los cambios realizados tras recibir comentarios.\n\n## Pruébalo en tu juego\n\nCompara dos talleres con igual coste esperado. En uno la mejora falla a veces y en otro siempre avanza. Anota cuándo se abandona la mejora y qué coste cree haber asumido cada persona.",
+    "referencia": "Blizzard Entertainment. Diablo IV Patch Notes (1.3–1.5). news.blizzard.com.",
+    "fuente": "https://news.blizzard.com/en-us/article/24140806/diablo-iv-patch-notes-1-3-1-5",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Diablo IV",
+        "observacion": "El ajuste garantizó que el Masterworking avanzara. El equipo también retiró la animación de los rangos que no eran hitos."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://news.blizzard.com/en-us/article/24140806/diablo-iv-patch-notes-1-3-1-5"
+      }
+    ]
+  },
+  {
+    "id": "aoe-iv-cancelar-disparo",
+    "titulo": "Cuando cancelar la animación cambia la cadencia",
+    "tema": "Dificultad y equilibrio",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "El equipo de Age of Empires IV redujo el efecto de cancelar animaciones sobre la cadencia para recuperar peso para la estrategia.",
+    "cuerpo": "## Qué decidió el equipo\n\nEl parche 11009 ajustó la interacción entre animación y frecuencia de ataque dentro de una revisión de equilibrio.\n\n## Qué salió mal\n\nLa cancelación permitía alterar el ritmo de ataque. El equipo quería que una secuencia rápida de órdenes tuviera menos peso en la cadencia.\n\n## Pruébalo en tu juego\n\nRegistra el tiempo entre ataques con una orden normal y con cancelaciones repetidas. En un prototipo, fija el intervalo y comprueba qué margen de reacción conserva el jugador.",
+    "referencia": "El equipo de Age of Empires IV. Age of Empires IV – Patch 11009. ageofempires.com.",
+    "fuente": "https://www.ageofempires.com/news/age-of-empires-iv-patch-11009/",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Age of Empires IV",
+        "observacion": "El parche 11009 ajustó la interacción entre animación y frecuencia de ataque dentro de una revisión de equilibrio."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://www.ageofempires.com/news/age-of-empires-iv-patch-11009/"
+      }
+    ]
+  },
+  {
+    "id": "cyberpunk-perks-cambian-verbo",
+    "titulo": "Cambiar pequeños porcentajes por habilidades jugables",
+    "tema": "Sistemas y economías",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "CD Projekt Red redujo el número de ventajas y rehízo sus árboles para que cada rama cambiara más lo que puedes hacer.",
+    "cuerpo": "## Qué decidió el equipo\n\nLa versión 2.0 incorporó habilidades como Overclock y devolvió los puntos de ventaja gastados antes del cambio para que cada persona recompusiera su personaje.\n\n## Qué salió mal\n\nEl diagnóstico de la actualización fue que las ventajas debían tener más impacto en el juego. Rehacer las ramas también dejaba asignaciones anteriores sin equivalencia directa.\n\n## Pruébalo en tu juego\n\nDiseña dos mejoras del mismo coste, una numérica y otra que cambie una acción. Tras una partida, pregunta qué hizo distinto cada persona y pídele que señale dónde lo usó.",
+    "referencia": "CD Projekt Red. Update 2.0. cyberpunk.net.",
+    "fuente": "https://www.cyberpunk.net/en/news/49060/update-2-0",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Cyberpunk 2077",
+        "observacion": "La versión 2.0 incorporó habilidades como Overclock y devolvió los puntos de ventaja gastados antes del cambio para que cada persona recompusiera su personaje."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://www.cyberpunk.net/en/news/49060/update-2-0"
+      }
+    ]
+  },
+  {
+    "id": "bg3-epilogo-jugable",
+    "titulo": "Cerrar una partida larga dejando hablar al jugador",
+    "tema": "Diseño narrativo",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Larian Studios añadió un epílogo jugable para dar cierre a las decisiones acumuladas durante la campaña.",
+    "cuerpo": "## Qué decidió el equipo\n\nEl parche 5 incorporó una reunión seis meses después del final. Las conversaciones, cartas y escenas cambian con elecciones anteriores.\n\n## Qué salió mal\n\nLa actualización reconoce la necesidad de dar cierre a recorridos muy distintos. Resolverlo obligó a escribir y revisar muchas permutaciones en una misma escena.\n\n## Pruébalo en tu juego\n\nElige dos decisiones alejadas entre sí. Escribe un reencuentro breve que pueda reconocer ambas de forma independiente y revisa las cuatro combinaciones.",
+    "referencia": "Larian Studios. Community Update #25: Ain’t No Party Like a Withers Party. forums.larian.com.",
+    "fuente": "https://forums.larian.com/ubbthreads.php?Number=927886&ubb=showflat",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Baldur’s Gate 3",
+        "observacion": "El parche 5 incorporó una reunión seis meses después del final. Las conversaciones, cartas y escenas cambian con elecciones anteriores."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://forums.larian.com/ubbthreads.php?Number=927886&ubb=showflat"
+      }
+    ]
+  },
+  {
+    "id": "armourgeddon-centrar-combate",
+    "titulo": "Recortar plataformas para terminar un juego de combate",
+    "tema": "Prototipado y pruebas",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Benjamin Roye reenfocó el proyecto en el combate y dejó atrás parte del trabajo de plataformas.",
+    "cuerpo": "## Qué decidió el equipo\n\nTras revisar qué quería ofrecer el proyecto, la campaña y el modo arena quedaron como formas de sostener el combate.\n\n## Qué salió mal\n\nCambiar el foco implicó perder trabajo terminado y redujo el tiempo para construir una campaña del tamaño previsto. El equipo también describe resistencia a rehacer arte, sonido y niveles.\n\n## Pruébalo en tu juego\n\nElige una sección que combine dos mecánicas. Retira una durante una prueba y apunta qué elementos dejan de tener función y cuánto tiempo necesitarías para adaptar el resto.",
+    "referencia": "Benjamin Roye. Postmortem: Armourgeddon. gamedeveloper.com.",
+    "fuente": "https://www.gamedeveloper.com/production/postmortem-armourgeddon",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Armourgeddon",
+        "observacion": "Tras revisar qué quería ofrecer el proyecto, la campaña y el modo arena quedaron como formas de sostener el combate."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://www.gamedeveloper.com/production/postmortem-armourgeddon"
+      }
+    ]
+  },
+  {
+    "id": "pong-mundo-texto-localizable",
+    "titulo": "Sacar el texto de las imágenes antes de traducir",
+    "tema": "Localización",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "zGames tuvo que rediseñar la forma de mostrar texto cuando preparó Pong World para distribuirlo en varios idiomas.",
+    "cuerpo": "## Qué decidió el equipo\n\nEl estudio separó los textos de los gráficos y sustituyó las cadenas incrustadas por texto localizable.\n\n## Qué salió mal\n\nLa versión para el concurso no necesitaba esa infraestructura. Preparar la distribución internacional obligó a rehacer recursos gráficos y a tocar código que ya estaba escrito.\n\n## Pruébalo en tu juego\n\nCambia el idioma de un menú a una versión ficticia con textos más largos. Cuenta cuántos cambios requieren abrir un archivo de arte o tocar código.",
+    "referencia": "zGames. Postmortem: zGames’ Pong World. gamedeveloper.com.",
+    "fuente": "https://www.gamedeveloper.com/business/postmortem-zgames-i-pong-world-i-",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Pong World",
+        "observacion": "El estudio separó los textos de los gráficos y sustituyó las cadenas incrustadas por texto localizable."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://www.gamedeveloper.com/business/postmortem-zgames-i-pong-world-i-"
+      }
+    ]
+  },
+  {
+    "id": "minecraft-bibliotecarios-biomas",
+    "titulo": "Sustituir tiradas de comercio por destinos concretos",
+    "tema": "Sistemas y economías",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Mojang Studios probó un reparto de encantamientos por bioma como alternativa al comercio habitual con bibliotecarios.",
+    "cuerpo": "## Qué decidió el equipo\n\nEn el experimento de Java 1.20.2, cada bioma ofrecía libros distintos y reservaba uno especial para sus bibliotecarios de máximo nivel. La prueba requería activarse al crear el mundo.\n\n## Qué salió mal\n\nEl sistema que el experimento revisa concentraba en el comercio con bibliotecarios una parte importante del acceso a libros. El reparto nuevo cambia la búsqueda del resultado por viajes y progresión con aldeanos.\n\n## Pruébalo en tu juego\n\nPide a dos personas que busquen el mismo libro, una con un comerciante que renueva ofertas y otra con un destino conocido. Registra cuánto tiempo pasan buscando información y cuánto viajando.",
+    "referencia": "Mojang Studios. Minecraft: Java Edition – 1.20.2. feedback.minecraft.net.",
+    "fuente": "https://feedback.minecraft.net/hc/en-us/articles/19703470383757-Minecraft-Java-Edition-1-20-2",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Minecraft",
+        "observacion": "En el experimento de Java 1.20.2, cada bioma ofrecía libros distintos y reservaba uno especial para sus bibliotecarios de máximo nivel. La prueba requería activarse al crear el mundo."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://feedback.minecraft.net/hc/en-us/articles/19703470383757-Minecraft-Java-Edition-1-20-2"
+      }
+    ]
+  },
+  {
+    "id": "rocket-league-planos-visibles",
+    "titulo": "Mostrar la recompensa antes de cobrar",
+    "tema": "Interfaz e interacción",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Psyonix reemplazó las cajas de pago con resultado aleatorio por planos que muestran el objeto exacto y su coste.",
+    "cuerpo": "## Qué decidió el equipo\n\nEl plano aparece como recompensa posible tras una partida. Puedes ver qué objeto ofrece y decidir si pagas para crearlo o lo dejas en el inventario.\n\n## Qué salió mal\n\nLas cajas mezclaban el pago con la incertidumbre sobre lo que recibirías. El plano mantiene la sorpresa al obtenerlo y permite conocer el contenido antes de decidir si pagas.\n\n## Pruébalo en tu juego\n\nMuestra dos pantallas de confirmación, una con una caja y otra con un objeto concreto. Antes de pulsar, pide que expliquen qué recibirán y qué valor se les descontará.",
+    "referencia": "Psyonix. Blueprints and Final Crate Revealed. rocketleague.com.",
+    "fuente": "https://www.rocketleague.com/news/blueprints-and-final-crate-revealed",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Rocket League",
+        "observacion": "El plano aparece como recompensa posible tras una partida. Puedes ver qué objeto ofrece y decidir si pagas para crearlo o lo dejas en el inventario."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://www.rocketleague.com/news/blueprints-and-final-crate-revealed"
+      }
+    ]
+  },
+  {
+    "id": "causal-loop-puzles-con-motivo",
+    "titulo": "Dar una razón narrativa al puzle que ya funciona",
+    "tema": "Diseño narrativo",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "Kai Moosmann empezó iterando los puzles por separado y acabó integrándolos con la historia.",
+    "cuerpo": "## Qué decidió el equipo\n\nEl estudio decidió que la existencia de un puzle debía tener explicación dentro del mundo y que la interacción debía ayudar a contar la historia.\n\n## Qué salió mal\n\nLos primeros prototipos verificaban si una mecánica funcionaba en varias versiones. Cuando creció la ambición narrativa, ese método dejaba pendiente por qué el jugador encontraba ese obstáculo ahí.\n\n## Pruébalo en tu juego\n\nEscribe qué función tenía una máquina antes de que llegara el protagonista. Pide a otra persona que resuelva su puzle y explique para qué cree que se usaba.",
+    "referencia": "Kai Moosmann. How narrative-driven puzzles shape Causal Loop’s world and progression. blog.playstation.com.",
+    "fuente": "https://blog.playstation.com/?p=417542",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Causal Loop",
+        "observacion": "El estudio decidió que la existencia de un puzle debía tener explicación dentro del mundo y que la interacción debía ayudar a contar la historia."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://blog.playstation.com/?p=417542"
+      }
+    ]
+  },
+  {
+    "id": "indie-dev-story-interfaz-oficinas",
+    "titulo": "Hacer que la interfaz cambie con la oficina",
+    "tema": "Interfaz e interacción",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "El desarrollador de Indie Dev Story creó variantes de la interfaz para acompañar la mudanza a oficinas mejores.",
+    "cuerpo": "## Qué decidió el equipo\n\nLa interfaz pasó por tres acabados, del más desgastado al más limpio. Una función central seleccionaba los recursos que correspondían al estado actual.\n\n## Qué salió mal\n\nLa interfaz provisional seguía sin una dirección visual avanzada la producción. Al crear las variantes, enlazarlas en todas las pantallas del HUD y de fin de partida también resultó laborioso.\n\n## Pruébalo en tu juego\n\nAplica dos acabados al mismo HUD y conserva posiciones y contraste. Haz que alguien cambie de oficina y comprueba qué pistas le dicen dónde está y si tarda lo mismo en encontrar los controles.",
+    "referencia": "El desarrollador de Indie Dev Story. Indie Dev Story Postmortem. gamedeveloper.com.",
+    "fuente": "https://www.gamedeveloper.com/design/-indie-dev-story-postmortem",
+    "decisionDesarrollo": true,
+    "juegos": [
+      {
+        "nombre": "Indie Dev Story",
+        "observacion": "La interfaz pasó por tres acabados, del más desgastado al más limpio. Una función central seleccionaba los recursos que correspondían al estado actual."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Consultar la fuente original",
+        "url": "https://www.gamedeveloper.com/design/-indie-dev-story-postmortem"
+      }
+    ]
   }
 ]

@@ -5057,5 +5057,32 @@
         "url": "https://store.steampowered.com/app/1808570/"
       }
     ]
+  },
+  {
+    "id": "nihilumbra-postmortem-modo-vacio",
+    "titulo": "¿Y si el reto que buscas empieza después de los créditos?",
+    "tema": "Dificultad y equilibrio",
+    "formato": "Artículo",
+    "idioma": "Inglés",
+    "resumen": "BeautiFun Games reservó los puzles más duros de Nihilumbra para después de los créditos. El diseñador cuenta por qué lo hizo y cómo esa ubicación hizo que parte del público pasara de largo.",
+    "cuerpo": "BeautiFun Games reservó los puzles más duros de Nihilumbra para después de los créditos. El diseñador cuenta por qué lo hizo y cómo esa ubicación hizo que parte del público pasara de largo.\n\n## Qué decidió el equipo\n\nEl equipo quería que alguien con poca experiencia pudiera terminar la historia. También quería ofrecer puzles más exigentes, pero el presupuesto dejaba poco margen para alargar la campaña. La decisión fue concentrar el reto avanzado en el Modo Vacío, disponible tras los créditos.\n\n## Qué salió mal\n\nEn la retrospectiva de la versión de PC, el diseñador cuenta que algunas personas cerraban el juego antes de descubrir el modo. Otras lo interpretaban como un ajuste extra de dificultad. Plantea que llamarlo «modo» pudo contribuir a esa lectura. El artículo recoge observaciones del lanzamiento y no describe una corrección posterior de ese problema.\n\n## Pruébalo en tu juego\n\nPrepara dos cierres idénticos. En uno, deja que los créditos sean la primera señal de cierre. En el otro, anuncia antes de los créditos que se ha desbloqueado una nueva serie de puzles y explica dónde se abre. Mantén el mismo acceso en ambas versiones. Da una sola versión a cada persona y registra si sabe qué se ha desbloqueado, dónde encontrarlo y si decide probarlo.",
+    "referencia": "Kevin C (19 de noviembre de 2013). Nihilumbra: Escaping from the void into PC. Game Developer.",
+    "fuente": "https://www.gamedeveloper.com/business/nihilumbra-escaping-from-the-void-into-pc-",
+    "juegos": [
+      {
+        "nombre": "Nihilumbra",
+        "observacion": "El Modo Vacío concentra los puzles más difíciles tras una campaña de dificultad gradual. Fíjate en cuándo descubres que existe y en cómo llegas a él."
+      }
+    ],
+    "materiales": [
+      {
+        "nombre": "Leer la retrospectiva del diseñador",
+        "url": "https://www.gamedeveloper.com/business/nihilumbra-escaping-from-the-void-into-pc-"
+      },
+      {
+        "nombre": "Ver la serie del Modo Vacío en el canal de BeautiFun Games",
+        "url": "https://www.youtube.com/channel/UCPOk5_-Xaa_SXD2m4Ap_w4w"
+      }
+    ]
   }
 ]

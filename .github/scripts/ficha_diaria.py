@@ -81,12 +81,10 @@ def artwork(path, title, topic, summary):
     image.save(path, format="PNG", optimize=True)
 
 
-def enqueue(queue, save, now=None, prueba=False):
+def enqueue(queue, save, now=None):
     now = now or datetime.now(ZoneInfo("Europe/Oslo"))
     day = now.date()
-    if prueba and day != date(2026, 11, 26):
-        return
-    if not prueba and (day < FIRST_DAY or day.weekday() >= 5 or now.hour != 10):
+    if day < FIRST_DAY or day.weekday() >= 5 or now.hour != 10:
         return
     if any(job.get("fecha") == day.isoformat() for job in queue):
         return

@@ -101,12 +101,13 @@
     "titulo": "Cómo se amplifica una ventaja en la economía de un juego",
     "tema": "Sistemas y economías",
     "instagram": {
-      "estado": "enviando",
+      "estado": "enviado",
       "texto": "¿Por qué una pequeña ventaja económica puede acabar decidiendo una partida? Dibuja por dónde entra y sale el oro y comprueba qué pasa cuando reinviertes lo que ganas. Enlace en el perfil.",
       "imagenes": [
         "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/fichas/machinations-dormans.png"
       ],
-      "github_run_id": "45809404258"
+      "github_run_id": "45809404258",
+      "buffer_id": "6b08159205cbe536364056bc"
     },
     "x": {
       "estado": "pendiente",

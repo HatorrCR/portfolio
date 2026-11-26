@@ -43,9 +43,10 @@ def buffer(query, variables=None):
     return result["data"]
 
 
-def save(queue, message):
+def save(queue, message, asset=None):
     QUEUE.write_text(json.dumps(queue, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    subprocess.run(["git", "add", str(QUEUE)], check=True)
+    files = [str(QUEUE)] + ([str(asset)] if asset is not None else [])
+    subprocess.run(["git", "add", *files], check=True)
     identity = [
         "-c", "user.name=github-actions[bot]",
         "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com",
@@ -130,6 +131,9 @@ def discover_channels():
 
 def main():
     queue = json.loads(QUEUE.read_text(encoding="utf-8"))
+    if os.environ.get("PREPARAR_FICHA") == "true":
+        from ficha_diaria import enqueue
+        enqueue(queue, save)
     if not queue or all(
         job["x"].get("estado") == "publicado" for job in queue
     ):
@@ -140,7 +144,8 @@ def main():
         ig = job["instagram"]
         tweet = job["x"]
         if any(item.get("estado") == "enviando" for item in (ig, tweet)):
-            raise RuntimeError(f"Comprueba en Buffer el intento de {job['id']} antes de reanudar.")
+            print(f"::warning::Comprueba en Buffer el intento de {job['id']} antes de reanudar.")
+            continue
         if ig.get("estado") == "pendiente":
             submit(queue, job, "instagram", instagram)
         if ig.get("estado") == "enviado":

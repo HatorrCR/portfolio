@@ -126,23 +126,24 @@ def main():
                 continue
             item["diagnostico_run_id"] = os.environ["GITHUB_RUN_ID"]
             save(queue, f"Registrar diagnóstico de Buffer: {job['id']}")
-            schema = buffer('{ __type(name: "Post") { fields { name type { kind name ofType { kind name } } } } }')
-            fields = (schema.get("__type") or {}).get("fields", [])
-            print("Campos de Buffer:", [field["name"] for field in fields])
-            candidates = [
+            schema = buffer('{ __type(name: "Post") { fields { name type { name ofType { name } } } } }')
+            field = next(field for field in schema["__type"]["fields"] if field["name"] == "error")
+            error_type = field["type"]["name"] or field["type"]["ofType"]["name"]
+            schema = buffer('{ __type(name: ' + json.dumps(error_type) + ') { fields { name type { kind ofType { kind } } } } }')
+            fields = (schema["__type"] or {}).get("fields") or []
+            scalar = [
                 field["name"] for field in fields
-                if any(word in field["name"].lower() for word in ("error", "fail"))
-                and (field["type"]["kind"] == "SCALAR" or
-                     field["type"]["kind"] == "NON_NULL" and field["type"]["ofType"]["kind"] == "SCALAR")
+                if field["type"]["kind"] in ("SCALAR", "ENUM")
+                or field["type"]["kind"] == "NON_NULL" and field["type"]["ofType"]["kind"] in ("SCALAR", "ENUM")
             ]
-            if candidates:
-                channel = instagram if network == "instagram" else x
-                query = POSTS.replace("ORGANIZATION", json.dumps(organization))
-                query = query.replace("CHANNEL", json.dumps(channel))
-                query = query.replace("id status", "id status " + " ".join(candidates))
-                for edge in buffer(query)["posts"]["edges"]:
-                    if edge["node"]["id"] == item["buffer_id"]:
-                        print("Diagnóstico de publicación:", {name: edge["node"].get(name) for name in candidates})
+            channel = instagram if network == "instagram" else x
+            query = POSTS.replace("ORGANIZATION", json.dumps(organization))
+            query = query.replace("CHANNEL", json.dumps(channel))
+            selection = "error {" + " ".join(scalar) + "}" if scalar else "error { __typename }"
+            query = query.replace("id status", "id status " + selection)
+            for edge in buffer(query)["posts"]["edges"]:
+                if edge["node"]["id"] == item["buffer_id"]:
+                    print("Diagnóstico de publicación:", edge["node"].get("error"))
     os.environ["BUFFER_ORGANIZATION_ID"] = organization
     for job in queue:
         ig = job["instagram"]

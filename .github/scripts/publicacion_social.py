@@ -65,6 +65,9 @@ def submit(queue, job, network, channel):
         "mode": "shareNow",
         "schedulingType": "automatic",
     }
+    if network == "instagram":
+        post["metadata"] = {"instagram": {"type": "post", "shouldShareToFeed": True}}
+    data["github_run_id"] = os.environ.get("GITHUB_RUN_ID")
     # Persist the attempt before calling Buffer. A lost response must not cause a repost.
     data["estado"] = "enviando"
     save(queue, f"Registrar intento de publicación en {network}: {job['id']}")

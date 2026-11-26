@@ -97,14 +97,18 @@ def artwork(path, title, topic, summary, content_format):
     image.save(path, format="PNG", optimize=True)
 
 
-def enqueue(queue, save, now=None):
+def enqueue(queue, save, now=None, preview=False):
     now = now or datetime.now(ZoneInfo("Europe/Oslo"))
     day = now.date()
-    if day < FIRST_DAY or day.weekday() >= 5 or now.hour != 10:
+    if preview and day != date(2026, 11, 26):
+        return
+    if not preview and (day < FIRST_DAY or day.weekday() >= 5 or now.hour != 10):
         return
     if any(job.get("fecha") == day.isoformat() for job in queue):
         return
     catalog = json.loads(CATALOG.read_text(encoding="utf-8"))
+    if preview:
+        catalog = [entry for entry in catalog if entry["id"] == "machinations-dormans"]
     entry = choose(catalog, queue)
     if entry is None:
         print("No quedan fichas inéditas en el catálogo.")

@@ -37,12 +37,13 @@
       "buffer_id": "6b0813de2c607bdcad53f528"
     },
     "x": {
-      "estado": "pendiente",
+      "estado": "enviando",
       "texto": "Pulsas salto justo antes de aterrizar. Con el búfer activado, el personaje salta en cuanto toca el suelo. Prueba a desactivarlo en el laboratorio y repite. ¿Te cuesta más encadenar dos saltos?\nhttps://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=salto-2d-guia#ruta-salto-2d",
       "imagenes": [
         "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/reedicion/bufer-de-salto/01.png",
         "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/bufer-de-salto/02.png"
-      ]
+      ],
+      "github_run_id": "45808232356"
     },
     "reedicion": 2
   },

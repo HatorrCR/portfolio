@@ -118,6 +118,7 @@ def enqueue(queue, save, now=None):
     url = SITE + "?" + urlencode({"lectura": slug})
     content_format = (entry.get("formato") or "Ficha").strip() or "Ficha"
     artwork(path, title, topic, summary, content_format)
+    image_url = RAW + path.as_posix()
     # Allow room for X's shortened URL and conservative Unicode weighting.
     tweet = short(f"{title}\n\n{summary}", 220) + "\n" + url
     queue.append({
@@ -128,8 +129,8 @@ def enqueue(queue, save, now=None):
         "instagram": {
             "estado": "pendiente",
             "texto": f"{title}\n\n{summary}\n\nEnlace en el perfil.",
-            "imagenes": [RAW + path.as_posix()],
+            "imagenes": [image_url],
         },
-        "x": {"estado": "pendiente", "texto": tweet},
+        "x": {"estado": "pendiente", "texto": tweet, "imagenes": [image_url]},
     })
     save(queue, f"Preparar ficha de Cómo se juega: {slug}", path)

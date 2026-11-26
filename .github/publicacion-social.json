@@ -3,12 +3,13 @@
     "id": "presentacion",
     "titulo": "Qué es Cómo se juega",
     "instagram": {
-      "estado": "enviando",
+      "estado": "enviado",
       "texto": "¿Por qué un salto se siente bien? ¿Cómo enseñas una mecánica sin parar la partida? Cómo se juega es una web en español para aprender diseño de videojuegos con fichas, ejemplos y pruebas jugables. Empieza por el tema que más curiosidad te dé. Enlace en el perfil.",
       "imagenes": [
         "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/reedicion/presentacion/01.png"
       ],
-      "github_run_id": "45808232356"
+      "github_run_id": "45808232356",
+      "buffer_id": "6b0813ce2c18150e1049edb1"
     },
     "x": {
       "estado": "pendiente",

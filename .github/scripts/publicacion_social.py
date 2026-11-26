@@ -46,13 +46,29 @@ def buffer(query, variables=None):
 def save(queue, message):
     QUEUE.write_text(json.dumps(queue, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     subprocess.run(["git", "add", str(QUEUE)], check=True)
-    subprocess.run(
-        ["git", "-c", "user.name=github-actions[bot]", "-c",
-         "user.email=41898282+github-actions[bot]@users.noreply.github.com",
-         "commit", "-m", message],
-        check=True,
-    )
-    subprocess.run(["git", "push", "origin", "HEAD:main"], check=True)
+    identity = [
+        "-c", "user.name=github-actions[bot]",
+        "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com",
+    ]
+    subprocess.run(["git", *identity, "commit", "-m", message], check=True)
+    for attempt in range(3):
+        push = subprocess.run(
+            ["git", "push", "origin", "HEAD:main"],
+            capture_output=True, text=True,
+        )
+        if push.returncode == 0:
+            return
+        if attempt == 2 or not any(
+            reason in push.stderr for reason in ("fetch first", "non-fast-forward")
+        ):
+            raise RuntimeError(f"No se pudo guardar el estado de publicación: {push.stderr.strip()}")
+        subprocess.run(["git", "fetch", "origin", "main"], check=True)
+        comparison = subprocess.run(
+            ["git", "diff", "--quiet", "HEAD^", "FETCH_HEAD", "--", str(QUEUE)]
+        )
+        if comparison.returncode != 0:
+            raise RuntimeError("La cola cambió durante la ejecución. Revisa el último intento en Buffer.")
+        subprocess.run(["git", *identity, "rebase", "--onto", "FETCH_HEAD", "HEAD^"], check=True)
 
 
 def submit(queue, job, network, channel):

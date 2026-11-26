@@ -18,5 +18,19 @@
       "github_run_id": "45804357776",
       "buffer_id": "6b080e63ed9dce3bdaffb533"
     }
+  },
+  {
+    "id": "dash-2d",
+    "instagram": {
+      "estado": "pendiente",
+      "texto": "Un dash te lleva rápido de un punto a otro. Lo interesante viene justo después: ¿puedes frenar a tiempo o te pasas de largo? Prueba el dash 2D en el laboratorio de Cómo se juega y fíjate en cuánto espacio necesitas para detenerte antes del obstáculo. Enlace en el perfil.",
+      "imagenes": [
+        "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/dash-2d/01.png"
+      ]
+    },
+    "x": {
+      "estado": "pendiente",
+      "texto": "Un dash te lleva rápido de un punto a otro. ¿Cuánto espacio necesitas para frenar antes del obstáculo? Pruébalo en el laboratorio de dash 2D de Cómo se juega.\nhttps://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=dash-2d-guia"
+    }
   }
 ]

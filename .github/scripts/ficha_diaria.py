@@ -104,7 +104,7 @@ def enqueue(queue, save, now=None, preview=False):
         return
     if not preview and (day < FIRST_DAY or day.weekday() >= 5 or now.hour != 10):
         return
-    if any(job.get("fecha") == day.isoformat() for job in queue):
+    if not preview and any(job.get("fecha") == day.isoformat() for job in queue):
         return
     catalog = json.loads(CATALOG.read_text(encoding="utf-8"))
     if preview:

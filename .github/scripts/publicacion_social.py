@@ -21,7 +21,7 @@ query {
     organizationId: ORGANIZATION,
     filter: {channelIds: [CHANNEL], status: [sent, error]}
   }) {
-    edges { node { id status } }
+    edges { node { id status error { message } } }
   }
 }
 """
@@ -84,7 +84,7 @@ def submit(queue, job, network, channel):
 def delivered(channel):
     query = POSTS.replace("ORGANIZATION", json.dumps(os.environ["BUFFER_ORGANIZATION_ID"]))
     query = query.replace("CHANNEL", json.dumps(channel))
-    return {edge["node"]["id"]: edge["node"]["status"] for edge in buffer(query)["posts"]["edges"]}
+    return {edge["node"]["id"]: edge["node"] for edge in buffer(query)["posts"]["edges"]}
 
 
 def discover_channels():
@@ -119,31 +119,6 @@ def main():
     ):
         return
     organization, instagram, x = discover_channels()
-    for job in queue:
-        for network in ("instagram", "x"):
-            item = job[network]
-            if item.get("estado") != "fallido" or item.get("diagnostico_run_id"):
-                continue
-            item["diagnostico_run_id"] = os.environ["GITHUB_RUN_ID"]
-            save(queue, f"Registrar diagnóstico de Buffer: {job['id']}")
-            schema = buffer('{ __type(name: "Post") { fields { name type { name ofType { name } } } } }')
-            field = next(field for field in schema["__type"]["fields"] if field["name"] == "error")
-            error_type = field["type"]["name"] or field["type"]["ofType"]["name"]
-            schema = buffer('{ __type(name: ' + json.dumps(error_type) + ') { fields { name type { kind ofType { kind } } } } }')
-            fields = (schema["__type"] or {}).get("fields") or []
-            scalar = [
-                field["name"] for field in fields
-                if field["type"]["kind"] in ("SCALAR", "ENUM")
-                or field["type"]["kind"] == "NON_NULL" and field["type"]["ofType"]["kind"] in ("SCALAR", "ENUM")
-            ]
-            channel = instagram if network == "instagram" else x
-            query = POSTS.replace("ORGANIZATION", json.dumps(organization))
-            query = query.replace("CHANNEL", json.dumps(channel))
-            selection = "error {" + " ".join(scalar) + "}" if scalar else "error { __typename }"
-            query = query.replace("id status", "id status " + selection)
-            for edge in buffer(query)["posts"]["edges"]:
-                if edge["node"]["id"] == item["buffer_id"]:
-                    print("Diagnóstico de publicación:", edge["node"].get("error"))
     os.environ["BUFFER_ORGANIZATION_ID"] = organization
     for job in queue:
         ig = job["instagram"]
@@ -153,14 +128,22 @@ def main():
         if ig.get("estado") == "pendiente":
             submit(queue, job, "instagram", instagram)
         if ig.get("estado") == "enviado":
-            status = delivered(instagram).get(ig["buffer_id"])
+            post = delivered(instagram).get(ig["buffer_id"], {})
+            status = post.get("status")
+            if status == "error":
+                ig["github_run_id"] = os.environ["GITHUB_RUN_ID"]
+                print(f"Buffer (instagram): {(post.get('error') or {}).get('message', 'Sin detalle')}")
             if status in ("sent", "error"):
                 ig["estado"] = "publicado" if status == "sent" else "fallido"
                 save(queue, f"Actualizar estado de Instagram: {job['id']}")
         if ig.get("estado") == "publicado" and tweet.get("estado") == "pendiente":
             submit(queue, job, "x", x)
         if tweet.get("estado") == "enviado":
-            status = delivered(x).get(tweet["buffer_id"])
+            post = delivered(x).get(tweet["buffer_id"], {})
+            status = post.get("status")
+            if status == "error":
+                tweet["github_run_id"] = os.environ["GITHUB_RUN_ID"]
+                print(f"Buffer (x): {(post.get('error') or {}).get('message', 'Sin detalle')}")
             if status in ("sent", "error"):
                 tweet["estado"] = "publicado" if status == "sent" else "fallido"
                 save(queue, f"Actualizar estado de X: {job['id']}")

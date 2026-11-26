@@ -2184,6 +2184,29 @@ const mechanicReviews = {
   }
 };
 
+function countMechanicEvent(id, action, title) {
+  const send = () => window.goatcounter?.count?.({path: 'prueba-ab-' + id + '-' + action, title, event: true});
+  if (typeof window.goatcounter?.count === 'function') send();
+  else document.querySelector('script[data-goatcounter]')?.addEventListener('load', send, {once: true});
+}
+
+function trackMechanicReview(panel, id) {
+  countMechanicEvent(id, 'vista-ficha', 'Vista de una ficha con prueba A/B');
+  const canvas = panel.querySelector('canvas');
+  const start = event => {
+    if (!event.isTrusted || !event.defaultPrevented || event.repeat || event.code === 'KeyR') return;
+    canvas.removeEventListener('keydown', start);
+    countMechanicEvent(id, 'inicio', 'Primera acción en la prueba A/B');
+  };
+  canvas?.addEventListener('keydown', start);
+  const select = panel.querySelector('select');
+  select?.addEventListener('change', event => {
+    if (!event.isTrusted) return;
+    const version = select.selectedIndex === 0 ? 'a' : 'b';
+    countMechanicEvent(id, 'version-' + version, 'Cambio a la versión ' + version.toUpperCase());
+  });
+}
+
 function addMechanicReview(id, addToIndex) {
   const review = mechanicReviews[id];
   const panel = element('section', '', 'prueba-final');
@@ -2234,6 +2257,7 @@ function addMechanicReview(id, addToIndex) {
   const recap = element('details', '', 'prueba-final-resumen');
   recap.append(element('summary', 'Qué cambia entre A y B'), element('p', review.takeaway));
   panel.append(element('p', review.question, 'prueba-final-pregunta'), recap);
+  trackMechanicReview(panel, id);
 }
 
 function showReading(entries, archive) {
@@ -2273,6 +2297,11 @@ function showReading(entries, archive) {
     const header = element('header', '', 'cabecera-editorial');
     header.append(element('p', editorialLabel(resource) + ' · ' + section.name, 'etiqueta-editorial'),
       title, element('p', resource.resumen, 'entradilla-editorial'));
+    if (archiveReading && Object.hasOwn(mechanicReviews, id)) {
+      const play = link('Probar A/B', '#prueba-final');
+      play.className = 'boton';
+      header.append(play);
+    }
     reading.append(header);
   } else {
     reading.append(title);
@@ -2283,6 +2312,7 @@ function showReading(entries, archive) {
     const visualJump = id === 'salto-2d-guia';
     const dashGuide = id === 'dash-2d-guia' || id === 'dash-3d-guia';
     document.title = resource.titulo + ' · Cómo se juega';
+    document.querySelector('meta[name="description"]').content = resource.resumen;
     if (!editorial) {
       reading.append(element('p', resource.formato + ' · ' + resource.tema, 'meta'));
       renderLibraryReading(resource, entries);

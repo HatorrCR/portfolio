@@ -440,11 +440,7 @@ function addPlayableJump(lab, controls) {
   }
 
   const keys = {ArrowLeft:'izquierda', KeyA:'izquierda', ArrowRight:'derecha', KeyD:'derecha', Space:'salto', KeyR:'reiniciar'};
-  canvas.addEventListener('keydown', event => {
-    const action = keys[event.code];
-    if (!action) return;
-    event.preventDefault();
-    if (event.repeat) return;
+  function press(action, source) {
     if (effects.checked && window.AudioContext) {
       try {
         audio ??= new window.AudioContext();
@@ -459,9 +455,43 @@ function addPlayableJump(lab, controls) {
     if (action === 'salto') {
       queued = buffer.checked ? 0.1 : 0;
     }
-    held.set(event.code, action);
+    held.set(source, action);
+  }
+  canvas.addEventListener('keydown', event => {
+    const action = keys[event.code];
+    if (!action) return;
+    event.preventDefault();
+    if (!event.repeat) press(action, event.code);
   });
   canvas.addEventListener('keyup', event => held.delete(event.code));
+  const touch = element('div', '', 'controles-salto-tactiles');
+  touch.setAttribute('role', 'group');
+  touch.setAttribute('aria-label', 'Controles de salto');
+  for (const [action, label] of [['izquierda', '← Izquierda'], ['derecha', 'Derecha →'], ['salto', 'Saltar']]) {
+    const button = element('button', label, 'control-salto');
+    button.type = 'button';
+    button.addEventListener('pointerdown', event => {
+      if (event.button !== 0) return;
+      event.preventDefault();
+      button.setPointerCapture(event.pointerId);
+      press(action, 'puntero-' + event.pointerId);
+    });
+    const release = event => held.delete('puntero-' + event.pointerId);
+    for (const event of ['pointerup', 'pointercancel', 'lostpointercapture']) button.addEventListener(event, release);
+    button.addEventListener('keydown', event => {
+      if (!['Space', 'Enter'].includes(event.code)) return;
+      event.preventDefault();
+      if (!event.repeat) press(action, button);
+    });
+    button.addEventListener('keyup', () => held.delete(button));
+    button.addEventListener('blur', () => held.delete(button));
+    touch.append(button);
+  }
+  const restart = element('button', 'Reiniciar', 'control-salto');
+  restart.type = 'button';
+  restart.addEventListener('click', () => press('reiniciar'));
+  touch.append(restart);
+  canvas.after(touch);
   canvas.addEventListener('blur', () => held.clear());
   window.addEventListener('blur', () => held.clear());
   mode.addEventListener('change', () => {
@@ -1983,6 +2013,7 @@ function showGames(entries) {
   const games = buildGameIndex(entries);
   const selectedGame = params.get('juego');
   const game = games.get(selectedGame);
+  if (game) addSearchReturn();
   const title = game?.nombre ?? (selectedGame ? 'Juego no encontrado' : 'Explorar por juego');
   const heading = element('h1', title);
   heading.id = 'titulo-lectura';
@@ -2193,12 +2224,23 @@ function countMechanicEvent(id, action, title) {
 function trackMechanicReview(panel, id) {
   countMechanicEvent(id, 'vista-ficha', 'Vista de una ficha con prueba A/B');
   const canvas = panel.querySelector('canvas');
+  let started = false;
   const start = event => {
     if (!event.isTrusted || !event.defaultPrevented || event.repeat || event.code === 'KeyR') return;
-    canvas.removeEventListener('keydown', start);
+    recordStart();
+  };
+  function recordStart() {
+    if (started) return;
+    started = true;
     countMechanicEvent(id, 'inicio', 'Primera acción en la prueba A/B');
   };
   canvas?.addEventListener('keydown', start);
+  for (const button of panel.querySelectorAll('.control-salto:not(:last-child)')) {
+    button.addEventListener('pointerdown', event => {
+      if (event.isTrusted && event.button === 0) recordStart();
+    });
+    button.addEventListener('keydown', start);
+  }
   const select = panel.querySelector('select');
   select?.addEventListener('change', event => {
     if (!event.isTrusted) return;
@@ -2260,9 +2302,122 @@ function addMechanicReview(id, addToIndex) {
   trackMechanicReview(panel, id);
 }
 
+const favoritesKey = 'como-se-juega-favoritos';
+
+function readFavorites() {
+  try {
+    const ids = JSON.parse(localStorage.getItem(favoritesKey) ?? '[]');
+    return new Set(Array.isArray(ids) ? ids : []);
+  } catch {
+    return new Set();
+  }
+}
+
+function favoriteButton(entry, onChange) {
+  const button = element('button', '', 'accion-ficha');
+  button.type = 'button';
+  button.setAttribute('aria-label', 'Guardar «' + entry.titulo + '» en favoritos');
+  const update = saved => {
+    button.textContent = saved ? '★ Guardada' : '☆ Guardar ficha';
+    button.setAttribute('aria-pressed', String(saved));
+  };
+  update(readFavorites().has(entry.id));
+  button.addEventListener('click', () => {
+    const saved = readFavorites();
+    if (saved.has(entry.id)) saved.delete(entry.id);
+    else saved.add(entry.id);
+    try {
+      localStorage.setItem(favoritesKey, JSON.stringify([...saved]));
+    } catch {
+      button.textContent = 'No se pudo guardar';
+      return;
+    }
+    update(saved.has(entry.id));
+    onChange?.();
+  });
+  return button;
+}
+
+function showFavorites(entries) {
+  const heading = element('h1', 'Favoritos');
+  heading.id = 'titulo-lectura';
+  const list = element('div', '', 'rejilla');
+  document.title = 'Favoritos · Cómo se juega';
+  document.querySelector('.portada').hidden = true;
+  document.querySelector('#catalogo').hidden = true;
+  document.querySelector('.barra a[href="?seccion=favoritos"]').setAttribute('aria-current', 'page');
+  reading.append(heading, list);
+  reading.hidden = false;
+  function render() {
+    const saved = readFavorites();
+    const matches = entries.filter(entry => saved.has(entry.id));
+    list.replaceChildren();
+    for (const entry of matches) {
+      const title = element('h2', '');
+      title.append(link(entry.titulo, resourceUrl(entry)));
+      const card = element('article', '', 'ficha');
+      card.append(title, favoriteButton(entry, () => {
+        render();
+        (list.querySelector('a') ?? heading).focus();
+      }));
+      list.append(card);
+    }
+    if (!matches.length) {
+      list.append(element('p', 'Pulsa «Guardar ficha» al leer una ficha para encontrarla aquí.'));
+      heading.tabIndex = -1;
+    }
+  }
+  render();
+}
+
+function addSectionLink(heading, id, label = heading.textContent) {
+  const button = element('button', '↗', 'copiar-apartado');
+  button.type = 'button';
+  button.setAttribute('aria-label', 'Copiar enlace a ' + label);
+  button.title = 'Copiar enlace a ' + label;
+  const notice = element('span', '', 'aviso-copiar');
+  notice.setAttribute('role', 'status');
+  let timer;
+  button.addEventListener('click', async () => {
+    const url = new URL(location.href);
+    url.hash = id;
+    try {
+      await navigator.clipboard.writeText(url.href);
+      notice.textContent = 'Enlace copiado';
+    } catch {
+      window.prompt('Copia el enlace al apartado', url.href);
+      return;
+    }
+    clearTimeout(timer);
+    timer = setTimeout(() => { notice.textContent = ''; }, 2200);
+  });
+  heading.append(' ', button, notice);
+}
+
+function scrollToReadingSection() {
+  if (!location.hash) return;
+  requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView());
+}
+
+function addSearchReturn() {
+  if (!document.referrer) return;
+  const previous = new URL(document.referrer);
+  if (previous.origin !== location.origin || previous.pathname !== location.pathname ||
+      previous.searchParams.get('seccion') !== 'buscar') return;
+  const back = link('Volver a los resultados', previous.href);
+  back.className = 'volver-resultados';
+  back.addEventListener('click', event => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || history.length < 2) return;
+    event.preventDefault();
+    history.back();
+  });
+  reading.append(back);
+}
+
 function showReading(entries, archive) {
   const id = params.get('lectura') ?? archive?.id;
   if (!id) return;
+  addSearchReturn();
   const resource = entries.find(entry => entry.id === id);
   const title = element('h1', resource?.titulo ?? 'Recurso no encontrado');
   title.id = 'titulo-lectura';
@@ -2281,10 +2436,13 @@ function showReading(entries, archive) {
   }
   const addToIndex = (heading, id) => {
     heading.id = id;
-    if (!index) return;
-    const item = element('li', '');
-    item.append(link(heading.textContent, '#' + id));
-    index.append(item);
+    const label = heading.textContent;
+    if (index) {
+      const item = element('li', '');
+      item.append(link(label, '#' + id));
+      index.append(item);
+    }
+    addSectionLink(heading, id, label);
   };
   const section = sectionKey === 'empieza' ? {name: 'Empieza aquí', query: {seccion: 'empieza'}}
     : isDiagnosis && resource?.diagnostico === true
@@ -2302,9 +2460,11 @@ function showReading(entries, archive) {
       play.className = 'boton';
       header.append(play);
     }
+    header.append(favoriteButton(resource));
     reading.append(header);
   } else {
     reading.append(title);
+    if (resource) reading.append(favoriteButton(resource));
   }
   if (catalogDrafts().some(draft => draft.id === id)) reading.append(element('p', 'Estás viendo tu borrador local.', 'meta'));
   if (archiveIndex) reading.append(archiveIndex);
@@ -2316,9 +2476,13 @@ function showReading(entries, archive) {
     if (!editorial) {
       reading.append(element('p', resource.formato + ' · ' + resource.tema, 'meta'));
       renderLibraryReading(resource, entries);
+      for (const [position, heading] of [...reading.querySelectorAll('h2')].entries()) {
+        addToIndex(heading, heading.id || 'apartado-' + (position + 1) + '-' + slug(heading.textContent));
+      }
       document.querySelector('#catalogo').hidden = true;
       reading.hidden = false;
       document.querySelector('.portada').hidden = true;
+      scrollToReadingSection();
       return;
     }
     const games = gameReferences(resource);
@@ -2426,9 +2590,7 @@ function showReading(entries, archive) {
   }
   reading.hidden = false;
   document.querySelector('.portada').hidden = true;
-  if (['#prueba-final', '#laboratorio-jugable', '#laboratorio-relacionado'].includes(location.hash)) {
-    requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView());
-  }
+  scrollToReadingSection();
 }
 
 const themeButton = document.querySelector('#modo-pagina');
@@ -2731,7 +2893,21 @@ function showPortalSearch(entries) {
   label.append(input);
   const submit = element('button', 'Buscar', 'boton');
   submit.type = 'submit';
-  form.append(section, label, submit);
+  const filterLabel = element('label', 'Tipo de resultado');
+  const filter = element('select', '');
+  filter.name = 'tipo';
+  for (const [value, name] of [['', 'Todos'], ['guias', 'Guías y mecánicas'], ['diagnosticos', 'Diagnósticos'],
+    ['juegos', 'Juegos'], ['fuentes', 'Fuentes']]) {
+    const option = element('option', name);
+    option.value = value;
+    filter.append(option);
+  }
+  const requestedFilter = params.get('tipo') ?? '';
+  if ([...filter.options].some(option => option.value === requestedFilter)) filter.value = requestedFilter;
+  filterLabel.className = 'filtro-portal';
+  filterLabel.append(filter);
+  filter.addEventListener('change', () => { if (input.value.trim()) form.requestSubmit(); });
+  form.append(section, label, filterLabel, submit);
   reading.append(heading, form);
   document.title = 'Buscar · Cómo se juega';
   document.querySelector('.portada').hidden = true;
@@ -2745,12 +2921,13 @@ function showPortalSearch(entries) {
   const results = [
     ...entries.map(entry => ({
       title: entry.titulo, url: resourceUrl(entry), summary: entry.resumen,
+      group: entry.diagnostico ? 'diagnosticos' : isEditorial(entry) ? 'guias' : 'fuentes',
       type: entry.diagnostico ? 'Diagnóstico' : isEditorial(entry) ? editorialLabel(entry) :
         entry.decisionDesarrollo || developmentIds.has(entry.id) ? 'Decisión de desarrollo' : entry.formato,
       context: [entry.tema, entry.subtema, ...gameReferences(entry).map(game => game.nombre)].join(' ')
     })),
     ...Array.from(games, ([id, game]) => ({
-      title: game.nombre, url: gamePageUrl(id), type: 'Juego',
+      title: game.nombre, url: gamePageUrl(id), type: 'Juego', group: 'juegos',
       context: Array.from(game.entries.values(), ({entry}) => [entry.titulo, entry.tema, entry.subtema].join(' ')).join(' ')
     }))
   ].flatMap(result => {
@@ -2758,7 +2935,7 @@ function showPortalSearch(entries) {
     const context = slug(result.context);
     const summary = slug(result.summary ?? '');
     const text = [title, context, summary, slug(result.type)].join(' ');
-    if (!terms.every(term => text.includes(term))) return [];
+    if ((filter.value && result.group !== filter.value) || !terms.every(term => text.includes(term))) return [];
     const rank = terms.reduce((score, term) => score + (title.includes(term) ? 6 : context.includes(term) ? 3 : 1), 0);
     return [{...result, rank}];
   }).sort((a, b) => b.rank - a.rank || a.title.localeCompare(b.title, 'es'));
@@ -2769,8 +2946,8 @@ function showPortalSearch(entries) {
   const more = element('button', 'Mostrar más resultados', 'boton');
   more.type = 'button';
   let shown = 0;
-  function showMore() {
-    for (const result of results.slice(shown, shown + 20)) {
+  function showMore(limit = 20) {
+    for (const result of results.slice(shown, shown + limit)) {
       const card = element('article', '', 'ficha');
       const title = element('h2', '');
       title.append(link(result.title, result.url));
@@ -2787,7 +2964,12 @@ function showPortalSearch(entries) {
     grid.children[firstNew]?.querySelector('a').focus();
   });
   reading.append(count, grid, more);
-  showMore();
+  const previous = history.state?.portalSearch;
+  showMore(previous?.shown || 20);
+  if (previous) requestAnimationFrame(() => window.scrollTo(0, previous.scroll));
+  window.addEventListener('pagehide', () => {
+    history.replaceState({...history.state, portalSearch: {shown, scroll: window.scrollY}}, '');
+  });
 }
 
 async function loadCatalog() {
@@ -2796,6 +2978,10 @@ async function loadCatalog() {
   const published = await response.json();
   const catalog = applyCatalogDrafts(published);
   setupCatalogEditor(published, catalog);
+  if (sectionKey === 'favoritos') {
+    showFavorites(catalog);
+    return;
+  }
   if (sectionKey === 'buscar') {
     showPortalSearch(catalog);
     return;

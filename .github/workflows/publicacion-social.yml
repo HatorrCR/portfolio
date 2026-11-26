@@ -1,16 +1,40 @@
 name: Publicación de Cómo se juega
 on:
+  push:
+    branches: [automatizar-publicacion-social]
+    paths:
+      - .github/workflows/publicacion-social.yml
+      - .github/scripts/publicacion_social.py
   workflow_dispatch:
+    inputs:
+      verificar:
+        description: Comprobar Buffer sin publicar
+        type: boolean
+        default: true
   schedule:
     - cron: '17 * * * *'
 permissions:
-  contents: write
+  contents: read
 concurrency:
   group: como-se-juega-publicacion-social
   cancel-in-progress: false
 jobs:
+  verificar:
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.verificar)
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - run: python3 .github/scripts/publicacion_social.py
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          VERIFICAR_BUFFER: '1'
   publicar:
-    if: github.ref == 'refs/heads/main' && vars.BUFFER_ORGANIZATION_ID != '' && vars.BUFFER_INSTAGRAM_CHANNEL_ID != '' && vars.BUFFER_X_CHANNEL_ID != ''
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.verificar))
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -20,6 +44,3 @@ jobs:
       - run: python3 .github/scripts/publicacion_social.py
         env:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
-          BUFFER_ORGANIZATION_ID: ${{ vars.BUFFER_ORGANIZATION_ID }}
-          BUFFER_INSTAGRAM_CHANNEL_ID: ${{ vars.BUFFER_INSTAGRAM_CHANNEL_ID }}
-          BUFFER_X_CHANNEL_ID: ${{ vars.BUFFER_X_CHANNEL_ID }}

@@ -84,10 +84,39 @@ def delivered(channel):
     return {edge["node"]["id"]: edge["node"]["status"] for edge in buffer(query)["posts"]["edges"]}
 
 
+def discover_channels():
+    organizations = buffer("{ account { organizations { id } } }")["account"]["organizations"]
+    matches = []
+    for organization in organizations:
+        organization_id = organization["id"]
+        query = """{
+          channels(input: {organizationId: ORGANIZATION}) {
+            id name service type
+          }
+        }""".replace("ORGANIZATION", json.dumps(organization_id))
+        channels = buffer(query)["channels"]
+        instagram = [
+            channel for channel in channels
+            if channel["service"] == "instagram"
+            and channel["name"].strip().lstrip("@").casefold() == "comosejuegagd"
+            and channel["type"] != "profile"
+        ]
+        x = [channel for channel in channels if channel["service"] in ("twitter", "x")]
+        if len(instagram) == 1 and len(x) == 1:
+            matches.append((organization_id, instagram[0]["id"], x[0]["id"]))
+    if len(matches) != 1:
+        raise RuntimeError("Conecta @comosejuegagd y un único perfil de X en el mismo espacio de Buffer.")
+    return matches[0]
+
+
 def main():
     queue = json.loads(QUEUE.read_text(encoding="utf-8"))
-    instagram = os.environ["BUFFER_INSTAGRAM_CHANNEL_ID"]
-    x = os.environ["BUFFER_X_CHANNEL_ID"]
+    if not queue or all(
+        job["x"].get("estado") == "publicado" for job in queue
+    ):
+        return
+    organization, instagram, x = discover_channels()
+    os.environ["BUFFER_ORGANIZATION_ID"] = organization
     for job in queue:
         ig = job["instagram"]
         tweet = job["x"]
@@ -112,4 +141,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if os.environ.get("VERIFICAR_BUFFER") == "1":
+        discover_channels()
+        print("Conexión verificada con Instagram y X.")
+    else:
+        main()

@@ -60,11 +60,12 @@
       "buffer_id": "6b08140190420b261775daf6"
     },
     "x": {
-      "estado": "pendiente",
+      "estado": "enviando",
       "texto": "¿Cuánto espacio necesitas para frenar tras un dash? Si has jugado a Celeste (@celeste_game), prueba a comparar esa sensación con nuestro laboratorio de dash 2D.\nhttps://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=dash-2d-guia",
       "imagenes": [
         "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/reedicion/dash-2d/01.png"
-      ]
+      ],
+      "github_run_id": "45808232356"
     },
     "reedicion": 3
   },

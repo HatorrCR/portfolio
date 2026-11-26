@@ -110,11 +110,12 @@
       "buffer_id": "6b08159205cbe536364056bc"
     },
     "x": {
-      "estado": "pendiente",
+      "estado": "enviando",
       "texto": "¿Por qué una pequeña ventaja económica puede acabar decidiendo una partida? Dibuja por dónde entra y sale el oro y comprueba qué pasa al reinvertir.\nhttps://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=machinations-dormans",
       "imagenes": [
         "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/fichas/machinations-dormans.png"
-      ]
+      ],
+      "github_run_id": "45809404258"
     }
   }
 ]

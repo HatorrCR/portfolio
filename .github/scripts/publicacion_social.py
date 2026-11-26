@@ -119,6 +119,30 @@ def main():
     ):
         return
     organization, instagram, x = discover_channels()
+    for job in queue:
+        for network in ("instagram", "x"):
+            item = job[network]
+            if item.get("estado") != "fallido" or item.get("diagnostico_run_id"):
+                continue
+            item["diagnostico_run_id"] = os.environ["GITHUB_RUN_ID"]
+            save(queue, f"Registrar diagnóstico de Buffer: {job['id']}")
+            schema = buffer('{ __type(name: "Post") { fields { name type { kind name ofType { kind name } } } } }')
+            fields = (schema.get("__type") or {}).get("fields", [])
+            print("Campos de Buffer:", [field["name"] for field in fields])
+            candidates = [
+                field["name"] for field in fields
+                if any(word in field["name"].lower() for word in ("error", "fail"))
+                and (field["type"]["kind"] == "SCALAR" or
+                     field["type"]["kind"] == "NON_NULL" and field["type"]["ofType"]["kind"] == "SCALAR")
+            ]
+            if candidates:
+                channel = instagram if network == "instagram" else x
+                query = POSTS.replace("ORGANIZATION", json.dumps(organization))
+                query = query.replace("CHANNEL", json.dumps(channel))
+                query = query.replace("id status", "id status " + " ".join(candidates))
+                for edge in buffer(query)["posts"]["edges"]:
+                    if edge["node"]["id"] == item["buffer_id"]:
+                        print("Diagnóstico de publicación:", {name: edge["node"].get(name) for name in candidates})
     os.environ["BUFFER_ORGANIZATION_ID"] = organization
     for job in queue:
         ig = job["instagram"]

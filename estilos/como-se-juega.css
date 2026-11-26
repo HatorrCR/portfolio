@@ -21,18 +21,27 @@ a { color: var(--acento); text-underline-offset: .2em; }
 .marca em { color: var(--acento); font-style: normal; }
 .marca-icono { display: grid; place-items: center; inline-size: .62em; aspect-ratio: 1; flex: none; border: 1px solid var(--acento); border-radius: 3px; background: #f0e8d9; }
 .marca-icono::before { content: ''; width: 43%; aspect-ratio: 1; background: var(--acento); clip-path: polygon(0 0, 40% 0, 40% 20%, 70% 20%, 70% 40%, 100% 40%, 100% 60%, 70% 60%, 70% 80%, 40% 80%, 40% 100%, 0 100%); }
-.barra { display: flex; gap: 30px; border-top: 1px solid var(--linea); padding-block: 10px; }
-.barra a { color: var(--tinta); font: 700 .875rem/1.45 var(--mono); text-decoration: none; }
+.barra {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(.65rem, 1.4vw, 1.25rem);
+  border-top: 1px solid var(--linea);
+  padding-block: 10px;
+}
+.barra > * { flex: 0 0 auto; }
+.barra > a, .barra-diseno > summary { white-space: nowrap; }
+.barra a { color: var(--tinta); font: 700 .75rem/1.6 var(--mono); text-decoration: none; }
 .barra a:hover { text-decoration: underline; }
 .barra-diseno { position: relative; }
-.barra-diseno > summary { cursor: pointer; color: var(--tinta); font: 700 .875rem/1.45 var(--mono); }
+.barra-diseno > summary { cursor: pointer; color: var(--tinta); font: 700 .75rem/1.6 var(--mono); }
 .barra-diseno > summary:hover { text-decoration: underline; }
 .barra-diseno-enlaces {
   position: absolute; inset-inline-start: 0; top: 100%; z-index: 5;
   display: grid; gap: .55rem; width: max-content; padding: .75rem 1rem;
   background: var(--papel); border: 1px solid var(--linea); border-radius: 4px;
 }
-@media (max-width: 420px) {
+@media (max-width: 1050px) {
+  .barra { overflow-x: auto; }
   .barra-diseno-enlaces { position: static; margin-top: .35rem; }
 }
 .presentacion { padding-block: 24px; }
@@ -116,7 +125,6 @@ footer { border-top: 1px solid var(--linea); }
 
 .codigo { max-width: 100%; overflow-x: auto; padding: 1rem; border: 1px solid var(--linea); background: #fffdf7; font: .875rem/1.55 var(--mono); }
 
-.barra { flex-wrap: wrap; row-gap: 8px; }
 #novedades { border-top: 3px double var(--tinta); margin-top: 36px; padding: 24px 0 48px; }
 #novedades h2 { margin-bottom: 20px; }
 

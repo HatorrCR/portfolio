@@ -85,12 +85,13 @@
       "buffer_id": "6b0814142c607bdcad540caa"
     },
     "x": {
-      "estado": "enviando",
+      "estado": "enviado",
       "texto": "Cómo enseñar una mecánica mientras se juega\n\n¿Se entiende qué puerta abre el interruptor? Pruébalo en dos salas y mira si la regla se queda.\nhttps://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=tutoriales-laberinto",
       "imagenes": [
         "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/reedicion/tutoriales-laberinto/01.png"
       ],
-      "github_run_id": "45808232356"
+      "github_run_id": "45808232356",
+      "buffer_id": "6b08141d2c607bdcad541393"
     },
     "reedicion": 4
   }

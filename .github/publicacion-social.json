@@ -1,41 +1,62 @@
 [
   {
+    "id": "presentacion",
+    "titulo": "Qué es Cómo se juega",
+    "instagram": {
+      "estado": "pendiente",
+      "texto": "¿Por qué un salto se siente bien? ¿Cómo enseñas una mecánica sin parar la partida? Cómo se juega es una web en español para aprender diseño de videojuegos con fichas, ejemplos y pruebas jugables. Empieza por el tema que más curiosidad te dé. Enlace en el perfil.",
+      "imagenes": [
+        "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/reedicion/presentacion/01.png"
+      ]
+    },
+    "x": {
+      "estado": "pendiente",
+      "texto": "Cómo se juega es una web en español sobre diseño de videojuegos. Hay fichas, ejemplos y pruebas jugables para experimentar con lo que lees.\nhttps://hatorrcr.github.io/portfolio/como-se-juega.html",
+      "imagenes": [
+        "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/reedicion/presentacion/01.png"
+      ]
+    },
+    "reedicion": 1
+  },
+  {
     "id": "bufer-de-salto",
     "instagram": {
-      "estado": "publicado",
+      "estado": "pendiente",
       "texto": "Si pulsas salto justo antes de aterrizar, el juego puede guardar esa pulsación y hacerte saltar al tocar suelo. Activa y desactiva el búfer en el laboratorio. ¿En cuál te resulta más fácil encadenar dos saltos? Enlace en el perfil.",
       "imagenes": [
+        "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/reedicion/bufer-de-salto/01.png",
         "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/bufer-de-salto/01.png",
         "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/bufer-de-salto/02.png",
         "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/bufer-de-salto/03.png"
-      ],
-      "github_run_id": "45804357776",
-      "buffer_id": "6b080df6a35d913b496f5f48"
+      ]
     },
     "x": {
-      "estado": "publicado",
+      "estado": "pendiente",
       "texto": "Pulsas salto justo antes de aterrizar. Con el búfer activado, el personaje salta en cuanto toca el suelo. Prueba a desactivarlo en el laboratorio y repite. ¿Te cuesta más encadenar dos saltos?\nhttps://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=salto-2d-guia#ruta-salto-2d",
-      "github_run_id": "45804357776",
-      "buffer_id": "6b080e63ed9dce3bdaffb533"
-    }
+      "imagenes": [
+        "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/reedicion/bufer-de-salto/01.png",
+        "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/bufer-de-salto/02.png"
+      ]
+    },
+    "reedicion": 2
   },
   {
     "id": "dash-2d",
     "instagram": {
-      "estado": "publicado",
+      "estado": "pendiente",
       "texto": "Un dash te lleva rápido de un punto a otro. Lo interesante viene justo después: ¿puedes frenar a tiempo o te pasas de largo? Prueba el dash 2D en el laboratorio de Cómo se juega y fíjate en cuánto espacio necesitas para detenerte antes del obstáculo. Enlace en el perfil.",
       "imagenes": [
-        "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/dash-2d/01.png"
-      ],
-      "github_run_id": "45805017476",
-      "buffer_id": "6b080ef4a35d913b496fc60b"
+        "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/reedicion/dash-2d/01.png"
+      ]
     },
     "x": {
-      "estado": "publicado",
-      "texto": "Un dash te lleva rápido de un punto a otro. ¿Cuánto espacio necesitas para frenar antes del obstáculo? Pruébalo en el laboratorio de dash 2D de Cómo se juega.\nhttps://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=dash-2d-guia",
-      "github_run_id": "45805017476",
-      "buffer_id": "6b080f03ed9dce3bdafff7bb"
-    }
+      "estado": "pendiente",
+      "texto": "¿Cuánto espacio necesitas para frenar tras un dash? Si has jugado a Celeste (@celeste_game), prueba a comparar esa sensación con nuestro laboratorio de dash 2D.\nhttps://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=dash-2d-guia",
+      "imagenes": [
+        "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/reedicion/dash-2d/01.png"
+      ]
+    },
+    "reedicion": 3
   },
   {
     "id": "tutoriales-laberinto",
@@ -43,19 +64,19 @@
     "titulo": "Cómo enseñar una mecánica mientras se juega",
     "tema": "Tutoriales y aprendizaje",
     "instagram": {
-      "estado": "publicado",
+      "estado": "pendiente",
       "texto": "Cómo enseñar una mecánica mientras se juega\n\n¿Se entiende qué puerta abre el interruptor? Pruébalo en dos salas y mira si la regla se queda.\n\nEnlace en el perfil.",
       "imagenes": [
-        "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/fichas/tutoriales-laberinto.png"
-      ],
-      "github_run_id": "45806123916",
-      "buffer_id": "6b0810acb56cc066e5beed7b"
+        "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/reedicion/tutoriales-laberinto/01.png"
+      ]
     },
     "x": {
-      "estado": "publicado",
+      "estado": "pendiente",
       "texto": "Cómo enseñar una mecánica mientras se juega\n\n¿Se entiende qué puerta abre el interruptor? Pruébalo en dos salas y mira si la regla se queda.\nhttps://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=tutoriales-laberinto",
-      "github_run_id": "45806123916",
-      "buffer_id": "6b0810b8b56cc066e5bef1c6"
-    }
+      "imagenes": [
+        "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/reedicion/tutoriales-laberinto/01.png"
+      ]
+    },
+    "reedicion": 4
   }
 ]

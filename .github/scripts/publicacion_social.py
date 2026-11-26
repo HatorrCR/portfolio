@@ -141,6 +141,11 @@ def main():
     organization, instagram, x = discover_channels()
     os.environ["BUFFER_ORGANIZATION_ID"] = organization
     for job in queue:
+        if job.get("reedicion", 1) > 1 and any(
+            earlier.get("reedicion", 0) and earlier["reedicion"] < job["reedicion"]
+            and earlier["x"].get("estado") != "publicado" for earlier in queue
+        ):
+            continue
         ig = job["instagram"]
         tweet = job["x"]
         if any(item.get("estado") == "enviando" for item in (ig, tweet)):

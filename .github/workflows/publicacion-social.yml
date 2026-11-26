@@ -55,11 +55,11 @@ jobs:
       - run: |
           python3 .github/scripts/publicacion_social.py
           if [ "$GITHUB_EVENT_NAME" = push ] || [ "$GITHUB_EVENT_NAME" = workflow_dispatch ] || [ "$PREPARAR_FICHA" = true ]; then
-            for intento in 1 2 3; do
+            for intento in $(seq 1 9); do
               if ! grep -q '"estado": "enviado"' .github/publicacion-social.json; then
                 break
               fi
-              sleep 20
+              sleep 14
               python3 .github/scripts/publicacion_social.py
             done
           fi

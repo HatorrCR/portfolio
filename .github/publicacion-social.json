@@ -94,5 +94,25 @@
       "buffer_id": "6b08141d2c607bdcad541393"
     },
     "reedicion": 4
+  },
+  {
+    "id": "machinations-dormans",
+    "fecha": "2026-11-26",
+    "titulo": "Cómo se amplifica una ventaja en la economía de un juego",
+    "tema": "Sistemas y economías",
+    "instagram": {
+      "estado": "pendiente",
+      "texto": "¿Por qué una pequeña ventaja económica puede acabar decidiendo una partida? Dibuja por dónde entra y sale el oro y comprueba qué pasa cuando reinviertes lo que ganas. Enlace en el perfil.",
+      "imagenes": [
+        "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/fichas/machinations-dormans.png"
+      ]
+    },
+    "x": {
+      "estado": "pendiente",
+      "texto": "¿Por qué una pequeña ventaja económica puede acabar decidiendo una partida? Dibuja por dónde entra y sale el oro y comprueba qué pasa al reinvertir.\nhttps://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=machinations-dormans",
+      "imagenes": [
+        "https://raw.githubusercontent.com/HatorrCR/portfolio/main/social/fichas/machinations-dormans.png"
+      ]
+    }
   }
 ]

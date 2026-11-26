@@ -131,10 +131,9 @@ def discover_channels():
 
 def main():
     queue = json.loads(QUEUE.read_text(encoding="utf-8"))
-    preview = os.environ.get("PREVIEW_FICHA") == "true"
-    if preview or os.environ.get("PREPARAR_FICHA") == "true":
+    if os.environ.get("PREPARAR_FICHA") == "true":
         from ficha_diaria import enqueue
-        enqueue(queue, save, preview=preview)
+        enqueue(queue, save)
     if not queue or all(
         job["x"].get("estado") == "publicado" for job in queue
     ):

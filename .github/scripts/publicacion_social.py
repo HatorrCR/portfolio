@@ -131,9 +131,10 @@ def discover_channels():
 
 def main():
     queue = json.loads(QUEUE.read_text(encoding="utf-8"))
-    if os.environ.get("PREPARAR_FICHA") == "true":
+    prueba = os.environ.get("PRUEBA_FICHA") == "true"
+    if prueba or os.environ.get("PREPARAR_FICHA") == "true":
         from ficha_diaria import enqueue
-        enqueue(queue, save)
+        enqueue(queue, save, prueba=prueba)
     if not queue or all(
         job["x"].get("estado") == "publicado" for job in queue
     ):

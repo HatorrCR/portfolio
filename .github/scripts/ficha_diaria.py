@@ -11,6 +11,20 @@ USED = {"bufer-de-salto", "salto-2d-guia", "dash-2d", "dash-2d-guia"}
 SITE = "https://hatorrcr.github.io/portfolio/como-se-juega.html"
 RAW = "https://raw.githubusercontent.com/HatorrCR/portfolio/main/"
 
+# Each format uses a dark background and a light accent.
+PALETTES = {
+    "Guía": ("#142522", "#9CD7AB"),
+    "Estudio": ("#182538", "#9AC6FF"),
+    "Conferencia": ("#2C2038", "#D7AEF4"),
+    "Artículo": ("#35281A", "#FFCB78"),
+    "Código fuente": ("#102D33", "#83DDE4"),
+    "Demo": ("#3A261E", "#FFAB80"),
+    "Documentación": ("#272C35", "#C0CDDF"),
+    "Vídeo": ("#35202A", "#FFAFC1"),
+    "Entrevista": ("#372321", "#FFAC9D"),
+}
+DEFAULT_PALETTE = ("#142522", "#E9AD90")
+
 
 def short(text, limit):
     if len(text) <= limit:
@@ -33,10 +47,11 @@ def choose(catalog, queue):
     return min(eligible, key=lambda entry: last_used.get(entry.get("tema"), -1), default=None)
 
 
-def artwork(path, title, topic, summary):
+def artwork(path, title, topic, summary, content_format):
     from PIL import Image, ImageDraw, ImageFont
 
-    image = Image.new("RGB", (1080, 1350), "#142522")
+    background, accent = PALETTES.get(content_format, DEFAULT_PALETTE)
+    image = Image.new("RGB", (1080, 1350), background)
     draw = ImageDraw.Draw(image)
     fonts = Path("/usr/share/fonts/truetype/dejavu")
     if not fonts.exists():
@@ -59,8 +74,9 @@ def artwork(path, title, topic, summary):
         return lines
 
     draw.text((88, 100), "CÓMO SE JUEGA", font=font(31), fill="#e2ece4")
-    draw.line((88, 178, 992, 178), fill="#476359", width=2)
-    draw.text((88, 240), short(topic.upper(), 51), font=font(25), fill="#e9ad90")
+    draw.line((88, 178, 992, 178), fill=accent, width=2)
+    draw.text((88, 222), content_format.upper(), font=font(30), fill=accent)
+    draw.text((88, 270), short(topic.upper(), 51), font=font(22), fill="#e2ece4")
     for size in (83, 72, 61, 50):
         title_font = font(size, serif=True)
         lines = wrap(title, title_font)
@@ -75,7 +91,7 @@ def artwork(path, title, topic, summary):
     for line in wrap(short(summary, 210), summary_font)[:5]:
         draw.text((88, y), line, font=summary_font, fill="#e2ece4")
         y += 54
-    draw.line((88, 1155, 992, 1155), fill="#476359", width=2)
+    draw.line((88, 1155, 992, 1155), fill=accent, width=2)
     draw.text((88, 1203), "DISEÑO DE VIDEOJUEGOS EN ESPAÑOL", font=font(25), fill="#b4c9ba")
     path.parent.mkdir(parents=True, exist_ok=True)
     image.save(path, format="PNG", optimize=True)
@@ -100,7 +116,8 @@ def enqueue(queue, save, now=None):
     topic = entry.get("tema") or "Diseño de videojuegos"
     path = Path("social/fichas") / f"{slug}.png"
     url = SITE + "?" + urlencode({"lectura": slug})
-    artwork(path, title, topic, summary)
+    content_format = (entry.get("formato") or "Ficha").strip() or "Ficha"
+    artwork(path, title, topic, summary, content_format)
     # Allow room for X's shortened URL and conservative Unicode weighting.
     tweet = short(f"{title}\n\n{summary}", 220) + "\n" + url
     queue.append({

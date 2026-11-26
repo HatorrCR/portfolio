@@ -1,10 +1,11 @@
 name: Publicación de Cómo se juega
 on:
   push:
-    branches: [automatizar-publicacion-social]
+    branches: [main, automatizar-publicacion-social]
     paths:
       - .github/workflows/publicacion-social.yml
       - .github/scripts/publicacion_social.py
+      - .github/publicacion-social.json
   workflow_dispatch:
     inputs:
       verificar:
@@ -20,7 +21,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   verificar:
-    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.verificar)
+    if: (github.event_name == 'push' && github.ref != 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.verificar)
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
@@ -32,7 +33,7 @@ jobs:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
           VERIFICAR_BUFFER: '1'
   publicar:
-    if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.verificar))
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.verificar))
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -41,6 +42,16 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
-      - run: python3 .github/scripts/publicacion_social.py
+      - run: |
+          python3 .github/scripts/publicacion_social.py
+          if [ "$GITHUB_EVENT_NAME" = push ] || [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; then
+            for intento in 1 2 3; do
+              if ! grep -q '"estado": "enviado"' .github/publicacion-social.json; then
+                break
+              fi
+              sleep 20
+              python3 .github/scripts/publicacion_social.py
+            done
+          fi
         env:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}

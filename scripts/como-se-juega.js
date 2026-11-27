@@ -201,7 +201,7 @@ function showFeatured(entries) {
       Object.assign(query, editorialSection(entry).query);
       label = 'Leer guía';
     } else if (entry.formato === 'Estudio') {
-      query.papers = entry.idioma === 'Español' ? 'es' : 'en';
+      query.papers = sourceLanguage(entry) === 'Español' ? 'es' : 'en';
       label = 'Leer ficha del estudio';
     } else {
       query.seccion = 'conferencias';
@@ -3234,7 +3234,7 @@ async function loadCatalog() {
   const relevant = academicSection ? catalog.filter(entry => entry.seccionAcademica === sectionKey)
     : editorialView
     ? own.filter(entry => !isArchive(entry) && (category ? designTopic(entry) === category : entry.tema === topTopic))
-    : isPapers ? papers.filter(entry => !language || entry.idioma === languages[language])
+    : isPapers ? papers.filter(entry => !language || sourceLanguage(entry) === languages[language])
     : isInterviews ? interviews
     : isDiagnosis ? own.filter(entry => entry.diagnostico === true)
     : isDevelopment ? sources.filter(entry => entry.decisionDesarrollo === true || developmentIds.has(entry.id))
@@ -3314,7 +3314,7 @@ async function loadCatalog() {
     document.querySelector('#encabezado-fichas').hidden = false;
     document.querySelector('#filtro-idioma').hidden = false;
     clear.hidden = false;
-    fillOptions(languageFilter, [...new Set(sources.map(entry => entry.idioma).filter(Boolean))]);
+    fillOptions(languageFilter, [...new Set(sources.map(sourceLanguage).filter(Boolean))]);
     sections.hidden = false;
     sections.classList.add('estanteria');
     sections.setAttribute('aria-label', 'Colecciones de la Biblioteca');
@@ -3394,7 +3394,7 @@ async function loadCatalog() {
     const matches = relevant.filter(entry =>
       (!topic.value || entry.tema === topic.value) &&
       (!libraryHub || ((!activeCollection || activeCollection.includes(entry.formato)) &&
-        (!languageFilter.value || entry.idioma === languageFilter.value))) &&
+        (!languageFilter.value || sourceLanguage(entry) === languageFilter.value))) &&
       normalize([entry.titulo, entry.resumen, entry.tema, entry.formato, entry.id].join(' ')).includes(query)
     );
     more.hidden = !libraryHub || matches.length <= pageSize;

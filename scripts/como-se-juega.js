@@ -80,10 +80,9 @@ const normalize = value => value.normalize('NFD').replace(/\p{Diacritic}/gu, '')
 const slug = value => normalize(value).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const archiveUrl = name => 'como-se-juega.html?' + new URLSearchParams({tema: 'Mecánicas', coleccion: slug(name)});
 const isArchive = entry => entry.tema === 'Mecánicas' && isEditorial(entry) && entry.subtema;
-const editorialLabel = entry => entry.formato === 'Ensayo' ? 'Ensayo' : isArchive(entry) ? 'Ficha de mecánica' : 'Guía de diseño';
+const editorialLabel = entry => isArchive(entry) ? 'Ficha de mecánica' : 'Guía de diseño';
 
 function editorialSection(entry) {
-  if (entry.formato === 'Ensayo') return {name: 'Ensayos de diseño', query: {seccion: 'ensayos'}};
   const name = designTopic(entry);
   if (name === 'Mecánicas') return { name, query: { tema: name } };
   const area = Object.entries(disciplines).find(([, [, categories]]) => Object.hasOwn(categories, name));
@@ -3088,7 +3087,7 @@ function showPortalSearch(entries) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=ensayos-y-controles', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=catalogo-revisado', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const published = await response.json();
   const catalog = applyCatalogDrafts(published);
@@ -3120,8 +3119,7 @@ async function loadCatalog() {
   const editorialView = Boolean(discipline || topTopic);
   const sectionHub = Boolean(discipline && !category);
   const papersHub = isPapers && !language;
-  const essaysSection = sectionKey === 'ensayos';
-  const libraryHub = !essaysSection && !editorialView && !isPapers && !isInterviews && !isDevelopment && !isDiagnosis && !sourceSection && !isHome;
+  const libraryHub = !editorialView && !isPapers && !isInterviews && !isDevelopment && !isDiagnosis && !sourceSection && !isHome;
   const mechanicsView = category === 'Mecánicas' || topTopic === 'Mecánicas';
   const countCategory = name => own.filter(entry => designTopic(entry) === name).length;
   const countArea = key => Object.keys(disciplines[key][1]).reduce((n, name) => n + countCategory(name), 0);
@@ -3132,13 +3130,12 @@ async function loadCatalog() {
     : isPapers ? papers.filter(entry => !language || entry.idioma === languages[language])
     : isInterviews ? interviews
     : isDiagnosis ? own.filter(entry => entry.diagnostico === true)
-    : essaysSection ? own.filter(entry => entry.formato === 'Ensayo')
     : isDevelopment ? sources.filter(entry => entry.decisionDesarrollo === true || developmentIds.has(entry.id))
     : sourceSection ? sources.filter(entry => sourceSection[1].includes(entry.formato))
     : sources;
 
   const heading = language ? 'Papers en ' + languages[language].toLowerCase() :
-    isPapers ? 'Papers' : isInterviews ? 'Entrevistas' : isDevelopment ? 'Decisiones de desarrollo' : isDiagnosis ? diagnosisTitle : essaysSection ? 'Ensayos de diseño' :
+    isPapers ? 'Papers' : isInterviews ? 'Entrevistas' : isDevelopment ? 'Decisiones de desarrollo' : isDiagnosis ? diagnosisTitle :
     sourceSection?.[0] ?? (discipline ? category || discipline[0] : topTopic || 'Biblioteca');
   document.querySelector('#titulo-catalogo').textContent = heading;
   document.querySelector('#novedades').hidden = !isHome;
@@ -3192,8 +3189,6 @@ async function loadCatalog() {
     }
     examples.append(examplesTitle, cards);
     document.querySelector('#titulo-catalogo').after(description, examples);
-  } else if (essaysSection) {
-    document.querySelector('#titulo-catalogo').after(element('p', 'Textos de opinión sobre decisiones de diseño que puedes probar jugando.', 'descripcion-seccion'));
   } else if (isDiagnosis) {
     document.querySelector('#titulo-catalogo').after(element('p', 'Empieza por un problema que hayas visto al probar tu juego. Cada ficha te ayuda a elegir qué observar, qué cambiar y cómo medir si la prueba funciona.', 'descripcion-seccion'));
   } else if (category) {
@@ -3281,7 +3276,7 @@ async function loadCatalog() {
   search.form.hidden = !searchable;
   status.hidden = sectionHub || papersHub || mechanicsView || (editorialView && relevant.length > 0);
   results.hidden = sectionHub || papersHub || mechanicsView;
-  results.classList.toggle('archivo-guias', (editorialView && !sectionHub) || essaysSection || isDiagnosis);
+  results.classList.toggle('archivo-guias', (editorialView && !sectionHub) || isDiagnosis);
   results.classList.toggle('rejilla-diagnostico', isDiagnosis);
   if (searchable) {
     const topics = [...new Set(relevant.map(entry => entry.tema))];

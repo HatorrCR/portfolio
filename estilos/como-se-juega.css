@@ -858,7 +858,10 @@ body { padding-bottom: 60px; }
 .direccion-tactil > button:first-child { grid-column: 2; }
 .direccion-tactil > button:nth-child(2) { grid-column: 1; }
 .acciones-tactiles { display: flex; flex-wrap: wrap; gap: .3rem; }
-.rutas-inicio { grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr)); gap: .75rem; margin-block: 1rem; }
+.rutas-inicio { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; margin-block: 1rem; }
+@media (max-width: 560px) {
+  .rutas-inicio { grid-template-columns: minmax(0, 1fr); }
+}
 .ruta-inicio[data-area-diseno] { padding: .8rem 1rem; }
 .ruta-inicio h2 { font-size: clamp(1.12rem, 2vw, 1.4rem); margin: .25rem 0 .5rem; }
 .ruta-inicio ol { margin: .4rem 0; }

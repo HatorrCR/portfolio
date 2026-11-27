@@ -7,7 +7,8 @@ const status = document.querySelector('#estado');
 const reading = document.querySelector('#lectura');
 const params = new URLSearchParams(location.search);
 const languages = {es: 'Español', en: 'Inglés', ca: 'Catalán', gl: 'Gallego', eu: 'Euskera',
-  nb: 'Noruego', sv: 'Sueco', fi: 'Finés', da: 'Danés'};
+  nb: 'Noruego', sv: 'Sueco', fi: 'Finés', da: 'Danés', cs: 'Checo', sk: 'Eslovaco', pl: 'Polaco',
+  sl: 'Esloveno', et: 'Estonio', hr: 'Croata', pt: 'Portugués'};
 const selected = params.get('papers');
 const language = Object.hasOwn(languages, selected) ? selected : '';
 const isPapers = selected === 'todos' || Boolean(language);
@@ -139,7 +140,8 @@ function cardMetadata(label, language) {
   row.append(element('span', label, 'meta'));
   if (language) {
     const short = {Inglés: 'Eng', Español: 'Esp', Catalán: 'Cat', Gallego: 'Gal', Euskera: 'Eus',
-      Noruego: 'Nor', Sueco: 'Sue', Finés: 'Fin', Danés: 'Dan'}[language] ?? language.slice(0, 3);
+      Noruego: 'Nor', Sueco: 'Sue', Finés: 'Fin', Danés: 'Dan', Checo: 'Che', Eslovaco: 'Slk',
+      Polaco: 'Pol', Esloveno: 'Slv', Estonio: 'Est', Croata: 'Cro', Portugués: 'Por'}[language] ?? language.slice(0, 3);
     const badge = element('abbr', short, 'etiqueta-idioma');
     badge.title = language;
     badge.setAttribute('aria-label', 'Idioma del recurso: ' + language);
@@ -3206,7 +3208,7 @@ function showPortalSearch(entries) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=lenguas-de-la-biblioteca', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=lenguas-segunda-tanda', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const published = await response.json();
   const catalog = applyCatalogDrafts(published);

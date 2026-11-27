@@ -133,8 +133,17 @@ function sourceLanguage(entry) {
   return isEditorial(entry) ? '' : languages[language?.toLowerCase()] ?? language ?? '';
 }
 
-function resourceMetadata(entry, topic) {
-  return [entry.formato, topic, sourceLanguage(entry)].filter(Boolean).join(' · ');
+function cardMetadata(label, language) {
+  const row = element('div', '', 'metadatos-tarjeta');
+  row.append(element('span', label, 'meta'));
+  if (language) {
+    const short = {Inglés: 'Eng', Español: 'Esp'}[language] ?? language.slice(0, 3);
+    const badge = element('abbr', short, 'etiqueta-idioma');
+    badge.title = language;
+    badge.setAttribute('aria-label', 'Idioma del recurso: ' + language);
+    row.append(badge);
+  }
+  return row;
 }
 
 function editorialCard(entry, href) {
@@ -2117,7 +2126,7 @@ function showGames(entries) {
       const title = element('h2', '');
       title.append(link(entry.titulo, '?lectura=' + encodeURIComponent(entry.id)));
       colorCard(card, entry);
-      card.append(element('p', resourceMetadata(entry, designTopic(entry)), 'meta'),
+      card.append(cardMetadata(entry.formato + ' · ' + designTopic(entry), sourceLanguage(entry)),
         title, element('p', observacion || entry.resumen));
       resources.append(card);
     }
@@ -3172,7 +3181,7 @@ function showPortalSearch(entries) {
       const title = element('h2', '');
       title.append(link(result.title, result.url));
       card.dataset.areaDiseno = result.area;
-      card.append(element('p', [result.type, result.language].filter(Boolean).join(' · '), 'meta'), title);
+      card.append(cardMetadata(result.type, result.language), title);
       if (result.summary) card.append(element('p', result.summary));
       if (result.tags.length) card.append(tagLinks(result.tags.slice(0, 5)));
       grid.append(card);
@@ -3409,7 +3418,7 @@ async function loadCatalog() {
       const card = colorCard(element('article', '', 'ficha ficha-biblioteca'), entry);
       const title = element('h3', '');
       title.append(link(entry.titulo, '?' + libraryQuery({...(topic.value ? {tema: topic.value} : {}), lectura: entry.id})));
-      card.append(element('div', resourceMetadata(entry, entry.tema), 'meta'), title,
+      card.append(cardMetadata(entry.formato + ' · ' + entry.tema, sourceLanguage(entry)), title,
         element('p', entry.resumen));
       const video = videoFor(entry);
       if (video) card.append(link('Ver vídeo', video.url));

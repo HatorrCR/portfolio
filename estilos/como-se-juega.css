@@ -957,3 +957,23 @@ body { padding-bottom: 60px; }
   line-height: 1.5;
 }
 #catalogo #resultados:has(> .ficha-biblioteca) + button { margin-block-start: 1rem; }
+
+.metadatos-tarjeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: .6rem;
+  margin-block-end: .45rem;
+}
+#catalogo #resultados > .ficha-biblioteca .metadatos-tarjeta .meta,
+.metadatos-tarjeta .meta { margin: 0; }
+.etiqueta-idioma {
+  flex: none;
+  padding: .15rem .4rem;
+  border: 1px solid var(--tema-linea, var(--linea));
+  border-radius: .25rem;
+  background: var(--tema-panel, var(--papel));
+  color: var(--tema-acento, var(--tinta));
+  font: 700 .72rem/1.2 var(--mono);
+  text-decoration: none;
+}

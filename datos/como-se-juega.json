@@ -6836,10 +6836,10 @@
     "tema": "Espacios y recorridos",
     "formato": "Estudio",
     "idioma": "Inglés",
-    "resumen": "Los experimentos distinguen tipos de hitos y estudian el aprendizaje de rutas con viajes repetidos. En el primer experimento, los hitos locales redujeron errores.",
-    "referencia": "The effect of landmark and body-based sensory information on route knowledge",
+    "resumen": "Experimentos sobre aprendizaje de rutas y la contribución de los hitos locales y globales.",
+    "referencia": "Ruddle, Volkova, Mohler y Bülthoff (2011). The effect of landmark and body-based sensory information on route knowledge. Memory & Cognition, 39, 686–699.",
     "fuente": "https://doi.org/10.3758/s13421-010-0054-z",
-    "cuerpo": "Los experimentos distinguen tipos de hitos y estudian el aprendizaje de rutas con viajes repetidos. En el primer experimento, los hitos locales redujeron errores.\n\n## Aplicación al diseño\n\nMide por separado llegar por primera vez y volver a orientarse en el mismo recorrido. El estudio incluye condiciones concretas de entrenamiento y feedback."
+    "cuerpo": "## Resumen y método\n\nLos participantes hicieron cuatro recorridos de ida y vuelta, con guía en la primera ida y aviso cuando se equivocaban. El primer experimento usó entornos 3D en un monitor y comparó señales locales, globales, ambas o ninguna señal suplementaria.\n\n## Resultado clave\n\nLos hitos locales redujeron errores en esa configuración. Los globales no mostraron la misma reducción. Un signo asociado a un punto de decisión y una referencia visible a distancia ofrecen pistas distintas.\n\n## Qué probar en un proyecto\n\nCompara el mismo recorrido con un objeto junto al cruce y con una torre distante. Registra los giros erróneos durante el aprendizaje y la elección al volver sin guía. El resultado publicado corresponde a viajes repetidos, con corrección de errores, en un entorno controlado."
   },
   {
     "id": "academico-marples-cues",
@@ -6979,10 +6979,10 @@
     "tema": "Interfaz e interacción",
     "formato": "Estudio",
     "idioma": "Inglés",
-    "resumen": "Cuatro experimentos comparan presentaciones para munición, salud, armas y navegación. La presentación con mejor rendimiento cambia según la tarea.",
-    "referencia": "An empirical comparison of first-person shooter information displays: HUDs, diegetic displays, and spatial representations",
+    "resumen": "Cuatro experimentos sobre dónde presentar munición, salud, arma y navegación en juegos de disparos.",
+    "referencia": "An empirical comparison of first-person shooter information displays (2018). Entertainment Computing, 26, 41–58.",
     "fuente": "https://doi.org/10.1016/j.entcom.2018.01.003",
-    "cuerpo": "Cuatro experimentos comparan presentaciones para munición, salud, armas y navegación. La presentación con mejor rendimiento cambia según la tarea.\n\n## Aplicación al diseño\n\nElige un dato y mide si se encuentra y usa a tiempo. Evita extrapolar el resultado de munición a todos los indicadores."
+    "cuerpo": "## Resumen y método\n\nLos autores aíslan cuatro tareas de juegos de disparos y comparan un HUD superpuesto con opciones diegéticas o integradas espacialmente. La evaluación estudia rendimiento en las tareas y distingue el tipo de información del modo de presentarla.\n\n## Resultados por tarea\n\nEn munición rindieron mejor alternativas diegéticas o espaciales. En salud, el HUD obtuvo mejor rendimiento. Para identificar o emparejar arma y situación funcionó bien combinar icono y arma visible. Una línea espacial rindió mejor en la tarea de navegación, con resultados competitivos de los minimapas.\n\n## Alcance y aplicación\n\nSon tareas acotadas de FPS. Una ruta marcada que facilita llegar a destino no demuestra que se recuerde después. Elige un dato, fija cuándo hace falta y mide si se usa para decidir. Si comparas dos formatos, deja igual el resto de las señales."
   },
   {
     "id": "academico-hud-tablet",
@@ -7111,10 +7111,10 @@
     "tema": "Tutoriales y aprendizaje",
     "formato": "Estudio",
     "idioma": "Inglés",
-    "resumen": "Barnett y Ceci proponen una taxonomía general de la transferencia. Permite distinguir lo aprendido del contexto donde se usa.",
-    "referencia": "When and where do we apply what we learn? A taxonomy for far transfer",
+    "resumen": "Una taxonomía para describir qué se transfiere y qué cambia entre el aprendizaje y la prueba.",
+    "referencia": "Barnett y Ceci (2002). When and where do we apply what we learn? A taxonomy for far transfer. Psychological Bulletin, 128, 612–637.",
     "fuente": "https://doi.org/10.1037/0033-2909.128.4.612",
-    "cuerpo": "Barnett y Ceci proponen una taxonomía general de la transferencia. Permite distinguir lo aprendido del contexto donde se usa.\n\n## Aplicación al diseño\n\nAl diseñar una prueba posterior, documenta qué cambia en la tarea y qué regla sigue siendo la misma."
+    "cuerpo": "## Resumen del marco\n\nBarnett y Ceci organizan la transferencia según el contenido aprendido y el contexto en el que se aplica. Alterar el momento, el entorno o el tipo de tarea cambia la distancia entre el aprendizaje original y su uso posterior.\n\n## Puntos clave\n\nDos pruebas llamadas de transferencia pueden exigir habilidades distintas. Recordar un botón, elegir una estrategia y ejecutarla sin aviso ofrecen evidencias diferentes. Una evaluación útil nombra qué elemento se conserva y qué se modifica.\n\n## Aplicación a videojuegos\n\nEnseña una regla con una puerta y pon después un reto donde la misma regla opera sobre una plataforma. Mantén constante el control y retira la instrucción. Registra por separado si la persona identifica la regla y si logra ejecutarla. Es una aplicación al diseño, no un resultado de la revisión sobre ese videojuego."
   },
   {
     "id": "academico-sonic-fps",
@@ -7441,10 +7441,10 @@
     "tema": "Prototipado y pruebas",
     "formato": "Estudio",
     "idioma": "Finés",
-    "resumen": "Trabajo académico sobre una demo de RPG en Unity con una misión y mecánicas simplificadas.",
-    "referencia": "Theseus · repositorio de universidades finlandesas",
+    "resumen": "Una demo de RPG de una sola misión documenta cómo acotar un proyecto y revisar las decisiones del prototipo.",
+    "referencia": "2D-roolipelin demon suunnittelu ja toteutus Unity-pelimoottorilla. Trabajo universitario, Theseus.",
     "fuente": "https://www.theseus.fi/handle/10024/919414",
-    "cuerpo": "Trabajo académico sobre una demo de RPG en Unity con una misión y mecánicas simplificadas.\n\n## Cómo llevarlo a un proyecto\n\nPermite estudiar qué parte del juego basta para probar su propuesta."
+    "cuerpo": "## Resumen del trabajo\n\nLa memoria reúne una parte de diseño y accesibilidad y otra dedicada a motores de juego. Justifica Unity para un prototipo de Windows, usa C# y prepara gráficos con Aseprite. La demo termina publicada en itch.io y conserva una sola misión con sistemas simplificados.\n\n## Puntos clave\n\nEl interés del caso está en ver cómo una idea de RPG se convierte en un recorrido breve de principio a fin. La memoria documenta funciones centrales, pasos de creación y una reflexión frente a los criterios previstos. El resumen menciona accesibilidad como parte del marco de trabajo sin detallar una validación con usuarios concretos.\n\n## Qué probar en un proyecto\n\nAnota qué parte de la experiencia depende de que una misión se pueda iniciar, completar y cerrar. Conserva únicamente las acciones necesarias para ese recorrido. Prueba con una persona que nunca vio el prototipo y observa dónde deja de saber qué hacer."
   },
   {
     "id": "lenguas-vestuario-web",
@@ -7463,10 +7463,10 @@
     "tema": "Espacios y recorridos",
     "formato": "Estudio",
     "idioma": "Finés",
-    "resumen": "Trabajo sobre orientación visual sin depender de una interfaz gráfica superpuesta.",
-    "referencia": "Theseus · repositorio de universidades finlandesas",
+    "resumen": "Un nivel de Unreal Engine 4 pone en práctica señales del escenario para guiar al jugador sin presentar sus objetivos en un HUD.",
+    "referencia": "Esa Kurtti (2023). Pelaajan ohjaaminen visuaalisesti 3D-ympäristössä. Theseus.",
     "fuente": "https://www.theseus.fi/handle/10024/813224",
-    "cuerpo": "Trabajo sobre orientación visual sin depender de una interfaz gráfica superpuesta.\n\n## Cómo llevarlo a un proyecto\n\nRegistra el primer giro en una escena antes de explicar qué señal estaba diseñada para guiar."
+    "cuerpo": "## Resumen del prototipo\n\nKurtti pasa de un objetivo y un plano a un nivel de Unreal Engine 4 con puentes, una torre y una cueva. Utiliza recursos preparados y Advanced Locomotion System para el movimiento. Las siluetas, texturas e iluminación se usan como pistas. Una puerta que requiere una llave introduce una condición de progreso.\n\n## Puntos clave\n\nEl trabajo distingue captar la atención de indicar qué se puede hacer. Una silueta visible identifica un destino, mientras que el contraste y la composición ayudan a distinguir una entrada. La puerta y la llave añaden una regla que la orientación por sí sola no resuelve.\n\n## Alcance y prueba\n\nLa memoria documenta un prototipo. El resumen disponible no establece un efecto comparativo para cada señal. Para investigarlo cambia solo la iluminación de una bifurcación, registra el primer giro y pregunta qué pensaba que había en cada camino."
   },
   {
     "id": "lenguas-personajes-indie",
@@ -7485,10 +7485,10 @@
     "tema": "Interfaz e interacción",
     "formato": "Estudio",
     "idioma": "Finés",
-    "resumen": "Se revisan pautas de interfaz y herramientas para crear aventuras.",
-    "referencia": "Theseus · repositorio de universidades finlandesas",
+    "resumen": "Cómo se traduce una revisión de pautas de interfaz a una demo de aventura hecha en Unity.",
+    "referencia": "Vera Löfberg (2018). Seikkailupelien käyttöliittymien toteuttaminen. Karelia-ammattikorkeakoulu.",
     "fuente": "https://www.theseus.fi/handle/10024/151338",
-    "cuerpo": "Se revisan pautas de interfaz y herramientas para crear aventuras.\n\n## Cómo llevarlo a un proyecto\n\nDibuja la secuencia que va de descubrir un objeto a aplicar una acción sobre él."
+    "cuerpo": "## Resumen del trabajo\n\nLa memoria reúne pautas generales y específicas para interfaces de aventura, examina herramientas y su capacidad de personalización, y documenta una demo en Unity y C#. La aplicación tiene una escena inicial y un primer nivel. La memoria explica las funciones incorporadas y cómo se llegó a ellas.\n\n## Puntos clave\n\nLa interfaz de una aventura debe ayudar a reconocer una interacción posible y comunicar su resultado. Elegir un motor o herramienta implica revisar cuánta libertad da sobre las convenciones que se quieren cambiar. La demo sirve como caso de implementación de las pautas seleccionadas.\n\n## Qué probar en un proyecto\n\nPropón una tarea donde haya que detectar un objeto, seleccionar una acción y reconocer que se ejecutó. Registra por separado cuál de esos pasos causa errores. Así puedes saber si conviene tocar la señal que identifica el objeto, el control que ejecuta la acción o la respuesta de la interfaz."
   },
   {
     "id": "lenguas-cozy",
@@ -7507,10 +7507,25 @@
     "tema": "Espacios y recorridos",
     "formato": "Estudio",
     "idioma": "Finés",
-    "resumen": "Miia Jeskanen combina un marco de diseño de niveles con el desarrollo de un plataformas.",
-    "referencia": "Theseus · repositorio de universidades finlandesas",
+    "resumen": "Un proyecto que convierte una guía de diseño de niveles en un plataformas 2D, con pruebas y una evaluación crítica del resultado.",
+    "referencia": "Miia Jeskanen. 2D-tasohyppelypelin tasosuunnittelu. Xamk, trabajo universitario.",
     "fuente": "https://www.theseus.fi/bitstream/handle/10024/821191/Jeskanen_Miia.pdf?isAllowed=y&sequence=2",
-    "cuerpo": "Miia Jeskanen combina un marco de diseño de niveles con el desarrollo de un plataformas.\n\n## Cómo llevarlo a un proyecto\n\nIdentifica dónde se presenta una regla y dónde se combina con otra."
+    "cuerpo": "## Resumen y método\n\nJeskanen compila una base sobre diseño de niveles, analiza juegos de referencia y desarrolla un plataformas 2D. La memoria separa el marco teórico, el desarrollo y tres rondas de prueba. Los anexos incluyen formularios sobre dificultad, duración, claridad del tutorial y disfrute.\n\n## Puntos clave\n\nEl trabajo obtiene dos productos, una guía y un juego. Su evaluación considera útil la guía para desarrollar el prototipo, pero juzga que el resultado jugable no alcanzó la experiencia deseada. Esa separación permite revisar la experiencia sin descartar por completo el proceso empleado.\n\n## Qué probar en un proyecto\n\nAnaliza una sala con vídeo y un cuestionario breve. Contrasta dónde ocurrió un fallo con la dificultad que la persona declara. Si falla antes de ejecutar un salto, revisa qué entendió del recorrido antes de ajustar la física. No generalices una preferencia del prototipo a todos los plataformas.",
+    "juegos": [
+      {
+        "nombre": "Celeste",
+        "observacion": "Figura entre los tres plataformas que la memoria estudia como referencias."
+      },
+      {
+        "nombre": "Ori and the Will of the Wisps",
+        "observacion": "Referencia de la sección de ejemplos de plataformas 2D."
+      },
+      {
+        "nombre": "Hollow Knight",
+        "observacion": "Tercer juego de referencia en el marco teórico del trabajo."
+      }
+    ],
+    "juegosAnalizados": true
   },
   {
     "id": "lenguas-prototipo-koponen",
@@ -7518,10 +7533,10 @@
     "tema": "Mecánicas",
     "formato": "Estudio",
     "idioma": "Finés",
-    "resumen": "Timi Koponen documenta el diseño de mecánicas y el proceso de crear un prototipo.",
-    "referencia": "Theseus · repositorio de universidades finlandesas",
+    "resumen": "Tres iteraciones de un prototipo sirven para estudiar cómo se prueba una mecánica en contexto.",
+    "referencia": "Timi Koponen. Pelimekaniikan suunnittelu. Trabajo universitario, Theseus.",
     "fuente": "https://www.theseus.fi/bitstream/10024/57098/1/Koponen_Timi.pdf",
-    "cuerpo": "Timi Koponen documenta el diseño de mecánicas y el proceso de crear un prototipo.\n\n## Cómo llevarlo a un proyecto\n\nFormula una prueba que permita decidir si conviene conservar una regla."
+    "cuerpo": "## Resumen y estructura\n\nKoponen recorre el planteamiento del juego, las mecánicas, la interactividad y el reto. La memoria intercala tres prototipos con sus pruebas de juego. El índice permite seguir las etapas y ver cómo se vinculan con conceptos como núcleo, espacio de posibilidades y dificultad.\n\n## Puntos clave\n\nUna prueba puede detectar una carencia del sistema o un problema en la situación que se ha construido para mostrarlo. La estructura del trabajo deja espacio para revisar la mecánica antes de invertir en acabados. La fuente aporta un caso de desarrollo y discusión conceptual.\n\n## Qué probar en un proyecto\n\nAntes de cada versión, escribe la pregunta que quieres resolver. Tras observarla, conserva las reglas que no estás investigando y modifica una sola condición. Compara qué decisiones aparecieron en ambas versiones y qué cambió tras la intervención."
   },
   {
     "id": "lenguas-narrativa-mecanica",
@@ -7573,10 +7588,10 @@
     "tema": "Prototipado y pruebas",
     "formato": "Estudio",
     "idioma": "Finés",
-    "resumen": "Eero Manner estudia preproducción, prototipos y primera versión jugable.",
-    "referencia": "Theseus · repositorio de universidades finlandesas",
+    "resumen": "Una memoria teórica sobre los objetivos y métodos del diseño durante la preproducción.",
+    "referencia": "Eero Manner. Pelinkehitys ja -suunnittelu esituotannossa. Trabajo teórico, Theseus.",
     "fuente": "https://www.theseus.fi/bitstream/10024/150596/1/Manner_Eero.pdf",
-    "cuerpo": "Eero Manner estudia preproducción, prototipos y primera versión jugable.\n\n## Cómo llevarlo a un proyecto\n\nÚsalo para plantear qué decisión concreta tiene que resolver la siguiente iteración."
+    "cuerpo": "## Resumen del trabajo\n\nManner describe los roles en desarrollo, el ciclo de producción y los objetivos de la preproducción. Vincula el diseño de juego con prácticas como los prototipos, la iteración y la preparación de una primera versión jugable.\n\n## Puntos clave\n\nEl documento permite distinguir entre decidir qué se quiere probar y planificar el trabajo necesario para construirlo. Una primera versión jugable puede aclarar dependencias entre diseño, arte y programación antes de ampliar el alcance.\n\n## Alcance y aplicación\n\nLa memoria es teórica. Para aplicar sus ideas, define una incertidumbre concreta y decide qué observación permitiría cerrarla. Con un combate, por ejemplo, puedes comprobar si se distingue el aviso del ataque antes de producir más enemigos y animaciones."
   },
   {
     "id": "lenguas-inicio-niveles",
@@ -7617,10 +7632,17 @@
     "tema": "Interfaz e interacción",
     "formato": "Estudio",
     "idioma": "Sueco",
-    "resumen": "Memoria de Linköping sobre el diseño de interfaz en juegos 2D.",
-    "referencia": "DiVA · repositorio universitario",
+    "resumen": "Qué revela una prueba de navegación en el portal web de Tree Bugs, un juego 2D de investigación.",
+    "referencia": "David Svenson. Gränssnittsdesign för användbarhet i 2D-spel (2016). Linköpings universitet, trabajo de grado.",
     "fuente": "https://liu.diva-portal.org/smash/get/diva2%3A946698/FULLTEXT01.pdf",
-    "cuerpo": "Memoria de Linköping sobre el diseño de interfaz en juegos 2D.\n\n## Cómo llevarlo a un proyecto\n\nObserva qué datos necesita el jugador antes de actuar y cuánto tarda en localizarlos."
+    "cuerpo": "## Qué se hizo\n\nSvenson partió de Tree Bugs y desarrolló una interfaz web que terminó funcionando como portal separado conectado al servidor existente. Entre sus tareas estaban crear una cuenta, entrar y salir, elegir un juego y consultar clasificaciones. Para evaluar el diseño combinó tareas en orden prefijado, observación con pensamiento en voz alta y la versión sueca del cuestionario SUS.\n\n## Resultados y puntos clave\n\nLa media del SUS fue 69 sobre 100 en la escala, con desacuerdo entre participantes. Al salir de la pantalla de juego, algunas personas usaron Atrás en el navegador y llegaron enseguida a la clasificación. Otras repitieron el camino que habían seguido para entrar y dieron un rodeo. La clasificación en sí fue comprensible para los participantes.\n\n## Alcance del trabajo\n\nEl autor señala que el sistema era pequeño, parte de las tareas eran familiares y los participantes eran conocidos suyos. El cuestionario mide usabilidad general y la prueba no aisló el efecto de cada heurística. El 69 caracteriza esta evaluación y no es un porcentaje de tareas superadas.\n\n## Qué probar en un proyecto\n\nPide entrar a una partida, salir y consultar un resultado sin decir qué botón usar. Registra la primera acción, el número de pasos y si la persona acaba dependiendo del botón Atrás del navegador. Repite con gente que no conozca el proyecto. Usa la observación para explicar el rodeo que la puntuación global deja sin localizar.",
+    "juegos": [
+      {
+        "nombre": "Tree Bugs",
+        "observacion": "Caso central. El estudio evalúa las tareas del portal web nacido de este proyecto, separado posteriormente del juego."
+      }
+    ],
+    "juegosAnalizados": true
   },
   {
     "id": "lenguas-variedad-niveles",

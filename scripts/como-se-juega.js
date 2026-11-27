@@ -2241,7 +2241,7 @@ function renderLibraryReading(resource, entries) {
   reading.append(summary);
 
   const examples = element('section', '', 'ejemplos-biblioteca');
-  examples.append(element('h2', 'Juegos donde fijarte'));
+  examples.append(element('h2', resource.juegosAnalizados ? 'Juegos tratados en la fuente' : 'Juegos donde fijarte'));
   const games = element('dl', '');
   for (const game of resource.juegos ?? []) {
     const name = element('dt', '');
@@ -2253,7 +2253,7 @@ function renderLibraryReading(resource, entries) {
     const guide = entries.find(entry => isArchive(entry) && entry.tema === resource.tema && entry.subtema === resource.subtema);
     if (guide) examples.append(link('Ver nuestra ficha de ' + guide.subtema, archiveUrl(guide.subtema)));
   }
-  reading.append(examples);
+  if (games.childElementCount || examples.querySelector('a')) reading.append(examples);
   showSources(resource, entries);
 }
 
@@ -3208,7 +3208,7 @@ function showPortalSearch(entries) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=lenguas-segunda-tanda', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=fichas-documentadas', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const published = await response.json();
   const catalog = applyCatalogDrafts(published);

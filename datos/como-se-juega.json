@@ -6070,5 +6070,176 @@
         "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=reinicio-tras-fallar"
       }
     ]
+  },
+  {
+    "id": "concepto-tiempo-de-coyote",
+    "titulo": "Tiempo de coyote",
+    "seccionAcademica": "conceptos",
+    "tema": "Mecánicas",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Ventana que admite el salto justo después de perder el apoyo.",
+    "cuerpo": "## Definición\n\nEl juego conserva durante un intervalo el permiso de saltar que tenía el personaje mientras pisaba suelo. Thorson documenta esta ayuda en Celeste. [1]\n\n## Cómo reconocerlo\n\nSal de una plataforma sin saltar y pulsa después del borde. Si el salto se activa solo dentro de una ventana breve, estás observando el patrón. El código publicado de Celeste permite rastrear el temporizador de gracia del salto. [2]\n\n## Límite y aplicación\n\nEl búfer conserva una pulsación anticipada. El tiempo de coyote conserva el permiso tras perder el apoyo. El caso de Celeste documenta una implementación concreta. Para comparar el efecto, usa el mismo foso con y sin la ayuda. [1]",
+    "materiales": [
+      {
+        "nombre": "Caso documentado · Maddy Thorson, Celeste & Forgiveness",
+        "url": "https://maddymakesgames.com/articles/celeste_and_forgiveness/index.html"
+      },
+      {
+        "nombre": "Código fuente · Celeste, Player.cs",
+        "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+      }
+    ],
+    "relacionadas": [
+      "salto-2d-guia",
+      "concepto-bufer-de-salto"
+    ]
+  },
+  {
+    "id": "concepto-bufer-de-salto",
+    "titulo": "Búfer de salto",
+    "seccionAcademica": "conceptos",
+    "tema": "Mecánicas",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Registro temporal de una pulsación de salto antes de que pueda ejecutarse.",
+    "cuerpo": "## Definición\n\nSi pulsas antes de aterrizar, la entrada puede quedar pendiente y ejecutarse al recuperar el apoyo. La descripción de Celeste especifica pulsar y mantener antes de aterrizar. [1]\n\n## Cómo reconocerlo\n\nPulsa poco antes del contacto y observa si el personaje despega al tocar suelo. Repite más pronto y compara. En un prototipo conviene probar también qué ocurre al soltar el botón antes de aterrizar, porque esa condición puede variar entre implementaciones.\n\n## Límite y aplicación\n\nLa descripción del equipo establece el comportamiento de Celeste. La duración y las condiciones de consumo del búfer deben comprobarse en cada juego. En el laboratorio de Salto 2D puedes aislarlo con el interruptor correspondiente. [1]",
+    "materiales": [
+      {
+        "nombre": "Caso documentado · Maddy Thorson, Celeste & Forgiveness",
+        "url": "https://maddymakesgames.com/articles/celeste_and_forgiveness/index.html"
+      }
+    ],
+    "relacionadas": [
+      "salto-2d-guia",
+      "concepto-tiempo-de-coyote"
+    ]
+  },
+  {
+    "id": "concepto-hitos-orientacion",
+    "titulo": "Hitos de orientación",
+    "seccionAcademica": "conceptos",
+    "tema": "Espacios y recorridos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Referencias reconocibles que ayudan a situarse o decidir por dónde seguir.",
+    "cuerpo": "## Definición\n\nUn hito es un elemento reconocible que sirve de referencia espacial. Orientarse incluye situarse en el nivel, mientras que navegar incluye encontrar una ruta hacia un destino. [1]\n\n## Variantes\n\nUna torre visible desde varias zonas puede aportar rumbo general. Una estatua en un cruce puede distinguir el punto donde hay que girar. Ruddle y colaboradores compararon hitos globales y locales en rutas virtuales. [2]\n\n## Cómo comprobarlo\n\nPide a alguien que vuelva al inicio y anota el primer cruce equivocado. Pregunta qué referencia siguió. El laboratorio permite variar la presencia de una torre, mientras que el experimento publicado comparó varias configuraciones en una tarea de aprendizaje de ruta. [2]",
+    "materiales": [
+      {
+        "nombre": "Manual profesional · The Level Design Book, Wayfinding",
+        "url": "https://book.leveldesignbook.com/process/blockout/wayfinding"
+      },
+      {
+        "nombre": "Experimento · Ruddle et al. (2011), Memory & Cognition",
+        "url": "https://doi.org/10.3758/s13421-010-0054-z"
+      }
+    ],
+    "relacionadas": [
+      "hitos-orientacion",
+      "diagnostico-jugadores-se-pierden",
+      "evidencia-orientacion-sin-minimapa"
+    ]
+  },
+  {
+    "id": "concepto-jerarquia-hud",
+    "titulo": "Jerarquía del HUD",
+    "seccionAcademica": "conceptos",
+    "tema": "Interfaz e interacción",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Orden de prioridad con el que una interfaz superpuesta presenta información al jugador.",
+    "cuerpo": "## Definición\n\nAquí llamamos jerarquía del HUD a la prioridad visible entre datos como vida, munición y objetivo. Se puede comprobar indicando qué decisión debe tomar el jugador y observando si encuentra a tiempo el dato necesario.\n\n## Evidencia y ejemplo\n\nEn cuatro experimentos de tareas propias de juegos de disparos, la presentación con mejor rendimiento varió según la información. El HUD funcionó mejor para salud y las presentaciones diegéticas o espaciales para munición en esas pruebas. [1]\n\n## Límite y aplicación\n\nEl estudio compara canales de presentación en tareas concretas. Para evaluar una jerarquía dentro de tu HUD, conserva los datos y modifica solo su énfasis. Registra el acierto y el tiempo desde la aparición de la señal.",
+    "materiales": [
+      {
+        "nombre": "Cuatro experimentos · An empirical comparison of first-person shooter information displays (2018)",
+        "url": "https://doi.org/10.1016/j.entcom.2018.01.003"
+      }
+    ],
+    "relacionadas": [
+      "prioridad-hud",
+      "diagnostico-hud-ignorado"
+    ]
+  },
+  {
+    "id": "concepto-transferencia-aprendizaje",
+    "titulo": "Transferencia del aprendizaje",
+    "seccionAcademica": "conceptos",
+    "tema": "Tutoriales y aprendizaje",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Aplicación de lo aprendido a una tarea o situación distinta de la de entrenamiento.",
+    "cuerpo": "## Definición\n\nBarnett y Ceci organizan la transferencia según qué se aprende y qué aspectos cambian entre el contexto de aprendizaje y el de aplicación. En un juego puedes cambiar la disposición del reto y mantener la regla. [1]\n\n## Cómo reconocerla\n\nSuperar una instrucción mientras sigue visible mide ejecución guiada. Aplicar la misma regla en una sala nueva y sin la indicación aporta evidencia de transferencia a esa situación.\n\n## Límite y aplicación\n\nUn acierto aislado también puede deberse a ensayo y error o experiencia previa. Registra el primer intento y pide que expliquen la regla después de jugar. La taxonomía orienta qué cambia entre tareas. El protocolo enlazado concreta la observación para un videojuego. [1]",
+    "materiales": [
+      {
+        "nombre": "Revisión y taxonomía · Barnett y Ceci (2002), Psychological Bulletin",
+        "url": "https://doi.org/10.1037/0033-2909.128.4.612"
+      }
+    ],
+    "relacionadas": [
+      "diagnostico-tutorial-no-transfiere",
+      "instrucciones-a-tiempo",
+      "metodo-evaluar-tutorial"
+    ]
+  },
+  {
+    "id": "evidencia-orientacion-sin-minimapa",
+    "titulo": "¿Qué señales ayudan a orientarse sin minimapa?",
+    "seccionAcademica": "evidencia",
+    "tema": "Espacios y recorridos",
+    "formato": "Síntesis de evidencia",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Tres fuentes para distinguir los hitos que enseñan un recorrido de las ayudas que muestran por dónde seguir.",
+    "cuerpo": "## Hitos en una ruta virtual\n\nRuddle y colaboradores compararon rutas con hitos locales, globales, ambos o ninguno. En su primer experimento, los hitos locales redujeron errores y los globales no mostraron ese efecto. La tarea incluía recorridos repetidos y aviso al equivocarse, condiciones que limitan su aplicación a una primera visita en un juego. [1]\n\n## Una línea de navegación en un juego de disparos\n\nOtro trabajo comparó presentaciones para tareas aisladas. En la de navegación, una línea espacial que mostraba el camino rindió mejor y los minimapas también obtuvieron resultados competitivos. Esto informa sobre seguir una ruta visible. El estudio no mide necesariamente cuánto se recuerda al retirar la guía. [2]\n\n## Cómo llevarlo al nivel\n\nEl manual The Level Design Book distingue referencias para situarse de información para seguir una ruta. Como interpretación práctica, prueba primero un hito en el cruce si el objetivo es que recuerden el giro. Si te interesa que lleguen sin demora, compara con una indicación explícita. Mide por separado los errores durante el trayecto y al repetirlo sin ayuda. [3]",
+    "materiales": [
+      {
+        "nombre": "Experimento · Ruddle et al. (2011), Memory & Cognition",
+        "url": "https://doi.org/10.3758/s13421-010-0054-z"
+      },
+      {
+        "nombre": "Cuatro experimentos · An empirical comparison of first-person shooter information displays (2018)",
+        "url": "https://doi.org/10.1016/j.entcom.2018.01.003"
+      },
+      {
+        "nombre": "Manual profesional · The Level Design Book, Wayfinding",
+        "url": "https://book.leveldesignbook.com/process/blockout/wayfinding"
+      }
+    ],
+    "relacionadas": [
+      "concepto-hitos-orientacion",
+      "hitos-orientacion",
+      "diagnostico-jugadores-se-pierden"
+    ]
+  },
+  {
+    "id": "metodo-evaluar-tutorial",
+    "titulo": "Evaluar si un tutorial enseña a aplicar una regla",
+    "seccionAcademica": "metodos",
+    "tema": "Tutoriales y aprendizaje",
+    "formato": "Método de evaluación",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Protocolo para observar si una mecánica se aplica en un reto nuevo y sin instrucciones.",
+    "cuerpo": "## Preparación\n\nElige una regla y define de antemano qué cuenta como éxito independiente. Diseña una sala de enseñanza y una sala de prueba con la misma regla, un recorrido nuevo y ayudas desactivadas. Indica qué cambió entre tareas para acotar la transferencia. [1]\n\n## Procedimiento\n\nCompara dos versiones del tutorial cambiando solo una variable, como el momento de la indicación. Asigna al azar a cada participante a una versión si puedes. Mantén igual la sala de prueba, el dispositivo y las instrucciones iniciales. Si una persona prueba ambas versiones, el aprendizaje de la primera puede alterar la segunda.\n\n## Qué registrar\n\nAnota para cada sesión si aplica la regla al primer intento, número de errores, tiempo hasta la primera aplicación correcta y si pidió ayuda. Registra por separado completar el tutorial y superar el reto nuevo. Al terminar, pregunta qué regla creyó que tenía que aplicar.\n\n## Cómo interpretar el resultado\n\nCompara éxitos independientes sobre el total de cada grupo e incluye los abandonos por separado. Con pocas sesiones, usa patrones de error para formular la siguiente prueba. Andersen y colaboradores compararon tutoriales en tres juegos con medidas de participación y progreso. El protocolo de esta ficha propone una medida de transferencia específica que su estudio no establece directamente. [2]",
+    "materiales": [
+      {
+        "nombre": "Revisión y taxonomía · Barnett y Ceci (2002), Psychological Bulletin",
+        "url": "https://doi.org/10.1037/0033-2909.128.4.612"
+      },
+      {
+        "nombre": "Experimento de campo · Andersen et al. (2012), CHI",
+        "url": "https://grail.cs.washington.edu/wp-content/uploads/2015/08/andersen2012tio.pdf"
+      }
+    ],
+    "relacionadas": [
+      "concepto-transferencia-aprendizaje",
+      "diagnostico-tutorial-no-transfiere",
+      "instrucciones-a-tiempo"
+    ]
   }
 ]

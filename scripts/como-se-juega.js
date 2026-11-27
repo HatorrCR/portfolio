@@ -23,6 +23,8 @@ const sourceSections = {
   videos: ['Vídeos', ['Vídeo']]
 };
 const sectionKey = params.get('seccion');
+const academicSections = {"conceptos":["Conceptos","Definiciones, ejemplos documentados y límites."],"evidencia":["Evidencia por pregunta","Qué se ha estudiado, cómo y hasta dónde llegan los resultados."],"metodos":["Métodos de evaluación","Protocolos para probar decisiones de diseño en tu prototipo."]};
+const academicSection = Object.hasOwn(academicSections, sectionKey) ? academicSections[sectionKey] : null;
 const isDiagnosis = !isPapers && sectionKey === 'diagnostico';
 const diagnosisTitle = 'Fichas de diagnóstico';
 const isDevelopment = !isPapers && sectionKey === 'decisiones';
@@ -79,10 +81,13 @@ const normalize = value => value.normalize('NFD').replace(/\p{Diacritic}/gu, '')
 
 const slug = value => normalize(value).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const archiveUrl = name => 'como-se-juega.html?' + new URLSearchParams({tema: 'Mecánicas', coleccion: slug(name)});
-const isArchive = entry => entry.tema === 'Mecánicas' && isEditorial(entry) && entry.subtema;
-const editorialLabel = entry => isArchive(entry) ? 'Ficha de mecánica' : 'Guía de diseño';
+const isArchive = entry => !entry.seccionAcademica && entry.tema === 'Mecánicas' && isEditorial(entry) && entry.subtema;
+const editorialLabel = entry => entry.seccionAcademica ? entry.formato : isArchive(entry) ? 'Ficha de mecánica' : 'Guía de diseño';
 
 function editorialSection(entry) {
+  if (Object.hasOwn(academicSections, entry.seccionAcademica)) {
+    return {name: academicSections[entry.seccionAcademica][0], query: {seccion: entry.seccionAcademica}};
+  }
   const name = designTopic(entry);
   if (name === 'Mecánicas') return { name, query: { tema: name } };
   const area = Object.entries(disciplines).find(([, [, categories]]) => Object.hasOwn(categories, name));
@@ -2627,6 +2632,18 @@ function showReading(entries, archive) {
         for (const paragraph of block.trim().split(/\r?\n\s*\r?\n/).filter(Boolean)) {
           const heading = paragraph.match(/^(#{2,3}) ([^\r\n]+)$/);
           const content = heading ? element(heading[1] === '##' ? 'h2' : 'h3', heading[2]) : element('p', paragraph);
+          if (!heading && resource.seccionAcademica) {
+            content.replaceChildren();
+            for (const part of paragraph.split(/(\[\d+\])/g)) {
+              const source = /^\[\d+\]$/.test(part) && resource.materiales?.[Number(part.slice(1, -1)) - 1];
+              if (source && httpsLink(source.url)) {
+                const citation = link(part, source.url);
+                citation.title = source.nombre;
+                citation.setAttribute('aria-label', source.nombre);
+                content.append(citation);
+              } else content.append(part);
+            }
+          }
           if (heading?.[1] === '##' && index) addToIndex(content, 'apartado-' + (index.children.length + 1) + '-' + slug(heading[2]));
           reading.append(content);
           if (systemLab && heading?.[2] === 'Qué puedes cambiar') {
@@ -2672,6 +2689,22 @@ function showReading(entries, archive) {
     }
     if (archiveReading && Object.hasOwn(mechanicReviews, id)) addMechanicReview(id, addToIndex);
     if (resource.diagnostico) addDiagnosisLabLink(resource, entries, addToIndex);
+    if (resource.seccionAcademica && Array.isArray(resource.relacionadas)) {
+      const related = resource.relacionadas.map(id => entries.find(entry => entry.id === id)).filter(Boolean);
+      if (related.length) {
+        const box = element('section', '', 'referencias');
+        const heading = element('h2', 'Fichas y laboratorios relacionados');
+        addToIndex(heading, 'recursos-relacionados');
+        const list = element('ul', '');
+        for (const entry of related) {
+          const item = element('li', '');
+          item.append(link(entry.titulo, resourceUrl(entry)));
+          list.append(item);
+        }
+        box.append(heading, list);
+        reading.append(box);
+      }
+    }
     const references = showSources(resource, entries);
     if (references && index) addToIndex(references.heading, 'referencias');
     if (resource.subtema) {
@@ -3087,7 +3120,7 @@ function showPortalSearch(entries) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=catalogo-revisado', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=referencias-academicas', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const published = await response.json();
   const catalog = applyCatalogDrafts(published);
@@ -3108,7 +3141,7 @@ async function loadCatalog() {
     showGames(catalog);
     return;
   }
-  const own = catalog.filter(isEditorial);
+  const own = catalog.filter(entry => isEditorial(entry) && !entry.seccionAcademica);
   const sources = catalog.filter(entry => !isEditorial(entry));
   const publishedCount = published.filter(entry => !isEditorial(entry)).length;
   const archives = own.filter(isArchive);
@@ -3119,13 +3152,14 @@ async function loadCatalog() {
   const editorialView = Boolean(discipline || topTopic);
   const sectionHub = Boolean(discipline && !category);
   const papersHub = isPapers && !language;
-  const libraryHub = !editorialView && !isPapers && !isInterviews && !isDevelopment && !isDiagnosis && !sourceSection && !isHome;
+  const libraryHub = !academicSection && !editorialView && !isPapers && !isInterviews && !isDevelopment && !isDiagnosis && !sourceSection && !isHome;
   const mechanicsView = category === 'Mecánicas' || topTopic === 'Mecánicas';
   const countCategory = name => own.filter(entry => designTopic(entry) === name).length;
   const countArea = key => Object.keys(disciplines[key][1]).reduce((n, name) => n + countCategory(name), 0);
   const papers = sources.filter(entry => entry.formato === 'Estudio');
   const interviews = sources.filter(entry => entry.formato === 'Entrevista');
-  const relevant = editorialView
+  const relevant = academicSection ? catalog.filter(entry => entry.seccionAcademica === sectionKey)
+    : editorialView
     ? own.filter(entry => !isArchive(entry) && (category ? designTopic(entry) === category : entry.tema === topTopic))
     : isPapers ? papers.filter(entry => !language || entry.idioma === languages[language])
     : isInterviews ? interviews
@@ -3134,7 +3168,7 @@ async function loadCatalog() {
     : sourceSection ? sources.filter(entry => sourceSection[1].includes(entry.formato))
     : sources;
 
-  const heading = language ? 'Papers en ' + languages[language].toLowerCase() :
+  const heading = academicSection ? academicSection[0] : language ? 'Papers en ' + languages[language].toLowerCase() :
     isPapers ? 'Papers' : isInterviews ? 'Entrevistas' : isDevelopment ? 'Decisiones de desarrollo' : isDiagnosis ? diagnosisTitle :
     sourceSection?.[0] ?? (discipline ? category || discipline[0] : topTopic || 'Biblioteca');
   document.querySelector('#titulo-catalogo').textContent = heading;
@@ -3189,6 +3223,8 @@ async function loadCatalog() {
     }
     examples.append(examplesTitle, cards);
     document.querySelector('#titulo-catalogo').after(description, examples);
+  } else if (academicSection) {
+    document.querySelector('#titulo-catalogo').after(element('p', academicSection[1], 'descripcion-seccion'));
   } else if (isDiagnosis) {
     document.querySelector('#titulo-catalogo').after(element('p', 'Empieza por un problema que hayas visto al probar tu juego. Cada ficha te ayuda a elegir qué observar, qué cambiar y cómo medir si la prueba funciona.', 'descripcion-seccion'));
   } else if (category) {
@@ -3276,7 +3312,7 @@ async function loadCatalog() {
   search.form.hidden = !searchable;
   status.hidden = sectionHub || papersHub || mechanicsView || (editorialView && relevant.length > 0);
   results.hidden = sectionHub || papersHub || mechanicsView;
-  results.classList.toggle('archivo-guias', (editorialView && !sectionHub) || isDiagnosis);
+  results.classList.toggle('archivo-guias', (editorialView && !sectionHub) || isDiagnosis || Boolean(academicSection));
   results.classList.toggle('rejilla-diagnostico', isDiagnosis);
   if (searchable) {
     const topics = [...new Set(relevant.map(entry => entry.tema))];

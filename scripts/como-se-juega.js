@@ -94,6 +94,21 @@ function editorialSection(entry) {
   return { name, query: area ? { diseno: area[0], categoria: name } : { tema: entry.tema } };
 }
 
+function entryTags(entry) {
+  const labels = [...(Array.isArray(entry.tags) ? entry.tags : []), entry.tema, entry.subtema];
+  return [...new Map(labels.filter(value => typeof value === 'string' && slug(value))
+    .map(value => [slug(value), value.trim()])).values()];
+}
+
+function tagLinks(tags) {
+  const list = element('div', '', 'etiquetas-ficha');
+  list.setAttribute('aria-label', 'Etiquetas');
+  for (const tag of tags) {
+    list.append(link(tag, '?' + new URLSearchParams({seccion: 'buscar', etiqueta: slug(tag)})));
+  }
+  return list;
+}
+
 function editorialCard(entry, href) {
   const kind = isArchive(entry) ? 'mecanica' : 'guia';
   const card = link('', href);
@@ -2433,30 +2448,6 @@ function showFavorites(entries) {
   render();
 }
 
-function addSectionLink(heading, id, label = heading.textContent) {
-  const button = element('button', '↗', 'copiar-apartado');
-  button.type = 'button';
-  button.setAttribute('aria-label', 'Copiar enlace a ' + label);
-  button.title = 'Copiar enlace a ' + label;
-  const notice = element('span', '', 'aviso-copiar');
-  notice.setAttribute('role', 'status');
-  let timer;
-  button.addEventListener('click', async () => {
-    const url = new URL(location.href);
-    url.hash = id;
-    try {
-      await navigator.clipboard.writeText(url.href);
-      notice.textContent = 'Enlace copiado';
-    } catch {
-      window.prompt('Copia el enlace al apartado', url.href);
-      return;
-    }
-    clearTimeout(timer);
-    timer = setTimeout(() => { notice.textContent = ''; }, 2200);
-  });
-  heading.append(' ', button, notice);
-}
-
 function scrollToReadingSection() {
   if (!location.hash) return;
   requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView());
@@ -2553,7 +2544,6 @@ function showReading(entries, archive) {
       item.append(link(label, '#' + id));
       index.append(item);
     }
-    addSectionLink(heading, id, label);
   };
   const section = sectionKey === 'empieza' ? {name: 'Empieza aquí', query: {seccion: 'empieza'}}
     : isDiagnosis && resource?.diagnostico === true
@@ -2583,6 +2573,8 @@ function showReading(entries, archive) {
     const visualJump = id === 'salto-2d-guia';
     const dashGuide = id === 'dash-2d-guia' || id === 'dash-3d-guia';
     document.title = resource.titulo + ' · Cómo se juega';
+    const tags = entryTags(resource);
+    if (tags.length) reading.append(tagLinks(tags));
     const feedback = document.querySelector('#sugerir-cambio');
     const url = new URL(resourceUrl(resource), location.href);
     const form = new URL(feedback.href);
@@ -3036,7 +3028,6 @@ function showPortalSearch(entries) {
   input.type = 'search';
   input.name = 'q';
   input.value = params.get('q') ?? '';
-  input.required = true;
   label.append(input);
   const submit = element('button', 'Buscar', 'boton');
   submit.type = 'submit';
@@ -3044,7 +3035,7 @@ function showPortalSearch(entries) {
   const filter = element('select', '');
   filter.name = 'tipo';
   for (const [value, name] of [['', 'Todos'], ['guias', 'Guías y mecánicas'], ['diagnosticos', 'Diagnósticos'],
-    ['juegos', 'Juegos'], ['fuentes', 'Fuentes']]) {
+    ['conceptos', 'Conceptos'], ['evidencia', 'Evidencia'], ['metodos', 'Métodos de evaluación'], ['juegos', 'Juegos'], ['fuentes', 'Fuentes']]) {
     const option = element('option', name);
     option.value = value;
     filter.append(option);
@@ -3053,8 +3044,21 @@ function showPortalSearch(entries) {
   if ([...filter.options].some(option => option.value === requestedFilter)) filter.value = requestedFilter;
   filterLabel.className = 'filtro-portal';
   filterLabel.append(filter);
-  filter.addEventListener('change', () => { if (input.value.trim()) form.requestSubmit(); });
-  form.append(section, label, filterLabel, submit);
+  const tagLabel = element('label', 'Etiqueta', 'filtro-portal');
+  const tagFilter = element('select', '');
+  tagFilter.name = 'etiqueta';
+  tagFilter.append(element('option', 'Todas las etiquetas'));
+  tagFilter.options[0].value = '';
+  const tags = new Map(entries.flatMap(entryTags).map(tag => [slug(tag), tag]));
+  for (const [id, name] of [...tags].sort((a, b) => a[1].localeCompare(b[1], 'es'))) {
+    const option = element('option', name);
+    option.value = id;
+    tagFilter.append(option);
+  }
+  tagFilter.value = tags.has(params.get('etiqueta')) ? params.get('etiqueta') : '';
+  tagLabel.append(tagFilter);
+  for (const selector of [filter, tagFilter]) selector.addEventListener('change', () => form.requestSubmit());
+  form.append(section, label, filterLabel, tagLabel, submit);
   reading.append(heading, form);
   document.title = 'Buscar · Cómo se juega';
   document.querySelector('.portada').hidden = true;
@@ -3063,26 +3067,30 @@ function showPortalSearch(entries) {
   reading.hidden = false;
 
   const terms = slug(input.value).split('-').filter(Boolean);
-  if (!terms.length) return;
+  if (!terms.length && !filter.value && !tagFilter.value) return;
   const games = buildGameIndex(entries);
   const results = [
     ...entries.map(entry => ({
       title: entry.titulo, url: resourceUrl(entry), summary: entry.resumen,
-      group: entry.diagnostico ? 'diagnosticos' : isEditorial(entry) ? 'guias' : 'fuentes',
+      tags: entryTags(entry),
+      group: entry.seccionAcademica ?? (entry.diagnostico ? 'diagnosticos' : isEditorial(entry) ? 'guias' : 'fuentes'),
       type: entry.diagnostico ? 'Diagnóstico' : isEditorial(entry) ? editorialLabel(entry) :
         entry.decisionDesarrollo || developmentIds.has(entry.id) ? 'Decisión de desarrollo' : entry.formato,
       context: [entry.tema, entry.subtema, ...gameReferences(entry).map(game => game.nombre)].join(' ')
     })),
     ...Array.from(games, ([id, game]) => ({
       title: game.nombre, url: gamePageUrl(id), type: 'Juego', group: 'juegos',
+      tags: [...new Set(Array.from(game.entries.values(), ({entry}) => entryTags(entry)).flat())],
       context: Array.from(game.entries.values(), ({entry}) => [entry.titulo, entry.tema, entry.subtema].join(' ')).join(' ')
     }))
   ].flatMap(result => {
     const title = slug(result.title);
     const context = slug(result.context);
     const summary = slug(result.summary ?? '');
-    const text = [title, context, summary, slug(result.type)].join(' ');
-    if ((filter.value && result.group !== filter.value) || !terms.every(term => text.includes(term))) return [];
+    const tags = result.tags.map(slug);
+    const text = [title, context, summary, slug(result.type), ...tags].join(' ');
+    if ((filter.value && result.group !== filter.value) || (tagFilter.value && !tags.includes(tagFilter.value)) ||
+        !terms.every(term => text.includes(term))) return [];
     const rank = terms.reduce((score, term) => score + (title.includes(term) ? 6 : context.includes(term) ? 3 : 1), 0);
     return [{...result, rank}];
   }).sort((a, b) => b.rank - a.rank || a.title.localeCompare(b.title, 'es'));
@@ -3100,6 +3108,7 @@ function showPortalSearch(entries) {
       title.append(link(result.title, result.url));
       card.append(element('p', result.type, 'meta'), title);
       if (result.summary) card.append(element('p', result.summary));
+      if (result.tags.length) card.append(tagLinks(result.tags.slice(0, 5)));
       grid.append(card);
     }
     shown = grid.children.length;
@@ -3120,7 +3129,7 @@ function showPortalSearch(entries) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=referencias-academicas', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=conceptos-y-etiquetas', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const published = await response.json();
   const catalog = applyCatalogDrafts(published);
@@ -3331,7 +3340,8 @@ async function loadCatalog() {
       normalize([entry.titulo, entry.resumen, entry.tema, entry.formato, entry.id].join(' ')).includes(query)
     );
     more.hidden = !libraryHub || matches.length <= pageSize;
-    const visible = libraryHub ? matches.slice(0, pageSize) : matches;
+    const visible = libraryHub ? matches.slice(0, pageSize) : sectionKey === 'conceptos'
+      ? [...matches].sort((a, b) => a.titulo.localeCompare(b.titulo, 'es')) : matches;
     results.replaceChildren(...visible.map(entry => {
       if (isEditorial(entry)) {
         return editorialCard(entry, '?' + new URLSearchParams({

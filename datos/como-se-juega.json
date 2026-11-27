@@ -6241,5 +6241,492 @@
       "diagnostico-tutorial-no-transfiere",
       "instrucciones-a-tiempo"
     ]
+  },
+  {
+    "id": "concepto-mecanica",
+    "titulo": "Mecánica de juego",
+    "tema": "Mecánicas",
+    "tags": [
+      "Mecánicas",
+      "MDA"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Regla o procedimiento que define qué puede ocurrir y cómo cambia el estado.",
+    "cuerpo": "## Definición y alcance\n\nEn MDA, las mecánicas describen componentes del juego en términos de datos y reglas. Una recarga que consume tiempo mientras repone munición es una regla que puedes describir y comprobar. [1]\n\n## Cómo comprobarlo\n\nRegistra el estado antes de pulsar, qué condición permite la acción y el estado al acabar. El marco organiza el análisis y deja abierta la pregunta de cómo jugará la gente.",
+    "materiales": [
+      {
+        "nombre": "Marco teórico · Hunicke, LeBlanc y Zubek, MDA",
+        "url": "https://www.cs.northwestern.edu/~hunicke/pubs/MDA.pdf"
+      }
+    ],
+    "relacionadas": [
+      "mda-hunicke-leblanc-zubek"
+    ]
+  },
+  {
+    "id": "concepto-dinamica",
+    "titulo": "Dinámica de juego",
+    "tema": "Dinámicas",
+    "tags": [
+      "Sistemas",
+      "MDA"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Comportamiento que aparece cuando las reglas se ponen en marcha durante la partida.",
+    "cuerpo": "## Definición y alcance\n\nEn MDA, las dinámicas surgen de las mecánicas al interactuar con las acciones del jugador. Una regla que premia guardar recursos puede combinarse con la incertidumbre y favorecer que se acumulen. [1]\n\n## Cómo comprobarlo\n\nObserva cuándo se gasta el recurso y qué creía la persona que iba a necesitar después. La acumulación por sí sola admite varias explicaciones.",
+    "materiales": [
+      {
+        "nombre": "Marco teórico · Hunicke, LeBlanc y Zubek, MDA",
+        "url": "https://www.cs.northwestern.edu/~hunicke/pubs/MDA.pdf"
+      }
+    ],
+    "relacionadas": [
+      "mda-hunicke-leblanc-zubek"
+    ]
+  },
+  {
+    "id": "concepto-estetica-mda",
+    "titulo": "Experiencia estética en MDA",
+    "tema": "Dinámicas",
+    "tags": [
+      "Sistemas",
+      "MDA"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Respuesta que el diseño aspira a provocar al jugar.",
+    "cuerpo": "## Definición y alcance\n\nEn MDA, estética abarca experiencias como reto, descubrimiento o expresión. El modelo vincula esas respuestas con las dinámicas producidas durante la partida. [1]\n\n## Cómo comprobarlo\n\nDescribe la experiencia que esperas y contrástala con lo que cuentan varios jugadores. El marco ofrece categorías para analizar la experiencia.",
+    "materiales": [
+      {
+        "nombre": "Marco teórico · Hunicke, LeBlanc y Zubek, MDA",
+        "url": "https://www.cs.northwestern.edu/~hunicke/pubs/MDA.pdf"
+      }
+    ],
+    "relacionadas": [
+      "mda-hunicke-leblanc-zubek"
+    ]
+  },
+  {
+    "id": "concepto-fuente-recursos",
+    "titulo": "Fuente de recursos",
+    "tema": "Sistemas y economías",
+    "tags": [
+      "Economía",
+      "Sistemas"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Regla que introduce unidades nuevas de un recurso en una economía de juego.",
+    "cuerpo": "## Definición y alcance\n\nEn el modelo Machinations se puede representar la producción y el movimiento de recursos. Una mina que genera cuatro monedas por turno introduce oro en el sistema. [1]\n\n## Cómo comprobarlo\n\nDefine qué economía estás midiendo. Un pago entre jugadores redistribuye oro cuando ambos están dentro del mismo límite.",
+    "materiales": [
+      {
+        "nombre": "Tesis doctoral · Joris Dormans, Engineering Emergence",
+        "url": "https://pure.hva.nl/ws/files/141730/556198_Dissertatie_Dormans.pdf"
+      }
+    ],
+    "relacionadas": [
+      "machinations-dormans"
+    ]
+  },
+  {
+    "id": "concepto-sumidero-recursos",
+    "titulo": "Sumidero de recursos",
+    "tema": "Sistemas y economías",
+    "tags": [
+      "Economía",
+      "Sistemas"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Regla que retira unidades de un recurso de la economía estudiada.",
+    "cuerpo": "## Definición y alcance\n\nEn un modelo de recursos puedes representar por separado entradas, transferencias y salidas. Una tarifa que destruye monedas funciona como sumidero de oro. [1]\n\n## Cómo comprobarlo\n\nComprueba si las monedas desaparecen del conjunto o reaparecen en otra cuenta. El efecto depende del límite del sistema que has dibujado.",
+    "materiales": [
+      {
+        "nombre": "Tesis doctoral · Joris Dormans, Engineering Emergence",
+        "url": "https://pure.hva.nl/ws/files/141730/556198_Dissertatie_Dormans.pdf"
+      }
+    ],
+    "relacionadas": [
+      "machinations-dormans"
+    ]
+  },
+  {
+    "id": "concepto-bucle-refuerzo",
+    "titulo": "Bucle de refuerzo",
+    "tema": "Sistemas y economías",
+    "tags": [
+      "Economía",
+      "Sistemas"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Cadena de efectos que amplifica una diferencia inicial.",
+    "cuerpo": "## Definición y alcance\n\nUn circuito de recursos puede hacer que la producción financie más capacidad de producción. En una mina que compra nuevas minas, el rendimiento de hoy facilita aumentar el de mañana. [1]\n\n## Cómo comprobarlo\n\nDibuja las conexiones y compara dos partidas con una diferencia pequeña de capital inicial. Un bucle de refuerzo amplifica el cambio mientras las condiciones permiten que siga operando.",
+    "materiales": [
+      {
+        "nombre": "Tesis doctoral · Joris Dormans, Engineering Emergence",
+        "url": "https://pure.hva.nl/ws/files/141730/556198_Dissertatie_Dormans.pdf"
+      }
+    ],
+    "relacionadas": [
+      "machinations-dormans",
+      "mina-compra-mina"
+    ]
+  },
+  {
+    "id": "concepto-tacto-de-juego",
+    "titulo": "Tacto de juego",
+    "tema": "Mecánicas",
+    "tags": [
+      "Game feel",
+      "Mecánicas"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Cómo se siente la interacción con el juego momento a momento.",
+    "cuerpo": "## Definición y alcance\n\nPichlmair y Johansen reúnen técnicas para ajustar el movimiento, amplificar la respuesta y facilitar la ejecución de acciones. Esas intervenciones pueden modificar aspectos distintos de la interacción. [1]\n\n## Cómo comprobarlo\n\nEn el mismo recorrido, cambia primero un parámetro de movimiento y después una señal audiovisual. Distingue lo que cambia en el control de lo que cambia en su percepción.",
+    "materiales": [
+      {
+        "nombre": "Revisión · Pichlmair y Johansen",
+        "url": "https://doi.org/10.1109/TG.2021.3072241"
+      }
+    ],
+    "relacionadas": [
+      "game-feel-pichlmair-johansen"
+    ]
+  },
+  {
+    "id": "concepto-respuesta-audiovisual",
+    "titulo": "Amplificación de la respuesta audiovisual",
+    "tema": "Respuesta y legibilidad",
+    "tags": [
+      "Game feel",
+      "Interfaz"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Uso de señales que hacen más perceptible el efecto de una acción.",
+    "cuerpo": "## Definición y alcance\n\nLa revisión describe la amplificación de la respuesta como una familia de técnicas de game feel. Un destello o sonido al aterrizar puede hacer visible o audible el contacto. [1]\n\n## Cómo comprobarlo\n\nConserva la física y compara una caída con la señal activada y desactivada. Pregunta en qué momento se percibió el aterrizaje.",
+    "materiales": [
+      {
+        "nombre": "Revisión · Pichlmair y Johansen",
+        "url": "https://doi.org/10.1109/TG.2021.3072241"
+      }
+    ],
+    "relacionadas": [
+      "game-feel-pichlmair-johansen"
+    ]
+  },
+  {
+    "id": "concepto-juiciness",
+    "titulo": "Juiciness",
+    "tema": "Respuesta y legibilidad",
+    "tags": [
+      "Game feel",
+      "Interfaz"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Uso abundante de efectos de respuesta al interactuar con el juego.",
+    "cuerpo": "## Definición y alcance\n\nKao estudió distintos niveles de respuesta audiovisual dentro de un RPG de acción. Esa comparación permite discutir intensidad en un contexto concreto. [1]\n\n## Cómo comprobarlo\n\nCompara niveles de efectos conservando el reto. Comprueba si el impacto principal sigue distinguiéndose cuando coinciden varias acciones.",
+    "materiales": [
+      {
+        "nombre": "Estudio experimental · Kao",
+        "url": "https://doi.org/10.1016/j.entcom.2020.100359"
+      }
+    ],
+    "relacionadas": [
+      "juiciness-kao"
+    ]
+  },
+  {
+    "id": "concepto-apice-salto",
+    "titulo": "Ápice del salto",
+    "tema": "Mecánicas",
+    "tags": [
+      "Salto",
+      "Mecánicas"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Punto más alto de una trayectoria de salto.",
+    "cuerpo": "## Definición y alcance\n\nEn un modelo continuo con aceleración vertical constante, el ápice coincide con el instante en que la velocidad vertical llega a cero. Pittman parte de altura y tiempo de subida para parametrizar la trayectoria. [1]\n\n## Cómo comprobarlo\n\nDibuja la trayectoria y registra altura máxima y duración por separado. El paso discreto del motor y las colisiones pueden desplazar el máximo observado.",
+    "materiales": [
+      {
+        "nombre": "Conferencia técnica · Kyle Pittman",
+        "url": "https://www.gdcvault.com/play/1023559/Math-for-Game-Programmers-Building%3A"
+      }
+    ],
+    "relacionadas": [
+      "salto-2d-pittman",
+      "salto-2d-guia"
+    ]
+  },
+  {
+    "id": "concepto-alcance-salto",
+    "titulo": "Alcance horizontal del salto",
+    "tema": "Mecánicas",
+    "tags": [
+      "Salto",
+      "Mecánicas"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Distancia horizontal recorrida entre el despegue y el aterrizaje.",
+    "cuerpo": "## Definición y alcance\n\nCon velocidad horizontal constante, el alcance es velocidad por tiempo de vuelo. En un plataformas, la altura del destino y el control aéreo pueden alterar esos supuestos. [1]\n\n## Cómo comprobarlo\n\nCompara dos saltos igual de altos con distinta gravedad de caída. Anota el punto de aterrizaje y comprueba si la geometría sigue siendo alcanzable.",
+    "materiales": [
+      {
+        "nombre": "Conferencia técnica · Kyle Pittman",
+        "url": "https://www.gdcvault.com/play/1023559/Math-for-Game-Programmers-Building%3A"
+      }
+    ],
+    "relacionadas": [
+      "salto-2d-pittman",
+      "salto-2d-guia"
+    ]
+  },
+  {
+    "id": "concepto-espacio-transitable",
+    "titulo": "Geometría alcanzable",
+    "tema": "Encuentros y puzles",
+    "tags": [
+      "Niveles",
+      "Salto"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Conjunto de posiciones o plataformas que se pueden alcanzar con las reglas de movimiento dadas.",
+    "cuerpo": "## Definición y alcance\n\nTanagra utiliza modelos de movimiento y restricciones para generar geometría jugable en un plataformas 2D. El alcance se evalúa como relación entre movimiento y geometría. [1]\n\n## Cómo comprobarlo\n\nPrueba desde varios puntos de salida. Una trayectoria viable permite cruzar el hueco, y su margen de ejecución es otra variable que conviene medir.",
+    "materiales": [
+      {
+        "nombre": "Artículo de investigación · Tanagra",
+        "url": "https://doi.org/10.1609/aiide.v6i1.12379"
+      }
+    ],
+    "relacionadas": [
+      "tanagra-smith"
+    ]
+  },
+  {
+    "id": "concepto-orientacion-navegacion",
+    "titulo": "Orientación y navegación",
+    "tema": "Espacios y recorridos",
+    "tags": [
+      "Niveles",
+      "Orientación"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Distinción entre saber dónde estás y encontrar un camino hacia un destino.",
+    "cuerpo": "## Definición y alcance\n\nThe Level Design Book diferencia situarse en el nivel de identificar por dónde seguir. Reconocer una torre puede situarte aunque sigas sin saber qué calle lleva hasta ella. [1]\n\n## Cómo comprobarlo\n\nPregunta por la ubicación y luego por el siguiente giro. Registra ambos resultados para localizar la dificultad.",
+    "materiales": [
+      {
+        "nombre": "Manual profesional · The Level Design Book",
+        "url": "https://book.leveldesignbook.com/process/blockout/wayfinding"
+      }
+    ],
+    "relacionadas": [
+      "nivel-wayfinding",
+      "hitos-orientacion"
+    ]
+  },
+  {
+    "id": "concepto-integrada-en-espacio",
+    "titulo": "Narrativa integrada en el espacio",
+    "tema": "Diseño narrativo",
+    "tags": [
+      "Narrativa",
+      "Niveles"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Información narrativa que el jugador reconstruye al explorar el escenario.",
+    "cuerpo": "## Definición y alcance\n\nJenkins describe la narrativa integrada como información dispersa en un espacio que se puede recorrer e interpretar. Los objetos o huellas pueden aportar piezas de un suceso anterior. [1]\n\n## Cómo comprobarlo\n\nPide al jugador que reconstruya qué ocurrió y que señale las pistas que apoyan su interpretación. Distingue inferencias compartidas de lecturas posibles.",
+    "materiales": [
+      {
+        "nombre": "Marco teórico · Henry Jenkins",
+        "url": "https://mycours.es/zip/Game%20Design%20as%20Narrative%20Architecture%20-%20Henry%20Jenkins.pdf"
+      }
+    ],
+    "relacionadas": [
+      "narrativa-jenkins-espacio"
+    ]
+  },
+  {
+    "id": "concepto-narrativa-indicial",
+    "titulo": "Narrativa indicial",
+    "tema": "Diseño narrativo",
+    "tags": [
+      "Narrativa",
+      "Niveles"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Uso de indicios espaciales cuya interpretación puede formar parte de la propia acción de jugar.",
+    "cuerpo": "## Definición y alcance\n\nFernández-Vara estudia cómo se lee la historia a partir de las huellas que deja en el espacio y cómo esa lectura puede intervenir en la resolución de tareas. [1]\n\n## Cómo comprobarlo\n\nColoca una pista interpretable que permita decidir por dónde seguir. Comprueba si la pista fundamenta la decisión o si el jugador llega por descarte.",
+    "materiales": [
+      {
+        "nombre": "Artículo académico · Clara Fernández-Vara",
+        "url": "https://dl.digra.org/index.php/dl/article/view/512"
+      }
+    ],
+    "relacionadas": [
+      "fernandez-vara-narrativa-indicial"
+    ]
+  },
+  {
+    "id": "concepto-estado-narrativo",
+    "titulo": "Estado narrativo",
+    "tema": "Diseño narrativo",
+    "tags": [
+      "Narrativa",
+      "Sistemas"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Conjunto de datos que una historia interactiva conserva para condicionar escenas futuras.",
+    "cuerpo": "## Definición y alcance\n\nLa documentación de ink muestra cómo las variables y condiciones permiten consultar hechos previos y variar lo que se muestra. Por ejemplo, recordar si ya hablaste con un personaje. [1]\n\n## Cómo comprobarlo\n\nTraza qué escribe cada elección y qué escena lee el valor. Comprueba también qué ocurre al volver a hablar antes de cumplir la condición.",
+    "materiales": [
+      {
+        "nombre": "Documentación técnica · ink",
+        "url": "https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md"
+      }
+    ],
+    "relacionadas": [
+      "narrativa-ink-elecciones",
+      "decisiones-consecuencias"
+    ]
+  },
+  {
+    "id": "concepto-dialogo-ramificado",
+    "titulo": "Diálogo ramificado",
+    "tema": "Diseño narrativo",
+    "tags": [
+      "Narrativa",
+      "Diálogo"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Conversación con recorridos que dependen de elecciones o condiciones.",
+    "cuerpo": "## Definición y alcance\n\nInk permite ofrecer opciones, desviar el flujo y reunir caminos. Dos elecciones pueden llevar a respuestas distintas y converger antes de la siguiente escena. [1]\n\n## Cómo comprobarlo\n\nDibuja dos recorridos y comprueba dónde se separan, dónde se reúnen y cuál deja un cambio persistente.",
+    "materiales": [
+      {
+        "nombre": "Documentación técnica · ink",
+        "url": "https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md"
+      }
+    ],
+    "relacionadas": [
+      "narrativa-ink-elecciones",
+      "dialogos-ramificados"
+    ]
+  },
+  {
+    "id": "concepto-tutorial-contextual",
+    "titulo": "Tutorial contextual",
+    "tema": "Tutoriales y aprendizaje",
+    "tags": [
+      "Tutoriales",
+      "Interfaz"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Instrucción que se presenta en relación con la situación donde se aplica.",
+    "cuerpo": "## Definición y alcance\n\nAndersen y colaboradores compararon tutoriales contextuales y no contextuales. Encontraron mejoras de participación en Foldit para la presentación contextual, con resultados distintos en los otros juegos estudiados. [1]\n\n## Cómo comprobarlo\n\nCambia solo cuándo aparece la instrucción y mide por separado el progreso y la aplicación posterior de la regla sin ayuda.",
+    "materiales": [
+      {
+        "nombre": "Experimento de campo · Andersen et al.",
+        "url": "https://grail.cs.washington.edu/projects/game-abtesting/chi2012/"
+      }
+    ],
+    "relacionadas": [
+      "andersen-tutoriales-2012",
+      "metodo-evaluar-tutorial"
+    ]
+  },
+  {
+    "id": "concepto-redundancia-color",
+    "titulo": "Señales redundantes al color",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "tags": [
+      "Accesibilidad",
+      "Interfaz"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Uso de una segunda señal para que la información esencial pueda entenderse sin distinguir colores.",
+    "cuerpo": "## Definición y alcance\n\nGame Accessibility Guidelines recomienda acompañar el color esencial con un indicador adicional. Por ejemplo, diferenciar dos estados con forma o texto además de su tonalidad. [1]\n\n## Cómo comprobarlo\n\nComprueba en una captura sin color si las dos señales siguen diferenciándose. Esa revisión inicial se puede complementar con pruebas de uso.",
+    "materiales": [
+      {
+        "nombre": "Guía de accesibilidad · Señales que se entienden sin el color",
+        "url": "https://gameaccessibilityguidelines.com/ensure-no-essential-information-is-conveyed-by-a-fixed-colour-alone/"
+      }
+    ],
+    "relacionadas": [
+      "accesibilidad-ensure-no-essential-information-is-conveyed-by-a-fixed-colour-alone"
+    ]
+  },
+  {
+    "id": "concepto-reasignacion-controles",
+    "titulo": "Reasignación de controles",
+    "tema": "Experiencia de usuario y accesibilidad",
+    "tags": [
+      "Accesibilidad",
+      "Controles"
+    ],
+    "seccionAcademica": "conceptos",
+    "formato": "Concepto",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Posibilidad de cambiar la entrada física asignada a una acción.",
+    "cuerpo": "## Definición y alcance\n\nGame Accessibility Guidelines recomienda permitir reasignar los controles. Eso permite ajustar la correspondencia entre una tecla o botón y la acción que ejecuta. [1]\n\n## Cómo comprobarlo\n\nCambia una entrada y revisa el juego, el menú y las indicaciones del tutorial. Comprueba que se muestra la nueva asignación donde se enseña la acción.",
+    "materiales": [
+      {
+        "nombre": "Guía de accesibilidad · Reasignar los controles",
+        "url": "https://gameaccessibilityguidelines.com/allow-controls-to-be-remapped-reconfigured/"
+      }
+    ],
+    "relacionadas": [
+      "accesibilidad-allow-controls-to-be-remapped-reconfigured"
+    ]
   }
 ]

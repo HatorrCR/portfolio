@@ -788,7 +788,7 @@ body { padding-bottom: 60px; }
 .resultados-portal + button { margin-block: 1rem; }
 .prueba-final-pregunta { font-weight: 700; }
 
-.accion-ficha, .copiar-apartado {
+.accion-ficha {
   font: 700 .82rem/1.5 var(--mono);
   color: var(--tinta);
   background: var(--papel);
@@ -799,8 +799,6 @@ body { padding-bottom: 60px; }
 }
 .accion-ficha { margin: .5rem .5rem .5rem 0; }
 .accion-ficha[aria-pressed="true"] { border-color: var(--acento); }
-.copiar-apartado { vertical-align: middle; }
-.aviso-copiar { margin-inline-start: .35rem; font: .75rem/1.4 var(--mono); }
 .busqueda-portal .filtro-portal { flex: 0 1 auto; }
 .filtro-portal select { min-height: 2.3rem; font: inherit; }
 .controles-salto-tactiles {
@@ -884,3 +882,14 @@ body { padding-bottom: 60px; }
   border: 1px solid var(--tema-linea);
   border-radius: 4px;
 }
+
+.etiquetas-ficha { display: flex; flex-wrap: wrap; gap: .35rem; margin-block: .65rem; }
+.etiquetas-ficha a {
+  border: 1px solid var(--linea);
+  border-radius: 1rem;
+  padding: .12rem .55rem;
+  color: var(--tinta);
+  background: color-mix(in srgb, var(--papel) 86%, var(--acento));
+  font: 700 .78rem/1.5 var(--mono);
+}
+.etiquetas-ficha a:hover { border-color: var(--acento); }

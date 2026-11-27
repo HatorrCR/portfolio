@@ -2517,6 +2517,58 @@ function enhanceReadingIndex(nav) {
   update();
 }
 
+function addReviewDate(resource) {
+  if (!['evidencia', 'metodos'].includes(resource.seccionAcademica) ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(resource.ultimaRevision ?? '')) return;
+  const date = new Date(resource.ultimaRevision + 'T00:00:00Z');
+  if (!Number.isFinite(date.getTime())) return;
+  const row = element('p', 'Última revisión: ', 'meta');
+  const time = element('time', new Intl.DateTimeFormat('es', {dateStyle: 'long', timeZone: 'UTC'}).format(date));
+  time.dateTime = resource.ultimaRevision;
+  row.append(time);
+  reading.append(row);
+}
+
+function addTopicResources(resource, entries, addToIndex) {
+  const terms = new Set(entryTags(resource).map(slug));
+  if (!terms.size) return;
+  const excluded = new Set([resource.id, ...(resource.fuentes ?? []), ...(resource.relacionadas ?? [])]);
+  for (const id of [...excluded]) {
+    const related = entries.find(entry => entry.id === id);
+    for (const sourceId of related?.fuentes ?? []) excluded.add(sourceId);
+  }
+  function sourceKey(value) {
+    const url = httpsLink(value);
+    return url ? url.hostname.replace(/^www\./, '') + url.pathname.replace(/\/$/, '') +
+      (url.hostname.endsWith('youtube.com') ? url.searchParams.get('v') ?? '' : '') : '';
+  }
+  const cited = new Set([resource.fuente, ...(resource.materiales ?? []).map(item => item.url)].map(sourceKey).filter(Boolean));
+  const matches = entries.flatMap((entry, position) => {
+    if (isEditorial(entry) || excluded.has(entry.id) || cited.has(sourceKey(entry.fuente))) return [];
+    const shared = entryTags(entry).filter(tag => terms.has(slug(tag)));
+    const score = shared.length + (designTopic(entry) === designTopic(resource) ? 2 : 0);
+    return score ? [{entry, position, score, shared}] : [];
+  }).sort((a, b) => b.score - a.score || b.position - a.position);
+  if (!matches.length) return;
+  const box = element('section', '', 'referencias');
+  const title = element('h2', 'Otros recursos sobre este tema');
+  addToIndex(title, 'otros-recursos');
+  const list = element('ul', '');
+  const seen = new Set();
+  for (const {entry, shared} of matches) {
+    const key = sourceKey(entry.fuente) || entry.id;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const item = element('li', '');
+    item.append(link(entry.titulo, resourceUrl(entry)), ' · ' + entry.formato +
+      (shared.length ? ' · ' + shared.join(', ') : ''));
+    list.append(item);
+    if (seen.size === 5) break;
+  }
+  box.append(title, element('p', 'Lecturas de la Biblioteca seleccionadas automáticamente por tema y etiquetas.'), list);
+  reading.append(box);
+}
+
 function showReading(entries, archive) {
   const id = params.get('lectura') ?? archive?.id;
   if (!id) return;
@@ -2574,6 +2626,7 @@ function showReading(entries, archive) {
     const visualJump = id === 'salto-2d-guia';
     const dashGuide = id === 'dash-2d-guia' || id === 'dash-3d-guia';
     document.title = resource.titulo + ' · Cómo se juega';
+    addReviewDate(resource);
     const tags = entryTags(resource);
     if (tags.length) reading.append(tagLinks(tags));
     const feedback = document.querySelector('#sugerir-cambio');
@@ -2589,6 +2642,7 @@ function showReading(entries, archive) {
       for (const [position, heading] of [...reading.querySelectorAll('h2')].entries()) {
         addToIndex(heading, heading.id || 'apartado-' + (position + 1) + '-' + slug(heading.textContent));
       }
+      addTopicResources(resource, entries, addToIndex);
       document.querySelector('#catalogo').hidden = true;
       reading.hidden = false;
       document.querySelector('.portada').hidden = true;
@@ -2724,6 +2778,7 @@ function showReading(entries, archive) {
         }
       }
     }
+    addTopicResources(resource, entries, addToIndex);
     document.querySelector('#catalogo').hidden = true;
   }
   reading.hidden = false;
@@ -3130,7 +3185,7 @@ function showPortalSearch(entries) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=conceptos-y-etiquetas', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=revision-y-recursos', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const published = await response.json();
   const catalog = applyCatalogDrafts(published);

@@ -128,6 +128,15 @@ function gameArea(entries) {
   return areas.size === 1 ? areas.values().next().value : 'biblioteca';
 }
 
+function sourceLanguage(entry) {
+  const language = entry.idioma?.trim();
+  return isEditorial(entry) ? '' : languages[language?.toLowerCase()] ?? language ?? '';
+}
+
+function resourceMetadata(entry, topic) {
+  return [entry.formato, topic, sourceLanguage(entry)].filter(Boolean).join(' · ');
+}
+
 function editorialCard(entry, href) {
   const kind = isArchive(entry) ? 'mecanica' : 'guia';
   const card = link('', href);
@@ -2108,7 +2117,7 @@ function showGames(entries) {
       const title = element('h2', '');
       title.append(link(entry.titulo, '?lectura=' + encodeURIComponent(entry.id)));
       colorCard(card, entry);
-      card.append(element('p', entry.formato + ' · ' + designTopic(entry), 'meta'),
+      card.append(element('p', resourceMetadata(entry, designTopic(entry)), 'meta'),
         title, element('p', observacion || entry.resumen));
       resources.append(card);
     }
@@ -2637,7 +2646,8 @@ function showReading(entries, archive) {
     feedback.href = form.href;
     document.querySelector('meta[name="description"]').content = resource.resumen;
     if (!editorial) {
-      reading.append(element('p', resource.formato + ' · ' + resource.tema, 'meta'));
+      const language = sourceLanguage(resource);
+      reading.append(element('p', [resource.formato, resource.tema, language && 'Idioma del recurso: ' + language].filter(Boolean).join(' · '), 'meta'));
       renderLibraryReading(resource, entries);
       for (const [position, heading] of [...reading.querySelectorAll('h2')].entries()) {
         addToIndex(heading, heading.id || 'apartado-' + (position + 1) + '-' + slug(heading.textContent));
@@ -3127,7 +3137,7 @@ function showPortalSearch(entries) {
   const results = [
     ...entries.map(entry => ({
       title: entry.titulo, url: resourceUrl(entry), summary: entry.resumen,
-      tags: entryTags(entry), area: resourceArea(entry),
+      tags: entryTags(entry), area: resourceArea(entry), language: sourceLanguage(entry),
       group: entry.seccionAcademica ?? (entry.diagnostico ? 'diagnosticos' : isEditorial(entry) ? 'guias' : 'fuentes'),
       type: entry.diagnostico ? 'Diagnóstico' : isEditorial(entry) ? editorialLabel(entry) :
         entry.decisionDesarrollo || developmentIds.has(entry.id) ? 'Decisión de desarrollo' : entry.formato,
@@ -3162,7 +3172,7 @@ function showPortalSearch(entries) {
       const title = element('h2', '');
       title.append(link(result.title, result.url));
       card.dataset.areaDiseno = result.area;
-      card.append(element('p', result.type, 'meta'), title);
+      card.append(element('p', [result.type, result.language].filter(Boolean).join(' · '), 'meta'), title);
       if (result.summary) card.append(element('p', result.summary));
       if (result.tags.length) card.append(tagLinks(result.tags.slice(0, 5)));
       grid.append(card);
@@ -3399,7 +3409,7 @@ async function loadCatalog() {
       const card = colorCard(element('article', '', 'ficha ficha-biblioteca'), entry);
       const title = element('h3', '');
       title.append(link(entry.titulo, '?' + libraryQuery({...(topic.value ? {tema: topic.value} : {}), lectura: entry.id})));
-      card.append(element('div', entry.formato + ' · ' + entry.tema, 'meta'), title,
+      card.append(element('div', resourceMetadata(entry, entry.tema), 'meta'), title,
         element('p', entry.resumen));
       const video = videoFor(entry);
       if (video) card.append(link('Ver vídeo', video.url));

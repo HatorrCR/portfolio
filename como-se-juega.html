@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="estilos/comun.css">
 <link rel="stylesheet" href="estilos/como-se-juega.css?v=portada-centrada">
 <script defer src="scripts/navegacion.js"></script>
-<script defer src="scripts/como-se-juega.js?v=fichas-documentadas"></script>
+<script defer src="scripts/como-se-juega.js?v=criterios-editoriales"></script>
 <script>
 try {
   const mode = localStorage.getItem('como-se-juega-tema');
@@ -163,6 +163,7 @@ try {
     <header><h2 id="titulo-editor">Editor de fichas</h2><button type="button" id="cerrar-editor">Cerrar</button></header>
     <p>Los borradores se guardan en este navegador. Si quieres enviar una ficha editada, descarga el catálogo, abre el archivo en GitHub y propone tu versión mediante una solicitud de cambios (pull request).</p>
     <label>Ficha <select id="ficha-editor"><option value="">Nueva ficha</option></select></label>
+    <details><summary>Criterios para completar una ficha</summary><p>Incluye de qué trata, un resumen desarrollado, puntos clave, juegos mencionados cuando consten en la fuente y el enlace al original. Distingue lo que dice la fuente de los ejemplos y pruebas que propones.</p><p id="criterios-ficha"></p><p>En el JSON adicional, usa «puntosClave» para la lista de ideas y «juegosAnalizados» con valor true para los juegos que aparecen en la fuente.</p></details>
     <div id="campos-editor"></div>
     <details><summary>Otros campos, listas y materiales</summary><label>Campos adicionales (JSON)<textarea id="extras-editor" rows="7" spellcheck="false"></textarea></label></details>
     <p id="estado-editor" role="status"></p>

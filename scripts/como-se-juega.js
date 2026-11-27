@@ -2169,11 +2169,11 @@ function showGames(entries) {
 function renderLibraryReading(resource, entries) {
   reading.classList.add('lectura-biblioteca');
   const intro = element('section', '', 'entrada-biblioteca');
-  intro.append(element('h2', 'De qué va'), element('p', resource.resumen));
+  intro.append(element('h2', 'De qué trata'), element('p', resource.resumen));
   reading.append(intro);
 
   const summary = element('section', '', 'resumen-biblioteca');
-  summary.append(element('h2', 'Resumen y puntos clave'));
+  summary.append(element('h2', 'Resumen'));
   for (const paragraph of resource.cuerpo.trim().split(/\r?\n\s*\r?\n/).filter(Boolean)) {
     if (paragraph === resource.resumen) continue;
     const heading = paragraph.match(/^#{2,3} ([^\r\n]+)$/);
@@ -2239,9 +2239,15 @@ function renderLibraryReading(resource, entries) {
     summary.append(materials);
   }
   reading.append(summary);
-
+  if (Array.isArray(resource.puntosClave) && resource.puntosClave.length) {
+    const highlights = element('section', '', 'resumen-biblioteca');
+    const list = element('ul', '');
+    for (const point of resource.puntosClave) list.append(element('li', point));
+    highlights.append(element('h2', 'Puntos clave'), list);
+    reading.append(highlights);
+  }
   const examples = element('section', '', 'ejemplos-biblioteca');
-  examples.append(element('h2', resource.juegosAnalizados ? 'Juegos tratados en la fuente' : 'Juegos donde fijarte'));
+  examples.append(element('h2', resource.juegosAnalizados ? 'Juegos mencionados' : 'Juegos donde fijarte'));
   const games = element('dl', '');
   for (const game of resource.juegos ?? []) {
     const name = element('dt', '');
@@ -2942,6 +2948,19 @@ function applyCatalogDrafts(published) {
   return [...entries.values()];
 }
 
+const libraryEditorialGuide = {
+  "Estudio": "Explica la pregunta, el método o marco y el resultado con su alcance. Si es un trabajo de desarrollo, describe qué se construyó y cómo se evaluó.",
+  "Charla": "Identifica al ponente y el contexto. Recoge los argumentos y ejemplos que presenta, con marcas de tiempo cuando estén disponibles.",
+  "Conferencia": "Identifica al ponente y el evento. Resume su método, demostraciones y ejemplos con marcas de tiempo cuando estén disponibles.",
+  "Artículo": "Explica la tesis, qué evidencias usa y qué ejemplos la ilustran.",
+  "Entrevista": "Identifica a quién se entrevista y recoge decisiones concretas, motivos y ejemplos que describe.",
+  "Vídeo": "Identifica a su autor y qué se demuestra. Señala los fragmentos útiles y qué se puede replicar.",
+  "Documentación": "Identifica la versión, el comportamiento documentado y sus condiciones de uso.",
+  "Código fuente": "Indica archivo o función, flujo, parámetros relevantes y casos límite comprobados.",
+  "Demo": "Describe los controles, las variables que pueden cambiar y qué comportamiento puede observarse.",
+  "Guía": "Indica el objetivo, los requisitos, los pasos y cómo comprobar el resultado."
+};
+
 function setupCatalogEditor(published, catalog) {
   const dialog = document.querySelector('#editor-catalogo');
   const open = document.querySelector('#abrir-editor');
@@ -2969,10 +2988,16 @@ function setupCatalogEditor(published, catalog) {
     inputs.set(key, input);
     fields.append(row);
   }
+  const guide = dialog.querySelector('#criterios-ficha');
+  function updateGuide() {
+    guide.textContent = libraryEditorialGuide[inputs.get('formato').value.trim()] ?? '';
+  }
+  inputs.get('formato').addEventListener('input', updateGuide);
   function select(id) {
     picker.value = records.has(id) ? id : '';
     const entry = records.get(picker.value) ?? {formato:'Artículo', idioma:'Español'};
     for (const [key,input] of inputs) input.value = entry[key] ?? '';
+    updateGuide();
     inputs.get('id').readOnly = Boolean(picker.value);
     extras.value = JSON.stringify(Object.fromEntries(Object.entries(entry).filter(([key]) => !Object.hasOwn(editableFields,key))), null, 2);
     status.textContent = catalogDrafts().some(draft => draft.id === id) ? 'Esta ficha tiene un borrador local.' : '';
@@ -2995,6 +3020,9 @@ function setupCatalogEditor(published, catalog) {
           keys.some(name => typeof item[name] !== 'string' || !item[name].trim()) || (keys.includes('url') && !httpsLink(item.url))))) {
           throw Error('Revisa la lista «' + key + '» y sus campos: ' + keys.join(', ') + '.');
         }
+      }
+      if (entry.puntosClave !== undefined && (!Array.isArray(entry.puntosClave) || entry.puntosClave.some(point => typeof point !== 'string' || !point.trim()))) {
+        throw Error('El campo «puntosClave» debe contener una lista de textos.');
       }
       if (entry.fuentes !== undefined && (!Array.isArray(entry.fuentes) || entry.fuentes.some(id => typeof id !== 'string'))) {
         throw Error('El campo «fuentes» debe ser una lista de identificadores.');
@@ -3208,7 +3236,7 @@ function showPortalSearch(entries) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=fichas-documentadas', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=criterios-editoriales', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const published = await response.json();
   const catalog = applyCatalogDrafts(published);

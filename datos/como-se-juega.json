@@ -47,12 +47,16 @@
         "url": "https://experts.illinois.edu/en/publications/the-effects-of-juiciness-in-an-action-rpg/"
       }
     ],
-    "cuerpo": "## Qué comparó\n\nKao comparó cuatro versiones de un RPG de acción con 3.018 participantes. La diferencia entre versiones era la cantidad de feedback audiovisual, desde su ausencia hasta un nivel extremo.\n\n## Qué salió de la prueba\n\nLos niveles intermedios obtuvieron mejores resultados que ambos extremos en tiempo de juego, experiencia, motivación intrínseca y rendimiento.\n\n## Qué puedes sacar de aquí\n\nEl estudio compara niveles de feedback dentro de un mismo juego. No permite asignar el resultado a un sonido o efecto concreto ni fijar una cantidad óptima para otros géneros.\n\n## Pruébalo en tu juego\n\nMantén el daño y el tiempo de ataque y cambia solo el feedback del golpe. Comprueba si quien juega distingue un acierto de un fallo y sigue leyendo lo que hace el enemigo.\n\n## Cómo interpretar el resultado\n\nLos grupos del experimento jugaron variantes del mismo RPG. La comparación sirve para decidir qué probar dentro de un juego parecido, pero no fija cuánto efecto deberías poner en el tuyo. Empieza por un acontecimiento, como acertar un golpe, y comprueba si el sonido o la animación hacen más fácil saber a quién has dado. Luego prueba varios golpes seguidos para ver si esas señales se pisan.",
+    "cuerpo": "## Método\n\nDominic Kao comparó cuatro versiones de un RPG de acción que variaban la cantidad de respuesta audiovisual: ninguna, media, alta y extrema. Participaron 3.018 personas.\n\n## Resultados y límites\n\nLas condiciones sin efectos y con efectos extremos obtuvieron resultados inferiores a las condiciones intermedias en tiempo de juego, experiencia, motivación y rendimiento. Los niveles son relativos al RPG del estudio. Sus resultados no fijan una intensidad óptima para otro género.\n\n## Qué probar en un proyecto\n\nMantén constantes el daño, la animación de ataque y el tiempo de recuperación. Cambia primero el volumen o el tamaño de un efecto. Pide a los jugadores que identifiquen qué golpe acertó con varias acciones simultáneas. Así puedes detectar cuándo se empieza a perder información.",
     "juegos": [
       {
         "nombre": "Hades",
         "observacion": "Fíjate en los destellos, el sonido y la pausa de impacto cuando aciertas varios golpes seguidos."
       }
+    ],
+    "puntosClave": [
+      "Se compararon cuatro intensidades de respuesta audiovisual en el mismo RPG de acción.",
+      "Las condiciones de intensidad nula y extrema rindieron peor que las intermedias en las medidas del estudio."
     ]
   },
   {
@@ -6839,7 +6843,11 @@
     "resumen": "Experimentos sobre aprendizaje de rutas y la contribución de los hitos locales y globales.",
     "referencia": "Ruddle, Volkova, Mohler y Bülthoff (2011). The effect of landmark and body-based sensory information on route knowledge. Memory & Cognition, 39, 686–699.",
     "fuente": "https://doi.org/10.3758/s13421-010-0054-z",
-    "cuerpo": "## Resumen y método\n\nLos participantes hicieron cuatro recorridos de ida y vuelta, con guía en la primera ida y aviso cuando se equivocaban. El primer experimento usó entornos 3D en un monitor y comparó señales locales, globales, ambas o ninguna señal suplementaria.\n\n## Resultado clave\n\nLos hitos locales redujeron errores en esa configuración. Los globales no mostraron la misma reducción. Un signo asociado a un punto de decisión y una referencia visible a distancia ofrecen pistas distintas.\n\n## Qué probar en un proyecto\n\nCompara el mismo recorrido con un objeto junto al cruce y con una torre distante. Registra los giros erróneos durante el aprendizaje y la elección al volver sin guía. El resultado publicado corresponde a viajes repetidos, con corrección de errores, en un entorno controlado."
+    "cuerpo": "## Resumen y método\n\nLos participantes hicieron cuatro recorridos de ida y vuelta, con guía en la primera ida y aviso cuando se equivocaban. El primer experimento usó entornos 3D en un monitor y comparó señales locales, globales, ambas o ninguna señal suplementaria.\n\n## Resultado clave\n\nLos hitos locales redujeron errores en esa configuración. Los globales no mostraron la misma reducción. Un signo asociado a un punto de decisión y una referencia visible a distancia ofrecen pistas distintas.\n\n## Qué probar en un proyecto\n\nCompara el mismo recorrido con un objeto junto al cruce y con una torre distante. Registra los giros erróneos durante el aprendizaje y la elección al volver sin guía. El resultado publicado corresponde a viajes repetidos, con corrección de errores, en un entorno controlado.",
+    "puntosClave": [
+      "El primer experimento comparó cuatro configuraciones de referencias espaciales.",
+      "Los hitos locales redujeron errores de recorrido en las condiciones estudiadas."
+    ]
   },
   {
     "id": "academico-marples-cues",
@@ -6982,7 +6990,11 @@
     "resumen": "Cuatro experimentos sobre dónde presentar munición, salud, arma y navegación en juegos de disparos.",
     "referencia": "An empirical comparison of first-person shooter information displays (2018). Entertainment Computing, 26, 41–58.",
     "fuente": "https://doi.org/10.1016/j.entcom.2018.01.003",
-    "cuerpo": "## Resumen y método\n\nLos autores aíslan cuatro tareas de juegos de disparos y comparan un HUD superpuesto con opciones diegéticas o integradas espacialmente. La evaluación estudia rendimiento en las tareas y distingue el tipo de información del modo de presentarla.\n\n## Resultados por tarea\n\nEn munición rindieron mejor alternativas diegéticas o espaciales. En salud, el HUD obtuvo mejor rendimiento. Para identificar o emparejar arma y situación funcionó bien combinar icono y arma visible. Una línea espacial rindió mejor en la tarea de navegación, con resultados competitivos de los minimapas.\n\n## Alcance y aplicación\n\nSon tareas acotadas de FPS. Una ruta marcada que facilita llegar a destino no demuestra que se recuerde después. Elige un dato, fija cuándo hace falta y mide si se usa para decidir. Si comparas dos formatos, deja igual el resto de las señales."
+    "cuerpo": "## Resumen y método\n\nLos autores aíslan cuatro tareas de juegos de disparos y comparan un HUD superpuesto con opciones diegéticas o integradas espacialmente. La evaluación estudia rendimiento en las tareas y distingue el tipo de información del modo de presentarla.\n\n## Resultados por tarea\n\nEn munición rindieron mejor alternativas diegéticas o espaciales. En salud, el HUD obtuvo mejor rendimiento. Para identificar o emparejar arma y situación funcionó bien combinar icono y arma visible. Una línea espacial rindió mejor en la tarea de navegación, con resultados competitivos de los minimapas.\n\n## Alcance y aplicación\n\nSon tareas acotadas de FPS. Una ruta marcada que facilita llegar a destino no demuestra que se recuerde después. Elige un dato, fija cuándo hace falta y mide si se usa para decidir. Si comparas dos formatos, deja igual el resto de las señales.",
+    "puntosClave": [
+      "El formato de información con mejor rendimiento cambió según la tarea.",
+      "Llegar al destino siguiendo una línea no permite inferir que el jugador recuerde la ruta."
+    ]
   },
   {
     "id": "academico-hud-tablet",
@@ -7101,9 +7113,25 @@
     "formato": "Estudio",
     "idioma": "Inglés",
     "resumen": "El estudio compara dos condiciones de juego y evalúa resultados cognitivos y no cognitivos mediante tareas de evaluación.",
-    "referencia": "The power of play: The effects of Portal 2 and Lumosity on cognitive and noncognitive skills",
+    "referencia": "Valerie J. Shute, Matthew Ventura y Fengfeng Ke (2015). The power of play: The effects of Portal 2 and Lumosity on cognitive and noncognitive skills. Computers & Education, 80, 58–67.",
     "fuente": "https://myweb.fsu.edu/vshute/pdf/portal1.pdf",
-    "cuerpo": "El estudio compara dos condiciones de juego y evalúa resultados cognitivos y no cognitivos mediante tareas de evaluación.\n\n## Aplicación al diseño\n\nDefine una prueba posterior distinta del reto entrenado para saber si la mejora se transfiere."
+    "cuerpo": "## Método\n\nLos investigadores asignaron al azar a 77 estudiantes universitarios a dos grupos. Uno jugó ocho horas a Portal 2 y el otro a Lumosity. Antes y después, los participantes completaron pruebas en línea de resolución de problemas, habilidad espacial y persistencia.\n\n## Resultados y límites\n\nEl grupo Portal 2 obtuvo una ventaja estadísticamente significativa frente a Lumosity en las tres medidas compuestas. El resultado compara dos condiciones y unas pruebas determinadas. No permite atribuir el efecto a un puzle o a una mecánica concreta.\n\n## Qué probar en un proyecto\n\nMide primero la habilidad que quieres enseñar. Tras el juego, evalúala con una tarea diferente que use la misma estrategia. Registra experiencia previa y duración para que la comparación entre versiones se pueda interpretar.",
+    "puntosClave": [
+      "La comparación asignó al azar a 77 estudiantes a ocho horas de juego.",
+      "Portal 2 obtuvo una ventaja en las tres medidas compuestas frente a la condición Lumosity.",
+      "El diseño del estudio no aísla qué mecánica explica la diferencia."
+    ],
+    "juegosAnalizados": true,
+    "juegos": [
+      {
+        "nombre": "Portal 2",
+        "observacion": "Condición principal de juego."
+      },
+      {
+        "nombre": "Lumosity",
+        "observacion": "Plataforma de entrenamiento utilizada en el grupo de comparación."
+      }
+    ]
   },
   {
     "id": "academico-transfer-taxonomy",
@@ -7114,7 +7142,11 @@
     "resumen": "Una taxonomía para describir qué se transfiere y qué cambia entre el aprendizaje y la prueba.",
     "referencia": "Barnett y Ceci (2002). When and where do we apply what we learn? A taxonomy for far transfer. Psychological Bulletin, 128, 612–637.",
     "fuente": "https://doi.org/10.1037/0033-2909.128.4.612",
-    "cuerpo": "## Resumen del marco\n\nBarnett y Ceci organizan la transferencia según el contenido aprendido y el contexto en el que se aplica. Alterar el momento, el entorno o el tipo de tarea cambia la distancia entre el aprendizaje original y su uso posterior.\n\n## Puntos clave\n\nDos pruebas llamadas de transferencia pueden exigir habilidades distintas. Recordar un botón, elegir una estrategia y ejecutarla sin aviso ofrecen evidencias diferentes. Una evaluación útil nombra qué elemento se conserva y qué se modifica.\n\n## Aplicación a videojuegos\n\nEnseña una regla con una puerta y pon después un reto donde la misma regla opera sobre una plataforma. Mantén constante el control y retira la instrucción. Registra por separado si la persona identifica la regla y si logra ejecutarla. Es una aplicación al diseño, no un resultado de la revisión sobre ese videojuego."
+    "cuerpo": "## Resumen del marco\n\nBarnett y Ceci organizan la transferencia según el contenido aprendido y el contexto en el que se aplica. Alterar el momento, el entorno o el tipo de tarea cambia la distancia entre el aprendizaje original y su uso posterior.\n\n## Puntos clave\n\nDos pruebas llamadas de transferencia pueden exigir habilidades distintas. Recordar un botón, elegir una estrategia y ejecutarla sin aviso ofrecen evidencias diferentes. Una evaluación útil nombra qué elemento se conserva y qué se modifica.\n\n## Aplicación a videojuegos\n\nEnseña una regla con una puerta y pon después un reto donde la misma regla opera sobre una plataforma. Mantén constante el control y retira la instrucción. Registra por separado si la persona identifica la regla y si logra ejecutarla. Es una aplicación al diseño, no un resultado de la revisión sobre ese videojuego.",
+    "puntosClave": [
+      "La taxonomía distingue qué se aprende del contexto en que se usa.",
+      "En un tutorial, ejecutar la instrucción visible y aplicar la regla en un reto nuevo requieren pruebas distintas."
+    ]
   },
   {
     "id": "academico-sonic-fps",
@@ -7444,7 +7476,11 @@
     "resumen": "Una demo de RPG de una sola misión documenta cómo acotar un proyecto y revisar las decisiones del prototipo.",
     "referencia": "2D-roolipelin demon suunnittelu ja toteutus Unity-pelimoottorilla. Trabajo universitario, Theseus.",
     "fuente": "https://www.theseus.fi/handle/10024/919414",
-    "cuerpo": "## Resumen del trabajo\n\nLa memoria reúne una parte de diseño y accesibilidad y otra dedicada a motores de juego. Justifica Unity para un prototipo de Windows, usa C# y prepara gráficos con Aseprite. La demo termina publicada en itch.io y conserva una sola misión con sistemas simplificados.\n\n## Puntos clave\n\nEl interés del caso está en ver cómo una idea de RPG se convierte en un recorrido breve de principio a fin. La memoria documenta funciones centrales, pasos de creación y una reflexión frente a los criterios previstos. El resumen menciona accesibilidad como parte del marco de trabajo sin detallar una validación con usuarios concretos.\n\n## Qué probar en un proyecto\n\nAnota qué parte de la experiencia depende de que una misión se pueda iniciar, completar y cerrar. Conserva únicamente las acciones necesarias para ese recorrido. Prueba con una persona que nunca vio el prototipo y observa dónde deja de saber qué hacer."
+    "cuerpo": "## Resumen del trabajo\n\nLa memoria reúne una parte de diseño y accesibilidad y otra dedicada a motores de juego. Justifica Unity para un prototipo de Windows, usa C# y prepara gráficos con Aseprite. La demo termina publicada en itch.io y conserva una sola misión con sistemas simplificados.\n\n## Puntos clave\n\nEl interés del caso está en ver cómo una idea de RPG se convierte en un recorrido breve de principio a fin. La memoria documenta funciones centrales, pasos de creación y una reflexión frente a los criterios previstos. El resumen menciona accesibilidad como parte del marco de trabajo sin detallar una validación con usuarios concretos.\n\n## Qué probar en un proyecto\n\nAnota qué parte de la experiencia depende de que una misión se pueda iniciar, completar y cerrar. Conserva únicamente las acciones necesarias para ese recorrido. Prueba con una persona que nunca vio el prototipo y observa dónde deja de saber qué hacer.",
+    "puntosClave": [
+      "Una misión basta para delimitar la primera versión jugable del caso.",
+      "La memoria documenta un proceso y distingue decisiones de diseño, accesibilidad y selección del motor."
+    ]
   },
   {
     "id": "lenguas-vestuario-web",
@@ -7466,7 +7502,11 @@
     "resumen": "Un nivel de Unreal Engine 4 pone en práctica señales del escenario para guiar al jugador sin presentar sus objetivos en un HUD.",
     "referencia": "Esa Kurtti (2023). Pelaajan ohjaaminen visuaalisesti 3D-ympäristössä. Theseus.",
     "fuente": "https://www.theseus.fi/handle/10024/813224",
-    "cuerpo": "## Resumen del prototipo\n\nKurtti pasa de un objetivo y un plano a un nivel de Unreal Engine 4 con puentes, una torre y una cueva. Utiliza recursos preparados y Advanced Locomotion System para el movimiento. Las siluetas, texturas e iluminación se usan como pistas. Una puerta que requiere una llave introduce una condición de progreso.\n\n## Puntos clave\n\nEl trabajo distingue captar la atención de indicar qué se puede hacer. Una silueta visible identifica un destino, mientras que el contraste y la composición ayudan a distinguir una entrada. La puerta y la llave añaden una regla que la orientación por sí sola no resuelve.\n\n## Alcance y prueba\n\nLa memoria documenta un prototipo. El resumen disponible no establece un efecto comparativo para cada señal. Para investigarlo cambia solo la iluminación de una bifurcación, registra el primer giro y pregunta qué pensaba que había en cada camino."
+    "cuerpo": "## Resumen del prototipo\n\nKurtti pasa de un objetivo y un plano a un nivel de Unreal Engine 4 con puentes, una torre y una cueva. Utiliza recursos preparados y Advanced Locomotion System para el movimiento. Las siluetas, texturas e iluminación se usan como pistas. Una puerta que requiere una llave introduce una condición de progreso.\n\n## Puntos clave\n\nEl trabajo distingue captar la atención de indicar qué se puede hacer. Una silueta visible identifica un destino, mientras que el contraste y la composición ayudan a distinguir una entrada. La puerta y la llave añaden una regla que la orientación por sí sola no resuelve.\n\n## Alcance y prueba\n\nLa memoria documenta un prototipo. El resumen disponible no establece un efecto comparativo para cada señal. Para investigarlo cambia solo la iluminación de una bifurcación, registra el primer giro y pregunta qué pensaba que había en cada camino.",
+    "puntosClave": [
+      "El nivel emplea siluetas, texturas e iluminación para hacer visibles posibles rutas.",
+      "La puerta con llave combina orientación y una condición de progreso."
+    ]
   },
   {
     "id": "lenguas-personajes-indie",
@@ -7488,7 +7528,11 @@
     "resumen": "Cómo se traduce una revisión de pautas de interfaz a una demo de aventura hecha en Unity.",
     "referencia": "Vera Löfberg (2018). Seikkailupelien käyttöliittymien toteuttaminen. Karelia-ammattikorkeakoulu.",
     "fuente": "https://www.theseus.fi/handle/10024/151338",
-    "cuerpo": "## Resumen del trabajo\n\nLa memoria reúne pautas generales y específicas para interfaces de aventura, examina herramientas y su capacidad de personalización, y documenta una demo en Unity y C#. La aplicación tiene una escena inicial y un primer nivel. La memoria explica las funciones incorporadas y cómo se llegó a ellas.\n\n## Puntos clave\n\nLa interfaz de una aventura debe ayudar a reconocer una interacción posible y comunicar su resultado. Elegir un motor o herramienta implica revisar cuánta libertad da sobre las convenciones que se quieren cambiar. La demo sirve como caso de implementación de las pautas seleccionadas.\n\n## Qué probar en un proyecto\n\nPropón una tarea donde haya que detectar un objeto, seleccionar una acción y reconocer que se ejecutó. Registra por separado cuál de esos pasos causa errores. Así puedes saber si conviene tocar la señal que identifica el objeto, el control que ejecuta la acción o la respuesta de la interfaz."
+    "cuerpo": "## Resumen del trabajo\n\nLa memoria reúne pautas generales y específicas para interfaces de aventura, examina herramientas y su capacidad de personalización, y documenta una demo en Unity y C#. La aplicación tiene una escena inicial y un primer nivel. La memoria explica las funciones incorporadas y cómo se llegó a ellas.\n\n## Puntos clave\n\nLa interfaz de una aventura debe ayudar a reconocer una interacción posible y comunicar su resultado. Elegir un motor o herramienta implica revisar cuánta libertad da sobre las convenciones que se quieren cambiar. La demo sirve como caso de implementación de las pautas seleccionadas.\n\n## Qué probar en un proyecto\n\nPropón una tarea donde haya que detectar un objeto, seleccionar una acción y reconocer que se ejecutó. Registra por separado cuál de esos pasos causa errores. Así puedes saber si conviene tocar la señal que identifica el objeto, el control que ejecuta la acción o la respuesta de la interfaz.",
+    "puntosClave": [
+      "La demo aplica pautas de interfaz en una escena inicial y un primer nivel.",
+      "La elección de herramientas condiciona cuánto se puede personalizar la interacción."
+    ]
   },
   {
     "id": "lenguas-cozy",
@@ -7525,7 +7569,11 @@
         "observacion": "Tercer juego de referencia en el marco teórico del trabajo."
       }
     ],
-    "juegosAnalizados": true
+    "juegosAnalizados": true,
+    "puntosClave": [
+      "La memoria incluye tres rondas de prueba y sus formularios.",
+      "La utilidad de una guía de diseño y la calidad de la experiencia final se evaluaron por separado."
+    ]
   },
   {
     "id": "lenguas-prototipo-koponen",
@@ -7536,7 +7584,11 @@
     "resumen": "Tres iteraciones de un prototipo sirven para estudiar cómo se prueba una mecánica en contexto.",
     "referencia": "Timi Koponen. Pelimekaniikan suunnittelu. Trabajo universitario, Theseus.",
     "fuente": "https://www.theseus.fi/bitstream/10024/57098/1/Koponen_Timi.pdf",
-    "cuerpo": "## Resumen y estructura\n\nKoponen recorre el planteamiento del juego, las mecánicas, la interactividad y el reto. La memoria intercala tres prototipos con sus pruebas de juego. El índice permite seguir las etapas y ver cómo se vinculan con conceptos como núcleo, espacio de posibilidades y dificultad.\n\n## Puntos clave\n\nUna prueba puede detectar una carencia del sistema o un problema en la situación que se ha construido para mostrarlo. La estructura del trabajo deja espacio para revisar la mecánica antes de invertir en acabados. La fuente aporta un caso de desarrollo y discusión conceptual.\n\n## Qué probar en un proyecto\n\nAntes de cada versión, escribe la pregunta que quieres resolver. Tras observarla, conserva las reglas que no estás investigando y modifica una sola condición. Compara qué decisiones aparecieron en ambas versiones y qué cambió tras la intervención."
+    "cuerpo": "## Resumen y estructura\n\nKoponen recorre el planteamiento del juego, las mecánicas, la interactividad y el reto. La memoria intercala tres prototipos con sus pruebas de juego. El índice permite seguir las etapas y ver cómo se vinculan con conceptos como núcleo, espacio de posibilidades y dificultad.\n\n## Puntos clave\n\nUna prueba puede detectar una carencia del sistema o un problema en la situación que se ha construido para mostrarlo. La estructura del trabajo deja espacio para revisar la mecánica antes de invertir en acabados. La fuente aporta un caso de desarrollo y discusión conceptual.\n\n## Qué probar en un proyecto\n\nAntes de cada versión, escribe la pregunta que quieres resolver. Tras observarla, conserva las reglas que no estás investigando y modifica una sola condición. Compara qué decisiones aparecieron en ambas versiones y qué cambió tras la intervención.",
+    "puntosClave": [
+      "El documento intercala tres prototipos con pruebas de juego.",
+      "Los conceptos de núcleo, posibilidades y reto se discuten junto al diseño en marcha."
+    ]
   },
   {
     "id": "lenguas-narrativa-mecanica",
@@ -7591,7 +7643,11 @@
     "resumen": "Una memoria teórica sobre los objetivos y métodos del diseño durante la preproducción.",
     "referencia": "Eero Manner. Pelinkehitys ja -suunnittelu esituotannossa. Trabajo teórico, Theseus.",
     "fuente": "https://www.theseus.fi/bitstream/10024/150596/1/Manner_Eero.pdf",
-    "cuerpo": "## Resumen del trabajo\n\nManner describe los roles en desarrollo, el ciclo de producción y los objetivos de la preproducción. Vincula el diseño de juego con prácticas como los prototipos, la iteración y la preparación de una primera versión jugable.\n\n## Puntos clave\n\nEl documento permite distinguir entre decidir qué se quiere probar y planificar el trabajo necesario para construirlo. Una primera versión jugable puede aclarar dependencias entre diseño, arte y programación antes de ampliar el alcance.\n\n## Alcance y aplicación\n\nLa memoria es teórica. Para aplicar sus ideas, define una incertidumbre concreta y decide qué observación permitiría cerrarla. Con un combate, por ejemplo, puedes comprobar si se distingue el aviso del ataque antes de producir más enemigos y animaciones."
+    "cuerpo": "## Resumen del trabajo\n\nManner describe los roles en desarrollo, el ciclo de producción y los objetivos de la preproducción. Vincula el diseño de juego con prácticas como los prototipos, la iteración y la preparación de una primera versión jugable.\n\n## Puntos clave\n\nEl documento permite distinguir entre decidir qué se quiere probar y planificar el trabajo necesario para construirlo. Una primera versión jugable puede aclarar dependencias entre diseño, arte y programación antes de ampliar el alcance.\n\n## Alcance y aplicación\n\nLa memoria es teórica. Para aplicar sus ideas, define una incertidumbre concreta y decide qué observación permitiría cerrarla. Con un combate, por ejemplo, puedes comprobar si se distingue el aviso del ataque antes de producir más enemigos y animaciones.",
+    "puntosClave": [
+      "El trabajo es una revisión teórica del papel del diseño en preproducción.",
+      "El prototipo y la primera versión jugable sirven para aclarar incertidumbres distintas."
+    ]
   },
   {
     "id": "lenguas-inicio-niveles",
@@ -7642,7 +7698,12 @@
         "observacion": "Caso central. El estudio evalúa las tareas del portal web nacido de este proyecto, separado posteriormente del juego."
       }
     ],
-    "juegosAnalizados": true
+    "juegosAnalizados": true,
+    "puntosClave": [
+      "La prueba combinó tareas observadas y un cuestionario SUS. Cada método responde a preguntas diferentes.",
+      "La clasificación se entendió. El rodeo ocurrió al salir de la partida y buscarla.",
+      "El promedio de 69 describe el portal y la muestra del trabajo."
+    ]
   },
   {
     "id": "lenguas-variedad-niveles",

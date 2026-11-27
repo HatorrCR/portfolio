@@ -109,18 +109,33 @@ function tagLinks(tags) {
   return list;
 }
 
+function resourceArea(entry) {
+  const topic = designTopic(entry);
+  const extra = {'Historia y memoria': 'narrativa', 'Accesibilidad': 'interfaz',
+    'Música y sonido': 'sonido', 'Comunidades competitivas': 'industria',
+    'Industria': 'industria', 'Prototipado y pruebas': 'produccion'};
+  return Object.keys(disciplines).find(key => Object.hasOwn(disciplines[key][1], topic)) ??
+    extra[topic] ?? 'biblioteca';
+}
+
+function colorCard(card, entry) {
+  card.dataset.areaDiseno = resourceArea(entry);
+  return card;
+}
+
+function gameArea(entries) {
+  const areas = new Set([...entries.values()].map(({entry}) => resourceArea(entry)));
+  return areas.size === 1 ? areas.values().next().value : 'biblioteca';
+}
+
 function editorialCard(entry, href) {
   const kind = isArchive(entry) ? 'mecanica' : 'guia';
   const card = link('', href);
   card.className = 'tarjeta-editorial tarjeta-editorial--' + kind;
-  if (entry.diagnostico === true) {
-    const { query } = editorialSection(entry);
-    card.dataset.areaDiseno = query.diseno ?? 'sistemas';
-    card.classList.add('tarjeta-editorial--diagnostico');
-  }
-  card.append(element('span', entry.diagnostico ? disciplines[card.dataset.areaDiseno][0] : editorialLabel(entry), 'etiqueta-editorial'),
-    element('h3', entry.titulo), element('p', entry.resumen),
-    countBadge((entry.cuerpo.match(/^## /gm) ?? []).length || 1, 'apartado', 'apartados'));
+  colorCard(card, entry);
+  if (entry.diagnostico === true) card.classList.add('tarjeta-editorial--diagnostico');
+  card.append(element('span', entry.diagnostico ? (disciplines[card.dataset.areaDiseno]?.[0] ?? entry.tema) : editorialLabel(entry), 'etiqueta-editorial'),
+    element('h3', entry.titulo), element('p', entry.resumen));
   return card;
 }
 
@@ -212,22 +227,6 @@ function showFeatured(entries) {
   previous.disabled = next.disabled = selection.length === 1;
   render();
   carousel.hidden = false;
-}
-
-function countBadge(count, singular, plural) {
-  const label = count + ' ' + (count === 1 ? singular : plural);
-  const badge = element('span', String(count), 'recuento-tarjeta');
-  badge.title = label;
-  badge.setAttribute('role', 'img');
-  badge.setAttribute('aria-label', label);
-  return badge;
-}
-
-function areaCard(name, href, count, description = '') {
-  const card = link('', href);
-  card.append(element('span', name, 'area-titulo'), countBadge(count, 'entrada', 'entradas'));
-  if (description) card.append(element('span', description, 'area-recuento'));
-  return card;
 }
 
 function showSources(resource, entries) {
@@ -2108,6 +2107,7 @@ function showGames(entries) {
       const card = element('article', '', 'ficha');
       const title = element('h2', '');
       title.append(link(entry.titulo, '?lectura=' + encodeURIComponent(entry.id)));
+      colorCard(card, entry);
       card.append(element('p', entry.formato + ' · ' + designTopic(entry), 'meta'),
         title, element('p', observacion || entry.resumen));
       resources.append(card);
@@ -2130,8 +2130,8 @@ function showGames(entries) {
     const matches = sorted.filter(([id]) => id.includes(query));
     list.replaceChildren(...matches.map(([id, item]) => {
       const row = element('li', '', 'ficha');
-      row.append(link(item.nombre, gamePageUrl(id)),
-        element('p', item.entries.size + (item.entries.size === 1 ? ' ficha' : ' fichas'), 'meta'));
+      row.dataset.areaDiseno = gameArea(item.entries);
+      row.append(link(item.nombre, gamePageUrl(id)));
       return row;
     }));
     count.textContent = matches.length ? matches.length + (matches.length === 1 ? ' resultado' : ' resultados') :
@@ -2434,6 +2434,7 @@ function showFavorites(entries) {
       const title = element('h2', '');
       title.append(link(entry.titulo, resourceUrl(entry)));
       const card = element('article', '', 'ficha');
+      colorCard(card, entry);
       card.append(title, favoriteButton(entry, () => {
         render();
         (list.querySelector('a') ?? heading).focus();
@@ -2822,14 +2823,13 @@ function renderThemedHub(sections, own) {
       '?' + libraryQuery({categoria: name}) + '#catalogo';
     const folder = element('details', '', 'coleccion-diseno');
     const summary = element('summary', '');
-    summary.append(element('span', name), element('span',
-      entries.length + (entries.length === 1 ? ' ficha' : ' fichas'), 'cuenta-coleccion'));
+    summary.append(element('span', name));
     const content = element('div', '', 'contenido-coleccion');
     content.append(element('p', description, 'descripcion-seccion'));
     // El catálogo añade las nuevas fichas al final.
     for (const entry of entries.slice(-4).reverse()) {
       const url = isArchive(entry) ? archiveUrl(entry.subtema) : href.split('#')[0] + '&lectura=' + encodeURIComponent(entry.id);
-      const item = element('article', '', 'ficha-coleccion');
+      const item = colorCard(element('article', '', 'ficha-coleccion'), entry);
       const title = element('h3', '');
       title.append(link(entry.titulo, url));
       item.append(title, element('p', entry.resumen));
@@ -3072,14 +3072,14 @@ function showPortalSearch(entries) {
   const results = [
     ...entries.map(entry => ({
       title: entry.titulo, url: resourceUrl(entry), summary: entry.resumen,
-      tags: entryTags(entry),
+      tags: entryTags(entry), area: resourceArea(entry),
       group: entry.seccionAcademica ?? (entry.diagnostico ? 'diagnosticos' : isEditorial(entry) ? 'guias' : 'fuentes'),
       type: entry.diagnostico ? 'Diagnóstico' : isEditorial(entry) ? editorialLabel(entry) :
         entry.decisionDesarrollo || developmentIds.has(entry.id) ? 'Decisión de desarrollo' : entry.formato,
       context: [entry.tema, entry.subtema, ...gameReferences(entry).map(game => game.nombre)].join(' ')
     })),
     ...Array.from(games, ([id, game]) => ({
-      title: game.nombre, url: gamePageUrl(id), type: 'Juego', group: 'juegos',
+      title: game.nombre, url: gamePageUrl(id), type: 'Juego', group: 'juegos', area: gameArea(game.entries),
       tags: [...new Set(Array.from(game.entries.values(), ({entry}) => entryTags(entry)).flat())],
       context: Array.from(game.entries.values(), ({entry}) => [entry.titulo, entry.tema, entry.subtema].join(' ')).join(' ')
     }))
@@ -3106,6 +3106,7 @@ function showPortalSearch(entries) {
       const card = element('article', '', 'ficha');
       const title = element('h2', '');
       title.append(link(result.title, result.url));
+      card.dataset.areaDiseno = result.area;
       card.append(element('p', result.type, 'meta'), title);
       if (result.summary) card.append(element('p', result.summary));
       if (result.tags.length) card.append(tagLinks(result.tags.slice(0, 5)));
@@ -3163,8 +3164,6 @@ async function loadCatalog() {
   const papersHub = isPapers && !language;
   const libraryHub = !academicSection && !editorialView && !isPapers && !isInterviews && !isDevelopment && !isDiagnosis && !sourceSection && !isHome;
   const mechanicsView = category === 'Mecánicas' || topTopic === 'Mecánicas';
-  const countCategory = name => own.filter(entry => designTopic(entry) === name).length;
-  const countArea = key => Object.keys(disciplines[key][1]).reduce((n, name) => n + countCategory(name), 0);
   const papers = sources.filter(entry => entry.formato === 'Estudio');
   const interviews = sources.filter(entry => entry.formato === 'Entrevista');
   const relevant = academicSection ? catalog.filter(entry => entry.seccionAcademica === sectionKey)
@@ -3186,12 +3185,10 @@ async function loadCatalog() {
   if (isHome) {
     showFeatured(catalog);
     document.querySelector('#catalogo').hidden = true;
-    for (const card of document.querySelectorAll('[data-recuento-area]')) {
-      const key = card.dataset.recuentoArea;
-      const count = key === 'biblioteca' ? publishedCount : key === 'mecanicas' ? countCategory('Mecánicas') : countArea(key);
-      card.dataset.areaDiseno = key;
+    for (const card of document.querySelectorAll('[data-presentacion-area]')) {
+      const key = card.dataset.presentacionArea;
+      card.dataset.areaDiseno = key === 'mecanicas' ? 'sistemas' : key;
       card.prepend(areaSample(key, false));
-      card.append(countBadge(count, 'entrada', 'entradas'));
     }
     return;
   }
@@ -3224,7 +3221,7 @@ async function loadCatalog() {
     for (const [id, game] of featured) {
       const entry = relevant.find(resource => resource.id === id);
       if (!entry) continue;
-      const card = element('article', '', 'ficha ejemplo-decision');
+      const card = colorCard(element('article', '', 'ficha ejemplo-decision'), entry);
       const title = element('h4', '');
       title.append(link(entry.titulo, '?' + libraryQuery({lectura: id})));
       card.append(element('p', game, 'meta'), title, element('p', entry.resumen));
@@ -3294,10 +3291,6 @@ async function loadCatalog() {
   if (papersHub) {
     const languagesNav = document.querySelector('#idiomas');
     languagesNav.hidden = false;
-    for (const [key, name] of Object.entries(languages)) {
-      const card = languagesNav.querySelector('[data-papers="' + key + '"]');
-      card.append(countBadge(papers.filter(entry => entry.idioma === name).length, 'paper', 'papers'));
-    }
   }
   if (!editorialView && !libraryHub) {
     const back = document.querySelector('#volver-biblioteca');
@@ -3348,7 +3341,7 @@ async function loadCatalog() {
           ...(isDiagnosis ? {seccion: 'diagnostico'} : editorialSection(entry).query), lectura: entry.id
         }));
       }
-      const card = element('article', '', 'ficha ficha-biblioteca');
+      const card = colorCard(element('article', '', 'ficha ficha-biblioteca'), entry);
       const title = element('h3', '');
       title.append(link(entry.titulo, '?' + libraryQuery({...(topic.value ? {tema: topic.value} : {}), lectura: entry.id})));
       card.append(element('div', entry.formato + ' · ' + entry.tema, 'meta'), title,

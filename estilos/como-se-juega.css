@@ -282,24 +282,6 @@ footer { border-top: 1px solid var(--linea); }
 #catalogo .areas { margin-block: .75rem 1.15rem; }
 #catalogo .areas > a { min-width: 0; }
 .areas > a, .tarjeta-editorial, .novedades-portada .ficha, .ficha-biblioteca { position: relative; }
-#catalogo .areas > a, #archivo-mecanicas > .tarjeta-editorial, .archivo-guias > .tarjeta-editorial,
-.novedades-portada .ficha, .ficha-biblioteca { padding-inline-end: 3.1rem; }
-.recuento-tarjeta {
-  position: absolute;
-  inset-block-start: .7rem;
-  inset-inline-end: .65rem;
-  display: inline-grid;
-  min-width: 1.9rem;
-  min-height: 1.65rem;
-  place-items: center;
-  padding-inline: .25rem;
-  border: 1px solid #a6bcb1;
-  border-radius: .35rem;
-  background: #e7efeb;
-  color: #235450;
-  font: 700 .8rem var(--mono);
-}
-.novedades-portada .recuento-tarjeta { pointer-events: none; }
 .novedades-portada .ficha a:focus-visible { outline: 2px solid var(--acento); outline-offset: 3px; }
 .filtros:has(#filtro-tema[hidden]) { grid-template-columns: minmax(0, 1fr); }
 
@@ -532,7 +514,6 @@ body { padding-bottom: 60px; }
 .coleccion-diseno > summary::-webkit-details-marker { display: none; }
 .coleccion-diseno > summary::before { content: '+'; font: 700 1rem var(--mono); }
 .coleccion-diseno[open] > summary::before { content: '−'; }
-.cuenta-coleccion { margin-inline-start: auto; flex: none; padding: 3px 7px; border: 1px solid var(--tema-linea); border-radius: 3px; background: var(--tema-fondo); font: 700 .75rem var(--mono); }
 .contenido-coleccion { padding: 0 15px; }
 .contenido-coleccion > p { margin: 0; color: var(--secundario); }
 .contenido-coleccion > a { display: inline-block; margin-block: .35rem .65rem; }
@@ -564,7 +545,6 @@ body { padding-bottom: 60px; }
 }
 [data-tema="oscuro"] :is(.areas a:hover,.novedades-portada .ficha:hover,.carrusel-controles button:hover,.lab-situacion,.lab-resumen,.lab-estadisticas div,.lab-botones button[aria-disabled="true"],.esquema-sistemas li) { background: var(--panel-elevado); color: var(--tinta); }
 [data-tema="oscuro"] :is(#catalogo.biblioteca-estanteria,#biblioteca-intro,#encabezado-fichas) { color: var(--tinta); }
-[data-tema="oscuro"] .recuento-tarjeta { background:#32493e; color:#ebfff2; border-color:#62796b; }
 [data-tema="oscuro"] #archivo-mecanicas > .tarjeta-editorial--mecanica,
 [data-tema="oscuro"] .archivo-guias > .tarjeta-editorial--guia {
   background: var(--panel-oscuro); --tono-editorial: #ebad86;
@@ -616,7 +596,6 @@ body { padding-bottom: 60px; }
 #novedades .novedades-portada .ficha[data-area-diseno]:focus-within { background: var(--tema-fondo); }
 .novedades-portada .ficha .muestra-diseno { min-height: 92px; margin-bottom: .65rem; }
 .novedades-portada .ficha .meta { color: var(--tema-acento); padding-inline-end: 2rem; }
-.novedades-portada .ficha .recuento-tarjeta { top: 1rem; right: 1rem; z-index: 1; }
 .novedades-portada .muestra-diseno--sistemas { font-weight: 500; }
 .novedades-portada .ciclo-mina { gap: 12px; }
 .novedades-portada .ciclo-mina-nodo { padding: 6px 3px; }
@@ -893,3 +872,25 @@ body { padding-bottom: 60px; }
   font: 700 .78rem/1.5 var(--mono);
 }
 .etiquetas-ficha a:hover { border-color: var(--acento); }
+
+[data-area-diseno="sonido"] { --tema-acento: #753a16; --tema-panel: #fff7e9; --tema-fondo: #f4e4ce; --tema-linea: #d1a879; }
+[data-area-diseno="industria"] { --tema-acento: #55453d; --tema-panel: #faf4f0; --tema-fondo: #ede3db; --tema-linea: #c7afa0; }
+[data-area-diseno="produccion"] { --tema-acento: #236064; --tema-panel: #eff9f8; --tema-fondo: #d7ecea; --tema-linea: #9dbfba; }
+[data-area-diseno="biblioteca"] { --tema-acento: #4b515a; --tema-panel: #f8f8f8; --tema-fondo: #e9eaec; --tema-linea: #b9bec5; }
+[data-tema="oscuro"] [data-area-diseno="sonido"] { --tema-acento: #ffd1a1; --tema-panel: #33271e; --tema-fondo: #493320; --tema-linea: #8c6543; }
+[data-tema="oscuro"] [data-area-diseno="industria"] { --tema-acento: #e5cdba; --tema-panel: #312723; --tema-fondo: #42352e; --tema-linea: #816c5e; }
+[data-tema="oscuro"] [data-area-diseno="produccion"] { --tema-acento: #a4e2df; --tema-panel: #203331; --tema-fondo: #234643; --tema-linea: #5a8683; }
+[data-tema="oscuro"] [data-area-diseno="biblioteca"] { --tema-acento: #d0d8e4; --tema-panel: #282a30; --tema-fondo: #343842; --tema-linea: #6a727e; }
+
+#lectura :is(.ficha,.tarjeta-editorial)[data-area-diseno],
+#catalogo :is(.ficha,.tarjeta-editorial,.ficha-coleccion)[data-area-diseno],
+#novedades .novedades-portada .ficha[data-area-diseno] {
+  --tono-editorial: var(--tema-acento);
+  border-color: var(--tema-linea);
+  border-block-start: 4px solid var(--tema-acento);
+  background: linear-gradient(135deg, var(--tema-fondo), var(--tema-panel));
+}
+#lectura :is(.ficha,.tarjeta-editorial)[data-area-diseno] .meta,
+#catalogo :is(.ficha,.tarjeta-editorial)[data-area-diseno] .meta {
+  color: var(--tema-acento);
+}

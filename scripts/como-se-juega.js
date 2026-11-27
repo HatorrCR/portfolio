@@ -6,7 +6,8 @@ const results = document.querySelector('#resultados');
 const status = document.querySelector('#estado');
 const reading = document.querySelector('#lectura');
 const params = new URLSearchParams(location.search);
-const languages = { es: 'Español', en: 'Inglés' };
+const languages = {es: 'Español', en: 'Inglés', ca: 'Catalán', gl: 'Gallego', eu: 'Euskera',
+  nb: 'Noruego', sv: 'Sueco', fi: 'Finés', da: 'Danés'};
 const selected = params.get('papers');
 const language = Object.hasOwn(languages, selected) ? selected : '';
 const isPapers = selected === 'todos' || Boolean(language);
@@ -137,7 +138,8 @@ function cardMetadata(label, language) {
   const row = element('div', '', 'metadatos-tarjeta');
   row.append(element('span', label, 'meta'));
   if (language) {
-    const short = {Inglés: 'Eng', Español: 'Esp'}[language] ?? language.slice(0, 3);
+    const short = {Inglés: 'Eng', Español: 'Esp', Catalán: 'Cat', Gallego: 'Gal', Euskera: 'Eus',
+      Noruego: 'Nor', Sueco: 'Sue', Finés: 'Fin', Danés: 'Dan'}[language] ?? language.slice(0, 3);
     const badge = element('abbr', short, 'etiqueta-idioma');
     badge.title = language;
     badge.setAttribute('aria-label', 'Idioma del recurso: ' + language);
@@ -210,7 +212,7 @@ function showFeatured(entries) {
       Object.assign(query, editorialSection(entry).query);
       label = 'Leer guía';
     } else if (entry.formato === 'Estudio') {
-      query.papers = sourceLanguage(entry) === 'Español' ? 'es' : 'en';
+      query.papers = Object.keys(languages).find(key => languages[key] === sourceLanguage(entry)) ?? 'todos';
       label = 'Leer ficha del estudio';
     } else {
       query.seccion = 'conferencias';
@@ -3204,7 +3206,7 @@ function showPortalSearch(entries) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=revision-y-recursos', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=lenguas-de-la-biblioteca', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const published = await response.json();
   const catalog = applyCatalogDrafts(published);
@@ -3364,6 +3366,14 @@ async function loadCatalog() {
 
   if (papersHub) {
     const languagesNav = document.querySelector('#idiomas');
+    const available = new Set(papers.map(sourceLanguage));
+    for (const [key, name] of Object.entries(languages)) {
+      if (!available.has(name)) continue;
+      const card = link('', '?papers=' + key + '#catalogo');
+      card.dataset.papers = key;
+      card.append(element('span', 'Papers en ' + name.toLowerCase(), 'area-titulo'));
+      languagesNav.append(card);
+    }
     languagesNav.hidden = false;
   }
   if (!editorialView && !libraryHub) {

@@ -904,6 +904,7 @@ body { padding-bottom: 60px; }
 }
 
 .portada .presentacion {
+  text-align: center;
   margin-block: clamp(1.25rem, 4vw, 2.75rem);
   padding: clamp(1.35rem, 5vw, 3.75rem);
   border: 1px solid var(--linea);
@@ -912,11 +913,13 @@ body { padding-bottom: 60px; }
   background: linear-gradient(120deg, color-mix(in srgb, var(--papel) 92%, var(--acento)), var(--papel));
 }
 .portada .presentacion h1 {
+  margin-inline: auto;
   max-width: 22ch;
   font-size: clamp(2rem, 5vw, 3.75rem);
   text-wrap: balance;
 }
 .portada .presentacion p {
+  margin-inline: auto;
   max-width: 67ch;
   margin-block: .9rem 0;
   font-size: clamp(1rem, 1.7vw, 1.18rem);

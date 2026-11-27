@@ -80,9 +80,10 @@ const normalize = value => value.normalize('NFD').replace(/\p{Diacritic}/gu, '')
 const slug = value => normalize(value).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const archiveUrl = name => 'como-se-juega.html?' + new URLSearchParams({tema: 'Mecánicas', coleccion: slug(name)});
 const isArchive = entry => entry.tema === 'Mecánicas' && isEditorial(entry) && entry.subtema;
-const editorialLabel = entry => isArchive(entry) ? 'Ficha de mecánica' : 'Guía de diseño';
+const editorialLabel = entry => entry.formato === 'Ensayo' ? 'Ensayo' : isArchive(entry) ? 'Ficha de mecánica' : 'Guía de diseño';
 
 function editorialSection(entry) {
+  if (entry.formato === 'Ensayo') return {name: 'Ensayos de diseño', query: {seccion: 'ensayos'}};
   const name = designTopic(entry);
   if (name === 'Mecánicas') return { name, query: { tema: name } };
   const area = Object.entries(disciplines).find(([, [, categories]]) => Object.hasOwn(categories, name));
@@ -98,7 +99,7 @@ function editorialCard(entry, href) {
     card.dataset.areaDiseno = query.diseno ?? 'sistemas';
     card.classList.add('tarjeta-editorial--diagnostico');
   }
-  card.append(element('span', editorialLabel(entry), 'etiqueta-editorial'),
+  card.append(element('span', entry.diagnostico ? disciplines[card.dataset.areaDiseno][0] : editorialLabel(entry), 'etiqueta-editorial'),
     element('h3', entry.titulo), element('p', entry.resumen),
     countBadge((entry.cuerpo.match(/^## /gm) ?? []).length || 1, 'apartado', 'apartados'));
   return card;
@@ -489,6 +490,7 @@ function addPlayableJump(lab, controls) {
   }
   const restart = element('button', 'Reiniciar', 'control-salto');
   restart.type = 'button';
+  restart.dataset.reiniciar = '';
   restart.addEventListener('click', () => press('reiniciar'));
   touch.append(restart);
   canvas.after(touch);
@@ -639,6 +641,46 @@ function addJumpLab() {
   return controls;
 }
 
+function addDirectionalTouchControls(canvas, actions, press, release, reset) {
+  const controls = element('div', '', 'controles-salto-tactiles controles-direccionales');
+  controls.setAttribute('role', 'group');
+  controls.setAttribute('aria-label', 'Controles de juego');
+  const directions = element('div', '', 'direccion-tactil');
+  const moves = element('div', '', 'acciones-tactiles');
+  function addButton(target, key, text, label) {
+    const button = element('button', text, 'control-salto');
+    button.type = 'button';
+    button.setAttribute('aria-label', label);
+    button.addEventListener('pointerdown', event => {
+      if (event.button !== 0) return;
+      event.preventDefault();
+      button.setPointerCapture(event.pointerId);
+      press(key);
+    });
+    for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) {
+      button.addEventListener(type, () => release(key));
+    }
+    button.addEventListener('keydown', event => {
+      if (!['Space', 'Enter'].includes(event.code)) return;
+      event.preventDefault();
+      if (!event.repeat) press(key);
+    });
+    button.addEventListener('keyup', () => release(key));
+    button.addEventListener('blur', () => release(key));
+    target.append(button);
+  }
+  for (const [key, text, label] of [['KeyW', '↑', 'Arriba'], ['KeyA', '←', 'Izquierda'],
+    ['KeyS', '↓', 'Abajo'], ['KeyD', '→', 'Derecha']]) addButton(directions, key, text, label);
+  for (const [key, label] of actions) addButton(moves, key, label, label);
+  const restart = element('button', 'Reiniciar', 'control-salto');
+  restart.type = 'button';
+  restart.dataset.reiniciar = '';
+  restart.addEventListener('click', reset);
+  moves.append(restart);
+  controls.append(directions, moves);
+  canvas.after(controls);
+}
+
 function addJump3D(target = reading) {
   const panel = document.querySelector('#plantilla-salto-3d').content.firstElementChild.cloneNode(true);
   if (target !== reading) {
@@ -770,11 +812,7 @@ function addJump3D(target = reading) {
     }
   }
 
-  canvas.addEventListener('keydown', event => {
-    const key = keys[event.code] ?? event.code;
-    if (!['KeyA','KeyD','KeyW','KeyS','KeyR','Space'].includes(key)) return;
-    event.preventDefault();
-    if (event.repeat) return;
+  function press(key) {
     if (key === 'KeyR') {
       held.clear();
       reset('Otra vez desde el inicio.');
@@ -786,7 +824,14 @@ function addJump3D(target = reading) {
       pendingFrame = true;
       requestAnimationFrame(frame);
     }
+  }
+  canvas.addEventListener('keydown', event => {
+    const key = keys[event.code] ?? event.code;
+    if (!['KeyA','KeyD','KeyW','KeyS','KeyR','Space'].includes(key)) return;
+    event.preventDefault();
+    if (!event.repeat) press(key);
   });
+  addDirectionalTouchControls(canvas, [['Space', 'Saltar']], press, key => held.delete(key), () => press('KeyR'));
   canvas.addEventListener('keyup', event => held.delete(keys[event.code] ?? event.code));
   canvas.addEventListener('blur', () => held.clear());
   window.addEventListener('blur', () => held.clear());
@@ -1879,9 +1924,16 @@ function addDashLab(is3D, target = reading, comparison = null) {
       remaining -= step;
     }
     draw();
-    frame = requestAnimationFrame(tick);
+    if (document.activeElement === canvas || keys.size || state.left > 0 ||
+        (is3D ? state.cooldown > 0 : !state.ground && !state.finished)) {
+      frame = requestAnimationFrame(tick);
+    } else {
+      frame = null;
+      lastTime = undefined;
+    }
   }
 
+  window.addEventListener('blur', () => keys.clear());
   canvas.addEventListener('focus', () => {
     if (frame === null) frame = requestAnimationFrame(tick);
   });
@@ -1891,19 +1943,26 @@ function addDashLab(is3D, target = reading, comparison = null) {
     frame = null;
     lastTime = undefined;
   });
-  canvas.addEventListener('keydown', event => {
-    const key = event.key.toLowerCase();
-    if (!['arrowleft', 'arrowright', 'arrowup', 'arrowdown', 'a', 'd', 'w', 's', ' ', 'j', 'r'].includes(key)) return;
-    event.preventDefault();
+  function press(key) {
+    if (frame === null) frame = requestAnimationFrame(tick);
     keys.add(key);
-    if (event.repeat) return;
     if (key === 'r') reset();
     if (key === ' ') dash();
     if (key === 'j' && !is3D && state.ground && state.left === 0 && !state.finished) {
       state.vy = -380;
       state.ground = false;
     }
+  }
+  canvas.addEventListener('keydown', event => {
+    const key = event.key.toLowerCase();
+    if (!['arrowleft', 'arrowright', 'arrowup', 'arrowdown', 'a', 'd', 'w', 's', ' ', 'j', 'r'].includes(key)) return;
+    event.preventDefault();
+    if (!event.repeat) press(key);
   });
+  const touchKeys = {KeyW: 'w', KeyA: 'a', KeyS: 's', KeyD: 'd', Space: ' ', KeyJ: 'j'};
+  const touchActions = is3D ? [['Space', 'Dash']] : [['KeyJ', 'Saltar'], ['Space', 'Dash']];
+  addDirectionalTouchControls(canvas, touchActions, key => press(touchKeys[key]),
+    key => keys.delete(touchKeys[key]), () => reset());
   canvas.addEventListener('keyup', event => keys.delete(event.key.toLowerCase()));
   select.addEventListener('change', () => reset());
   view?.addEventListener('change', () => {
@@ -2235,7 +2294,7 @@ function trackMechanicReview(panel, id) {
     countMechanicEvent(id, 'inicio', 'Primera acción en la prueba A/B');
   };
   canvas?.addEventListener('keydown', start);
-  for (const button of panel.querySelectorAll('.control-salto:not(:last-child)')) {
+  for (const button of panel.querySelectorAll('.control-salto:not([data-reiniciar])')) {
     button.addEventListener('pointerdown', event => {
       if (event.isTrusted && event.button === 0) recordStart();
     });
@@ -2412,6 +2471,54 @@ function addSearchReturn() {
     history.back();
   });
   reading.append(back);
+}
+
+function enhanceReadingIndex(nav) {
+  const links = [...nav.querySelectorAll('ol a')];
+  if (!links.length) {
+    nav.remove();
+    return;
+  }
+  nav.id = 'indice-ficha';
+  const list = nav.querySelector('ol');
+  const details = element('details', '', 'indice-plegable');
+  const summary = element('summary', 'Índice');
+  const compact = matchMedia('(max-width: 640px)');
+  details.open = !compact.matches;
+  details.append(summary, list);
+  nav.replaceChildren(details);
+  const back = link('↑ Índice', '#indice-ficha');
+  back.className = 'volver-indice';
+  back.setAttribute('aria-label', 'Volver al índice de la ficha');
+  back.hidden = true;
+  back.addEventListener('click', () => { details.open = true; summary.focus({preventScroll: true}); });
+  reading.append(back);
+  const sections = links.map(item => document.getElementById(item.hash.slice(1)));
+  let current = null;
+  let scheduled = false;
+  function update() {
+    scheduled = false;
+    let active = null;
+    for (const [position, section] of sections.entries()) {
+      if (section && section.getBoundingClientRect().top <= 120) active = links[position];
+    }
+    if (active !== current) {
+      current?.removeAttribute('aria-current');
+      active?.setAttribute('aria-current', 'location');
+      current = active;
+    }
+    back.hidden = nav.getBoundingClientRect().bottom > 0;
+  }
+  window.addEventListener('scroll', () => {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(update);
+  }, {passive: true});
+  window.addEventListener('resize', update);
+  list.addEventListener('click', event => {
+    if (compact.matches && event.target.closest('a')) details.open = false;
+  });
+  update();
 }
 
 function showReading(entries, archive) {
@@ -2596,6 +2703,7 @@ function showReading(entries, archive) {
   }
   reading.hidden = false;
   document.querySelector('.portada').hidden = true;
+  if (archiveIndex) enhanceReadingIndex(archiveIndex);
   scrollToReadingSection();
 }
 
@@ -2868,15 +2976,16 @@ function showStartingRoutes(entries) {
         element('p', instruction));
       list.append(step);
     }
-    card.append(element('p', disciplines[area][0], 'ruta-inicio-area'),
-      element('h2', question), list, element('h3', 'Pruébalo por tu cuenta'), element('p', exercise));
+    const practice = element('details', '', 'ruta-practica');
+    practice.append(element('summary', 'Ejercicio práctico'), element('p', exercise));
+    card.append(element('p', disciplines[area][0], 'ruta-inicio-area'), element('h2', question), list, practice);
     grid.append(card);
   }
   document.title = 'Empieza aquí · Cómo se juega';
   document.querySelector('.portada').hidden = true;
   document.querySelector('#catalogo').hidden = true;
   document.querySelector('.barra a[href="?seccion=empieza"]').setAttribute('aria-current', 'page');
-  reading.append(heading, element('p', 'Elige la pregunta que te pique la curiosidad. Cada ruta tiene dos paradas y un ejercicio para aplicar lo que has visto.', 'descripcion-seccion'), grid);
+  reading.append(heading, element('p', 'Elige una ruta. Cada una incluye dos recursos y un ejercicio.', 'descripcion-seccion'), grid);
   reading.hidden = false;
 }
 
@@ -2979,7 +3088,7 @@ function showPortalSearch(entries) {
 }
 
 async function loadCatalog() {
-  const response = await fetch('datos/como-se-juega.json?v=catalogo-total', {cache: 'no-cache'});
+  const response = await fetch('datos/como-se-juega.json?v=ensayos-y-controles', {cache: 'no-cache'});
   if (!response.ok) throw new Error('No se pudo cargar el catálogo');
   const published = await response.json();
   const catalog = applyCatalogDrafts(published);
@@ -3011,7 +3120,8 @@ async function loadCatalog() {
   const editorialView = Boolean(discipline || topTopic);
   const sectionHub = Boolean(discipline && !category);
   const papersHub = isPapers && !language;
-  const libraryHub = !editorialView && !isPapers && !isInterviews && !isDevelopment && !isDiagnosis && !sourceSection && !isHome;
+  const essaysSection = sectionKey === 'ensayos';
+  const libraryHub = !essaysSection && !editorialView && !isPapers && !isInterviews && !isDevelopment && !isDiagnosis && !sourceSection && !isHome;
   const mechanicsView = category === 'Mecánicas' || topTopic === 'Mecánicas';
   const countCategory = name => own.filter(entry => designTopic(entry) === name).length;
   const countArea = key => Object.keys(disciplines[key][1]).reduce((n, name) => n + countCategory(name), 0);
@@ -3022,12 +3132,13 @@ async function loadCatalog() {
     : isPapers ? papers.filter(entry => !language || entry.idioma === languages[language])
     : isInterviews ? interviews
     : isDiagnosis ? own.filter(entry => entry.diagnostico === true)
+    : essaysSection ? own.filter(entry => entry.formato === 'Ensayo')
     : isDevelopment ? sources.filter(entry => entry.decisionDesarrollo === true || developmentIds.has(entry.id))
     : sourceSection ? sources.filter(entry => sourceSection[1].includes(entry.formato))
     : sources;
 
   const heading = language ? 'Papers en ' + languages[language].toLowerCase() :
-    isPapers ? 'Papers' : isInterviews ? 'Entrevistas' : isDevelopment ? 'Decisiones de desarrollo' : isDiagnosis ? diagnosisTitle :
+    isPapers ? 'Papers' : isInterviews ? 'Entrevistas' : isDevelopment ? 'Decisiones de desarrollo' : isDiagnosis ? diagnosisTitle : essaysSection ? 'Ensayos de diseño' :
     sourceSection?.[0] ?? (discipline ? category || discipline[0] : topTopic || 'Biblioteca');
   document.querySelector('#titulo-catalogo').textContent = heading;
   document.querySelector('#novedades').hidden = !isHome;
@@ -3081,6 +3192,8 @@ async function loadCatalog() {
     }
     examples.append(examplesTitle, cards);
     document.querySelector('#titulo-catalogo').after(description, examples);
+  } else if (essaysSection) {
+    document.querySelector('#titulo-catalogo').after(element('p', 'Textos de opinión sobre decisiones de diseño que puedes probar jugando.', 'descripcion-seccion'));
   } else if (isDiagnosis) {
     document.querySelector('#titulo-catalogo').after(element('p', 'Empieza por un problema que hayas visto al probar tu juego. Cada ficha te ayuda a elegir qué observar, qué cambiar y cómo medir si la prueba funciona.', 'descripcion-seccion'));
   } else if (category) {
@@ -3168,7 +3281,8 @@ async function loadCatalog() {
   search.form.hidden = !searchable;
   status.hidden = sectionHub || papersHub || mechanicsView || (editorialView && relevant.length > 0);
   results.hidden = sectionHub || papersHub || mechanicsView;
-  results.classList.toggle('archivo-guias', editorialView && !sectionHub);
+  results.classList.toggle('archivo-guias', (editorialView && !sectionHub) || essaysSection || isDiagnosis);
+  results.classList.toggle('rejilla-diagnostico', isDiagnosis);
   if (searchable) {
     const topics = [...new Set(relevant.map(entry => entry.tema))];
     document.querySelector('#filtro-tema').hidden = topics.length < 2;

@@ -834,3 +834,50 @@ body { padding-bottom: 60px; }
 #editor-catalogo textarea { display: block; width: 100%; margin-top: 4px; padding: 8px; border: 1px solid var(--linea); background: var(--papel); color: var(--tinta); font: inherit; }
 #editor-catalogo details summary { cursor: pointer; }
 
+
+.indice-plegable > summary { font-weight: 700; cursor: pointer; }
+.indice-plegable a[aria-current="location"] {
+  font-weight: 700;
+  color: var(--acento);
+  text-decoration-thickness: 2px;
+}
+.volver-indice:not([hidden]) {
+  position: fixed;
+  z-index: 9;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: calc(max(16px, env(safe-area-inset-bottom)) + 52px);
+  padding: .35rem .65rem;
+  background: var(--papel);
+  color: var(--tinta);
+  border: 1px solid var(--linea);
+  border-radius: 4px;
+  font: 700 .8rem/1.5 var(--mono);
+}
+.controles-direccionales { justify-content: space-between; align-items: center; }
+.direccion-tactil { display: grid; grid-template-columns: repeat(3, minmax(44px, auto)); gap: .25rem; }
+.direccion-tactil > button:first-child { grid-column: 2; }
+.direccion-tactil > button:nth-child(2) { grid-column: 1; }
+.acciones-tactiles { display: flex; flex-wrap: wrap; gap: .3rem; }
+.rutas-inicio { grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr)); gap: .75rem; margin-block: 1rem; }
+.ruta-inicio[data-area-diseno] { padding: .8rem 1rem; }
+.ruta-inicio h2 { font-size: clamp(1.12rem, 2vw, 1.4rem); margin: .25rem 0 .5rem; }
+.ruta-inicio ol { margin: .4rem 0; }
+.ruta-inicio li + li { margin-block-start: .4rem; }
+.ruta-inicio li p { margin: .1rem 0; font-size: .9rem; line-height: 1.45; }
+.ruta-practica { margin-top: .6rem; padding-top: .5rem; border-top: 1px solid var(--tema-linea); }
+.ruta-practica summary { cursor: pointer; font-weight: 700; font-size: .9rem; }
+.ruta-practica p { margin: .35rem 0 0; font-size: .9rem; }
+.rejilla-diagnostico:not([hidden]) {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+}
+.archivo-guias > .tarjeta-editorial--guia.tarjeta-editorial--diagnostico {
+  border-block-start: 4px solid var(--tema-acento);
+  background: linear-gradient(130deg, var(--tema-fondo) 0%, var(--tema-panel) 100%);
+}
+.archivo-guias > .tarjeta-editorial--guia.tarjeta-editorial--diagnostico .etiqueta-editorial {
+  display: inline-block;
+  padding: .18rem .45rem;
+  background: var(--tema-fondo);
+  border: 1px solid var(--tema-linea);
+  border-radius: 4px;
+}

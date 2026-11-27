@@ -6070,5 +6070,19 @@
         "url": "https://hatorrcr.github.io/portfolio/como-se-juega.html?lectura=reinicio-tras-fallar"
       }
     ]
+  },
+  {
+    "id": "cuando-se-siente-injusto-un-salto",
+    "titulo": "¿Cuándo se siente injusto un salto?",
+    "tema": "Ensayos de diseño",
+    "formato": "Ensayo",
+    "editorial": true,
+    "idioma": "Español",
+    "resumen": "Si la bota parece tocar la plataforma pero el personaje cae, hay una pregunta de diseño antes de tocar el código. ¿Qué le enseñó el juego al jugador sobre dónde podía aterrizar?",
+    "cuerpo": "## El fotograma que importa\n\nEl personaje llega al borde, una bota se dibuja sobre la plataforma y el salto acaba en el foso. Si el juego comprueba un punto de apoyo en el centro, la caída puede ser perfectamente coherente con el código. El jugador, sin embargo, viene de leer una silueta en movimiento. Su pregunta es mucho más sencilla. ¿He llegado o no?\n\n## Cuándo dar margen\n\nDaría un pequeño margen cuando la animación y la colisión discrepan en un contacto que el jugador apenas puede leer. Primero probaría una zona de apoyo que se acerque a la silueta. Si el corredor tiene que acertar con un extremo concreto del pie, el juego debería enseñarle ese criterio en un sitio donde fallar cueste poco.\n\nEl margen cambia de sentido cuando el borde es el reto. Si la plataforma solo admite una llegada precisa, prefiero una referencia visual clara y un reintento rápido. Una ayuda generosa puede borrar la diferencia entre dos rutas que parecían exigir decisiones distintas. Y si el personaje acaba de pie con medio cuerpo en el aire, el arreglo empieza a crear otra contradicción.\n\n## Una prueba antes de tocar el salto\n\nEn Salto 2D, abre el laboratorio y elige el aterrizaje estrecho. Juega primero con el dibujo del personaje a secas. Después activa «Mostrar punto de apoyo y bordes». Intenta repetir el mismo salto y fíjate en qué instante podías anticipar el resultado en cada versión. El sensor te deja comprobar la regla sin cambiarla.\n\nLa prueba A/B de esa ficha sirve para hacer una segunda distinción. El tiempo de coyote modifica cuándo puedes despegar al salir del borde. El punto de apoyo decide si has aterrizado al llegar al otro lado. Si confundes esos dos fallos, puedes acabar ajustando el despegue para arreglar una plataforma que no se entiende.\n\n## Qué miraría en una sesión de prueba\n\nDespués de una caída, preguntaría «¿Dónde creías que ibas a caer?» antes de explicar cómo funciona la colisión. Si varias personas señalan el mismo borde y ninguna entiende por qué se hundió el personaje, empezaría por esa señal visual. Una regla exigente se puede aprender. Para eso, el jugador tiene que poder ver qué ocurrió.",
+    "fuentes": [
+      "salto-2d-guia",
+      "salto-2d-thorson"
+    ]
   }
 ]

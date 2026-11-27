@@ -8,9 +8,9 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%23f0e8d9%22%2F%3E%3Cpath%20d%3D%22M9%207h6v4h5v3h4v4h-4v3h-5v4H9z%22%20fill%3D%22%23923d2f%22%2F%3E%3C%2Fsvg%3E">
 
 <link rel="stylesheet" href="estilos/comun.css">
-<link rel="stylesheet" href="estilos/como-se-juega.css?v=sugerencias">
+<link rel="stylesheet" href="estilos/como-se-juega.css?v=editor-y-sugerencias">
 <script defer src="scripts/navegacion.js"></script>
-<script defer src="scripts/como-se-juega.js?v=sugerencias"></script>
+<script defer src="scripts/como-se-juega.js?v=editor-y-sugerencias"></script>
 <script>
 try {
   const mode = localStorage.getItem('como-se-juega-tema');
@@ -152,11 +152,27 @@ try {
 <noscript>Activa JavaScript para consultar el catálogo.</noscript>
 </section>
 </main>
-<footer><div class="marco pie"><strong>Cómo se juega</strong><span id="visitas-web" hidden>Visitas <span id="total-visitas-web"></span></span><a href="index.html">Portfolio de Cristian Rodríguez Díaz</a><a href="https://www.instagram.com/comosejuegagd/">Contacto por Instagram</a></div></footer>
+<footer><div class="marco pie"><strong>Cómo se juega</strong><span id="visitas-web" hidden>Visitas <span id="total-visitas-web"></span></span><a href="index.html">Portfolio de Cristian Rodríguez Díaz</a><a id="sugerir-cambio" href="https://github.com/HatorrCR/portfolio/issues/new" title="Abre un formulario público en GitHub">Sugerir un cambio <small>(GitHub)</small></a><a href="https://www.instagram.com/comosejuegagd/">Contacto por Instagram</a></div></footer>
 <button id="modo-pagina" type="button" aria-label="Modo oscuro" aria-pressed="false" hidden>
   <span aria-hidden="true">☾</span> <span>Oscuro</span>
 </button>
-<a id="sugerir-cambio" href="https://github.com/HatorrCR/portfolio/issues/new" title="Abre un formulario público en GitHub">Sugerir un cambio <small>(GitHub)</small></a>
+<button id="abrir-editor" type="button" hidden>Editar fichas</button>
+<dialog id="editor-catalogo" aria-labelledby="titulo-editor">
+  <form id="form-editor">
+    <header><h2 id="titulo-editor">Editor de fichas</h2><button type="button" id="cerrar-editor">Cerrar</button></header>
+    <p>Los borradores se guardan en este navegador. Si quieres enviar una ficha editada, descarga el catálogo, abre el archivo en GitHub y propone tu versión mediante una solicitud de cambios (pull request).</p>
+    <label>Ficha <select id="ficha-editor"><option value="">Nueva ficha</option></select></label>
+    <div id="campos-editor"></div>
+    <details><summary>Otros campos, listas y materiales</summary><label>Campos adicionales (JSON)<textarea id="extras-editor" rows="7" spellcheck="false"></textarea></label></details>
+    <p id="estado-editor" role="status"></p>
+    <div class="acciones-editor">
+      <button type="submit">Guardar borrador</button><button type="button" id="exportar-editor">Descargar catálogo</button>
+      <button type="button" id="descartar-editor">Descartar borrador</button>
+      <a href="https://github.com/HatorrCR/portfolio/edit/main/datos/como-se-juega.json">Abrir el catálogo en GitHub</a>
+    </div>
+    <p><a href="https://github.com/HatorrCR/portfolio/edit/main/como-se-juega.html">Editar textos de portada y navegación</a> · <a href="https://github.com/HatorrCR/portfolio/edit/main/scripts/como-se-juega.js">Editar textos de interfaz y laboratorios</a></p>
+  </form>
+</dialog>
 <script>
 fetch('https://como-se-juega.goatcounter.com/counter/TOTAL.json')
   .then(response => response.ok ? response.json() : null)
